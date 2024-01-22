@@ -1,0 +1,35 @@
+from django.contrib import admin
+from .models import *
+# Register your models here.
+
+class Social_LinkInline(admin.TabularInline):
+    list_display = ['id']
+    model = Social_Link   
+    extra = 1
+class SettingtAdmin(admin.ModelAdmin):
+    list_display = ['title','company', 'update_at','status']
+
+class Social_SiteAdmin(admin.ModelAdmin):
+    list_display = ['id','title']
+
+class Social_LinkAdmin(admin.ModelAdmin):
+    list_display = ['id','our_team','social_site','link',]
+
+class Our_TeamAdmin(admin.ModelAdmin):
+    list_display = ['id','title']
+    inlines = [Social_LinkInline,]
+
+
+class ContactMessageAdmin(admin.ModelAdmin):
+    list_display = ['name','subject', 'update_at','status','note','message','email','ip',]
+    list_editable = ['status','note']
+    readonly_fields =('name','subject','email','message','ip')
+    list_filter = ['status']
+
+admin.site.register(Setting,SettingtAdmin)
+
+admin.site.register(ContactMessage,ContactMessageAdmin)
+admin.site.register(Social_Link,Social_LinkAdmin)
+admin.site.register(Social_Site,)
+admin.site.register(Our_Team,Our_TeamAdmin)
+

@@ -1,0 +1,732 @@
+{% load static %}	
+	<!-- 4th Home Slider -->
+	<div class="home-four">
+		<div class="container-fluid p0">
+			<div class="row">
+				<div class="col-lg-12">
+					<div class="main-banner-wrapper">
+					    <div class="banner-style-one owl-theme owl-carousel">
+
+					        {% for rs in project_slider %}
+					        <div class="slide slide-one" style="background-image: url({{rs.image.url}});height: 800px;"></div>
+							{% endfor %}
+					    </div>
+					    <div class="carousel-btn-block banner-carousel-btn">
+					        <span class="carousel-btn left-btn"><i class="flaticon-left-arrow-1 left"></i></span>
+					        <span class="carousel-btn right-btn"><i class="flaticon-right-arrow right"></i></span>
+					    </div><!-- /.carousel-btn-block banner-carousel-btn -->
+					</div><!-- /.main-banner-wrapper -->
+				</div>
+			</div>
+		</div>
+		<div class="container home_iconbox_container">
+			<div class="row posr">
+				<div class="col-lg-12">
+					<div class="home_content home4">
+						
+						<div class="home_adv_srch_opt home4">
+							
+							<div class="tab-content home1_adsrchfrm" id="pills-tabContent">
+								<div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+									<div class="home1-advnc-search home4">
+										<ul class="h1ads_1st_list mb0">
+											<li class="list-inline-item">
+											    <div class="form-group">
+											    	<input type="text" class="form-control" id="exampleInputName1" placeholder="Enter keyword...">
+											    </div>
+											</li>
+											<li class="list-inline-item">
+												<div class="search_option_two">
+													<div class="candidate_revew_select">
+														<select class="selectpicker w100 show-tick">
+															<option>Property Type</option>
+															<option>Apartment</option>
+															<option>Bungalow</option>
+															<option>Condo</option>
+															<option>House</option>
+															<option>Land</option>
+															<option>Single Family</option>
+														</select>
+													</div>
+												</div>
+											</li>
+											<li class="list-inline-item">
+											    <div class="form-group">
+											    	<input type="text" class="form-control" id="exampleInputEmail" placeholder="Location">
+											    	<label for="exampleInputEmail"><span class="flaticon-maps-and-flags"></span></label>
+											    </div>
+											</li>
+											<li class="list-inline-item">
+												<div class="small_dropdown2 home4">
+												    <div id="prncgs" class="btn dd_btn">
+												    	<span>Price</span>
+												    	<label for="exampleInputEmail2"><span class="fa fa-angle-down"></span></label>
+												    </div>
+												  	<div class="dd_content2">
+													    <div class="pricing_acontent">
+													    	<span id="slider-range-value1"></span>
+															<span id="slider-range-value2"></span>
+														    <div id="slider"></div>
+															<!-- <input type="text" class="amount" placeholder="$52,239"> 
+															<input type="text" class="amount2" placeholder="$985,14">
+															<div class="slider-range"></div> -->
+													    </div>
+												  	</div>
+												</div>
+											</li>
+											<li class="custome_fields_520 list-inline-item">
+												<div class="navbered">
+												  	<div class="mega-dropdown home4">
+													    <span id="show_advbtn" class="dropbtn">Advanced <i class="flaticon-more pl10 flr-520"></i></span>
+													    
+													</div>
+												</div>
+											</li>
+											<li class="list-inline-item">
+												<div class="search_option_button">
+												    <button type="submit" class="btn btn-thm3">Search</button>
+												</div>
+											</li>
+										</ul>
+									</div>
+								</div>
+								<div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
+									<div class="home1-advnc-search home4">
+										<ul class="h1ads_1st_list mb0">
+											<li class="list-inline-item">
+											    <div class="form-group">
+											    	<input type="text" class="form-control" id="exampleInputName2" placeholder="Enter keyword...">
+											    </div>
+											</li>
+											<li class="list-inline-item">
+												<div class="search_option_two">
+													<div class="candidate_revew_select">
+														<select class="selectpicker w100 show-tick">
+															<option>Property Type</option>
+															<option>Apartment</option>
+															<option>Bungalow</option>
+															<option>Condo</option>
+															<option>House</option>
+															<option>Land</option>
+															<option>Single Family</option>
+														</select>
+													</div>
+												</div>
+											</li>
+											<li class="list-inline-item">
+											    <div class="form-group">
+											    	<input type="text" class="form-control" id="exampleInputEmail3" placeholder="Location">
+											    	<label for="exampleInputEmail3"><span class="flaticon-maps-and-flags"></span></label>
+											    </div>
+											</li>
+											<li class="list-inline-item">
+												<div class="small_dropdown2 home4">
+												    <div id="prncgs2" class="btn dd_btn">
+												    	<span>Price</span>
+												    	<label><span class="fa fa-angle-down"></span></label>
+												    </div>
+												  	<div class="dd_content2">
+													    <div class="pricing_acontent">
+															<input type="text" class="amount" placeholder="$52,239"> 
+															<input type="text" class="amount2" placeholder="$985,14">
+															<div class="slider-range"></div>
+													    </div>
+												  	</div>
+												</div>
+											</li>
+											<li class="custome_fields_520 list-inline-item">
+												<div class="navbered">
+												  	<div class="mega-dropdown home4">
+													    <span id="show_advbtn2" class="dropbtn">Advanced <i class="flaticon-more pl10 flr-520"></i></span>
+													   
+													</div>
+												</div>
+											</li>
+											<li class="list-inline-item">
+												<div class="search_option_button">
+												    <button type="submit" class="btn btn-thm3">Search</button>
+												</div>
+											</li>
+										</ul>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-lg-12">
+					<h4 class="text-center color-white fw600 mb25 mb0-520">What are you looking for?</h4>
+					<ul class="home4_iconbox mb0">
+						<li class="list-inline-item"><div class="icon"><span class="flaticon-house"></span><p>Modern Villa</p></div></li>
+						<li class="list-inline-item"><div class="icon"><span class="flaticon-house-1"></span><p>Family House</p></div></li>
+						<li class="list-inline-item"><div class="icon"><span class="flaticon-house-2"></span><p>Town House</p></div></li>
+						<li class="list-inline-item"><div class="icon"><span class="flaticon-building"></span><p>Apartment</p></div></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Property Cities -->
+	<section id="best-property" class="best-property bgc-f7">
+		<div class="container ovh">
+			<div class="row">
+				<div class="col-lg-6 offset-lg-3">
+					<div class="main-title text-center mb40">
+						<h2>Featured Properties</h2>
+						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-lg-12">
+					<div class="best_property_slider style2">
+						{% for rs in project_featured %}
+						<div class="item">
+							<div class="feat_property">
+								<div class="thumb">
+									<img class="img-whp" src="{{rs.image.url}}" style="height: 275px;" alt="fp1.jpg">
+									<div class="thmb_cntnt">
+										
+										<ul class="icon mb0">
+											<li class="list-inline-item"><a href="#"><span class="flaticon-transfer-1"></span></a></li>
+											<li class="list-inline-item"><a href="#"><span class="flaticon-heart"></span></a></li>
+										</ul>
+										<a class="fp_price" href="#">$13,000<small>/mo</small></a>
+									</div>
+								</div>
+								<div class="details">
+									<div class="tc_content">
+										<p class="text-thm">{{rs.propert_type}}</p>
+										<h4>{{rs.title}}</h4>
+										<p><span class="flaticon-placeholder"></span> {{rs.locality}}--{{rs.city}}</p>
+										<ul class="prop_details mb0">
+											<li class="list-inline-item"><a href="#">Beds: 4</a></li>
+											<li class="list-inline-item"><a href="#">Baths: 2</a></li>
+											<li class="list-inline-item"><a href="#">Sq Ft: 5280</a></li>
+										</ul>
+									</div>
+									<div class="fp_footer">
+										<ul class="fp_meta float-left mb0">
+											<li class="list-inline-item"><a href="#"><img src="{% static '' %}main/images/property/pposter1.png" alt="pposter1.png"></a></li>
+											<li class="list-inline-item"><a href="#">Ali Tufan</a></li>
+										</ul>
+										<div class="fp_pdate float-right">4 years ago</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						{% endfor %}
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- Property Cities -->
+	<section id="property-city" class="property-city pb30">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-6 offset-lg-3">
+					<div class="main-title text-center">
+						<h2>Find Properties in These Locality</h2>
+						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-sm-6 col-lg-4 col-xl-4">
+					<div class="properti_city style2">
+						<div class="thumb"><img class="img-fluid w100" src="{% static '' %}main/images/property/pc12.jpg" alt="pc12.jpg"></div>
+						<div class="details">
+							<h4>Miami</h4>
+							<p>24 Properties</p>
+						</div>
+					</div>
+				</div>
+				<div class="col-sm-6 col-lg-4 col-xl-4">
+					<div class="properti_city style2">
+						<div class="thumb"><img class="img-fluid w100" src="{% static '' %}main/images/property/pc13.jpg" alt="pc13.jpg"></div>
+						<div class="details">
+							<h4>Los Angeles</h4>
+							<p>18 Properties</p>
+						</div>
+					</div>
+				</div>
+				<div class="col-sm-6 col-lg-4 col-xl-4">
+					<div class="properti_city style2">
+						<div class="thumb"><img class="img-fluid w100" src="{% static '' %}main/images/property/pc14.jpg" alt="pc14.jpg"></div>
+						<div class="details">
+							<h4>New York</h4>
+							<p>96 Properties</p>
+						</div>
+					</div>
+				</div>
+				<div class="col-sm-6 col-lg-4 col-xl-4">
+					<div class="properti_city style2">
+						<div class="thumb"><img class="img-fluid w100" src="{% static '' %}main/images/property/pc15.jpg" alt="pc15.jpg"></div>
+						<div class="details">
+							<h4>Florida</h4>
+							<p>33 Properties</p>
+						</div>
+					</div>
+				</div>
+				<div class="col-sm-6 col-lg-4 col-xl-4">
+					<div class="properti_city style2">
+						<div class="thumb"><img class="img-fluid w100" src="{% static '' %}main/images/property/pc16.jpg" alt="pc16.jpg"></div>
+						<div class="details">
+							<h4>Orlando</h4>
+							<p>15 Properties</p>
+						</div>
+					</div>
+				</div>
+				<div class="col-sm-6 col-lg-4 col-xl-4">
+					<div class="properti_city style2">
+						<div class="thumb"><img class="img-fluid w100" src="{% static '' %}main/images/property/pc17.jpg" alt="pc17.jpg"></div>
+						<div class="details">
+							<h4>Atlanta</h4>
+							<p>77 Properties</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- Our Blog -->
+	<section class="our-blog bgc-f7 pb30">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-6 offset-lg-3">
+					<div class="main-title text-center">
+						<h2>Articles & Tips</h2>
+						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6 col-lg-4 col-xl-4">
+					<div class="for_blog feat_property">
+						<div class="thumb">
+							<img class="img-whp" src="{% static '' %}main/images/blog/bh1.jpg" alt="bh1.jpg">
+						</div>
+						<div class="details">
+							<div class="tc_content">
+								<p class="text-thm">Business</p>
+								<h4>Biggest Home in the Hollywood Hills Sells for an Equally</h4>
+							</div>
+							<div class="fp_footer">
+								<ul class="fp_meta float-left mb0">
+									<li class="list-inline-item"><a href="#"><img src="{% static '' %}main/images/property/pposter1.png" alt="pposter1.png"></a></li>
+									<li class="list-inline-item"><a href="#">Ali Tufan</a></li>
+								</ul>
+								<a class="fp_pdate float-right" href="#">7 August 2019</a>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-6 col-lg-4 col-xl-4">
+					<div class="for_blog feat_property">
+						<div class="thumb">
+							<img class="img-whp" src="{% static '' %}main/images/blog/bh2.jpg" alt="bh2.jpg">
+						</div>
+						<div class="details">
+							<div class="tc_content">
+								<p class="text-thm">Business</p>
+								<h4>Bedroom Colors You’ll Never <br> Regret</h4>
+							</div>
+							<div class="fp_footer">
+								<ul class="fp_meta float-left mb0">
+									<li class="list-inline-item"><a href="#"><img src="{% static '' %}main/images/property/pposter1.png" alt="pposter1.png"></a></li>
+									<li class="list-inline-item"><a href="#">Ali Tufan</a></li>
+								</ul>
+								<a class="fp_pdate float-right" href="#">7 August 2019</a>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-6 col-lg-4 col-xl-4">
+					<div class="for_blog feat_property">
+						<div class="thumb">
+							<img class="img-whp" src="{% static '' %}main/images/blog/bh3.jpg" alt="bh3.jpg">
+						</div>
+						<div class="details">
+							<div class="tc_content">
+								<p class="text-thm">Business</p>
+								<h4>The 5 Biggest Mistakes Veteran and Military</h4>
+							</div>
+							<div class="fp_footer">
+								<ul class="fp_meta float-left mb0">
+									<li class="list-inline-item"><a href="#"><img src="{% static '' %}main/images/property/pposter1.png" alt="pposter1.png"></a></li>
+									<li class="list-inline-item"><a href="#">Ali Tufan</a></li>
+								</ul>
+								<a class="fp_pdate float-right" href="#">7 August 2019</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- Our Team -->
+	<section class="our-team">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-6 offset-lg-3">
+					<div class="main-title text-center">
+						<h2>Our Team</h2>
+						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-lg-12">
+					<div class="team_slider">
+						<div class="item">
+							<div class="team_member home4">
+								<div class="thumb">
+									<img class="img-fluid" src="{% static '' %}main/images/team/1.jpg" alt="1.jpg">
+									<div class="overylay">
+										<ul class="social_icon">
+											<li class="list-inline-item"><a href="#"><i class="fa fa-facebook"></i></a></li>
+											<li class="list-inline-item"><a href="#"><i class="fa fa-twitter"></i></a></li>
+											<li class="list-inline-item"><a href="#"><i class="fa fa-instagram"></i></a></li>
+											<li class="list-inline-item"><a href="#"><i class="fa fa-pinterest"></i></a></li>
+											<li class="list-inline-item"><a href="#"><i class="fa fa-dribbble"></i></a></li>
+											<li class="list-inline-item"><a href="#"><i class="fa fa-google"></i></a></li>
+										</ul>
+									</div>
+								</div>
+								<div class="details">
+									<h4>Jennifer Barton</h4>
+									<p>Broker</p>
+								</div>
+							</div>
+						</div>
+						<div class="item">
+							<div class="team_member home4">
+								<div class="thumb">
+									<img class="img-fluid" src="{% static '' %}main/images/team/2.jpg" alt="2.jpg">
+									<div class="overylay">
+										<ul class="social_icon">
+											<li class="list-inline-item"><a href="#"><i class="fa fa-facebook"></i></a></li>
+											<li class="list-inline-item"><a href="#"><i class="fa fa-twitter"></i></a></li>
+											<li class="list-inline-item"><a href="#"><i class="fa fa-instagram"></i></a></li>
+											<li class="list-inline-item"><a href="#"><i class="fa fa-pinterest"></i></a></li>
+											<li class="list-inline-item"><a href="#"><i class="fa fa-dribbble"></i></a></li>
+											<li class="list-inline-item"><a href="#"><i class="fa fa-google"></i></a></li>
+										</ul>
+									</div>
+								</div>
+								<div class="details">
+									<h4>Kathleen Myers</h4>
+									<p>Agent</p>
+								</div>
+							</div>
+						</div>
+						<div class="item">
+							<div class="team_member home4">
+								<div class="thumb">
+									<img class="img-fluid" src="{% static '' %}main/images/team/3.jpg" alt="3.jpg">
+									<div class="overylay">
+										<ul class="social_icon">
+											<li class="list-inline-item"><a href="#"><i class="fa fa-facebook"></i></a></li>
+											<li class="list-inline-item"><a href="#"><i class="fa fa-twitter"></i></a></li>
+											<li class="list-inline-item"><a href="#"><i class="fa fa-instagram"></i></a></li>
+											<li class="list-inline-item"><a href="#"><i class="fa fa-pinterest"></i></a></li>
+											<li class="list-inline-item"><a href="#"><i class="fa fa-dribbble"></i></a></li>
+											<li class="list-inline-item"><a href="#"><i class="fa fa-google"></i></a></li>
+										</ul>
+									</div>
+								</div>
+								<div class="details">
+									<h4>Mariusz Ciesla</h4>
+									<p>Broker</p>
+								</div>
+							</div>
+						</div>
+						<div class="item">
+							<div class="team_member home4">
+								<div class="thumb">
+									<img class="img-fluid" src="{% static '' %}main/images/team/4.jpg" alt="4.jpg">
+									<div class="overylay">
+										<ul class="social_icon">
+											<li class="list-inline-item"><a href="#"><i class="fa fa-facebook"></i></a></li>
+											<li class="list-inline-item"><a href="#"><i class="fa fa-twitter"></i></a></li>
+											<li class="list-inline-item"><a href="#"><i class="fa fa-instagram"></i></a></li>
+											<li class="list-inline-item"><a href="#"><i class="fa fa-pinterest"></i></a></li>
+											<li class="list-inline-item"><a href="#"><i class="fa fa-dribbble"></i></a></li>
+											<li class="list-inline-item"><a href="#"><i class="fa fa-google"></i></a></li>
+										</ul>
+									</div>
+								</div>
+								<div class="details">
+									<h4>Helene Powers</h4>
+									<p>Broker</p>
+								</div>
+							</div>
+						</div>
+						<div class="item">
+							<div class="team_member home4">
+								<div class="thumb">
+									<img class="img-fluid" src="{% static '' %}main/images/team/1.jpg" alt="1.jpg">
+									<div class="overylay">
+										<ul class="social_icon">
+											<li class="list-inline-item"><a href="#"><i class="fa fa-facebook"></i></a></li>
+											<li class="list-inline-item"><a href="#"><i class="fa fa-twitter"></i></a></li>
+											<li class="list-inline-item"><a href="#"><i class="fa fa-instagram"></i></a></li>
+											<li class="list-inline-item"><a href="#"><i class="fa fa-pinterest"></i></a></li>
+											<li class="list-inline-item"><a href="#"><i class="fa fa-dribbble"></i></a></li>
+											<li class="list-inline-item"><a href="#"><i class="fa fa-google"></i></a></li>
+										</ul>
+									</div>
+								</div>
+								<div class="details">
+									<h4>Jennifer Barton</h4>
+									<p>Broker</p>
+								</div>
+							</div>
+						</div>
+						<div class="item">
+							<div class="team_member home4">
+								<div class="thumb">
+									<img class="img-fluid" src="{% static '' %}main/images/team/2.jpg" alt="2.jpg">
+									<div class="overylay">
+										<ul class="social_icon">
+											<li class="list-inline-item"><a href="#"><i class="fa fa-facebook"></i></a></li>
+											<li class="list-inline-item"><a href="#"><i class="fa fa-twitter"></i></a></li>
+											<li class="list-inline-item"><a href="#"><i class="fa fa-instagram"></i></a></li>
+											<li class="list-inline-item"><a href="#"><i class="fa fa-pinterest"></i></a></li>
+											<li class="list-inline-item"><a href="#"><i class="fa fa-dribbble"></i></a></li>
+											<li class="list-inline-item"><a href="#"><i class="fa fa-google"></i></a></li>
+										</ul>
+									</div>
+								</div>
+								<div class="details">
+									<h4>Kathleen Myers</h4>
+									<p>Agent</p>
+								</div>
+							</div>
+						</div>
+						<div class="item">
+							<div class="team_member home4">
+								<div class="thumb">
+									<img class="img-fluid" src="{% static '' %}main/images/team/3.jpg" alt="3.jpg">
+									<div class="overylay">
+										<ul class="social_icon">
+											<li class="list-inline-item"><a href="#"><i class="fa fa-facebook"></i></a></li>
+											<li class="list-inline-item"><a href="#"><i class="fa fa-twitter"></i></a></li>
+											<li class="list-inline-item"><a href="#"><i class="fa fa-instagram"></i></a></li>
+											<li class="list-inline-item"><a href="#"><i class="fa fa-pinterest"></i></a></li>
+											<li class="list-inline-item"><a href="#"><i class="fa fa-dribbble"></i></a></li>
+											<li class="list-inline-item"><a href="#"><i class="fa fa-google"></i></a></li>
+										</ul>
+									</div>
+								</div>
+								<div class="details">
+									<h4>Mariusz Ciesla</h4>
+									<p>Broker</p>
+								</div>
+							</div>
+						</div>
+						<div class="item">
+							<div class="team_member home4">
+								<div class="thumb">
+									<img class="img-fluid" src="{% static '' %}main/images/team/4.jpg" alt="4.jpg">
+									<div class="overylay">
+										<ul class="social_icon">
+											<li class="list-inline-item"><a href="#"><i class="fa fa-facebook"></i></a></li>
+											<li class="list-inline-item"><a href="#"><i class="fa fa-twitter"></i></a></li>
+											<li class="list-inline-item"><a href="#"><i class="fa fa-instagram"></i></a></li>
+											<li class="list-inline-item"><a href="#"><i class="fa fa-pinterest"></i></a></li>
+											<li class="list-inline-item"><a href="#"><i class="fa fa-dribbble"></i></a></li>
+											<li class="list-inline-item"><a href="#"><i class="fa fa-google"></i></a></li>
+										</ul>
+									</div>
+								</div>
+								<div class="details">
+									<h4>Helene Powers</h4>
+									<p>Broker</p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+<!-- Our Testimonials -->
+<section id="our-testimonials" class="our-testimonial home5">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-6 offset-lg-3">
+				<div class="main-title text-center">
+					<h2 class="color-white">Testimonials</h2>
+					<p class="color-white">Here could be a nice sub title</p>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-lg-6 offset-lg-3">
+				<div class="testimonial_grid_slider">
+					<div class="item">
+						<div class="testimonial_grid">
+							<div class="thumb">
+								<img src="images/testimonial/1.jpg" alt="1.jpg">
+							</div>
+							<div class="details">
+								<h4>Augusta Silva</h4>
+								<p>Sales Manager</p>
+								<p class="mt25">Aliquam dictum elit vitae mauris facilisis at dictum urna dignissim donec vel lectus vel felis.</p>
+							</div>
+						</div>
+					</div>
+					<div class="item">
+						<div class="testimonial_grid">
+							<div class="thumb">
+								<img src="images/testimonial/1.jpg" alt="1.jpg">
+							</div>
+							<div class="details">
+								<h4>Augusta Silva</h4>
+								<p>Sales Manager</p>
+								<p class="mt25">Aliquam dictum elit vitae mauris facilisis at dictum urna dignissim donec vel lectus vel felis.</p>
+							</div>
+						</div>
+					</div>
+					<div class="item">
+						<div class="testimonial_grid">
+							<div class="thumb">
+								<img src="images/testimonial/1.jpg" alt="1.jpg">
+							</div>
+							<div class="details">
+								<h4>Augusta Silva</h4>
+								<p>Sales Manager</p>
+								<p class="mt25">Aliquam dictum elit vitae mauris facilisis at dictum urna dignissim donec vel lectus vel felis.</p>
+							</div>
+						</div>
+					</div>
+					<div class="item">
+						<div class="testimonial_grid">
+							<div class="thumb">
+								<img src="images/testimonial/1.jpg" alt="1.jpg">
+							</div>
+							<div class="details">
+								<h4>Augusta Silva</h4>
+								<p>Sales Manager</p>
+								<p class="mt25">Aliquam dictum elit vitae mauris facilisis at dictum urna dignissim donec vel lectus vel felis.</p>
+							</div>
+						</div>
+					</div>
+					<div class="item">
+						<div class="testimonial_grid">
+							<div class="thumb">
+								<img src="images/testimonial/1.jpg" alt="1.jpg">
+							</div>
+							<div class="details">
+								<h4>Augusta Silva</h4>
+								<p>Sales Manager</p>
+								<p class="mt25">Aliquam dictum elit vitae mauris facilisis at dictum urna dignissim donec vel lectus vel felis.</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+<!-- Why Chose Us -->
+<section id="why-chose" class="whychose_us pb30">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-6 offset-lg-3">
+				<div class="main-title text-center">
+					<h2>Why Choose Us</h2>
+					<p>We provide full service at every step.</p>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-6 col-lg-4 col-xl-4">
+				<div class="why_chose_us style2">
+					<div class="icon">
+						<span class="flaticon-high-five"></span>
+					</div>
+					<div class="details">
+						<h4>Trusted By Thousands</h4>
+						<p>Aliquam dictum elit vitae mauris facilisis at dictum urna dignissim donec vel lectus vel felis.</p>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-6 col-lg-4 col-xl-4">
+				<div class="why_chose_us style2">
+					<div class="icon">
+						<span class="flaticon-home-1"></span>
+					</div>
+					<div class="details">
+						<h4>Wide Renge Of Properties</h4>
+						<p>Aliquam dictum elit vitae mauris facilisis at dictum urna dignissim donec vel lectus vel felis.</p>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-6 col-lg-4 col-xl-4">
+				<div class="why_chose_us style2">
+					<div class="icon">
+						<span class="flaticon-profit"></span>
+					</div>
+					<div class="details">
+						<h4>Financing Made Easy</h4>
+						<p>Aliquam dictum elit vitae mauris facilisis at dictum urna dignissim donec vel lectus vel felis.</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+
+<!-- Our Partners -->
+<section id="our-partners" class="our-partners">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-6 offset-lg-3">
+				<div class="main-title text-center">
+					<h2>Featured Developers</h2>
+					<p>We only work with the best companies around the globe</p>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-sm-6 col-md-4 col-lg">
+				<div class="our_partner">
+					<img class="img-fluid" src="images/partners/1.png" alt="1.png">
+				</div>
+			</div>
+			<div class="col-sm-6 col-md-4 col-lg">
+				<div class="our_partner">
+					<img class="img-fluid" src="images/partners/2.png" alt="2.png">
+				</div>
+			</div>
+			<div class="col-sm-6 col-md-4 col-lg">
+				<div class="our_partner">
+					<img class="img-fluid" src="images/partners/3.png" alt="3.png">
+				</div>
+			</div>
+			<div class="col-sm-6 col-md-4 col-lg">
+				<div class="our_partner">
+					<img class="img-fluid" src="images/partners/4.png" alt="4.png">
+				</div>
+			</div>
+			<div class="col-sm-6 col-md-4 col-lg">
+				<div class="our_partner">
+					<img class="img-fluid" src="images/partners/5.png" alt="5.png">
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+	
