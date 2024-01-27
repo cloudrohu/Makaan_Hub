@@ -22,6 +22,8 @@ class Developer(models.Model):
     contact_person = models.CharField(max_length=255, null=True, blank=True)
     contact_no = models.CharField(max_length=255, null=True, blank=True)
     email = models.EmailField(null=True, blank=True)
+    google_map = models.CharField(blank=True,max_length=1000)
+    web_site = models.CharField(blank=True,max_length=150)
     address = models.CharField(max_length=500, null=True, blank=True)
     keywords = models.CharField(max_length=255, null=True, blank=True)
     description = models.TextField(max_length=5000, null=True, blank=True)
@@ -56,6 +58,9 @@ class Agency(models.Model):
     contact_person = models.CharField(max_length=255, null=True, blank=True)
     contact_no = models.CharField(max_length=255, null=True, blank=True)
     email = models.EmailField(null=True, blank=True)
+    google_map = models.CharField(blank=True,max_length=1000)
+    web_site = models.CharField(blank=True,max_length=150)
+
     address = models.CharField(max_length=500, null=True, blank=True)
     keywords = models.CharField(max_length=255, null=True, blank=True)
     description = models.TextField(max_length=5000, null=True, blank=True)

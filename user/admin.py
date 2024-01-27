@@ -30,7 +30,7 @@ class Agency_ErrorInline(admin.TabularInline):
 
 @admin_thumbnails.thumbnail('image')
 class DeveloperAdmin(admin.ModelAdmin):
-    list_display = ['id','image_thumbnail','title', 'contact_person','contact_no','email','address','locality','city',]
+    list_display = ['id','image_thumbnail','title','find_from', 'contact_person','contact_no','email','google_map', 'web_site', 'address','locality','city',]
     list_filter = ('locality','city',) 
     search_fields = ['title']
     list_per_page = 30 
@@ -39,7 +39,7 @@ class DeveloperAdmin(admin.ModelAdmin):
 
 @admin_thumbnails.thumbnail('image')
 class AgencyAdmin(admin.ModelAdmin):
-    list_display = ['id','image_thumbnail','title', 'contact_person','contact_no','email','address','locality','city',]
+    list_display = ['id','image_thumbnail','title', 'find_from', 'contact_person','contact_no','email', 'google_map', 'web_site','address','locality','city',]
     list_filter = ('locality','city',) 
     search_fields = ['title']
     list_per_page = 30 
