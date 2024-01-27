@@ -15,23 +15,26 @@ from django.urls import reverse
 from django.utils import translation
 
 from home.forms import SearchForm
-from home.models import Setting, ContactForm, ContactMessage,FAQ
+from home.models import Setting, ContactForm, ContactMessage,FAQ,About_Page,Contact_Page
 from Makaan_Hub import settings
-from project.models import City,Locality, Developer, Images,Project
+from utility.models import City,Locality
+from user.models import Developer
+from project.models import Commercial_Project_Images,Commercial_Project,Residential_Project,Residential_Project_Images
 
 # Create your views here.
 
 
 def index(request):
-    setting = Setting.objects.all().order_by('-id')[:1]
+    setting = Setting.objects.all().order_by('-id')[0:1]
+    
     city = City.objects.all()
     locality = Locality.objects.all()
 
     developer = Developer.objects.all().order_by('id')[:4]  #first 4 products
-    project_slider = Project.objects.filter(slider = 'True').order_by('id')[:6]  #first 4 products
-    project_latest = Project.objects.filter(featured_project = 'True').order_by('-id')[:6]  # last 4 products
-    project_featured = Project.objects.filter(featured_project = 'True').order_by('-id')[:6]  # last 4 products
-    project_picked = Project.objects.filter(featured_project = 'True').order_by('?')[:6]   #Random selected 4 products
+    project_slider = Residential_Project.objects.filter(slider = 'True').order_by('id')[:6]  #first 4 products
+    project_latest = Residential_Project.objects.filter(featured_project = 'True').order_by('-id')[:6]  # last 4 products
+    project_featured = Residential_Project.objects.filter(featured_project = 'True').order_by('-id')[:6]  # last 4 products
+    project_picked = Residential_Project.objects.filter(featured_project = 'True').order_by('?')[:6]   #Random selected 4 products
 
     page="home"
     context={
@@ -47,22 +50,27 @@ def index(request):
 
     return render(request,'index.html',context)
 
-
 def aboutus(request):
     #category = categoryTree(0,'',currentlang)
-    setting = Setting.objects.get()
+    setting = Setting.objects.all().order_by('-id')[0:1]
+
+
+    about = About_Page.objects.all().order_by('-id')[0:1]
+
     city = City.objects.all()
 
     
     context={
         'setting':setting,
-        'city':city
+        'city':city,
+        'about':about,
     }
  
     return render(request, 'about.html',context)
 
 def contactus(request):
-    setting = Setting.objects.get()
+    setting = Setting.objects.all().order_by('-id')[0:1]
+    
     city = City.objects.all()
 
 
@@ -96,8 +104,6 @@ def category_products(request,id,slug):
              'city':city }
     return render(request,'category_products.html',context)
 
-
-
 def search(request):
     if request.method == 'POST': # check post
         form = SearchForm(request.POST)
@@ -117,7 +123,6 @@ def search(request):
 
     return HttpResponseRedirect('/')
 
-
 def search_auto(request):
     if request.is_ajax():
         q = request.GET.get('term', '')
@@ -134,7 +139,6 @@ def search_auto(request):
     mimetype = 'application/json'
 
     return HttpResponse(data, mimetype)
-
 
 def project_detail(request,id,slug):
     query = request.GET.get('q')
@@ -156,9 +160,6 @@ def project_detail(request,id,slug):
                }
     
     return render(request,'product_detail1.html',context)
-
-
-
 
 def faq(request):
    

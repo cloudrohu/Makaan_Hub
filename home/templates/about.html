@@ -1,0 +1,130 @@
+{% extends 'base/homebase.html' %}
+{% block header %} {% include 'base/header1.html' %} {% endblock %}
+
+{% load static %}
+{% for rs in setting %}
+
+{% block title %} {{ rs.title }} {% endblock %}
+{% block description %} {{ rs.description }} {% endblock %}
+{% block keywords %} {{ rs.keywords }} {% endblock %}
+{% endfor %}
+
+
+{% block body %}
+
+{% for rs in setting %}
+	<!-- Inner Page Breadcrumb -->
+	<section class="">
+        <div class="container">
+            <div class="row">
+                {{rs.aboutus | safe}}
+            </div>
+        </div>
+		
+	</section>
+
+	 	<!-- About Text Content -->
+	<section class="about-section">
+		<div class="container">
+			
+			<div class="row">
+				<div class="col-md-6 col-lg-4 col-xl-4">
+					<div class="why_chose_us style2">
+						<div class="icon">
+							<span class="flaticon-high-five"></span>
+						</div>
+						<div class="details">
+							<h4>Our Mission</h4>
+							<p>{{rs.mission}}</p>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-6 col-lg-4 col-xl-4">
+					<div class="why_chose_us style2">
+						<div class="icon">
+							<span class="flaticon-home-1"></span>
+						</div>
+						<div class="details">
+							<h4>Our Vision</h4>
+							<p>{{rs.vision}}</p>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-6 col-lg-4 col-xl-4">
+					<div class="why_chose_us style2">
+						<div class="icon">
+							<span class="flaticon-profit"></span>
+						</div>
+						<div class="details">
+							<h4>Values</h4>
+							<p>{{rs.values}}</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- Our Partners -->
+	<section id="our-partners" class="our-partners">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-6 offset-lg-3">
+					<div class="main-title text-center">
+						<h2>Our Partners</h2>
+						<p>We only work with the best companies around the globe</p>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-sm-6 col-md-4 col-lg">
+					<div class="our_partner">
+						<img class="img-fluid" src="{% static '' %}main/images/partners/1.png" alt="1.png">
+					</div>
+				</div>
+				<div class="col-sm-6 col-md-4 col-lg">
+					<div class="our_partner">
+						<img class="img-fluid" src="{% static '' %}main/images/partners/2.png" alt="2.png">
+					</div>
+				</div>
+				<div class="col-sm-6 col-md-4 col-lg">
+					<div class="our_partner">
+						<img class="img-fluid" src="{% static '' %}main/images/partners/3.png" alt="3.png">
+					</div>
+				</div>
+				<div class="col-sm-6 col-md-4 col-lg">
+					<div class="our_partner">
+						<img class="img-fluid" src="{% static '' %}main/images/partners/4.png" alt="4.png">
+					</div>
+				</div>
+				<div class="col-sm-6 col-md-4 col-lg">
+					<div class="our_partner">
+						<img class="img-fluid" src="{% static '' %}main/images/partners/5.png" alt="5.png">
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- Start Partnership -->
+	<section class="start-partners bgc-thm pt50 pb50">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-8">
+					<div class="start_partner tac-smd">
+						<h2>Become a Real Estate Agent</h2>
+						<p>We only work with the best companies around the globe</p>
+					</div>
+				</div>
+				<div class="col-lg-4">
+					<div class="parner_reg_btn text-right tac-smd">
+						<a class="btn btn-thm2" href="#">Register Now</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+    {% endfor %}
+
+{% endblock %}
+

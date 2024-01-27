@@ -19,6 +19,10 @@ class Our_TeamAdmin(admin.ModelAdmin):
     list_display = ['id','title']
     inlines = [Social_LinkInline,]
 
+class TestimonialAdmin(admin.ModelAdmin):
+    list_display = ['id','name','image']
+    
+
 
 class ContactMessageAdmin(admin.ModelAdmin):
     list_display = ['name','subject', 'update_at','status','note','message','email','ip',]
@@ -28,8 +32,18 @@ class ContactMessageAdmin(admin.ModelAdmin):
 
 admin.site.register(Setting,SettingtAdmin)
 
+class About_PageAdmin(admin.ModelAdmin):
+    list_display = ['id','title','keywords','description',]
+
+admin.site.register(About_Page,About_PageAdmin)
+
+class Contact_PageAdmin(admin.ModelAdmin):
+    list_display = ['id','title','keywords','description',]
+admin.site.register(Contact_Page,Contact_PageAdmin)
+
 admin.site.register(ContactMessage,ContactMessageAdmin)
 admin.site.register(Social_Link,Social_LinkAdmin)
 admin.site.register(Social_Site,)
 admin.site.register(Our_Team,Our_TeamAdmin)
+admin.site.register(Testimonial,TestimonialAdmin)
 

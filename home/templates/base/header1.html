@@ -1,32 +1,35 @@
 <!-- Main Header Nav -->
 <!-- Main Header Nav -->
 {% load static %}
-<header class="header-nav menu_style_home_one style2 style3 navbar-scrolltofixed stricky main-menu " style="background-color: #3498DB; ">
+{% for rs in setting %}
+<header class="header-nav menu_style_home_one style2 style3 navbar-scrolltofixed stricky main-menu " style="background-color: {{rs.header_footer_color}}; ">
     <div class="container p0">
         <!-- Ace Responsive Menu -->
+        
         <nav>
             <!-- Menu Toggle btn-->
             <div class="menu-toggle">
-                <img class="nav_logo_img img-fluid" src="{% static '' %}main/images/makaanhub.png" alt="makaanhub.png" style="height: 60px;">
+                <img class="nav_logo_img img-fluid" src="{{rs.logo.url}}" alt="makaanhub.png" style="height: 60px;">
                 <button type="button" id="menu-btn">
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
             </div>
-            <a href="#" class="navbar_brand float-left dn-smd">
-                <img class="logo1 img-fluid" src="{% static '' %}main/images/makaanhub.png" alt="makaanhub.png" style="height: 60px;">
-                <img class="logo2 img-fluid" src="{% static '' %}main/images/makaanhub.png" alt="makaanhub.png" style="height: 60px;">
+            <a href="/" class="navbar_brand float-left dn-smd">
+                <img class="logo1 img-fluid" src="{{rs.logo.url}}" alt="makaanhub.png" style="height: 60px;">
+                <img class="logo2 img-fluid" src="{{rs.logo.url}}" alt="makaanhub.png" style="height: 60px;">
             </a>
             <!-- Responsive Menu Structure-->
             <!--Note: declare the Menu style in the data-menu-style="horizontal" (options: horizontal, vertical, accordion) -->
             
             <ul id="respMenu" class="ace-responsive-menu text-right" data-menu-style="horizontal">
-                <li><a href="#"><span class="title">Home</span></a> </li>  
-                <li class="last"><a href="page-contact.html"><span class="title" style="color: #FF5733;">Contact</span></a></li>
-                <li class="last"><a href="page-contact.html"><span class="title" style="color: #FF5733;">Blog</span></a></li>
+                <li><a href="/"><span class="title" style="color: {{rs.text_color}};">Home</span></a> </li>  
+                <li class="last"><a href="{% url "contactus" %}"><span class="title" style="color: {{rs.text_color}};">Contact</span></a></li>
+                <li class="last"><a href="{% url "aboutus" %}"><span class="title" style="color: {{rs.text_color}};">About</span></a></li>
+                <li class="last"><a href="/"><span class="title" style="color: {{rs.text_color}};">Blog</span></a></li>
                 <li>
-                    <a href="#"><span class="title">Property</span></a>
+                    <a href="#"><span class="title" style="color: {{rs.text_color}};">Projects</span></a>
                     <ul>
                         <li>
                             <a href="#">User Admin</a>
@@ -51,13 +54,15 @@
                                 <li><a href="page-listing-single-v5.html">Single V5</a></li>
                             </ul>
                         </li>
-                        <li><a href="page-add-new-property.html">Create Listing</a></li>
+                        <li><a href="page-add-new-property.html">Residetial Projects</a></li>
+                        <li><a href="page-add-new-property.html">Commercial Projects</a></li>
                     </ul>
                 </li>
                 <li class="list-inline-item list_s"><a href="#" class="btn flaticon-user" data-toggle="modal" data-target=".bd-example-modal-lg"> <span class="dn-lg"></span></a></li>
-                <li class="list-inline-item add_listing home6"><a href="#"><span class="flaticon-plus"></span><span class="dn-lg"> Create Listing</span></a></li>
+                <li class="list-inline-item add_listing home6"><a href="https://wa.me/+91{{rs.whatsapp}}"><span class="flaticon-plus"></span><span class="dn-lg"> Conect Now</span></a></li>
             </ul>
         </nav>
+        
     </div>
 </header>
 <!-- Modal -->
@@ -84,7 +89,7 @@
                       <div class="row mt25 tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
                           <div class="col-lg-6 col-xl-6">
                               <div class="login_thumb">
-                                  <img class="img-fluid w100" src="{% static '' %}main/images/resource/login.jpg" alt="login.jpg">
+                                  <img class="img-fluid w100" style="height: 350px;" src="{{rs.logo.url}}" alt="login.jpg">
                               </div>
                           </div>
                           <div class="col-lg-6 col-xl-6">
@@ -128,7 +133,7 @@
                       <div class="row mt25 tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
                           <div class="col-lg-6 col-xl-6">
                               <div class="regstr_thumb">
-                                  <img class="img-fluid w100" src="{% static '' %}main/images/resource/regstr.jpg" alt="regstr.jpg">
+                                  <img class="img-fluid w100" style="height: 350px;" src="{{rs.logo.url}}" alt="regstr.jpg">
                               </div>
                           </div>
                           <div class="col-lg-6 col-xl-6">
@@ -210,7 +215,7 @@
     <div class="mobile-menu">
         <div class="header stylehome1">
             <div class="main_logo_home2 text-center">
-      <a href="index.html"><img class="nav_logo_img img-fluid mt20" style="height: 60px;" src="{% static '' %}main/images/makaanhub.png" alt="makaanhub.png"></a>
+      <a href="/"><img class="nav_logo_img img-fluid mt20" style="height: 60px;" src="{{rs.logo.url}}" alt="makaanhub.png"></a>
             </div>
             <ul class="menu_bar_home2">
                 <li class="list-inline-item list_s"><a href="page-register.html"></a></li>
@@ -240,8 +245,9 @@
             <li><a href="page-contact.html">Contact</a></li>
             <li><a href="page-login.html"><span class="flaticon-user"></span> Login</a></li>
             <li><a href="page-register.html"><span class="flaticon-edit"></span> Register</a></li>
-            <li class="cl_btn"><a class="btn btn-block btn-lg btn-thm circle" href="#"> Create Listing</a></li>
+            <li class="cl_btn"><a class="btn btn-block btn-lg btn-thm circle" href="https://wa.me/+91{{rs.whatsapp}}">Conect Now</a></li>
         </ul>
     </nav>
 </div>
 
+{% endfor %}

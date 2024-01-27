@@ -5,14 +5,40 @@ from django.db import models
 from django.forms import ModelForm, TextInput, Textarea
 from django.http import request
 from django.utils.safestring import mark_safe
+
+from utility.models import Social_Site
 # Create your models here.
 
-class Social_Site(models.Model):    
-    site=models.CharField(max_length=100)
-    icone_code=models.CharField(max_length=100)
 
+class About_Page(models.Model):
+    image = models.ImageField(blank=True, upload_to='logo/')
+    title = models.CharField(max_length=150)
+    keywords = models.CharField(max_length=255)
+    description = models.CharField(max_length=255)
+    mission = models.CharField(blank=True,max_length=2055)
+    vision = models.CharField(blank=True,max_length=2000)
+    values = models.CharField(blank=True,max_length=2055)
+    aboutus = RichTextUploadingField(blank=True)
     def __str__(self):
-        return self.site
+        return self.title
+    
+        
+    class Meta:
+        verbose_name_plural='2. About Page'
+
+
+class Contact_Page(models.Model):
+    image = models.ImageField(blank=True, upload_to='logo/')
+    title = models.CharField(max_length=150)
+    keywords = models.CharField(max_length=255)
+    description = models.CharField(max_length=255)
+    contctus = RichTextUploadingField(blank=True)
+    def __str__(self):
+        return self.title
+    
+    class Meta:
+        verbose_name_plural='3. Contact Page'
+
 
 
 class Setting(models.Model):
@@ -20,18 +46,24 @@ class Setting(models.Model):
         ('True', 'True'),
         ('False', 'False'),
     )
+    
+    logo = models.ImageField(blank=True, upload_to='logo/')
+    header_footer_color = models.CharField(max_length=150,blank=True,)
+    text_color = models.CharField(max_length=150,blank=True,)
     title = models.CharField(max_length=150)
     keywords = models.CharField(max_length=255)
     description = models.CharField(max_length=255)
     company = models.CharField(max_length=50)
     address = models.CharField(blank=True,max_length=100)
     phone = models.CharField(blank=True,max_length=15)
-    fax = models.CharField(blank=True,max_length=15)
+    whatsapp = models.CharField(blank=True,max_length=15)
     email = models.CharField(blank=True,max_length=50)
     smtpserver = models.CharField(blank=True,max_length=50)
     smtpemail = models.CharField(blank=True,max_length=50)
     smtppassword = models.CharField(blank=True,max_length=10)
     smtpport = models.CharField(blank=True,max_length=5)
+    google_map = models.CharField(blank=True,max_length=1000)
+    copy_right = models.CharField(blank=True,max_length=100)
     icon = models.ImageField(blank=True,upload_to='images/')
     facebook = models.CharField(blank=True,max_length=50)
     instagram = models.CharField(blank=True,max_length=50)
@@ -46,6 +78,11 @@ class Setting(models.Model):
 
     def __str__(self):
         return self.title
+    
+        
+    class Meta:
+        verbose_name_plural='9. Web Site Setting'
+
 
 class ContactMessage(models.Model):
     STATUS = (
@@ -65,6 +102,10 @@ class ContactMessage(models.Model):
 
     def __str__(self):
         return self.name
+    
+    class Meta:
+        verbose_name_plural='1. ContactMessage'
+
 
 class ContactForm(ModelForm):
     class Meta:
@@ -98,11 +139,33 @@ class Our_Team(models.Model):
     title = models.CharField(max_length=50,blank=True)
     designation = models.CharField(max_length=50,blank=True)
     image = models.ImageField(blank=True, upload_to='images/')
-
+    status = models.BooleanField(default=True)
+    featured = models.BooleanField(default=False)
     def color_bg(self):
         return mark_safe('<div style="width:30px; height:30px; background-color:%s"></div>' % (self.color_code))
     def __str__(self):
         return self.title
+    
+    class Meta:
+        verbose_name_plural='4. Our Team'
+
+
+    
+
+class Testimonial(models.Model):
+    name = models.CharField(max_length=50,blank=True)
+    comment = models.CharField(max_length=50,blank=True)
+    image = models.ImageField(blank=True, upload_to='images/')
+    status = models.BooleanField(default=True)
+    featured = models.BooleanField(default=False)
+    def color_bg(self):
+        return mark_safe('<div style="width:30px; height:30px; background-color:%s"></div>' % (self.color_code))
+    def __str__(self):
+        return self.name
+    
+    class Meta:
+        verbose_name_plural='5. Testimonial'
+
 
 class Social_Link(models.Model):
     social_site = models.ForeignKey(Social_Site, on_delete=models.CASCADE)
@@ -110,4 +173,12 @@ class Social_Link(models.Model):
     link=models.CharField(max_length=100)
     
     def __str__(self):
-        return self.title
+        return self.link
+    
+
+    
+    class Meta:
+        verbose_name_plural='6. Social Link'
+
+    
+    
