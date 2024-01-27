@@ -224,7 +224,7 @@ class Commercial_Project(MPTTModel):
         return ' / '.join(full_path[::-1])
 
 class Commercial_Project_Images(models.Model):
-    commercial_project=models.ForeignKey(Commercial_Project,on_delete=models.CASCADE)
+    commercial_project=models.ForeignKey(Commercial_Project,on_delete=models.CASCADE,blank=True)
     title = models.CharField(max_length=50,blank=True)
     image = models.ImageField(blank=True, upload_to='images/')
 
