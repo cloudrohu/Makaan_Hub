@@ -40,7 +40,7 @@ class Developer(models.Model):
 
 
     def save(self, *args, **kwargs):
-        self.slug = slugify(self.title)
+        self.slug = slugify(self.title + ' ' + self.city.title)
         super(Developer, self).save(*args, **kwargs)
 
     def get_absolute_url(self):
@@ -75,7 +75,7 @@ class Agency(models.Model):
 
 
     def save(self, *args, **kwargs):
-        self.slug = slugify(self.title)
+        self.slug = slugify(self.title + ' ' + self.locality.title + ' ' + self.city.title)
         super(Agency, self).save(*args, **kwargs)
 
     def get_absolute_url(self):
