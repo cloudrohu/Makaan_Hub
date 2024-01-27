@@ -163,14 +163,14 @@ class Commercial_Project(MPTTModel):
 
 
     parent = TreeForeignKey('self', blank=True, null=True, related_name='children', on_delete=models.CASCADE)
-    city = models.ForeignKey(City, on_delete=models.CASCADE)  # many to one relation with Brand
-    locality = models.ForeignKey(Locality, on_delete=models.CASCADE)  # many to one relation with Brand
-    propert_type = models.ForeignKey(Commercial_Property_Type, on_delete=models.CASCADE) # many to one relation with Brand
+    city = models.ForeignKey(City, on_delete=models.CASCADE, blank=True, null=True,)  # many to one relation with Brand
+    locality = models.ForeignKey(Locality, on_delete=models.CASCADE, blank=True, null=True,)  # many to one relation with Brand
+    propert_type = models.ForeignKey(Commercial_Property_Type, on_delete=models.CASCADE, blank=True, null=True,) # many to one relation with Brand
     title = models.CharField(max_length=50)
     keywords = models.CharField(max_length=255)
     meta_description = models.CharField(max_length=255)
-    developer = models.ForeignKey(Developer, on_delete=models.CASCADE)  # many to one relation with Brand
-    possession = models.ForeignKey(Possession_In, on_delete=models.CASCADE)  # many to one relation with Brand
+    developer = models.ForeignKey(Developer, on_delete=models.CASCADE, blank=True, null=True,)  # many to one relation with Brand
+    possession = models.ForeignKey(Possession_In, on_delete=models.CASCADE, blank=True, null=True,)  # many to one relation with Brand
     min_price = models.IntegerField(default=0, null=True, blank=True, )
     max_price = models.IntegerField(default=0, null=True, blank=True, )
     min_area = models.CharField(null=True, blank=True, max_length=50)
