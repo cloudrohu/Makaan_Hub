@@ -44,7 +44,6 @@ class Commercial_Property_Type(MPTTModel):
     class Meta:
         verbose_name_plural='02. Commercial Property Type'
 
-
 class Bank(models.Model):
     title = models.CharField(max_length=50,blank=True)
     image = models.ImageField(blank=True, upload_to='images/')
@@ -53,8 +52,7 @@ class Bank(models.Model):
     
     class Meta:
         verbose_name_plural='03. Bank'
-
-    
+   
 
 class Amenities(models.Model):
     title = models.CharField(max_length=150,blank=True)
@@ -284,3 +282,11 @@ class Social_Site(models.Model):
     class Meta:
         verbose_name_plural='18. Social Site'
   
+
+class Fine_From(models.Model):
+    title = models.CharField(max_length=50,blank=True)
+    def __str__(self):
+        return self.title
+    
+    class Meta:
+        verbose_name_plural='19. Fine_From'

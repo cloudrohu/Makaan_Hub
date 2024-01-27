@@ -11,18 +11,17 @@ from mptt.fields import TreeForeignKey
 from mptt.models import MPTTModel
 from django.utils.text import slugify
 # Create your models here.
-from utility.models import City,Locality,Social_Site
+from utility.models import City,Locality,Social_Site,Fine_From
 
 
 class Developer(models.Model):
+    find_from = models.ForeignKey(Fine_From, on_delete=models.CASCADE, null=True,blank=True)  # many to one relation with Brand
+    city = models.ForeignKey(City, on_delete=models.CASCADE, null=True,blank=True)  # many to one relation with Brand
+    locality = models.ForeignKey(Locality, on_delete=models.CASCADE, null=True,blank=True)  # many to one relation with Brand
     title = models.CharField(max_length=50, unique=True)
     contact_person = models.CharField(max_length=255, null=True, blank=True)
     contact_no = models.CharField(max_length=255, null=True, blank=True)
-    city = models.ForeignKey(City, on_delete=models.CASCADE, null=True,
-                             blank=True)  # many to one relation with Brand
     email = models.EmailField(null=True, blank=True)
-    locality = models.ForeignKey(Locality, on_delete=models.CASCADE, null=True,
-                                 blank=True)  # many to one relation with Brand
     address = models.CharField(max_length=500, null=True, blank=True)
     keywords = models.CharField(max_length=255, null=True, blank=True)
     description = models.TextField(max_length=5000, null=True, blank=True)
@@ -50,14 +49,13 @@ class Developer(models.Model):
         return mark_safe('<img src="%s" width="50" height="50" />' % (self.image.url))
 
 class Agency(models.Model):
+    find_from = models.ForeignKey(Fine_From, on_delete=models.CASCADE, null=True,blank=True)  # many to one relation with Brand
+    city = models.ForeignKey(City, on_delete=models.CASCADE, null=True,blank=True)  # many to one relation with Brand
+    locality = models.ForeignKey(Locality, on_delete=models.CASCADE, null=True,blank=True)  # many to one relation with Brand
     title = models.CharField(max_length=50, unique=True)
     contact_person = models.CharField(max_length=255, null=True, blank=True)
     contact_no = models.CharField(max_length=255, null=True, blank=True)
-    city = models.ForeignKey(City, on_delete=models.CASCADE, null=True,
-                             blank=True)  # many to one relation with Brand
     email = models.EmailField(null=True, blank=True)
-    locality = models.ForeignKey(Locality, on_delete=models.CASCADE, null=True,
-                                 blank=True)  # many to one relation with Brand
     address = models.CharField(max_length=500, null=True, blank=True)
     keywords = models.CharField(max_length=255, null=True, blank=True)
     description = models.TextField(max_length=5000, null=True, blank=True)
