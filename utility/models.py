@@ -134,7 +134,7 @@ class Willing_To_Rent_Out(models.Model):
         return self.title
     
     class Meta:
-        verbose_name_plural='12. Willing To Rent Out'
+        verbose_name_plural='15. Willing To Rent Out'
 
 class Age_Of_Properties(models.Model):
     title = models.CharField(max_length=15,blank=True)    
@@ -253,7 +253,7 @@ class Locality(MPTTModel):
             return ""
         
     class Meta:
-        verbose_name_plural='17. Locality'
+        verbose_name_plural='18. Locality'
   
 
 
@@ -280,7 +280,7 @@ class Social_Site(models.Model):
         return self.site
     
     class Meta:
-        verbose_name_plural='18. Social Site'
+        verbose_name_plural='19. Social Site'
   
 
 class Fine_From(models.Model):
@@ -289,4 +289,4 @@ class Fine_From(models.Model):
         return self.title
     
     class Meta:
-        verbose_name_plural='19. Fine_From'
+        verbose_name_plural='20. Fine_From'
