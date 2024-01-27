@@ -245,7 +245,7 @@ class Locality(MPTTModel):
         return self.title + "-- " + self.city.title
 
     def save(self, *args, **kwargs):
-        self.slug = slugify(self.city.title + "-- " + self.title)
+        self.slug = slugify(self.title + "-- " + self.city.title)
         super(Locality, self).save(*args, **kwargs)
 
     def image_tag(self):
