@@ -56,11 +56,23 @@ class AgencyAdmin(admin.ModelAdmin):
     list_per_page = 30 
     inlines = [Agency_linkInline,Agency_ErrorInline,Agency_MeetinInline]
 
+class Developer_MeetingAdmin(admin.ModelAdmin):
+    list_display = ['id','developer','meeting_date','comment','create_at','update_at']
+    list_filter = ('meeting_date','create_at','update_at') 
+    list_per_page = 30 
+
+class Agency_MeetingAdmin(admin.ModelAdmin):
+    list_display = ['id','agency','meeting_date','comment','create_at','update_at']
+    list_filter = ('meeting_date','create_at','update_at') 
+    list_per_page = 30 
+
 admin.site.register(Agency,AgencyAdmin)
 admin.site.register(Developer,DeveloperAdmin)
 admin.site.register(Developer_link,)
 admin.site.register(Developer_Error,)
 admin.site.register(Agency_link,)
 admin.site.register(Agency_Error,)
-admin.site.register(Agency_Meeting,)
-admin.site.register(Developer_Meeting,)
+
+
+admin.site.register(Agency_Meeting,Agency_MeetingAdmin)
+admin.site.register(Developer_Meeting,Developer_MeetingAdmin)

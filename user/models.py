@@ -89,7 +89,9 @@ class Agency(models.Model):
 class Developer_link(models.Model):
     social_site = models.ForeignKey(Social_Site, on_delete=models.CASCADE)
     Developer = models.ForeignKey(Developer, on_delete=models.CASCADE)
-    link=models.CharField(max_length=100)
+    link=models.CharField(max_length=100, null=True, blank=True)
+    create_at = models.DateTimeField(auto_now_add=True, null=True, blank=True)
+    update_at = models.DateTimeField(auto_now=True, null=True, blank=True)
     
     def __str__(self):
         return self.link
@@ -102,6 +104,8 @@ class Agency_link(models.Model):
     social_site = models.ForeignKey(Social_Site, on_delete=models.CASCADE)
     agency = models.ForeignKey(Agency, on_delete=models.CASCADE) # many to one relation with Brand
     link=models.CharField(max_length=100)
+    create_at = models.DateTimeField(auto_now_add=True, null=True, blank=True)
+    update_at = models.DateTimeField(auto_now=True, null=True, blank=True)
     
     def __str__(self):
         return self.link
@@ -114,6 +118,8 @@ class Developer_Error(models.Model):
     developer = models.ForeignKey(Developer, on_delete=models.CASCADE) # many to one relation with Brand
     comment=models.CharField(max_length=1000)
     link=models.CharField(max_length=1000)
+    create_at = models.DateTimeField(auto_now_add=True, null=True, blank=True)
+    update_at = models.DateTimeField(auto_now=True, null=True, blank=True)
     
     def __str__(self):
         return self.link
@@ -126,7 +132,8 @@ class Developer_Meeting(models.Model):
     developer = models.ForeignKey(Developer, on_delete=models.CASCADE) # many to one relation with Brand
     meeting_date = models.DateTimeField(null=True, blank=True)
     comment=models.CharField(max_length=1000,null=True, blank=True)
-    
+    create_at = models.DateTimeField(auto_now_add=True,null=True, blank=True)
+    update_at = models.DateTimeField(auto_now=True,null=True, blank=True)
     def __str__(self):
         return self.comment
     
@@ -138,6 +145,8 @@ class Agency_Meeting(models.Model):
     agency = models.ForeignKey(Agency, on_delete=models.CASCADE) # many to one relation with Brand
     meeting_date = models.DateTimeField(null=True, blank=True)
     comment=models.CharField(max_length=1000,null=True, blank=True)
+    create_at = models.DateTimeField(auto_now_add=True,null=True, blank=True)
+    update_at = models.DateTimeField(auto_now=True,null=True, blank=True)
     
     def __str__(self):
         return self.comment
@@ -150,6 +159,8 @@ class Agency_Error(models.Model):
     agency = models.ForeignKey(Agency, on_delete=models.CASCADE) # many to one relation with Brand
     comment=models.CharField(max_length=1000)
     link=models.CharField(max_length=1000)
+    create_at = models.DateTimeField(auto_now_add=True,null=True, blank=True)
+    update_at = models.DateTimeField(auto_now=True,null=True, blank=True)
     
     def __str__(self):
         return self.link
