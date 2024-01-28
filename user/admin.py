@@ -42,8 +42,8 @@ class Agency_ErrorInline(admin.TabularInline):
 @admin_thumbnails.thumbnail('image')
 class DeveloperAdmin(admin.ModelAdmin):
     list_display = ['id','image_thumbnail','title','find_from', 'contact_person','contact_no','email','google_map', 'web_site', 'address','locality','city',]
-    list_filter = ('locality','city',) 
-    search_fields = ['title']
+    list_filter = ('locality','city','find_from',) 
+    search_fields = ['title','contact_no','contact_person','web_site']
     list_per_page = 30 
     inlines = [Developer_linkInline,Developer_ErrorInline,Developer_MeetingInline]
 
@@ -51,8 +51,8 @@ class DeveloperAdmin(admin.ModelAdmin):
 @admin_thumbnails.thumbnail('image')
 class AgencyAdmin(admin.ModelAdmin):
     list_display = ['id','image_thumbnail','title', 'find_from', 'contact_person','contact_no','email', 'google_map', 'web_site','address','locality','city',]
-    list_filter = ('locality','city',) 
-    search_fields = ['title']
+    list_filter = ('locality','city','find_from') 
+    search_fields = ['title','contact_no','contact_person','web_site']
     list_per_page = 30 
     inlines = [Agency_linkInline,Agency_ErrorInline,Agency_MeetinInline]
 
