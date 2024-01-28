@@ -114,7 +114,7 @@ class Agency_link(models.Model):
 
 
 class Developer_Error(models.Model):
-    agency = models.ForeignKey(Developer, on_delete=models.CASCADE) # many to one relation with Brand
+    developer = models.ForeignKey(Developer, on_delete=models.CASCADE) # many to one relation with Brand
     comment=models.CharField(max_length=1000)
     link=models.CharField(max_length=1000)
     
@@ -124,6 +124,31 @@ class Developer_Error(models.Model):
         
     class Meta:
         verbose_name_plural='3. Developer Error'
+
+class Developer_Meeting(models.Model):
+    developer = models.ForeignKey(Developer, on_delete=models.CASCADE) # many to one relation with Brand
+    meeting_date = models.DateTimeField(null=True, blank=True)
+    comment=models.CharField(max_length=1000,null=True, blank=True)
+    
+    def __str__(self):
+        return self.comment
+    
+        
+    class Meta:
+        verbose_name_plural='7. Developer Meeting'
+
+class Agency_Meeting(models.Model):
+    agency = models.ForeignKey(Agency, on_delete=models.CASCADE) # many to one relation with Brand
+    meeting_date = models.DateTimeField(null=True, blank=True)
+    comment=models.CharField(max_length=1000,null=True, blank=True)
+    
+    def __str__(self):
+        return self.comment
+    
+        
+    class Meta:
+        verbose_name_plural='8. Agency Meeting'
+
 
 
 class Agency_Error(models.Model):

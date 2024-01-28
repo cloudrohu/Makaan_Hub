@@ -6,6 +6,12 @@ from mptt.admin import DraggableMPTTAdmin
 from . models import *
 # Register your models here.
 
+class Developer_MeetingInline(admin.TabularInline):
+    list_display = ['id']
+    model = Developer_Meeting  
+    extra = 1
+
+
 class Developer_linkInline(admin.TabularInline):
     list_display = ['id']
     model = Developer_link   
@@ -14,6 +20,11 @@ class Developer_linkInline(admin.TabularInline):
 class Developer_ErrorInline(admin.TabularInline):
     list_display = ['id']
     model = Developer_Error   
+    extra = 1
+
+class Agency_MeetinInline(admin.TabularInline):
+    list_display = ['id']
+    model = Agency_Meeting  
     extra = 1
 
 
@@ -34,7 +45,7 @@ class DeveloperAdmin(admin.ModelAdmin):
     list_filter = ('locality','city',) 
     search_fields = ['title']
     list_per_page = 30 
-    inlines = [Developer_linkInline,Developer_ErrorInline]
+    inlines = [Developer_linkInline,Developer_ErrorInline,Developer_MeetingInline]
 
 
 @admin_thumbnails.thumbnail('image')
@@ -43,7 +54,7 @@ class AgencyAdmin(admin.ModelAdmin):
     list_filter = ('locality','city',) 
     search_fields = ['title']
     list_per_page = 30 
-    inlines = [Agency_linkInline,Agency_ErrorInline]
+    inlines = [Agency_linkInline,Agency_ErrorInline,Agency_MeetinInline]
 
 admin.site.register(Agency,AgencyAdmin)
 admin.site.register(Developer,DeveloperAdmin)
@@ -51,3 +62,5 @@ admin.site.register(Developer_link,)
 admin.site.register(Developer_Error,)
 admin.site.register(Agency_link,)
 admin.site.register(Agency_Error,)
+admin.site.register(Agency_Meeting,)
+admin.site.register(Developer_Meeting,)

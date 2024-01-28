@@ -1,174 +1,50 @@
 {% load static %}	
-	<!-- 4th Home Slider -->
-	<div class="home-four">
-		<div class="container-fluid p0">
-			<div class="row">
-				<div class="col-lg-12">
-					<div class="main-banner-wrapper">
-					    <div class="banner-style-one owl-theme owl-carousel">
-
-					        {% for rs in project_slider %}
-					        <div class="slide slide-one" style="background-image: url({{rs.image.url}});height: 800px;"></div>
-							{% endfor %}
-					    </div>
-					    <div class="carousel-btn-block banner-carousel-btn">
-					        <span class="carousel-btn left-btn"><i class="flaticon-left-arrow-1 left"></i></span>
-					        <span class="carousel-btn right-btn"><i class="flaticon-right-arrow right"></i></span>
-					    </div><!-- /.carousel-btn-block banner-carousel-btn -->
-					</div><!-- /.main-banner-wrapper -->
-				</div>
-			</div>
-		</div>
-		<div class="container home_iconbox_container">
-			<div class="row posr">
-				<div class="col-lg-12">
-					<div class="home_content home4">
-						
-						<div class="home_adv_srch_opt home4">
-							
-							<div class="tab-content home1_adsrchfrm" id="pills-tabContent">
-								<div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
-									<div class="home1-advnc-search home4">
-										<ul class="h1ads_1st_list mb0">
-											<li class="list-inline-item">
-											    <div class="form-group">
-											    	<input type="text" class="form-control" id="exampleInputName1" placeholder="Enter keyword...">
-											    </div>
-											</li>
-											<li class="list-inline-item">
-												<div class="search_option_two">
-													<div class="candidate_revew_select">
-														<select class="selectpicker w100 show-tick">
-															<option>Property Type</option>
-															<option>Apartment</option>
-															<option>Bungalow</option>
-															<option>Condo</option>
-															<option>House</option>
-															<option>Land</option>
-															<option>Single Family</option>
-														</select>
-													</div>
-												</div>
-											</li>
-											<li class="list-inline-item">
-											    <div class="form-group">
-											    	<input type="text" class="form-control" id="exampleInputEmail" placeholder="Location">
-											    	<label for="exampleInputEmail"><span class="flaticon-maps-and-flags"></span></label>
-											    </div>
-											</li>
-											<li class="list-inline-item">
-												<div class="small_dropdown2 home4">
-												    <div id="prncgs" class="btn dd_btn">
-												    	<span>Price</span>
-												    	<label for="exampleInputEmail2"><span class="fa fa-angle-down"></span></label>
-												    </div>
-												  	<div class="dd_content2">
-													    <div class="pricing_acontent">
-													    	<span id="slider-range-value1"></span>
-															<span id="slider-range-value2"></span>
-														    <div id="slider"></div>
-															<!-- <input type="text" class="amount" placeholder="$52,239"> 
-															<input type="text" class="amount2" placeholder="$985,14">
-															<div class="slider-range"></div> -->
-													    </div>
-												  	</div>
-												</div>
-											</li>
-											<li class="custome_fields_520 list-inline-item">
-												<div class="navbered">
-												  	<div class="mega-dropdown home4">
-													    <span id="show_advbtn" class="dropbtn">Advanced <i class="flaticon-more pl10 flr-520"></i></span>
-													    
-													</div>
-												</div>
-											</li>
-											<li class="list-inline-item">
-												<div class="search_option_button">
-												    <button type="submit" class="btn btn-thm3">Search</button>
-												</div>
-											</li>
-										</ul>
+<section class="home-seven" style="height: 650px;">
+	<div class="container">
+		<div class="row posr">
+			<div class="col-lg-10 offset-lg-1">
+				<div class="home_content home7">
+					<div class="home-text text-center">
+						<h2 class="fz55">Discover your place to live</h2>
+						<p class="fz18 color-white">Get started in few clicks.</p>
+					</div>
+					<div class="home_adv_srch_opt home7">
+						<div class="home1-advnc-search home7">
+							<ul class="h1ads_1st_list mb0 text-center">
+								<li class="list-inline-item">
+									<div class="search_option_two">
+										<div class="candidate_revew_select">
+											<select class="selectpicker w100 show-tick">
+												<option>Select City</option>
+												
+												<option>Apartment</option>
+												<option>Bungalow</option>
+												<option>Condo</option>
+												<option>House</option>
+												<option>Land</option>
+												<option>Single Family</option>
+											</select>
+										</div>
 									</div>
-								</div>
-								<div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
-									<div class="home1-advnc-search home4">
-										<ul class="h1ads_1st_list mb0">
-											<li class="list-inline-item">
-											    <div class="form-group">
-											    	<input type="text" class="form-control" id="exampleInputName2" placeholder="Enter keyword...">
-											    </div>
-											</li>
-											<li class="list-inline-item">
-												<div class="search_option_two">
-													<div class="candidate_revew_select">
-														<select class="selectpicker w100 show-tick">
-															<option>Property Type</option>
-															<option>Apartment</option>
-															<option>Bungalow</option>
-															<option>Condo</option>
-															<option>House</option>
-															<option>Land</option>
-															<option>Single Family</option>
-														</select>
-													</div>
-												</div>
-											</li>
-											<li class="list-inline-item">
-											    <div class="form-group">
-											    	<input type="text" class="form-control" id="exampleInputEmail3" placeholder="Location">
-											    	<label for="exampleInputEmail3"><span class="flaticon-maps-and-flags"></span></label>
-											    </div>
-											</li>
-											<li class="list-inline-item">
-												<div class="small_dropdown2 home4">
-												    <div id="prncgs2" class="btn dd_btn">
-												    	<span>Price</span>
-												    	<label><span class="fa fa-angle-down"></span></label>
-												    </div>
-												  	<div class="dd_content2">
-													    <div class="pricing_acontent">
-															<input type="text" class="amount" placeholder="$52,239"> 
-															<input type="text" class="amount2" placeholder="$985,14">
-															<div class="slider-range"></div>
-													    </div>
-												  	</div>
-												</div>
-											</li>
-											<li class="custome_fields_520 list-inline-item">
-												<div class="navbered">
-												  	<div class="mega-dropdown home4">
-													    <span id="show_advbtn2" class="dropbtn">Advanced <i class="flaticon-more pl10 flr-520"></i></span>
-													   
-													</div>
-												</div>
-											</li>
-											<li class="list-inline-item">
-												<div class="search_option_button">
-												    <button type="submit" class="btn btn-thm3">Search</button>
-												</div>
-											</li>
-										</ul>
+								</li>
+								<li class="list-inline-item">
+									<div class="form-group">
+										<input type="text" class="form-control" id="exampleInputName1" placeholder="Enter keyword...">
 									</div>
-								</div>
-							</div>
+								</li>
+								<li class="list-inline-item">
+									<div class="search_option_button">
+										<button type="submit" class="btn btn-thm">Search</button>
+									</div>
+								</li>
+							</ul>
 						</div>
 					</div>
 				</div>
 			</div>
-			<div class="row">
-				<div class="col-lg-12">
-					<h4 class="text-center color-white fw600 mb25 mb0-520">What are you looking for?</h4>
-					<ul class="home4_iconbox mb0">
-						<li class="list-inline-item"><div class="icon"><span class="flaticon-house"></span><p>Modern Villa</p></div></li>
-						<li class="list-inline-item"><div class="icon"><span class="flaticon-house-1"></span><p>Family House</p></div></li>
-						<li class="list-inline-item"><div class="icon"><span class="flaticon-house-2"></span><p>Town House</p></div></li>
-						<li class="list-inline-item"><div class="icon"><span class="flaticon-building"></span><p>Apartment</p></div></li>
-					</ul>
-				</div>
-			</div>
 		</div>
 	</div>
-
+</section>
 	<!-- Property Cities -->
 	<section id="best-property" class="best-property bgc-f7">
 		<div class="container ovh">
