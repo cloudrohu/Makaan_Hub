@@ -13,7 +13,6 @@ from django.utils.text import slugify
 # Create your models here.
 from utility.models import City,Locality,Social_Site,Fine_From
 
-
 class Developer(models.Model):
     find_from = models.ForeignKey(Fine_From, on_delete=models.CASCADE, null=True,blank=True)  # many to one relation with Brand
     city = models.ForeignKey(City, on_delete=models.CASCADE, null=True,blank=True)  # many to one relation with Brand
@@ -99,7 +98,6 @@ class Developer_link(models.Model):
     class Meta:
         verbose_name_plural='2. Developer Link'
 
-
 class Agency_link(models.Model):
     social_site = models.ForeignKey(Social_Site, on_delete=models.CASCADE)
     agency = models.ForeignKey(Agency, on_delete=models.CASCADE) # many to one relation with Brand
@@ -111,7 +109,6 @@ class Agency_link(models.Model):
         
     class Meta:
         verbose_name_plural='5. Agency Link'
-
 
 class Developer_Error(models.Model):
     developer = models.ForeignKey(Developer, on_delete=models.CASCADE) # many to one relation with Brand
@@ -148,8 +145,6 @@ class Agency_Meeting(models.Model):
         
     class Meta:
         verbose_name_plural='8. Agency Meeting'
-
-
 
 class Agency_Error(models.Model):
     agency = models.ForeignKey(Agency, on_delete=models.CASCADE) # many to one relation with Brand
