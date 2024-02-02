@@ -48,6 +48,7 @@ class Setting(models.Model):
     )
     
     logo = models.ImageField(blank=True, upload_to='logo/')
+    testmonial_bg = models.ImageField(blank=True, upload_to='logo/')
     header_footer_color = models.CharField(max_length=150,blank=True,)
     text_color = models.CharField(max_length=150,blank=True,)
     title = models.CharField(max_length=150)

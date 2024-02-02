@@ -17,7 +17,7 @@ class Developer(models.Model):
     find_from = models.ForeignKey(Fine_From, on_delete=models.CASCADE, null=True,blank=True)  # many to one relation with Brand
     city = models.ForeignKey(City, on_delete=models.CASCADE, null=True,blank=True)  # many to one relation with Brand
     locality = models.ForeignKey(Locality, on_delete=models.CASCADE, null=True,blank=True)  # many to one relation with Brand
-    title = models.CharField(max_length=50, unique=True)
+    title = models.CharField(max_length=150, unique=True)
     contact_person = models.CharField(max_length=255, null=True, blank=True)
     contact_no = models.CharField(max_length=255, null=True, blank=True)
     email = models.EmailField(null=True, blank=True)
@@ -53,7 +53,7 @@ class Agency(models.Model):
     find_from = models.ForeignKey(Fine_From, on_delete=models.CASCADE, null=True,blank=True)  # many to one relation with Brand
     city = models.ForeignKey(City, on_delete=models.CASCADE, null=True,blank=True)  # many to one relation with Brand
     locality = models.ForeignKey(Locality, on_delete=models.CASCADE, null=True,blank=True)  # many to one relation with Brand
-    title = models.CharField(max_length=50, unique=True)
+    title = models.CharField(max_length=150, unique=True)
     contact_person = models.CharField(max_length=255, null=True, blank=True)
     contact_no = models.CharField(max_length=255, null=True, blank=True)
     email = models.EmailField(null=True, blank=True)

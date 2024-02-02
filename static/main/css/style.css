@@ -2203,9 +2203,8 @@ header.header-nav.menu_style_home_seven .ace-responsive-menu > li.last{
   margin-bottom: 0;
 }
 .home1_adsrchfrm{
-  background-color: #ffffff;
+  background-color: transparent;
   border-radius: 8px;
-  padding: 30px 20px;
   position: relative;
   z-index: 9;
 }
