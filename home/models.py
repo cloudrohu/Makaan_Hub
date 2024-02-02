@@ -141,6 +141,11 @@ class Our_Team(models.Model):
     designation = models.CharField(max_length=50,blank=True)
     image = models.ImageField(blank=True, upload_to='images/')
     status = models.BooleanField(default=True)
+    facebook = models.CharField(max_length=150,blank=True)
+    twitter = models.CharField(max_length=150,blank=True)
+    instagram = models.CharField(max_length=150,blank=True)
+    pinterest = models.CharField(max_length=150,blank=True)
+    youtube = models.CharField(max_length=150,blank=True)
     featured = models.BooleanField(default=False)
     def color_bg(self):
         return mark_safe('<div style="width:30px; height:30px; background-color:%s"></div>' % (self.color_code))
@@ -149,9 +154,7 @@ class Our_Team(models.Model):
     
     class Meta:
         verbose_name_plural='4. Our Team'
-
-
-    
+   
 
 class Testimonial(models.Model):
     name = models.CharField(max_length=50,blank=True)

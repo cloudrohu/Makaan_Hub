@@ -15,7 +15,7 @@ from django.urls import reverse
 from django.utils import translation
 
 from home.forms import SearchForm
-from home.models import Setting, ContactForm, ContactMessage,FAQ,About_Page,Contact_Page
+from home.models import Setting, ContactForm, ContactMessage,FAQ,About_Page,Contact_Page,Testimonial,Our_Team
 from Makaan_Hub import settings
 from utility.models import City,Locality
 from user.models import Developer
@@ -30,8 +30,10 @@ def index(request):
     city = City.objects.all()
     locality = Locality.objects.all()
 
-    developer = Developer.objects.all().order_by('id')[:4]  #first 4 products
-    project_slider = Residential_Project.objects.filter(slider = 'True').order_by('id')[:6]  #first 4 products
+    developer = Developer.objects.filter(featured_builder = 'True').order_by('-id')[:50]  #first 4 products
+    ourteam = Our_Team.objects.filter(featured = 'True').order_by('-id')#first 4 products
+    testimonial = Testimonial.objects.filter(featured = 'True').order_by('-id')#first 4 products
+    project_slider = Residential_Project.objects.filter(slider = 'True').order_by('-id')[:6]  #first 4 products
     project_latest = Residential_Project.objects.filter(featured_project = 'True').order_by('-id')[:6]  # last 4 products
     project_featured = Residential_Project.objects.filter(featured_project = 'True').order_by('-id')[:6]  # last 4 products
     project_picked = Residential_Project.objects.filter(featured_project = 'True').order_by('?')[:6]   #Random selected 4 products
@@ -40,6 +42,8 @@ def index(request):
     context={
         'setting':setting,
         'city':city,
+        'testimonial':testimonial,
+        'ourteam':ourteam,
         'locality':locality,
         'developer':developer,
         'project_slider':project_slider,
