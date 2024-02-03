@@ -114,7 +114,6 @@
 				<div class="col-lg-6 offset-lg-3">
 					<div class="main-title text-center mb40">
 						<h2>Featured Properties</h2>
-						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
 					</div>
 				</div>
 			</div>
@@ -170,65 +169,24 @@
 				<div class="col-lg-6 offset-lg-3">
 					<div class="main-title text-center">
 						<h2>Find Properties in These Locality</h2>
-						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
 					</div>
 				</div>
 			</div>
+
 			<div class="row">
+
+				{% for rs in locality %}
 				<div class="col-sm-6 col-lg-4 col-xl-4">
 					<div class="properti_city style2">
-						<div class="thumb"><img class="img-fluid w100" src="{% static '' %}main/images/property/pc12.jpg" alt="pc12.jpg"></div>
+						<div class="thumb"><img class="img-fluid w100" src="{{rs.image.url}}" alt="pc12.jpg" style="height: 225px;"></div>
 						<div class="details">
-							<h4>Miami</h4>
+							<h4>{{rs.title}}</h4>
 							<p>24 Properties</p>
 						</div>
 					</div>
 				</div>
-				<div class="col-sm-6 col-lg-4 col-xl-4">
-					<div class="properti_city style2">
-						<div class="thumb"><img class="img-fluid w100" src="{% static '' %}main/images/property/pc13.jpg" alt="pc13.jpg"></div>
-						<div class="details">
-							<h4>Los Angeles</h4>
-							<p>18 Properties</p>
-						</div>
-					</div>
-				</div>
-				<div class="col-sm-6 col-lg-4 col-xl-4">
-					<div class="properti_city style2">
-						<div class="thumb"><img class="img-fluid w100" src="{% static '' %}main/images/property/pc14.jpg" alt="pc14.jpg"></div>
-						<div class="details">
-							<h4>New York</h4>
-							<p>96 Properties</p>
-						</div>
-					</div>
-				</div>
-				<div class="col-sm-6 col-lg-4 col-xl-4">
-					<div class="properti_city style2">
-						<div class="thumb"><img class="img-fluid w100" src="{% static '' %}main/images/property/pc15.jpg" alt="pc15.jpg"></div>
-						<div class="details">
-							<h4>Florida</h4>
-							<p>33 Properties</p>
-						</div>
-					</div>
-				</div>
-				<div class="col-sm-6 col-lg-4 col-xl-4">
-					<div class="properti_city style2">
-						<div class="thumb"><img class="img-fluid w100" src="{% static '' %}main/images/property/pc16.jpg" alt="pc16.jpg"></div>
-						<div class="details">
-							<h4>Orlando</h4>
-							<p>15 Properties</p>
-						</div>
-					</div>
-				</div>
-				<div class="col-sm-6 col-lg-4 col-xl-4">
-					<div class="properti_city style2">
-						<div class="thumb"><img class="img-fluid w100" src="{% static '' %}main/images/property/pc17.jpg" alt="pc17.jpg"></div>
-						<div class="details">
-							<h4>Atlanta</h4>
-							<p>77 Properties</p>
-						</div>
-					</div>
-				</div>
+				{% endfor %}
+				
 			</div>
 		</div>
 	</section>
@@ -240,7 +198,6 @@
 				<div class="col-lg-6 offset-lg-3">
 					<div class="main-title text-center">
 						<h2>Articles & Tips</h2>
-						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
 					</div>
 				</div>
 			</div>
@@ -316,7 +273,6 @@
 				<div class="col-lg-6 offset-lg-3">
 					<div class="main-title text-center">
 						<h2>Our Team</h2>
-						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
 					</div>
 				</div>
 			</div>
@@ -327,7 +283,7 @@
 						<div class="item">
 							<div class="team_member home4">
 								<div class="thumb">
-									<img class="img-fluid" src="{{rs.image.url}}" alt="1.jpg" style="height: 250px;">
+									<img class="img-fluid" src="{{rs.image.url}}" alt="1.jpg" style="height: 225px;">
 									<div class="overylay">
 										<ul class="social_icon">
 											<li class="list-inline-item"><a href="{{rs.facebook}}"><i class="fa fa-facebook"></i></a></li>
@@ -359,73 +315,28 @@
 			<div class="col-lg-6 offset-lg-3">
 				<div class="main-title text-center">
 					<h2 class="color-white">Testimonials</h2>
-					<p class="color-white">Here could be a nice sub title</p>
 				</div>
 			</div>
 		</div>
 		<div class="row">
 			<div class="col-lg-6 offset-lg-3">
-				<div class="testimonial_grid_slider">
+				<div class="testimonial_grid_slider">					
+
+					{% for rs in testimonial %}
 					<div class="item">
 						<div class="testimonial_grid">
 							<div class="thumb">
-								<img src="images/testimonial/1.jpg" alt="1.jpg">
+								<img src="{{rs.image.url}}" alt="1.jpg">
 							</div>
 							<div class="details">
-								<h4>Augusta Silva</h4>
-								<p>Sales Manager</p>
-								<p class="mt25">Aliquam dictum elit vitae mauris facilisis at dictum urna dignissim donec vel lectus vel felis.</p>
+								<h4>{{rs.title}}</h4>
+								<p>{{rs.designation}}</p>
+								<p class="mt25">{{rs.comment}}</p>
 							</div>
 						</div>
 					</div>
-					<div class="item">
-						<div class="testimonial_grid">
-							<div class="thumb">
-								<img src="images/testimonial/1.jpg" alt="1.jpg">
-							</div>
-							<div class="details">
-								<h4>Augusta Silva</h4>
-								<p>Sales Manager</p>
-								<p class="mt25">Aliquam dictum elit vitae mauris facilisis at dictum urna dignissim donec vel lectus vel felis.</p>
-							</div>
-						</div>
-					</div>
-					<div class="item">
-						<div class="testimonial_grid">
-							<div class="thumb">
-								<img src="images/testimonial/1.jpg" alt="1.jpg">
-							</div>
-							<div class="details">
-								<h4>Augusta Silva</h4>
-								<p>Sales Manager</p>
-								<p class="mt25">Aliquam dictum elit vitae mauris facilisis at dictum urna dignissim donec vel lectus vel felis.</p>
-							</div>
-						</div>
-					</div>
-					<div class="item">
-						<div class="testimonial_grid">
-							<div class="thumb">
-								<img src="images/testimonial/1.jpg" alt="1.jpg">
-							</div>
-							<div class="details">
-								<h4>Augusta Silva</h4>
-								<p>Sales Manager</p>
-								<p class="mt25">Aliquam dictum elit vitae mauris facilisis at dictum urna dignissim donec vel lectus vel felis.</p>
-							</div>
-						</div>
-					</div>
-					<div class="item">
-						<div class="testimonial_grid">
-							<div class="thumb">
-								<img src="images/testimonial/1.jpg" alt="1.jpg">
-							</div>
-							<div class="details">
-								<h4>Augusta Silva</h4>
-								<p>Sales Manager</p>
-								<p class="mt25">Aliquam dictum elit vitae mauris facilisis at dictum urna dignissim donec vel lectus vel felis.</p>
-							</div>
-						</div>
-					</div>
+					{% endfor %}
+
 				</div>
 			</div>
 		</div>

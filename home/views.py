@@ -28,7 +28,7 @@ def index(request):
     setting = Setting.objects.all().order_by('-id')[0:1]
     
     city = City.objects.all()
-    locality = Locality.objects.all()
+    locality = Locality.objects.filter(featured_locality = 'True').order_by('-id')[:18]
 
     developer = Developer.objects.filter(featured_builder = 'True').order_by('-id')[:50]  #first 4 products
     ourteam = Our_Team.objects.filter(featured = 'True').order_by('-id')#first 4 products

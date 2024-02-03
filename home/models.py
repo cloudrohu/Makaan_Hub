@@ -147,8 +147,12 @@ class Our_Team(models.Model):
     pinterest = models.CharField(max_length=150,blank=True)
     youtube = models.CharField(max_length=150,blank=True)
     featured = models.BooleanField(default=False)
-    def color_bg(self):
-        return mark_safe('<div style="width:30px; height:30px; background-color:%s"></div>' % (self.color_code))
+
+    def image_tag(self):
+        if self.image.url is not None:
+            return mark_safe('<img src="{}" height="50"/>'.format(self.image.url))
+        else:
+            return ""
     def __str__(self):
         return self.title
     
@@ -158,12 +162,18 @@ class Our_Team(models.Model):
 
 class Testimonial(models.Model):
     name = models.CharField(max_length=50,blank=True)
-    comment = models.CharField(max_length=50,blank=True)
+    designation = models.CharField(max_length=50,null=True, blank=True)
+    comment = models.CharField(max_length=500,blank=True)
     image = models.ImageField(blank=True, upload_to='images/')
     status = models.BooleanField(default=True)
     featured = models.BooleanField(default=False)
-    def color_bg(self):
-        return mark_safe('<div style="width:30px; height:30px; background-color:%s"></div>' % (self.color_code))
+
+    def image_tag(self):
+        if self.image.url is not None:
+            return mark_safe('<img src="{}" height="50"/>'.format(self.image.url))
+        else:
+            return ""
+
     def __str__(self):
         return self.name
     

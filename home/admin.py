@@ -1,5 +1,7 @@
 from django.contrib import admin
 from .models import *
+import admin_thumbnails
+
 # Register your models here.
 
 class Social_LinkInline(admin.TabularInline):
@@ -15,12 +17,15 @@ class Social_SiteAdmin(admin.ModelAdmin):
 class Social_LinkAdmin(admin.ModelAdmin):
     list_display = ['id','our_team','social_site','link',]
 
+
+@admin_thumbnails.thumbnail('image')
 class Our_TeamAdmin(admin.ModelAdmin):
-    list_display = ['id','title']
+    list_display = ['id','title','image_thumbnail',]
     inlines = [Social_LinkInline,]
 
+@admin_thumbnails.thumbnail('image')
 class TestimonialAdmin(admin.ModelAdmin):
-    list_display = ['id','name','image']
+    list_display = ['id','name','image_thumbnail',]
     
 
 
