@@ -20,7 +20,12 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'app_visit',
+    'paying_guest',
 
+    'land.apps.LandConfig',
+    'crm.apps.CrmConfig',
+    'commercial.apps.CommercialConfig',
+    'residential.apps.ResidentialConfig',
     'bloging.apps.BlogingConfig',
     'project.apps.ProjectConfig',
     'home.apps.HomeConfig',
@@ -34,14 +39,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
     'mptt',
     'ckeditor',
     'ckeditor_uploader',
-
-    'sell_property',
-    'rent_property',
-    'land',    
-    'paying_guest',
+    
 ]
 
 MIDDLEWARE = [

@@ -54,6 +54,157 @@ def index(request):
 
     return render(request,'index.html',context)
 
+def residential(request):
+    setting = Setting.objects.all().order_by('-id')[0:1]
+    
+    city = City.objects.all()
+    locality = Locality.objects.all()
+
+    developer = Developer.objects.filter(featured_builder = 'True').order_by('-id')[:50]  #first 4 products
+    ourteam = Our_Team.objects.filter(featured = 'True').order_by('-id')#first 4 products
+    testimonial = Testimonial.objects.filter(featured = 'True').order_by('-id')#first 4 products
+    project_slider = Residential_Project.objects.filter(slider = 'True').order_by('-id')[:6]  #first 4 products
+    project_latest = Residential_Project.objects.filter(featured_project = 'True').order_by('-id')[:6]  # last 4 products
+    project_featured = Residential_Project.objects.filter(featured_project = 'True').order_by('-id')[:6]  # last 4 products
+    project_picked = Residential_Project.objects.filter(featured_project = 'True').order_by('?')[:6]   #Random selected 4 products
+
+    page="home"
+    context={
+        'setting':setting,
+        'city':city,
+        'testimonial':testimonial,
+        'ourteam':ourteam,
+        'locality':locality,
+        'developer':developer,
+        'project_slider':project_slider,
+        'project_latest':project_latest,
+        'project_picked':project_picked,
+        'project_featured':project_featured,
+    }
+
+    return render(request,'index.html',context)
+
+def commercial(request):
+    setting = Setting.objects.all().order_by('-id')[0:1]
+    
+    city = City.objects.all()
+    locality = Locality.objects.all()
+
+    developer = Developer.objects.filter(featured_builder = 'True').order_by('-id')[:50]  #first 4 products
+    ourteam = Our_Team.objects.filter(featured = 'True').order_by('-id')#first 4 products
+    testimonial = Testimonial.objects.filter(featured = 'True').order_by('-id')#first 4 products
+    project_slider = Residential_Project.objects.filter(slider = 'True').order_by('-id')[:6]  #first 4 products
+    project_latest = Residential_Project.objects.filter(featured_project = 'True').order_by('-id')[:6]  # last 4 products
+    project_featured = Residential_Project.objects.filter(featured_project = 'True').order_by('-id')[:6]  # last 4 products
+    project_picked = Residential_Project.objects.filter(featured_project = 'True').order_by('?')[:6]   #Random selected 4 products
+
+    page="home"
+    context={
+        'setting':setting,
+        'city':city,
+        'testimonial':testimonial,
+        'ourteam':ourteam,
+        'locality':locality,
+        'developer':developer,
+        'project_slider':project_slider,
+        'project_latest':project_latest,
+        'project_picked':project_picked,
+        'project_featured':project_featured,
+    }
+
+    return render(request,'index.html',context)
+
+def land(request):
+    setting = Setting.objects.all().order_by('-id')[0:1]
+    
+    city = City.objects.all()
+    locality = Locality.objects.all()
+
+    developer = Developer.objects.filter(featured_builder = 'True').order_by('-id')[:50]  #first 4 products
+    ourteam = Our_Team.objects.filter(featured = 'True').order_by('-id')#first 4 products
+    testimonial = Testimonial.objects.filter(featured = 'True').order_by('-id')#first 4 products
+    project_slider = Residential_Project.objects.filter(slider = 'True').order_by('-id')[:6]  #first 4 products
+    project_latest = Residential_Project.objects.filter(featured_project = 'True').order_by('-id')[:6]  # last 4 products
+    project_featured = Residential_Project.objects.filter(featured_project = 'True').order_by('-id')[:6]  # last 4 products
+    project_picked = Residential_Project.objects.filter(featured_project = 'True').order_by('?')[:6]   #Random selected 4 products
+
+    page="home"
+    context={
+        'setting':setting,
+        'city':city,
+        'testimonial':testimonial,
+        'ourteam':ourteam,
+        'locality':locality,
+        'developer':developer,
+        'project_slider':project_slider,
+        'project_latest':project_latest,
+        'project_picked':project_picked,
+        'project_featured':project_featured,
+    }
+
+    return render(request,'index.html',context)
+
+def pg(request):
+    setting = Setting.objects.all().order_by('-id')[0:1]
+    
+    city = City.objects.all()
+    locality = Locality.objects.all()
+
+    developer = Developer.objects.filter(featured_builder = 'True').order_by('-id')[:50]  #first 4 products
+    ourteam = Our_Team.objects.filter(featured = 'True').order_by('-id')#first 4 products
+    testimonial = Testimonial.objects.filter(featured = 'True').order_by('-id')#first 4 products
+    project_slider = Residential_Project.objects.filter(slider = 'True').order_by('-id')[:6]  #first 4 products
+    project_latest = Residential_Project.objects.filter(featured_project = 'True').order_by('-id')[:6]  # last 4 products
+    project_featured = Residential_Project.objects.filter(featured_project = 'True').order_by('-id')[:6]  # last 4 products
+    project_picked = Residential_Project.objects.filter(featured_project = 'True').order_by('?')[:6]   #Random selected 4 products
+
+    page="home"
+    context={
+        'setting':setting,
+        'city':city,
+        'testimonial':testimonial,
+        'ourteam':ourteam,
+        'locality':locality,
+        'developer':developer,
+        'project_slider':project_slider,
+        'project_latest':project_latest,
+        'project_picked':project_picked,
+        'project_featured':project_featured,
+    }
+
+    return render(request,'index.html',context)
+
+def blog(request):
+    setting = Setting.objects.all().order_by('-id')[0:1]
+    
+    city = City.objects.all()
+    locality = Locality.objects.all()
+
+    developer = Developer.objects.filter(featured_builder = 'True').order_by('-id')[:50]  #first 4 products
+    ourteam = Our_Team.objects.filter(featured = 'True').order_by('-id')#first 4 products
+    testimonial = Testimonial.objects.filter(featured = 'True').order_by('-id')#first 4 products
+    project_slider = Residential_Project.objects.filter(slider = 'True').order_by('-id')[:6]  #first 4 products
+    project_latest = Residential_Project.objects.filter(featured_project = 'True').order_by('-id')[:6]  # last 4 products
+    project_featured = Residential_Project.objects.filter(featured_project = 'True').order_by('-id')[:6]  # last 4 products
+    project_picked = Residential_Project.objects.filter(featured_project = 'True').order_by('?')[:6]   #Random selected 4 products
+
+    page="home"
+    context={
+        'setting':setting,
+        'city':city,
+        'testimonial':testimonial,
+        'ourteam':ourteam,
+        'locality':locality,
+        'developer':developer,
+        'project_slider':project_slider,
+        'project_latest':project_latest,
+        'project_picked':project_picked,
+        'project_featured':project_featured,
+    }
+
+    return render(request,'index.html',context)
+
+
 def aboutus(request):
     #category = categoryTree(0,'',currentlang)
     setting = Setting.objects.all().order_by('-id')[0:1]

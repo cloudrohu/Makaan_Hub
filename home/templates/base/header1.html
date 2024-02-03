@@ -25,37 +25,18 @@
             
             <ul id="respMenu" class="ace-responsive-menu text-right" data-menu-style="horizontal">
                 <li><a href="/"><span class="title" style="color: {{rs.text_color}};">Home</span></a> </li>  
-                <li class="last"><a href="{% url "contactus" %}"><span class="title" style="color: {{rs.text_color}};">Contact</span></a></li>
-                <li class="last"><a href="{% url "aboutus" %}"><span class="title" style="color: {{rs.text_color}};">About</span></a></li>
-                <li class="last"><a href="/"><span class="title" style="color: {{rs.text_color}};">Blog</span></a></li>
+                
+                <li class="last"><a href="/"><span class="title" style="color: {{rs.text_color}};">New Projects</span></a></li>
+                <li class="last"><a href="{% url "residential" %}"><span class="title" style="color: {{rs.text_color}};">Residetial</span></a></li>
+                <li class="last"><a href="{% url "commercial" %}"><span class="title" style="color: {{rs.text_color}};">Commercial</span></a></li>
+                <li class="last"><a href="{% url "land" %}"><span class="title" style="color: {{rs.text_color}};">Land</span></a></li>
                 <li>
-                    <a href="#"><span class="title" style="color: {{rs.text_color}};">Projects</span></a>
-                    <ul>
-                        <li>
-                            <a href="#">User Admin</a>
-                            <ul>
-                                <li><a href="page-dashboard.html">Dashboard</a></li>
-                                <li><a href="page-my-properties.html">My Properties</a></li>
-                                <li><a href="page-message.html">My Message</a></li>
-                                <li><a href="page-my-review.html">My Review</a></li>
-                                <li><a href="page-my-favorites.html">My Favorites</a></li>
-                                <li><a href="page-add-new-property.html">Add Property</a></li>
-                                <li><a href="page-my-profile.html">My Profile</a></li>
-                            </ul>
-                        </li>
-                        <li>
-                            <a href="#">Listing Single</a>
-                            <!-- Level Three-->
-                            <ul>
-                                <li><a href="page-listing-single-v1.html">Single V1</a></li>
-                                <li><a href="page-listing-single-v2.html">Single V2</a></li>
-                                <li><a href="page-listing-single-v3.html">Single V3</a></li>
-                                <li><a href="page-listing-single-v4.html">Single V4</a></li>
-                                <li><a href="page-listing-single-v5.html">Single V5</a></li>
-                            </ul>
-                        </li>
-                        <li><a href="page-add-new-property.html">Residetial Projects</a></li>
-                        <li><a href="page-add-new-property.html">Commercial Projects</a></li>
+                    <a href="#"><span class="title" style="color: {{rs.text_color}};">About & More</span></a>
+                    <ul>                       
+                        <li><a href="{% url "contactus" %}">Contact</a></li>
+                        <li><a href="{% url "aboutus" %}">About</a></li>
+                        <li><a href="{% url "blog" %}">Blog</a></li>
+                        <li><a href="{% url "aboutus" %}">Paying Guest</a></li>
                     </ul>
                 </li>
                 <li class="list-inline-item list_s"><a href="#" class="btn flaticon-user" data-toggle="modal" data-target=".bd-example-modal-lg"> <span class="dn-lg"></span></a></li>

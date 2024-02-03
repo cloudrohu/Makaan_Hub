@@ -21,6 +21,13 @@ urlpatterns = [
     path(('about/'), views.aboutus, name='aboutus'),
     path(('contact/'), views.contactus, name='contactus'),
 
+    path(('residential/'), views.residential, name='residential'),
+    path(('commercial/'), views.commercial, name='commercial'),
+    path(('land/'), views.land, name='land'),
+    path(('pg/'), views.pg, name='pg'),
+    path(('blog/'), views.blog, name='blog'),
+
+
 
     
     
