@@ -55,7 +55,7 @@ class Residential_Project(MPTTModel):
     totle_unit = models.CharField(max_length=2)
     total_tower = models.CharField(max_length=2)
     construction_status = models.CharField(max_length=25, choices=Construction_Status)
-    image = models.ImageField(blank=True, upload_to='images/')
+    image = models.ImageField(upload_to='images/')
     slider = models.BooleanField(default=False)
     featured_project = models.BooleanField(default=False)
     slug = models.SlugField(unique=True, null=True, blank=True)
@@ -95,7 +95,7 @@ class Residential_Project(MPTTModel):
 class Residential_Project_Images(models.Model):
     project=models.ForeignKey(Residential_Project,on_delete=models.CASCADE)
     title = models.CharField(max_length=50,blank=True)
-    image = models.ImageField(blank=True, upload_to='images/')
+    image = models.ImageField(upload_to='images/')
 
     def __str__(self):
         return self.title
@@ -111,7 +111,7 @@ class Residential_Project_Floor_Plans(models.Model):
     bath_room=models.ForeignKey(Bathroom,on_delete=models.CASCADE, null=True, blank=True)
     bolconis=models.ForeignKey(Bolconis,on_delete=models.CASCADE, null=True, blank=True)
     price=models.PositiveIntegerField(default=0, null=True, blank=True)
-    floor_plan = models.ImageField(blank=True, upload_to='images/')
+    floor_plan = models.ImageField(upload_to='images/')
 
     def __str__(self):
         return self.bed_room
@@ -186,7 +186,7 @@ class Commercial_Project(MPTTModel):
     totle_unit = models.CharField(max_length=2)
     total_tower = models.CharField(max_length=2)
     construction_status = models.CharField(max_length=25, choices=Construction_Status)
-    image = models.ImageField(blank=True, upload_to='images/')
+    image = models.ImageField(upload_to='images/')
     slider = models.BooleanField(default=False)
     featured_project = models.BooleanField(default=False)
     slug = models.SlugField(unique=True, null=True, blank=True)
@@ -226,7 +226,7 @@ class Commercial_Project(MPTTModel):
 class Commercial_Project_Images(models.Model):
     commercial_project=models.ForeignKey(Commercial_Project,on_delete=models.CASCADE,blank=True)
     title = models.CharField(max_length=50,blank=True)
-    image = models.ImageField(blank=True, upload_to='images/')
+    image = models.ImageField(upload_to='images/')
 
     def __str__(self):
         return self.title
@@ -242,7 +242,7 @@ class Commercial_Project_Floor_Plans(models.Model):
     bath_room=models.ForeignKey(Bathroom,on_delete=models.CASCADE, null=True, blank=True)
     bolconis=models.ForeignKey(Bolconis,on_delete=models.CASCADE, null=True, blank=True)
     price=models.PositiveIntegerField(default=0, null=True, blank=True)
-    floor_plan = models.ImageField(blank=True, upload_to='images/')
+    floor_plan = models.ImageField(upload_to='images/')
 
     def __str__(self):
         return self.bed_room

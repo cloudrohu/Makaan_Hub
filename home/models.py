@@ -11,7 +11,7 @@ from utility.models import Social_Site
 
 
 class About_Page(models.Model):
-    image = models.ImageField(blank=True, upload_to='logo/')
+    image = models.ImageField(upload_to='logo/')
     title = models.CharField(max_length=150)
     keywords = models.CharField(max_length=255)
     description = models.CharField(max_length=255)
@@ -28,7 +28,7 @@ class About_Page(models.Model):
 
 
 class Contact_Page(models.Model):
-    image = models.ImageField(blank=True, upload_to='logo/')
+    image = models.ImageField(upload_to='logo/')
     title = models.CharField(max_length=150)
     keywords = models.CharField(max_length=255)
     description = models.CharField(max_length=255)
@@ -47,8 +47,8 @@ class Setting(models.Model):
         ('False', 'False'),
     )
     
-    logo = models.ImageField(blank=True, upload_to='logo/')
-    testmonial_bg = models.ImageField(blank=True, upload_to='logo/')
+    logo = models.ImageField(upload_to='logo/')
+    testmonial_bg = models.ImageField(upload_to='logo/')
     header_footer_color = models.CharField(max_length=150,blank=True,)
     text_color = models.CharField(max_length=150,blank=True,)
     title = models.CharField(max_length=150)
@@ -65,7 +65,7 @@ class Setting(models.Model):
     smtpport = models.CharField(blank=True,max_length=5)
     google_map = models.CharField(blank=True,max_length=1000)
     copy_right = models.CharField(blank=True,max_length=100)
-    icon = models.ImageField(blank=True,upload_to='images/')
+    icon = models.ImageField(upload_to='images/')
     facebook = models.CharField(blank=True,max_length=50)
     instagram = models.CharField(blank=True,max_length=50)
     twitter = models.CharField(blank=True,max_length=50)
@@ -139,7 +139,7 @@ class FAQ(models.Model):
 class Our_Team(models.Model):
     title = models.CharField(max_length=50,blank=True)
     designation = models.CharField(max_length=50,blank=True)
-    image = models.ImageField(blank=True, upload_to='images/')
+    image = models.ImageField(upload_to='images/')
     status = models.BooleanField(default=True)
     facebook = models.CharField(max_length=150,blank=True)
     twitter = models.CharField(max_length=150,blank=True)
@@ -164,7 +164,7 @@ class Testimonial(models.Model):
     name = models.CharField(max_length=50,blank=True)
     designation = models.CharField(max_length=50,null=True, blank=True)
     comment = models.CharField(max_length=500,blank=True)
-    image = models.ImageField(blank=True, upload_to='images/')
+    image = models.ImageField(upload_to='images/')
     status = models.BooleanField(default=True)
     featured = models.BooleanField(default=False)
 

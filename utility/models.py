@@ -17,7 +17,7 @@ class Residential_Property_Type(MPTTModel):
     property_type = models.CharField(max_length=50)
     keywords = models.CharField(max_length=1000)
     description = models.TextField(max_length=5000)
-    image = models.ImageField(blank=True, upload_to='images/')
+    image = models.ImageField(upload_to='images/')
     slug = models.SlugField(unique=True, null=True, blank=True)
     create_at = models.DateTimeField(auto_now_add=True)
     update_at = models.DateTimeField(auto_now=True)
@@ -33,7 +33,7 @@ class Commercial_Property_Type(MPTTModel):
     property_type = models.CharField(max_length=50)
     keywords = models.CharField(max_length=1000)
     description = models.TextField(max_length=5000)
-    image = models.ImageField(blank=True, upload_to='images/')
+    image = models.ImageField(upload_to='images/')
     slug = models.SlugField(unique=True, null=True, blank=True)
     create_at = models.DateTimeField(auto_now_add=True)
     update_at = models.DateTimeField(auto_now=True)
@@ -46,7 +46,7 @@ class Commercial_Property_Type(MPTTModel):
 
 class Bank(models.Model):
     title = models.CharField(max_length=50,blank=True)
-    image = models.ImageField(blank=True, upload_to='images/')
+    image = models.ImageField(upload_to='images/')
     def __str__(self):
         return self.title
     
@@ -56,7 +56,7 @@ class Bank(models.Model):
 
 class Amenities(models.Model):
     title = models.CharField(max_length=150,blank=True)
-    image = models.ImageField(blank=True, upload_to='images/')
+    image = models.ImageField(upload_to='images/')
     
     def __str__(self):
         return self.title
@@ -185,7 +185,7 @@ class City(MPTTModel):
     title = models.CharField(max_length=50)
     keywords = models.CharField(max_length=255)
     description = models.TextField(max_length=5000)
-    image = models.ImageField(blank=True, upload_to='images/')
+    image = models.ImageField(upload_to='images/')
     featured_city = models.BooleanField(default=False)
     slug = models.SlugField(unique=True, null=True, blank=True)
     create_at = models.DateTimeField(auto_now_add=True)
@@ -233,7 +233,7 @@ class Locality(MPTTModel):
     title = models.CharField(max_length=50)
     keywords = models.CharField(max_length=1000)
     description = models.TextField(max_length=5000)
-    image = models.ImageField(blank=True, upload_to='images/')
+    image = models.ImageField(upload_to='images/')
     featured_locality = models.BooleanField(default=False)
     slug = models.SlugField(unique=True, null=True, blank=True)
     create_at = models.DateTimeField(auto_now_add=True)
