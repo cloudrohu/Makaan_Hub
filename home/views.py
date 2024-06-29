@@ -28,6 +28,8 @@ def index(request):
     setting = Setting.objects.all().order_by('-id')[0:1]
     
     city = City.objects.all()
+    about = About_Page.objects.all().order_by('-id')[0:1]
+
     locality = Locality.objects.filter(featured_locality = 'True').order_by('-id')[:18]
 
     developer = Developer.objects.filter(featured_builder = 'True').order_by('-id')[:50]  #first 4 products
@@ -42,6 +44,7 @@ def index(request):
     context={
         'setting':setting,
         'city':city,
+        'about':about,
         'testimonial':testimonial,
         'ourteam':ourteam,
         'locality':locality,
@@ -149,6 +152,8 @@ def pg(request):
     
     city = City.objects.all()
     locality = Locality.objects.all()
+    about = About_Page.objects.all().order_by('-id')[0:1]
+
 
     developer = Developer.objects.filter(featured_builder = 'True').order_by('-id')[:50]  #first 4 products
     ourteam = Our_Team.objects.filter(featured = 'True').order_by('-id')#first 4 products
@@ -161,6 +166,8 @@ def pg(request):
     page="home"
     context={
         'setting':setting,
+        'about':about,
+
         'city':city,
         'testimonial':testimonial,
         'ourteam':ourteam,

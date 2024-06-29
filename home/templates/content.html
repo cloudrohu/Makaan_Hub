@@ -354,41 +354,44 @@
 				</div>
 			</div>
 		</div>
-		<div class="row">
-			<div class="col-md-6 col-lg-4 col-xl-4">
-				<div class="why_chose_us style2">
-					<div class="icon">
-						<span class="flaticon-high-five"></span>
+		{% for rs in about %}
+			<div class="row">
+				<div class="col-md-6 col-lg-4 col-xl-4">
+					<div class="why_chose_us style2">
+						<div class="icon">
+							<span class="flaticon-high-five"></span>
+						</div>
+						<div class="details">
+							<h4>Our Mission</h4>
+							<p>{{rs.mission}}</p>
+						</div>
 					</div>
-					<div class="details">
-						<h4>Trusted By Thousands</h4>
-						<p>Aliquam dictum elit vitae mauris facilisis at dictum urna dignissim donec vel lectus vel felis.</p>
+				</div>
+				<div class="col-md-6 col-lg-4 col-xl-4">
+					<div class="why_chose_us style2">
+						<div class="icon">
+							<span class="flaticon-home-1"></span>
+						</div>
+						<div class="details">
+							<h4>Our Vision</h4>
+							<p>{{rs.vision}}</p>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-6 col-lg-4 col-xl-4">
+					<div class="why_chose_us style2">
+						<div class="icon">
+							<span class="flaticon-profit"></span>
+						</div>
+						<div class="details">
+							<h4>Values</h4>
+							<p>{{rs.values | safe}}</p>
+						</div>
 					</div>
 				</div>
 			</div>
-			<div class="col-md-6 col-lg-4 col-xl-4">
-				<div class="why_chose_us style2">
-					<div class="icon">
-						<span class="flaticon-home-1"></span>
-					</div>
-					<div class="details">
-						<h4>Wide Renge Of Properties</h4>
-						<p>Aliquam dictum elit vitae mauris facilisis at dictum urna dignissim donec vel lectus vel felis.</p>
-					</div>
-				</div>
-			</div>
-			<div class="col-md-6 col-lg-4 col-xl-4">
-				<div class="why_chose_us style2">
-					<div class="icon">
-						<span class="flaticon-profit"></span>
-					</div>
-					<div class="details">
-						<h4>Financing Made Easy</h4>
-						<p>Aliquam dictum elit vitae mauris facilisis at dictum urna dignissim donec vel lectus vel felis.</p>
-					</div>
-				</div>
-			</div>
-		</div>
+			<div>{{rs.aboutus | safe}}</div>
+			{% endfor %}
 	</div>
 </section>
 

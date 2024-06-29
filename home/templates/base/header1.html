@@ -25,11 +25,29 @@
             
             <ul id="respMenu" class="ace-responsive-menu text-right" data-menu-style="horizontal">
                 <li><a href="/"><span class="title" style="color: {{rs.text_color}};">Home</span></a> </li>  
+                <li>
+                    <a href="#"><span class="title" style="color: {{rs.text_color}};">New Projects</span></a>
+                    <ul>                       
+                        <li><a href="{% url "contactus" %}">Residetiol</a></li>
+                        <li><a href="{% url "aboutus" %}">Commercial</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#"><span class="title" style="color: {{rs.text_color}};">Buy Property</span></a>
+                    <ul>                       
+                        <li><a href="{% url "contactus" %}">Residetiol</a></li>
+                        <li><a href="{% url "aboutus" %}">Commercial</a></li>
+                        
+                    </ul>
+                </li>
+                <li>
+                    <a href="#"><span class="title" style="color: {{rs.text_color}};">Rented Property</span></a>
+                    <ul>                       
+                        <li><a href="{% url "contactus" %}">Residetiol</a></li>
+                        <li><a href="{% url "aboutus" %}">Commercial</a></li>
+                    </ul>
+                </li>
                 
-                <li class="last"><a href="/"><span class="title" style="color: {{rs.text_color}};">New Projects</span></a></li>
-                <li class="last"><a href="{% url "residential" %}"><span class="title" style="color: {{rs.text_color}};">Residetial</span></a></li>
-                <li class="last"><a href="{% url "commercial" %}"><span class="title" style="color: {{rs.text_color}};">Commercial</span></a></li>
-                <li class="last"><a href="{% url "land" %}"><span class="title" style="color: {{rs.text_color}};">Land</span></a></li>
                 <li>
                     <a href="#"><span class="title" style="color: {{rs.text_color}};">About & More</span></a>
                     <ul>                       
@@ -39,8 +57,11 @@
                         <li><a href="{% url "aboutus" %}">Paying Guest</a></li>
                     </ul>
                 </li>
+
                 <li class="list-inline-item list_s"><a href="#" class="btn flaticon-user" data-toggle="modal" data-target=".bd-example-modal-lg"> <span class="dn-lg"></span></a></li>
                 <li class="list-inline-item add_listing home6"><a href="https://wa.me/+91{{rs.whatsapp}}"><span class="flaticon-plus"></span><span class="dn-lg"> Conect Now</span></a></li>
+            
+            
             </ul>
         </nav>
         
@@ -222,9 +243,40 @@
     </div><!-- /.mobile-menu -->
     <nav id="menu" class="stylehome1">
         <ul>
-            
-            <li><a href="page-contact.html">Contact</a></li>
-            <li><a href="page-login.html"><span class="flaticon-user"></span> Login</a></li>
+            <li style="background-color: {{rs.header_footer_color}}; ><a href="/"><span class="title" style="color: {{rs.text_color}}; ">Home</span></a> </li>  
+                <li style="background-color: {{rs.header_footer_color}}; >
+                    <a href="#"><span class="title" style="color: {{rs.text_color}};">New Projects</span></a>
+                    <ul>                       
+                        <li><a href="{% url "contactus" %}">Residetiol</a></li>
+                        <li><a href="{% url "aboutus" %}">Commercial</a></li>
+                    </ul>
+                </li>
+                <li style="background-color: {{rs.header_footer_color}}; >
+                    <a href="#"><span class="title" style="color: {{rs.text_color}};">Buy Property</span></a>
+                    <ul>                       
+                        <li><a href="{% url "contactus" %}">Residetiol</a></li>
+                        <li><a href="{% url "aboutus" %}">Commercial</a></li>
+                        
+                    </ul>
+                </li>
+                <li style="background-color: {{rs.header_footer_color}}; >
+                    <a href="#"><span class="title" style="color: {{rs.text_color}};">Rented Property</span></a>
+                    <ul>                       
+                        <li><a href="{% url "contactus" %}">Residetiol</a></li>
+                        <li><a href="{% url "aboutus" %}">Commercial</a></li>
+                    </ul>
+                </li>
+                
+                <li style="background-color: {{rs.header_footer_color}}; >
+                    <a href="#"><span class="title" style="color: {{rs.text_color}};">About & More</span></a>
+                    <ul>                       
+                        <li><a href="{% url "contactus" %}">Contact</a></li>
+                        <li><a href="{% url "aboutus" %}">About</a></li>
+                        <li><a href="{% url "blog" %}">Blog</a></li>
+                        <li><a href="{% url "aboutus" %}">Paying Guest</a></li>
+                    </ul>
+                </li>  
+            <li style="background-color: {{rs.header_footer_color}};><a href="page-login.html"><span class="flaticon-user"></span> Login</a></li>
             <li><a href="page-register.html"><span class="flaticon-edit"></span> Register</a></li>
             <li class="cl_btn"><a class="btn btn-block btn-lg btn-thm circle" href="https://wa.me/+91{{rs.whatsapp}}">Conect Now</a></li>
         </ul>
