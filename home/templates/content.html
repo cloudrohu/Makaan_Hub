@@ -19,94 +19,8 @@
 			</div>
 		</div>
 	</div>
-	<div class="container home_iconbox_container">
-		<div class="row posr">
-			<div class="col-lg-12">
-				<div class="home_content home4">	
-				<h1 class="text-center color-white fw600 mb25 mb0-520">Search Residential Property?</h1>
-
-					<div class="home_adv_srch_opt">
-                        <ul class="nav nav-pills" id="pills-tab" role="tablist">
-                            <li class="nav-item">
-                                <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true">Residential </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="false">Commercial </a>
-                            </li>
-                        </ul>
-                        <div class="tab-content home1_adsrchfrm" id="pills-tabContent">
-                            <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
-                                <div class="home1-advnc-search home7">
-									<ul class="h1ads_1st_list mb0 text-center">
-										<li class="list-inline-item">
-											<div class="search_option_two">
-												<div class="candidate_revew_select">
-													<select class="selectpicker w100 show-tick">
-														<option>Select City</option>
-														
-														{% for rs in city %}
-														<option>{{rs.title}}</option>
-														{% endfor %}
-														
-													</select>
-												</div>
-											</div>
-										</li>
-										<li class="list-inline-item">
-											<div class="form-group">
-												<input type="text" class="form-control" id="exampleInputName1" placeholder="Enter keyword...">
-											</div>
-										</li>
-										<li class="list-inline-item">
-											<div class="search_option_button">
-												<button type="submit" class="btn btn-thm">Search</button>
-											</div>
-										</li>
-									</ul>
-								</div>
-                            </div>
-                            <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
-                                <div class="home1-advnc-search home7">
-									<ul class="h1ads_1st_list mb0 text-center">
-										<li class="list-inline-item">
-											<div class="search_option_two">
-												<div class="candidate_revew_select">
-													<select class="selectpicker w100 show-tick">
-														<option>Select City</option>
-														
-														<option>Apartment</option>
-														<option>Bungalow</option>
-														<option>Condo</option>
-														<option>House</option>
-														<option>Land</option>
-														<option>Single Family</option>
-													</select>
-												</div>
-											</div>
-										</li>
-										<li class="list-inline-item">
-											<div class="form-group">
-												<input type="text" class="form-control" id="exampleInputName1" placeholder="Enter keyword...">
-											</div>
-										</li>
-										<li class="list-inline-item">
-											<div class="search_option_button">
-												<button type="submit" class="btn btn-thm">Search</button>
-											</div>
-										</li>
-									</ul>
-								</div>
-                            </div>
-                        </div>
-                    </div>
-				</div>
-			</div>
-		</div>
-
-	</div>
+	
 </div>
-
-
 	<!-- Property Cities -->
 	<section id="best-property" class="best-property bgc-f7">
 		<div class="container ovh">
@@ -172,9 +86,7 @@
 					</div>
 				</div>
 			</div>
-
 			<div class="row">
-
 				{% for rs in locality %}
 				<div class="col-sm-6 col-lg-4 col-xl-4">
 					<div class="properti_city style2">
@@ -185,8 +97,7 @@
 						</div>
 					</div>
 				</div>
-				{% endfor %}
-				
+				{% endfor %}				
 			</div>
 		</div>
 	</section>
@@ -265,7 +176,6 @@
 			</div>
 		</div>
 	</section>
-
 	<!-- Our Team -->
 	<section class="our-team">
 		<div class="container">
@@ -307,7 +217,6 @@
 			</div>
 		</div>
 	</section>
-
 <!-- Our Testimonials -->
 <section id="our-testimonials" class="our-testimonial home5">
 	<div class="container">
@@ -389,14 +298,10 @@
 						</div>
 					</div>
 				</div>
-			</div>
-			<div>{{rs.aboutus | safe}}</div>
-			{% endfor %}
+			</div>			
+		{% endfor %}
 	</div>
 </section>
-
-
-
 <!-- Our Agents -->
 <section id="our-agents" class="our-agents pt40 pb15">
 	<div class="container">
