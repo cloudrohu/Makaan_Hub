@@ -37,7 +37,7 @@ def index(request):
     testimonial = Testimonial.objects.filter(featured = 'True').order_by('-id')#first 4 products
     project_slider = Residential_Project.objects.filter(slider = 'True').order_by('-id')[:6]  #first 4 products
     project_latest = Residential_Project.objects.filter(featured_project = 'True').order_by('-id')[:6]  # last 4 products
-    project_featured = Residential_Project.objects.filter(featured_project = 'True').order_by('-id')[:6]  # last 4 products
+    project_featured = Residential_Project.objects.filter(featured_project = 'True').order_by('-id')[:12]  # last 4 products
     project_picked = Residential_Project.objects.filter(featured_project = 'True').order_by('?')[:6]   #Random selected 4 products
 
     page="home"
