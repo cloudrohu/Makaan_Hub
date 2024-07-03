@@ -166,7 +166,7 @@ class Commercial_Project(MPTTModel):
     city = models.ForeignKey(City, on_delete=models.CASCADE, blank=True, null=True,)  # many to one relation with Brand
     locality = models.ForeignKey(Locality, on_delete=models.CASCADE, blank=True, null=True,)  # many to one relation with Brand
     propert_type = models.ForeignKey(Commercial_Property_Type, on_delete=models.CASCADE, blank=True, null=True,) # many to one relation with Brand
-    title = models.CharField(max_length=50)
+    title = models.CharField(max_length=100)
     keywords = models.CharField(max_length=255)
     meta_description = models.CharField(max_length=255)
     developer = models.ForeignKey(Developer, on_delete=models.CASCADE, blank=True, null=True,)  # many to one relation with Brand
@@ -183,8 +183,8 @@ class Commercial_Project(MPTTModel):
     home_lone = models.ManyToManyField(Bank,blank=True)
     project_size = models.CharField(max_length=255,null=True, blank=True)
     lanch_date = models.DateField(null=True, blank=True)
-    totle_unit = models.CharField(max_length=2)
-    total_tower = models.CharField(max_length=2)
+    totle_unit = models.CharField(max_length=5)
+    total_tower = models.CharField(max_length=5)
     construction_status = models.CharField(max_length=25, choices=Construction_Status)
     image = models.ImageField(upload_to='images/')
     slider = models.BooleanField(default=False)

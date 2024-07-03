@@ -49,4 +49,5 @@ admin.site.register(Color,ColorAdmin)
 admin.site.register(City,CityAdmin)
 admin.site.register(Locality,LocalityAdmin)
 admin.site.register(Fine_From,)
+admin.site.register(Area_type,)
 
