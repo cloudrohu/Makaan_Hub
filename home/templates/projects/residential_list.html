@@ -554,92 +554,33 @@
 					<div class="terms_condition_widget">
 						<h4 class="title">Featured Properties</h4>
 						<div class="sidebar_feature_property_slider">
+							{% for rs in project_featured %}
 							<div class="item">
 								<div class="feat_property home7">
 									<div class="thumb">
-										<img class="img-whp" src="{% static '' %}main/images/property/fp1.jpg" alt="fp1.jpg">
+										<img class="img-whp" src="{{rs.image.url}}" alt="fp1.jpg">
 										<div class="thmb_cntnt">
 											<ul class="tag mb0">
-												<li class="list-inline-item"><a href="#">For Rent</a></li>
-												<li class="list-inline-item"><a href="#">Featured</a></li>
+												<li class="list-inline-item"><a href="#">{{rs.propert_type}}</a></li>
 											</ul>
-											<a class="fp_price" href="#">$13,000<small>/mo</small></a>
-											<h4 class="posr color-white">Renovated Apartment</h4>
+											<a class="fp_price" href="#">{{rs.title}}<small>/mo</small></a>
+											<h4 class="posr color-white">{{rs.locality}}--{{rs.city}}</h4>
 										</div>
 									</div>
 								</div>
 							</div>
-							<div class="item">
-								<div class="feat_property home7">
-									<div class="thumb">
-										<img class="img-whp" src="{% static '' %}main/images/property/fp2.jpg" alt="fp2.jpg">
-										<div class="thmb_cntnt">
-											<ul class="tag mb0">
-												<li class="list-inline-item"><a href="#">For Rent</a></li>
-												<li class="list-inline-item"><a href="#">Featured</a></li>
-											</ul>
-											<a class="fp_price" href="#">$13,000<small>/mo</small></a>
-											<h4 class="posr color-white">Renovated Apartment</h4>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="item">
-								<div class="feat_property home7">
-									<div class="thumb">
-										<img class="img-whp" src="{% static '' %}main/images/property/fp3.jpg" alt="fp3.jpg">
-										<div class="thmb_cntnt">
-											<ul class="tag mb0">
-												<li class="list-inline-item"><a href="#">For Rent</a></li>
-												<li class="list-inline-item"><a href="#">Featured</a></li>
-											</ul>
-											<a class="fp_price" href="#">$13,000<small>/mo</small></a>
-											<h4 class="posr color-white">Renovated Apartment</h4>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="item">
-								<div class="feat_property home7">
-									<div class="thumb">
-										<img class="img-whp" src="{% static '' %}main/images/property/fp4.jpg" alt="fp4.jpg">
-										<div class="thmb_cntnt">
-											<ul class="tag mb0">
-												<li class="list-inline-item"><a href="#">For Rent</a></li>
-												<li class="list-inline-item"><a href="#">Featured</a></li>
-											</ul>
-											<a class="fp_price" href="#">$13,000<small>/mo</small></a>
-											<h4 class="posr color-white">Renovated Apartment</h4>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="item">
-								<div class="feat_property home7">
-									<div class="thumb">
-										<img class="img-whp" src="{% static '' %}main/images/property/fp5.jpg" alt="fp5.jpg">
-										<div class="thmb_cntnt">
-											<ul class="tag mb0">
-												<li class="list-inline-item"><a href="#">For Rent</a></li>
-												<li class="list-inline-item"><a href="#">Featured</a></li>
-											</ul>
-											<a class="fp_price" href="#">$13,000<small>/mo</small></a>
-											<h4 class="posr color-white">Renovated Apartment</h4>
-										</div>
-									</div>
-								</div>
-							</div>
+							{% endfor %}
+							
 						</div>
 					</div>
 					<div class="terms_condition_widget">
 						<h4 class="title">Categories Property</h4>
 						<div class="widget_list">
 							<ul class="list_details">
-								<li><a href="#"><i class="fa fa-caret-right mr10"></i>Apartment <span class="float-right">6 properties</span></a></li>
-								<li><a href="#"><i class="fa fa-caret-right mr10"></i>Condo <span class="float-right">12 properties</span></a></li>
-								<li><a href="#"><i class="fa fa-caret-right mr10"></i>Family House <span class="float-right">8 properties</span></a></li>
-								<li><a href="#"><i class="fa fa-caret-right mr10"></i>Modern Villa <span class="float-right">26 properties</span></a></li>
-								<li><a href="#"><i class="fa fa-caret-right mr10"></i>Town House <span class="float-right">89 properties</span></a></li>
+								{% for rs in Property_Type %}
+								<li><a href="#"><i class="fa fa-caret-right mr10"></i>{{rs.property_type}} <span class="float-right">* properties</span></a></li>
+								{% endfor %}
+							
 							</ul>
 						</div>
 					</div>
@@ -736,8 +677,8 @@
 											<li class="list-inline-item"><a href="#">{{rs.min_price}}</a></li>
 											<li class="list-inline-item"><a href="#">{{rs.max_price}}</a></li>
 										</ul>
-										<a class="fp_price" href="#">$13,000<small>/mo</small></a>
-										<a class="fp_price" href="#">$13,000<small>/mo</small></a>
+										
+										<a class="fp_price" href="#"><small>Area {{rs.min_area}}--{{rs.max_area}}</small></a>
 									</div>
 									<p class="text-thm">{{rs.propert_type}}</p>
 									<h4>{{rs.title}}</h4>
