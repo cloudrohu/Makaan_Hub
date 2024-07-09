@@ -21,8 +21,10 @@ urlpatterns = [
     path(('about/'), views.aboutus, name='aboutus'),
     path(('contact/'), views.contactus, name='contactus'),
 
-    path(('residential/'), views.residential, name='residential'),
-    path(('commercial/'), views.commercial, name='commercial'),
+    path(('residential_project/'), views.residential_project, name='residential_project'),
+    path(('commercial_project/'), views.commercial_project, name='commercial_project'),
+
+
     path(('land/'), views.land, name='land'),
     path(('pg/'), views.pg, name='pg'),
     path(('blog/'), views.blog, name='blog'),
