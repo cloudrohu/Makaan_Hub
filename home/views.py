@@ -76,6 +76,24 @@ def residential_project(request):
 
     return render(request,'projects/residential_list.html',context)
 
+
+def residential_project_details(request,slug):
+    setting = Setting.objects.all().order_by('-id')[0:1]
+     # last 4 products
+
+    project_picked = Residential_Project.objects.get(slug = slug)
+
+    page="home"
+    context={
+        'setting':setting,
+
+        'project_picked':project_picked,
+
+    }
+
+    return render(request,'projects/residential_view.html',context)
+
+
 def commercial_project(request):
     setting = Setting.objects.all().order_by('-id')[0:1]
     

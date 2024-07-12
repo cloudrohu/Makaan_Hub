@@ -22,6 +22,9 @@ urlpatterns = [
     path(('contact/'), views.contactus, name='contactus'),
 
     path(('residential_project/'), views.residential_project, name='residential_project'),
+    path(('residential_project/<slug:slug>'), views.residential_project_details, name='residential_project'),
+
+
     path(('commercial_project/'), views.commercial_project, name='commercial_project'),
 
 

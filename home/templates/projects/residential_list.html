@@ -563,7 +563,7 @@
 											<ul class="tag mb0">
 												<li class="list-inline-item"><a href="#">{{rs.propert_type}}</a></li>
 											</ul>
-											<a class="fp_price" href="#">{{rs.title}}<small>/mo</small></a>
+											<a class="fp_price" href="#">{{rs.title}}<small></small></a>
 											<h4 class="posr color-white">{{rs.locality}}--{{rs.city}}</h4>
 										</div>
 									</div>
@@ -665,8 +665,8 @@
 								<img class="img-whp" src="{{rs.image.url}}" style="height: 270px;" alt="fp1.jpg">
 								<div class="thmb_cntnt">
 									<ul class="icon mb0">
-										<li class="list-inline-item"><a href="#"><span class="flaticon-transfer-1"></span></a></li>
-										<li class="list-inline-item"><a href="#"><span class="flaticon-heart"></span></a></li>
+										<li class="list-inline-item"><a href="{{rs.get_absolute_url}}"><span class="flaticon-transfer-1"></span></a></li>
+										<li class="list-inline-item"><a href="{{rs.get_absolute_url}}"><span class="flaticon-heart"></span></a></li>
 									</ul>
 								</div>
 							</div>
@@ -674,25 +674,25 @@
 								<div class="tc_content">
 									<div class="dtls_headr">
 										<ul class="tag">
-											<li class="list-inline-item"><a href="#">{{rs.min_price}}</a></li>
-											<li class="list-inline-item"><a href="#">{{rs.max_price}}</a></li>
+											<li class="list-inline-item"><a href="{{rs.get_absolute_url}}">{{rs.min_price}}</a></li>
+											<li class="list-inline-item"><a href="{{rs.get_absolute_url}}">{{rs.max_price}}</a></li>
 										</ul>
 										
 										<a class="fp_price" href="#"><small>Area {{rs.min_area}}--{{rs.max_area}}</small></a>
 									</div>
 									<p class="text-thm">{{rs.propert_type}}</p>
-									<h4>{{rs.title}}</h4>
+									<a href="{{rs.get_absolute_url}}"><h4>{{rs.title}}</h4></a>
 									<p><span class="flaticon-placeholder"></span> {{rs.locality}}--{{rs.city}}</p>
 									<ul class="prop_details mb0">
-										<li class="list-inline-item"><a href="#">Status: {{rs.construction_status}}</a></li>
-										<li class="list-inline-item"><a href="#">Totle_unit: {{rs.totle_unit}}</a></li>
-										<li class="list-inline-item"><a href="#">Total_tower: {{rs.total_tower}}</a></li>
+										<li class="list-inline-item"><a href="{{rs.get_absolute_url}}">Status: {{rs.construction_status}}</a></li>
+										<li class="list-inline-item"><a href="{{rs.get_absolute_url}}">Totle_unit: {{rs.totle_unit}}</a></li>
+										<li class="list-inline-item"><a href="{{rs.get_absolute_url}}">Total_tower: {{rs.total_tower}}</a></li>
 									</ul>
 								</div>
 								<div class="fp_footer">
 									<ul class="fp_meta float-left mb0">
-										<li class="list-inline-item"><a href="#"><img src="{{developer.image.url}}" alt=""></a></li>
-										<li class="list-inline-item"><a href="#">{{rs.developer}}</a></li>
+										<li class="list-inline-item"><a href="{{rs.get_absolute_url}}"><img src="{{rs.developer.image.url}}" style="height: 50px;width: 50px;" alt=""></a></li>
+										<li class="list-inline-item"><a href="{{rs.get_absolute_url}}">{{rs.developer}}</a></li>
 									</ul>
 									<div class="fp_pdate float-right">Possession: {{rs.possession}}</div>
 								</div>

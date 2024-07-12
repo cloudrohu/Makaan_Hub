@@ -81,8 +81,10 @@ class Residential_Project(MPTTModel):
     class MPTTMeta:
         order_insertion_by = ['title']
 
+    
     def get_absolute_url(self):
-        return reverse('city_detail', kwargs={'slug': self.slug})
+        from django.urls import reverse
+        return reverse("residential_project", kwargs={'slug': self.slug})
 
     def __str__(self):  # __str__ method elaborated later in
         full_path = [self.title]  # post.  use __unicode__ in place of
