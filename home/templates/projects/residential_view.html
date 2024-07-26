@@ -15,59 +15,26 @@
 
 
 
-<!-- Listing Single Property -->
-<section class="listing-title-area">
-	<div class="container">
-		<div class="row mb30">
-			<div class="col-lg-7 col-xl-8">
-				<div class="single_property_title mt30-767">
-					<h2>{{project_picked.title}}</h2>
-					<p>{{project_picked.locality}} -- {{project_picked.city}}</p>
-				</div>
-			</div>
-			<div class="col-lg-5 col-xl-4">
-				<div class="single_property_social_share">
-					<div class="price float-left fn-400">
-						<h2>{{project_picked.min_price}} -- {{project_picked.max_price}}<small></small></h2>
-					</div>
-					<div class="spss style2 mt20 text-right tal-400">
-						<ul class="mb0">
-							<li class="list-inline-item"><a href="#"><span class="flaticon-transfer-1"></span></a></li>
-							<li class="list-inline-item"><a href="#"><span class="flaticon-heart"></span></a></li>
-							<li class="list-inline-item"><a href="#"><span class="flaticon-share"></span></a></li>
-							<li class="list-inline-item"><a href="#"><span class="flaticon-printer"></span></a></li>
-						</ul>
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="row">
-			<div class="col-sm-7 col-lg-8">
-				<div class="row">
-					<div class="col-lg-12">
-						<div class="spls_style_two mb30-520">
-							<a class="popup-img" href="images/property/1.jpg"><img class="img-fluid w100" src="{{project_picked.image.url}}" style="height: 550px;" alt="1.jpg"></a>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="col-sm-5 col-lg-4">
-				<div class="row">
 
-					{% for i in project_picked.residential_project_images.all %}
-					<div class="col-sm-6 col-lg-6">
-						<div class="spls_style_two mb30">
-							<a class="popup-img" href="images/property/2.jpg"><img class="img-fluid w100" src={{i.image.url}}"" alt="2.jpg"></a>
-						</div>
-					</div>
-					{% endfor %}
-					
-				</div>
-			</div>
-		</div>
-	</div>
-</section>
-
+<div class="home10-mainslider">
+    <div class="container-fluid p0">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="main-banner-wrapper home10">
+                    <div class="banner-style-one owl-theme owl-carousel">
+                        {% for i in project_picked.residential_project_images_set.all %}
+                        <div class="slide slide-one" style="background-image: url({{i.image.url}});height: 600px;"></div>
+                        {% endfor %}
+                    </div>
+                    <div class="carousel-btn-block banner-carousel-btn">
+                        <span class="carousel-btn left-btn"><i class="flaticon-left-arrow-1 left"></i></span>
+                        <span class="carousel-btn right-btn"><i class="flaticon-right-arrow right"></i></span>
+                    </div><!-- /.carousel-btn-block banner-carousel-btn -->
+                </div><!-- /.main-banner-wrapper -->
+            </div>
+        </div>
+    </div>
+</div>
 <!-- Agent Single Grid View -->
 <section class="our-agent-single bgc-f7 pb30-991">
 	<div class="container">
@@ -512,7 +479,7 @@
 						<div class="sl_creator">
 							<h4 class="mb25">Listed By</h4>
 							<div class="media">
-								<img class="mr-3" src="images/team/lc1.png" alt="lc1.png">
+								<img class="mr-3" src="{{project_picked.image.url}}" alt="lc1.png">
 								<div class="media-body">
 									<h5 class="mt-0 mb0">Samul Williams</h5>
 									<p class="mb0">(123)456-7890</p>
