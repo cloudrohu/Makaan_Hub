@@ -20,7 +20,7 @@ class Residential_Project_Floor_Plans_ImagesInline(admin.TabularInline):
 class Residential_ProjectAdmin(admin.ModelAdmin):
     list_display = ['id','image_thumbnail','title','locality','city','propert_type', 'developer', 'possession','featured_project','slider']
     list_filter = ['locality','city','propert_type', 'developer', 'possession',]
-    search_fields = ['title']
+    search_fields = ['title',]
     inlines = [Residential_Project_ImagesInline,Residential_Project_Floor_Plans_ImagesInline]
     list_per_page = 30 
 
