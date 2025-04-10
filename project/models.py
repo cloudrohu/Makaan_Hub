@@ -40,8 +40,8 @@ class Residential_Project(MPTTModel):
     meta_description = models.CharField(max_length=255)
     developer = models.ForeignKey(Developer, on_delete=models.CASCADE)  # many to one relation with Brand
     possession = models.ForeignKey(Possession_In, on_delete=models.CASCADE)  # many to one relation with Brand
-    min_price = models.IntegerField(default=0, null=True, blank=True, )
-    max_price = models.IntegerField(default=0, null=True, blank=True, )
+    min_price = models.CharField(default=0, null=True, blank=True,max_length=50, )
+    max_price = models.CharField(default=0, null=True, blank=True,max_length=10, )
     min_area = models.CharField(null=True, blank=True, max_length=50)
     max_area = models.CharField(null=True, blank=True, max_length=50)
     description = models.TextField(max_length=5000,null=True, blank=True)
