@@ -477,17 +477,19 @@
 				<div class="sidebar_listing_list">
 					<div class="sidebar_advanced_search_widget">
 						<div class="sl_creator">
-							<h4 class="mb25">Listed By</h4>
+							<h4 class="mb25">Contact By</h4>
 							<div class="media">
 								<img class="mr-3" src="{{project_picked.image.url}}" alt="lc1.png">
-								<div class="media-body">
-									<h5 class="mt-0 mb0">Samul Williams</h5>
-									<p class="mb0">(123)456-7890</p>
-									<p class="mb0">info@findhouse.com</p>
-									<a class="text-thm" href="#">View My Listing</a>
-								  </div>
 							</div>
 						</div>
+						{% for rs in setting %}
+						<div class="media-body">
+							<h5 class="mt-0 mb0">{{rs.company}}</h5>
+							<a href="https://wa.me/+91{{rs.whatsapp}}"><p class="mb0">{{rs.whatsapp}}</p></a>
+							<a href=""><p class="mb0">{{rs.email}}</p></a>
+							<a class="text-thm" href="#">View My Listing</a>
+						</div>
+						{% endfor %}
 						<ul class="sasw_list mb0">
 							<li class="search_area">
 								<div class="form-group">
