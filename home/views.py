@@ -15,7 +15,7 @@ from django.urls import reverse
 from django.utils import translation
 
 from home.forms import SearchForm
-from home.models import Setting, ContactForm, ContactMessage,FAQ,About_Page,Contact_Page,Testimonial,Our_Team
+from home.models import Setting, ContactForm, ContactMessage,FAQ,About_Page,Contact_Page,Testimonial,Our_Team,Slider
 from Makaan_Hub import settings
 from utility.models import City,Locality,Residential_Property_Type
 from user.models import Developer
@@ -31,6 +31,8 @@ def index(request):
     about = About_Page.objects.all().order_by('-id')[0:1]
 
     locality = Locality.objects.filter(featured_locality = 'True').order_by('-id')[:18]
+    slider = Slider.objects.filter(featured_project = 'True').order_by('-id')[:9]
+
 
     developer = Developer.objects.filter(featured_builder = 'True').order_by('-id')[:50]  #first 4 products
     ourteam = Our_Team.objects.filter(featured = 'True').order_by('-id')#first 4 products
@@ -45,6 +47,7 @@ def index(request):
         'setting':setting,
         'city':city,
         'about':about,
+        'slider':slider,
         'testimonial':testimonial,
         'ourteam':ourteam,
         'locality':locality,

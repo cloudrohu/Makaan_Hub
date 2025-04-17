@@ -25,12 +25,9 @@ class Residential_Project(MPTTModel):
         ('Ready To Move', 'Ready To Move'),
         ('Deleverd', 'Deleverd'),
     )
-    STATUS = ( ('True', 'True'),('False', 'False'),)
-    
+    STATUS = ( ('True', 'True'),('False', 'False'),)    
     Occupancy_Certificate = (('Yes', 'Yes'),('No', 'No'), )
     Commencement_Certificate = (('Yes', 'Yes'),('No', 'No'),)
-
-
     parent = TreeForeignKey('self', blank=True, null=True, related_name='children', on_delete=models.CASCADE)
     city = models.ForeignKey(City, on_delete=models.CASCADE)  # many to one relation with Brand
     locality = models.ForeignKey(Locality, on_delete=models.CASCADE)  # many to one relation with Brand
