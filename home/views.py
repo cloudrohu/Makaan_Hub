@@ -37,7 +37,6 @@ def index(request):
     developer = Developer.objects.filter(featured_builder = 'True').order_by('-id')[:50]  #first 4 products
     ourteam = Our_Team.objects.filter(featured = 'True').order_by('-id')#first 4 products
     testimonial = Testimonial.objects.filter(featured = 'True').order_by('-id')#first 4 products
-    project_slider = Residential_Project.objects.filter(slider = 'True').order_by('-id')[:6]  #first 4 products
     project_latest = Residential_Project.objects.filter(featured_project = 'True').order_by('-id')[:6]  # last 4 products
     project_featured = Residential_Project.objects.filter(featured_project = 'True').order_by('-id')[:12]  # last 4 products
     project_picked = Residential_Project.objects.filter(featured_project = 'True').order_by('?')[:6]   #Random selected 4 products
@@ -52,7 +51,6 @@ def index(request):
         'ourteam':ourteam,
         'locality':locality,
         'developer':developer,
-        'project_slider':project_slider,
         'project_latest':project_latest,
         'project_picked':project_picked,
         'project_featured':project_featured,
