@@ -25,13 +25,23 @@ class Residential_Project(MPTTModel):
         ('Ready To Move', 'Ready To Move'),
         ('Deleverd', 'Deleverd'),
     )
+
+    Property_Type = (
+        ('1 RK Studio Apartment', '1 RK Studio Apartment'),
+        ('Agricultural Farm Land', 'Agricultural Farm Land'),
+        ('Farm House', 'Farm House'),
+        ('Independent Builder Floor', 'Independent House Villa'),
+        ('Residential Apartment', 'Residential Apartment'),
+    )
+    
     STATUS = ( ('True', 'True'),('False', 'False'),)    
     Occupancy_Certificate = (('Yes', 'Yes'),('No', 'No'), )
     Commencement_Certificate = (('Yes', 'Yes'),('No', 'No'),)
     parent = TreeForeignKey('self', blank=True, null=True, related_name='children', on_delete=models.CASCADE)
     city = models.ForeignKey(City, on_delete=models.CASCADE)  # many to one relation with Brand
     locality = models.ForeignKey(Locality, on_delete=models.CASCADE)  # many to one relation with Brand
-    propert_type = models.ForeignKey(Residential_Property_Type, on_delete=models.CASCADE) # many to one relation with Brand
+    propert_type = models.CharField(max_length=200, choices=Property_Type)
+
     title = models.CharField(max_length=50)
     keywords = models.CharField(max_length=255)
     meta_description = models.CharField(max_length=255)
@@ -155,6 +165,19 @@ class Commercial_Project(MPTTModel):
         ('Ready To Move', 'Ready To Move'),
         ('Deleverd', 'Deleverd'),
     )
+
+    Property_Type = (
+        ('Ready to move offices', 'Ready to move offices'),
+        ('Shops & Retail', 'Shops & Retail'),
+        ('Agricultural/Farm Land', 'Agricultural/Farm Land'),
+        ('Industrial Land/Plots', 'Industrial Land/Plots'),
+        ('Warehouse', 'Warehouse'),
+        ('Factory & Manufacturing', 'Factory & Manufacturing'),
+        ('Bare shell offices', 'Bare shell offices'),
+        ('Commercial/Inst. Land', 'Commercial/Inst. Land'),
+        ('Cold Storage', 'Cold Storage'),
+        ('Hotel/Resorts', 'Hotel/Resorts'),
+    )
     STATUS = ( ('True', 'True'),('False', 'False'),)
     
     Occupancy_Certificate = (('Yes', 'Yes'),('No', 'No'), )
@@ -163,8 +186,9 @@ class Commercial_Project(MPTTModel):
 
     parent = TreeForeignKey('self', blank=True, null=True, related_name='children', on_delete=models.CASCADE)
     city = models.ForeignKey(City, on_delete=models.CASCADE, blank=True, null=True,)  # many to one relation with Brand
-    locality = models.ForeignKey(Locality, on_delete=models.CASCADE, blank=True, null=True,)  # many to one relation with Brand
-    propert_type = models.ForeignKey(Commercial_Property_Type, on_delete=models.CASCADE, blank=True, null=True,) # many to one relation with Brand
+    locality = models.ForeignKey(Locality, on_delete=models.CASCADE, blank=True, null=True,) 
+    propert_type = models.CharField(max_length=200, choices=Property_Type)
+     # many to one relation with Brand
     title = models.CharField(max_length=100)
     keywords = models.CharField(max_length=255)
     meta_description = models.CharField(max_length=255)
