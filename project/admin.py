@@ -18,7 +18,7 @@ class Residential_Project_Floor_Plans_ImagesInline(admin.TabularInline):
 
 @admin_thumbnails.thumbnail('image')
 class Residential_ProjectAdmin(admin.ModelAdmin):
-    list_display = ['id','image_thumbnail','title','locality','city','propert_type', 'developer', 'possession','featured_project','slider']
+    list_display = ['id','image_thumbnail','title','locality','city','propert_type', 'developer', 'possession','featured_project',]
     list_filter = ['locality','city','propert_type', 'developer', 'possession',]
     search_fields = ['title',]
     inlines = [Residential_Project_ImagesInline,Residential_Project_Floor_Plans_ImagesInline]
@@ -32,8 +32,6 @@ class Residential_Project_CommentAdmin(admin.ModelAdmin):
     readonly_fields = ('subject','comment','ip','user','project','rate','id')
 
 
-
-admin.site.register(Possession_In,)
 admin.site.register(Residential_Project_Images,)
 admin.site.register(Residential_Project_Floor_Plans,)
 admin.site.register(Residential_Project,Residential_ProjectAdmin)
@@ -55,7 +53,7 @@ class Commercial_Project_Floor_Plans_ImagesInline(admin.TabularInline):
 
 @admin_thumbnails.thumbnail('image')
 class Commercial_Project_Admin(admin.ModelAdmin):
-    list_display = ['id','image_thumbnail','title','locality','city','propert_type', 'developer', 'possession','featured_project','slider']
+    list_display = ['id','image_thumbnail','title','locality','city','propert_type', 'developer', 'possession','featured_project',]
 
     list_filter = ['locality','city','propert_type', 'developer', 'possession',]
     search_fields = ['title']

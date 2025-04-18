@@ -10,11 +10,55 @@ from django.utils.safestring import mark_safe
 from mptt.fields import TreeForeignKey
 from mptt.models import MPTTModel
 from django.utils.text import slugify
-from utility.models import City,Locality,Possession_In,Commercial_Property_Type,Residential_Property_Type,Amenities,Bank,Bedroom,Area_type,Bathroom,Bolconis,Floor
+from utility.models import City,Locality,Amenities,Bank,Bedroom,Area_type,Bathroom,Bolconis,Floor
 
 from user.models import Developer
 
 # Create your models here.
+
+Possession_In = (        
+        ('2000', '2000'),
+        ('2001', '2001'),
+        ('2002', '2002'),
+        ('2003', '2003'),
+        ('2004', '2004'),
+        ('2005', '2005'),
+        ('2006', '2006'),
+        ('2007', '2007'),
+        ('2008', '2008'),
+        ('2009', '2009'),
+        ('2010', '2010'),
+        ('2011', '2011'),
+        ('2012', '2012'),
+        ('2013', '2013'),
+        ('2014', '2014'),
+        ('2015', '2015'),
+        ('2016', '2016'),
+        ('2017', '2017'),
+        ('2018', '2018'),
+        ('2019', '2019'),
+        ('2020', '2020'),
+        ('2021', '2021'),
+        ('2022', '2022'),
+        ('2023', '2023'),
+        ('2024', '2024'),
+        ('2025', '2025'),
+        ('2026', '2026'),
+        ('2027', '2027'),
+        ('2028', '2028'),
+        ('2029', '2029'),
+        ('2030', '2030'),
+        ('2031', '2031'),
+        ('2032', '2032'),
+        ('2033', '2033'),
+        ('2034', '2034'),
+        ('2035', '2035'),
+        ('2036', '2036'),
+        ('2037', '2037'),
+        ('2038', '2038'),
+        ('2039', '2039'),         
+
+ )
 
 
 class Residential_Project(MPTTModel):    
@@ -46,7 +90,7 @@ class Residential_Project(MPTTModel):
     keywords = models.CharField(max_length=255)
     meta_description = models.CharField(max_length=255)
     developer = models.ForeignKey(Developer, on_delete=models.CASCADE)  # many to one relation with Brand
-    possession = models.ForeignKey(Possession_In, on_delete=models.CASCADE)  # many to one relation with Brand
+    possession = models.CharField(max_length=25,choices=Possession_In,null=True, blank=True)  # many to one relation with Brand
     min_price = models.CharField(default=0, null=True, blank=True,max_length=50, )
     max_price = models.CharField(default=0, null=True, blank=True,max_length=10, )
     min_area = models.CharField(null=True, blank=True, max_length=50)
@@ -63,7 +107,6 @@ class Residential_Project(MPTTModel):
     total_tower = models.CharField(max_length=5)
     construction_status = models.CharField(max_length=25, choices=Construction_Status)
     image = models.ImageField(upload_to='images/')
-    slider = models.BooleanField(default=False)
     featured_project = models.BooleanField(default=False)
     slug = models.SlugField(unique=True, null=True, blank=True,max_length=555,)
     create_at = models.DateTimeField(auto_now_add=True)
@@ -114,12 +157,12 @@ class Residential_Project_Images(models.Model):
 
 class Residential_Project_Floor_Plans(models.Model):
     Project=models.ForeignKey(Residential_Project,on_delete=models.CASCADE)
-    bed_room=models.ForeignKey(Bedroom,on_delete=models.CASCADE, null=True, blank=True)    
+    bed_room = models.CharField(max_length=25,choices=Bedroom,null=True, blank=True) # many to one relation with Brand
     carpet_area = models.CharField(max_length=50,blank=True, null=True)
-    arey_type=models.ForeignKey(Area_type,on_delete=models.CASCADE, null=True, blank=True)
-    bath_room=models.ForeignKey(Bathroom,on_delete=models.CASCADE, null=True, blank=True)
-    bolconis=models.ForeignKey(Bolconis,on_delete=models.CASCADE, null=True, blank=True)
-    price=models.PositiveIntegerField(default=0, null=True, blank=True)
+    arey_type=models.CharField(max_length=25,choices=Area_type, null=True, blank=True)
+    bath_room=models.CharField(max_length=25,choices=Bathroom, null=True, blank=True)
+    bolconis=models.CharField(max_length=25,choices=Bolconis, null=True, blank=True)
+    price=models.CharField(max_length=25, null=True, blank=True)
     floor_plan = models.ImageField(upload_to='images/')
 
     def __str__(self):
@@ -193,7 +236,8 @@ class Commercial_Project(MPTTModel):
     keywords = models.CharField(max_length=255)
     meta_description = models.CharField(max_length=255)
     developer = models.ForeignKey(Developer, on_delete=models.CASCADE, blank=True, null=True,)  # many to one relation with Brand
-    possession = models.ForeignKey(Possession_In, on_delete=models.CASCADE, blank=True, null=True,)  # many to one relation with Brand
+    possession = models.CharField(max_length=25,choices=Possession_In,null=True, blank=True)  # many to one relation with Brand
+
     min_price = models.IntegerField(default=0, null=True, blank=True, )
     max_price = models.IntegerField(default=0, null=True, blank=True, )
     min_area = models.CharField(null=True, blank=True, max_length=50)
@@ -210,7 +254,6 @@ class Commercial_Project(MPTTModel):
     total_tower = models.CharField(max_length=5)
     construction_status = models.CharField(max_length=25, choices=Construction_Status)
     image = models.ImageField(upload_to='images/')
-    slider = models.BooleanField(default=False)
     featured_project = models.BooleanField(default=False)
     slug = models.SlugField(unique=True, null=True, blank=True)
     create_at = models.DateTimeField(auto_now_add=True)
@@ -259,12 +302,12 @@ class Commercial_Project_Images(models.Model):
 
 class Commercial_Project_Floor_Plans(models.Model):
     commercial_project=models.ForeignKey(Commercial_Project,on_delete=models.CASCADE)
-    floor=models.ForeignKey(Floor,on_delete=models.CASCADE, null=True, blank=True)    
+    
     carpet_area = models.CharField(max_length=50,blank=True, null=True)
-    arey_type=models.ForeignKey(Area_type,on_delete=models.CASCADE, null=True, blank=True)
-    bath_room=models.ForeignKey(Bathroom,on_delete=models.CASCADE, null=True, blank=True)
-    bolconis=models.ForeignKey(Bolconis,on_delete=models.CASCADE, null=True, blank=True)
-    price=models.PositiveIntegerField(default=0, null=True, blank=True)
+    arey_type=models.CharField(max_length=25,choices=Area_type, null=True, blank=True)
+    bath_room=models.CharField(max_length=25,choices=Bathroom, null=True, blank=True)
+    bolconis=models.CharField(max_length=25,choices=Bolconis, null=True, blank=True)
+    price=models.CharField(default=0, null=True, blank=True,max_length=25,)
     floor_plan = models.ImageField(upload_to='images/')
 
     def __str__(self):
