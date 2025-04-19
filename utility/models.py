@@ -12,37 +12,7 @@ from mptt.models import MPTTModel
 from django.utils.text import slugify
 
 
-class Residential_Property_Type(MPTTModel):
-    parent = TreeForeignKey('self', blank=True, null=True, related_name='children', on_delete=models.CASCADE)
-    property_type = models.CharField(max_length=50)
-    keywords = models.CharField(max_length=1000)
-    description = models.TextField(max_length=5000)
-    image = models.ImageField(upload_to='images/')
-    slug = models.SlugField(unique=True, null=True, blank=True)
-    create_at = models.DateTimeField(auto_now_add=True)
-    update_at = models.DateTimeField(auto_now=True)
 
-    def __str__(self):
-        return self.property_type 
-    
-    class Meta:
-        verbose_name_plural='01. Residential Property Type'
-
-class Commercial_Property_Type(MPTTModel):
-    parent = TreeForeignKey('self', blank=True, null=True, related_name='children', on_delete=models.CASCADE)
-    property_type = models.CharField(max_length=50)
-    keywords = models.CharField(max_length=1000)
-    description = models.TextField(max_length=5000)
-    image = models.ImageField(upload_to='images/')
-    slug = models.SlugField(unique=True, null=True, blank=True)
-    create_at = models.DateTimeField(auto_now_add=True)
-    update_at = models.DateTimeField(auto_now=True)
-
-    def __str__(self):
-        return self.property_type 
-    
-    class Meta:
-        verbose_name_plural='02. Commercial Property Type'
 
 class Bank(models.Model):
     title = models.CharField(max_length=50,blank=True)
@@ -52,81 +22,6 @@ class Bank(models.Model):
     
     class Meta:
         verbose_name_plural='03. Bank'
-   
-
-class Amenities(models.Model):
-    title = models.CharField(max_length=150,blank=True)
-    image = models.ImageField(upload_to='images/')
-    
-    def __str__(self):
-        return self.title
-    
-    class Meta:
-        verbose_name_plural='04. Amenities'
-
-class Bedroom(models.Model):
-    title = models.CharField(max_length=15,blank=True)    
-    def __str__(self):
-        return self.title
-    
-    class Meta:
-        verbose_name_plural='05. Bedroom'
-
-class Bathroom(models.Model):
-    title = models.CharField(max_length=15,blank=True)    
-    def __str__(self):
-        return self.title
-    
-    class Meta:
-        verbose_name_plural='06. Bathroom'
-
-class Bolconis(models.Model):
-    title = models.CharField(max_length=15,blank=True)    
-    def __str__(self):
-        return self.title
-    
-    class Meta:
-        verbose_name_plural='07. Bolconis'
-
-class Other_Room(models.Model):
-    title = models.CharField(max_length=15,blank=True)    
-    def __str__(self):
-        return self.title
-    
-    class Meta:
-        verbose_name_plural='08. Other Room'
-    
-class Furnishing(models.Model):
-    title = models.CharField(max_length=15,blank=True)    
-    def __str__(self):
-        return self.title
-    
-    class Meta:
-        verbose_name_plural='09. Furnishing'
-    
-class Parking(models.Model):
-    title = models.CharField(max_length=15,blank=True)    
-    def __str__(self):
-        return self.title
-    
-    class Meta:
-        verbose_name_plural='10. Parking'
-
-class Floor(models.Model):
-    title = models.CharField(max_length=15,blank=True)    
-    def __str__(self):
-        return self.title
-    
-    class Meta:
-        verbose_name_plural='11. Floor'
-
-class Total_Floor(models.Model):
-    title = models.CharField(max_length=15,blank=True)    
-    def __str__(self):
-        return self.title
-    
-    class Meta:
-        verbose_name_plural='12. Total Flooe'
 
 class Willing_To_Rent_Out(models.Model):
     title = models.DateField(blank=True)    
@@ -135,38 +30,6 @@ class Willing_To_Rent_Out(models.Model):
     
     class Meta:
         verbose_name_plural='15. Willing To Rent Out'
-
-class Age_Of_Properties(models.Model):
-    title = models.CharField(max_length=15,blank=True)    
-    def __str__(self):
-        return self.title
-    
-    class Meta:
-        verbose_name_plural='13. Age Of Properties'
-
-    
-class Area_type(models.Model):
-    title = models.CharField(max_length=50)
-    def __str__(self):
-        return self.title   
-
-    class Meta:
-        verbose_name_plural='15. Area_type'
-  
-
-# Color
-class Color(models.Model):
-    title=models.CharField(max_length=100)
-    color_code=models.CharField(max_length=100)
-
-    class Meta:
-        verbose_name_plural='16. Colors'
-
-    def color_bg(self):
-        return mark_safe('<div style="width:30px; height:30px; background-color:%s"></div>' % (self.color_code))
-
-    def __str__(self):
-        return self.title
 
 class City(MPTTModel):
     STATUS = (
@@ -263,7 +126,6 @@ class Locality(MPTTModel):
             k = k.parent
         return ' / '.join(full_path[::-1])
 
-
 class Social_Site(models.Model):    
     site=models.CharField(max_length=100)
     icone_code=models.CharField(max_length=100)
@@ -273,7 +135,6 @@ class Social_Site(models.Model):
     
     class Meta:
         verbose_name_plural='19. Social Site'
-  
 
 class Fine_From(models.Model):
     title = models.CharField(max_length=50,blank=True)
@@ -282,7 +143,6 @@ class Fine_From(models.Model):
     
     class Meta:
         verbose_name_plural='20. Fine_From'
-
 
 Bedroom = (        
         ('1RK', '1RK'),
@@ -361,12 +221,6 @@ Other_Room = (
 
     )
 
-Furnishing = (        
-        ('Semi-Furnished', 'Semi-Furnished'),
-        ('Unfurnished', 'Unfurnished'),
-        ('Partially Furnished', 'Partially Furnished'),
-
-    )
 
 Parking = (        
         ('1 Parking', '1 Parking'),
@@ -388,92 +242,109 @@ Parking = (
 
 
 Floor_No = (        
-        ('1 Floor_No', '1 Floor_No'),
-        ('2 Floor_No', '2 Floor_No'),
-        ('3 Floor_No', '3 Floor_No'),
-        ('4 Floor_No', '4 Floor_No'),
-        ('5 Floor_No', '5 Floor_No'),
-        ('6 Floor_No', '6 Floor_No'),
-        ('7 Floor_No', '7 Floor_No'),
-        ('8 Floor_No', '8 Floor_No'),
-        ('9 Floor_No', '9 Floor_No'),
-        ('10 Floor_No', '10 Floor_No'),
-        ('11 Floor_No', '11 Floor_No'),
-        ('12 Floor_No', '12 Floor_No'),
-        ('13 Floor_No', '13 Floor_No'),
-        ('14 Floor_No', '14 Floor_No'),
-        ('15 Floor_No', '15 Floor_No'),
-        ('16 Floor_No', '16 Floor_No'),
-        ('17 Floor_No', '17 Floor_No'),
-        ('18 Floor_No', '18 Floor_No'),
-        ('19 Floor_No', '19 Floor_No'),
-        ('20 Floor_No', '20 Floor_No'),
-        ('21 Floor_No', '21 Floor_No'),
-        ('22 Floor_No', '22 Floor_No'),
-        ('23 Floor_No', '23 Floor_No'),
-        ('24 Floor_No', '24 Floor_No'),
-        ('25 Floor_No', '25 Floor_No'),
-        ('26 Floor_No', '26 Floor_No'),
-        ('27 Floor_No', '27 Floor_No'),
-        ('28 Floor_No', '28 Floor_No'),
-        ('29 Floor_No', '29 Floor_No'),
-        ('30 Floor_No', '30 Floor_No'),
-        ('31 Floor_No', '31 Floor_No'),
-        ('32 Floor_No', '32 Floor_No'),
-        ('33 Floor_No', '33 Floor_No'),
-        ('34 Floor_No', '34 Floor_No'),
-        ('35 Floor_No', '35 Floor_No'),
-        ('36 Floor_No', '36 Floor_No'),
-        ('37 Floor_No', '37 Floor_No'),
-        ('38 Floor_No', '38 Floor_No'),
-        ('39 Floor_No', '39 Floor_No'),
-        ('40 Floor_No', '40 Floor_No'),
-
-
-
+        ('1 ', '1'),
+             ('2 ', '2'),
+            ('3 ', '3'),
+            ('4 ', '4'),
+            ('5 ', '5'),
+            ('6 ', '6'),
+            ('7 ', '7'),
+            ('8 ', '8'),
+            ('9 ', '9'),
+            ('10', '10'),
+            ('11', '11'),
+            ('12', '12'),
+            ('13', '13'),
+            ('14', '14'),
+            ('15', '15'),
+            ('16', '16'),
+            ('17', '17'),
+            ('18', '18'),
+            ('19', '19'),
+            ('20', '20'),
+            ('21', '21'),
+            ('22', '22'),
+            ('23', '23'),
+            ('24', '24'),
+            ('25', '25'),
+            ('26', '26'),
+            ('27', '27'),
+            ('28', '28'),
+            ('29', '29'),
+            ('30', '30'),
+            ('31', '31'),
+            ('32', '32'),
+            ('33', '33'),
+            ('34', '34'),
+            ('35', '35'),
+            ('36', '36'),
+            ('37', '37'),
+            ('38', '38'),
+            ('39', '39'),
+            ('40', '40'),
+            ('41', '41'),
+            ('42', '42'),
+            ('43', '43'),
+            ('44', '44'),
+            ('45', '45'),
+            ('46', '46'),
+            ('47', '47'),
+            ('48', '48'),
+            ('49', '49'),
+            ('50', '50'),
     )
 
 Total_Floor = (        
-          ('1 Floor_No', '1 Floor_No'),
-        ('2 Floor_No', '2 Floor_No'),
-        ('3 Floor_No', '3 Floor_No'),
-        ('4 Floor_No', '4 Floor_No'),
-        ('5 Floor_No', '5 Floor_No'),
-        ('6 Floor_No', '6 Floor_No'),
-        ('7 Floor_No', '7 Floor_No'),
-        ('8 Floor_No', '8 Floor_No'),
-        ('9 Floor_No', '9 Floor_No'),
-        ('10 Floor_No', '10 Floor_No'),
-        ('11 Floor_No', '11 Floor_No'),
-        ('12 Floor_No', '12 Floor_No'),
-        ('13 Floor_No', '13 Floor_No'),
-        ('14 Floor_No', '14 Floor_No'),
-        ('15 Floor_No', '15 Floor_No'),
-        ('16 Floor_No', '16 Floor_No'),
-        ('17 Floor_No', '17 Floor_No'),
-        ('18 Floor_No', '18 Floor_No'),
-        ('19 Floor_No', '19 Floor_No'),
-        ('20 Floor_No', '20 Floor_No'),
-        ('21 Floor_No', '21 Floor_No'),
-        ('22 Floor_No', '22 Floor_No'),
-        ('23 Floor_No', '23 Floor_No'),
-        ('24 Floor_No', '24 Floor_No'),
-        ('25 Floor_No', '25 Floor_No'),
-        ('26 Floor_No', '26 Floor_No'),
-        ('27 Floor_No', '27 Floor_No'),
-        ('28 Floor_No', '28 Floor_No'),
-        ('29 Floor_No', '29 Floor_No'),
-        ('30 Floor_No', '30 Floor_No'),
-        ('31 Floor_No', '31 Floor_No'),
-        ('32 Floor_No', '32 Floor_No'),
-        ('33 Floor_No', '33 Floor_No'),
-        ('34 Floor_No', '34 Floor_No'),
-        ('35 Floor_No', '35 Floor_No'),
-        ('36 Floor_No', '36 Floor_No'),
-        ('37 Floor_No', '37 Floor_No'),
-        ('38 Floor_No', '38 Floor_No'),
-        ('39 Floor_No', '39 Floor_No'),
-        ('40 Floor_No', '40 Floor_No'),
+            ('1 ', '1'),
+             ('2 ', '2'),
+            ('3 ', '3'),
+            ('4 ', '4'),
+            ('5 ', '5'),
+            ('6 ', '6'),
+            ('7 ', '7'),
+            ('8 ', '8'),
+            ('9 ', '9'),
+            ('10', '10'),
+            ('11', '11'),
+            ('12', '12'),
+            ('13', '13'),
+            ('14', '14'),
+            ('15', '15'),
+            ('16', '16'),
+            ('17', '17'),
+            ('18', '18'),
+            ('19', '19'),
+            ('20', '20'),
+            ('21', '21'),
+            ('22', '22'),
+            ('23', '23'),
+            ('24', '24'),
+            ('25', '25'),
+            ('26', '26'),
+            ('27', '27'),
+            ('28', '28'),
+            ('29', '29'),
+            ('30', '30'),
+            ('31', '31'),
+            ('32', '32'),
+            ('33', '33'),
+            ('34', '34'),
+            ('35', '35'),
+            ('36', '36'),
+            ('37', '37'),
+            ('38', '38'),
+            ('39', '39'),
+            ('40', '40'),
+            ('41', '41'),
+            ('42', '42'),
+            ('43', '43'),
+            ('44', '44'),
+            ('45', '45'),
+            ('46', '46'),
+            ('47', '47'),
+            ('48', '48'),
+            ('49', '49'),
+            ('50', '50'),       
     )
 
 
@@ -503,11 +374,13 @@ Willing_To_Rent_Out = (
 
 
 Age_Of_Properties = (        
+        (' under construction', ' under construction'),
         ('0 To 5 Years', '0 To 5 Years'),
         ('5 TO 10 Years', '5 TO 10 Years'),
         ('10 To 15 Years', '10 To 15 Years'),
         ('15 To 20 Years', '15 To 20 Years'),
         ('20 To 25 Years', '20 To 25 Years'),
+        
 
     )
 
@@ -520,5 +393,90 @@ Area_type = (
         ('Hectare', 'Hectare'),
         ('Bigha', 'Bigha'),
         ('Biswa', 'Biswa'),
+
+    )
+
+Amenities = (
+        ('Air Condition', 'Air Condition'),
+        ('Badminton Court', 'Badminton Court'),
+        ('balcony', 'balcony'),
+        ('Barbeque', 'Barbeque'),
+        ('Basket Ball', 'Basket Ball'),
+        ('Car Parking', 'Car Parking'),
+        ('CCTV', 'CCTV'),
+        ('club house', 'club house'),
+        ('Community hall', 'Community hall'),
+        ('Conference room', 'Conference room'),
+        ('Creche Area', 'Creche Area'),
+        ('Cricket Pitch', 'Cricket Pitch'),
+        ('Curtains', 'Curtains'),
+        ('Dining Table', 'Dining Table'),
+        ('Electric Vehicle Charging Socket', 'Electric Vehicle Charging Socket'),
+        ('Electrical Switchboard', 'Electrical Switchboard'),
+        ('Elevator', 'Elevator'),
+        ('Exhaust Fan', 'Exhaust Fan'),
+        ('Fans', 'Fans'),
+        ('Fire Fighting Equipment', 'Fire Fighting Equipment'),
+        ('Garden', 'Garden'),
+        ('Geysers', 'Geysers'),
+        ('Grand lobby', 'Grand lobby'),
+        ('Gymnasium', 'Gymnasium'),
+        ('Hammock', 'Hammock'),
+        ('Indoor Games', 'Indoor Games'),
+        ('Intercom', 'Intercom'),
+        ('jacuzzi', 'jacuzzi'),
+        ('Jogging track', 'Jogging track'),
+        ('Kids Play Area', 'Kids Play Area'),
+        ('Library', 'Library'),
+        ('Lights', 'Lights'),
+        ('Live chess', 'Live chess'),
+        ('Microwave', 'Microwave'),
+        ('mini theater', 'mini theater'),
+        ('Modular Kitchen', 'Modular Kitchen'),
+        ('Multipurpose Hall', 'Multipurpose Hall'),
+        ('Rain Water Harvesting', 'Rain Water Harvesting'),
+        ('Reflexology Path', 'Reflexology Path'),
+        ('Refrigerator', 'Refrigerator'),
+        ('Regular Water Supply', 'Regular Water Supply'),
+        ('Rooftop garden', 'Rooftop garden'),
+        ('sauna bath', 'sauna bath'),
+        ('Security', 'Security'),
+        ('Senior citizen area', 'Senior citizen area'),
+        ('Society Office', 'Society Office'),
+        ('Sofa', 'Sofa'),
+        ('Solar Power', 'Solar Power'),
+        ('Spa', 'Spa'),
+        ('Squash court', 'Squash court'),
+        ('Stainless Steel Sink', 'Stainless Steel Sink'),
+        ('Stove', 'Stove'),
+        ('Swimming Pool', 'Swimming Pool'),
+        ('Terrace', 'Terrace'),
+        ('Video Door phone', 'Video Door phone'),
+        ('Volleyball Court', 'Volleyball Court'),
+        ('Wardrobe T.V', 'Wardrobe T.V'),
+        ('Washing Machine', 'Washing Machine'),
+        ('Water Purifier', 'Water Purifier'),
+        ('Water Softener', 'Water Softener'),
+        ('Wi fi', 'Wi fi'),
+        ('yoga deck', 'yoga deck'),
+             
+        
+    )
+
+Ownership = (
+        ('Free Hold', 'Free Hold'),
+        ('Lease Hold', 'Lease Hold'),
+        ('Co-Operative Society', 'Co-Operative Society'),
+        ('Power of Attorney', 'Power of Attorney'),      
+
+    )
+
+Furnishing = (
+        ('Fully Furnished', 'Fully Furnished'),
+        ('Semi Furnished', 'Semi Furnished'),
+        ('Unfurnished', 'Unfurnished'),
+        ('Ready To Furnished', 'Ready To Furnished'),
+        ('Partially Furnished', 'Partially Furnished'),
+
 
     )

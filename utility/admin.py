@@ -31,10 +31,6 @@ class LocalityAdmin(DraggableMPTTAdmin):
 
 
 admin.site.register(Bank,)
-admin.site.register(Amenities,)
-
-admin.site.register(Color,ColorAdmin)
-
 admin.site.register(City,CityAdmin)
 admin.site.register(Locality,LocalityAdmin)
 admin.site.register(Fine_From,)

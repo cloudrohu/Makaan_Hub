@@ -17,7 +17,7 @@ from django.utils import translation
 from home.forms import SearchForm
 from home.models import Setting, ContactForm, ContactMessage,FAQ,About_Page,Contact_Page,Testimonial,Our_Team,Slider
 from Makaan_Hub import settings
-from utility.models import City,Locality,Residential_Property_Type
+from utility.models import City,Locality
 from user.models import Developer
 from project.models import Commercial_Project_Images,Commercial_Project,Residential_Project,Residential_Project_Images
 
@@ -29,11 +29,8 @@ def index(request):
     
     city = City.objects.all()
     about = About_Page.objects.all().order_by('-id')[0:1]
-
     locality = Locality.objects.filter(featured_locality = 'True').order_by('-id')[:18]
     slider = Slider.objects.filter(featured_project = 'True').order_by('-id')[:9]
-
-
     developer = Developer.objects.filter(featured_builder = 'True').order_by('-id')[:50]  #first 4 products
     ourteam = Our_Team.objects.filter(featured = 'True').order_by('-id')#first 4 products
     testimonial = Testimonial.objects.filter(featured = 'True').order_by('-id')#first 4 products
@@ -63,7 +60,6 @@ def residential_project(request):
      # last 4 products
     project_picked = Residential_Project.objects.all().order_by('?') #Random selected 4 products
     project_featured = Residential_Project.objects.filter(featured_project = 'True').order_by('-id')[:9]  # last 4 products
-    Property_Type = Residential_Property_Type.objects.all().order_by('-id') # last 4 products
 
     page="home"
     context={
@@ -71,7 +67,6 @@ def residential_project(request):
         
         'project_picked':project_picked,
         'project_featured':project_featured,
-        'Property_Type':Property_Type,
 
     }
 

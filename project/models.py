@@ -10,8 +10,8 @@ from django.utils.safestring import mark_safe
 from mptt.fields import TreeForeignKey
 from mptt.models import MPTTModel
 from django.utils.text import slugify
-from utility.models import City,Locality,Amenities,Bank,Bedroom,Area_type,Bathroom,Bolconis,Floor
-
+from utility.models import City,Locality,Amenities,Bank,Bedroom,Area_type,Bathroom,Bolconis,Total_Floor,Other_Room
+from multiselectfield import MultiSelectField
 from user.models import Developer
 
 # Create your models here.
@@ -99,10 +99,13 @@ class Residential_Project(MPTTModel):
     Occupancy_Certificate = models.CharField(max_length=25, choices=Occupancy_Certificate,null=True, blank=True)
     Commencement_Certificate = models.CharField(max_length=25, choices=Commencement_Certificate,null=True, blank=True)
     status = models.CharField(max_length=25, choices=STATUS,null=True, blank=True)
-    amenities = models.ManyToManyField(Amenities,blank=True)
+    amenities = MultiSelectField(choices=Amenities, max_choices=50, max_length=50,null=True, blank=True)
+    other_room = MultiSelectField(choices=Other_Room, max_choices=50, max_length=50,null=True, blank=True)
     home_lone = models.ManyToManyField(Bank,blank=True)
     project_size = models.CharField(max_length=255,null=True, blank=True)
     lanch_date = models.DateField(null=True, blank=True)
+    total_floor = models.CharField(max_length=25, choices=Total_Floor,null=True, blank=True)
+
     totle_unit = models.CharField(max_length=5)
     total_tower = models.CharField(max_length=5)
     construction_status = models.CharField(max_length=25, choices=Construction_Status)
@@ -246,7 +249,8 @@ class Commercial_Project(MPTTModel):
     Occupancy_Certificate = models.CharField(max_length=25, choices=Occupancy_Certificate,null=True, blank=True)
     Commencement_Certificate = models.CharField(max_length=25, choices=Commencement_Certificate,null=True, blank=True)
     status = models.CharField(max_length=25, choices=STATUS,null=True, blank=True)
-    amenities = models.ManyToManyField(Amenities,blank=True)
+    amenities = MultiSelectField(choices=Amenities, max_choices=50, max_length=50,null=True, blank=True)
+
     home_lone = models.ManyToManyField(Bank,blank=True)
     project_size = models.CharField(max_length=255,null=True, blank=True)
     lanch_date = models.DateField(null=True, blank=True)

@@ -11,6 +11,7 @@ from mptt.fields import TreeForeignKey
 from mptt.models import MPTTModel
 from django.utils.text import slugify
 from utility.models import City,Locality,Amenities
+from multiselectfield import MultiSelectField
 
 from user.models import Developer
 
@@ -45,7 +46,8 @@ class Sell(MPTTModel):
     min_area = models.CharField(null=True, blank=True, max_length=50)
     max_area = models.CharField(null=True, blank=True, max_length=50)
     description = models.TextField(max_length=15000,null=True, blank=True)
-    amenities = models.ManyToManyField(Amenities,blank=True)
+    amenities = MultiSelectField(choices=Amenities, max_choices=50, max_length=50,null=True, blank=True)
+
     project_size = models.CharField(max_length=255,null=True, blank=True)
     possession = models.DateField(null=True, blank=True)
     image = models.ImageField(upload_to='images/')
@@ -142,7 +144,8 @@ class Lease(MPTTModel):
     min_area = models.CharField(null=True, blank=True, max_length=50)
     max_area = models.CharField(null=True, blank=True, max_length=50)
     description = models.TextField(max_length=15000,null=True, blank=True)
-    amenities = models.ManyToManyField(Amenities,blank=True)
+    amenities = MultiSelectField(choices=Amenities, max_choices=50, max_length=50,null=True, blank=True)
+
     project_size = models.CharField(max_length=255,null=True, blank=True)
     possession = models.DateField(null=True, blank=True)
     image = models.ImageField(upload_to='images/')
