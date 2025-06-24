@@ -34,4 +34,7 @@ admin.site.register(Bank,)
 admin.site.register(City,CityAdmin)
 admin.site.register(Locality,LocalityAdmin)
 admin.site.register(Fine_From,)
+admin.site.register(Visit_Type,)
+admin.site.register(User_Status,)
+
 

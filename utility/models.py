@@ -144,6 +144,26 @@ class Fine_From(models.Model):
     class Meta:
         verbose_name_plural='20. Fine_From'
 
+
+class User_Status(models.Model):
+    title = models.CharField(max_length=50,blank=True)
+    def __str__(self):
+        return self.title
+
+
+class Visit_Type(models.Model):
+    title = models.CharField(max_length=500,blank=True, null=True,)
+
+    create_at=models.DateTimeField(auto_now_add=True)
+    update_at=models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.title 
+    
+    class Meta:
+        verbose_name_plural='4. Visit_Type'
+
+
 Bedroom = (        
         ('1RK', '1RK'),
         ('1BHK', '1BHK'),
