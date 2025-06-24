@@ -13,33 +13,16 @@ urlpatterns = [
     path('', include('home.urls')),
     path('home/', include('home.urls')),
     path('logout/',RedirectView.as_view(url = '/admin/logout/')),
-
-
-
     path('ckeditor/', include('ckeditor_uploader.urls')),
     path('admin/', admin.site.urls),
-    path("__reload__/", include("django_browser_reload.urls")),
-
-
     path(('about/'), views.aboutus, name='aboutus'),
     path(('contact/'), views.contactus, name='contactus'),
-
     path(('residential_project/'), views.residential_project, name='residential_project'),
     path(('residential_project/<slug:slug>'), views.residential_project_details, name='residential_project'),
-
-
     path(('commercial_project/'), views.commercial_project, name='commercial_project'),
-
-
     path(('land/'), views.land, name='land'),
     path(('pg/'), views.pg, name='pg'),
-    path(('blog/'), views.blog, name='blog'),
-
-
-
-    
-    
-
+    path(('blog/'), views.blog, name='blog'),   
     path('category/<int:id>/<slug:slug>', views.category_products, name='category_products'),
 
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

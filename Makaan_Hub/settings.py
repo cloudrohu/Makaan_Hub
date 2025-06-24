@@ -36,7 +36,6 @@ INSTALLED_APPS = [
     'user.apps.UserConfig',
     'subscription.apps.SubscriptionConfig',
 
-
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -46,8 +45,6 @@ INSTALLED_APPS = [
 
     'tailwind',
     'theme',
-    'django_browser_reload',
-
 
     'mptt',
     'ckeditor',
@@ -69,7 +66,6 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     "django.middleware.security.SecurityMiddleware",
     "whitenoise.middleware.WhiteNoiseMiddleware",
-    'django_browser_reload.middleware.BrowserReloadMiddleware',
 ]
 
 
