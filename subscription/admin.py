@@ -35,27 +35,24 @@ class AgenciesAdmin(admin.ModelAdmin):
     inlines = [Follow_UpInline,MeetingInline,VisitInline]
 
 
-@admin_thumbnails.thumbnail('image')
 class MeetingAdmin(admin.ModelAdmin):
-    list_display = ['id', 'meeting','comment','create_at','update_at']    
+    list_display = ['id','company', 'meeting','comment','create_at','update_at']    
     
     list_filter = ('meeting','create_at','update_at',) 
     list_per_page = 20 
 
 
-@admin_thumbnails.thumbnail('image')
 class Follow_UpAdmin(admin.ModelAdmin):
-    list_display = ['id',  'follow_up','comment', 'create_at','update_at']   
+    list_display = ['id', 'company', 'follow_up','comment', 'create_at','update_at']   
     
     list_filter = ('follow_up','create_at','update_at',) 
     list_per_page = 20 
 
-@admin_thumbnails.thumbnail('image')
 class VisitAdmin(admin.ModelAdmin):
-    list_display = ['id','description', 'create_at','update_at']   
+    list_display = ['id', 'company', 'description', 'create_at','update_at']   
     
     list_filter = ('create_at','update_at',) 
-    list_per_page = 00 
+    list_per_page = 20 
 
 
 admin.site.register(Follow_Up,Follow_UpAdmin)

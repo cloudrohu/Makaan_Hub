@@ -22,7 +22,7 @@ class CityAdmin(DraggableMPTTAdmin):
 @admin_thumbnails.thumbnail('image')
 class LocalityAdmin(DraggableMPTTAdmin):
     mptt_indent_field = "title"
-    list_display = ('id','tree_actions','city', 'indented_title', 'image_thumbnail',
+    list_display = ('id','tree_actions','city', 'indented_title',
                    )
     list_display_links = ('indented_title',)
     list_per_page = 30 

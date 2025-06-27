@@ -23,12 +23,10 @@ class Agencies(models.Model):
     agencies_name = models.CharField(max_length=150, unique=True)
     contact_person = models.CharField(max_length=255, null=True, blank=True)
     contact_no = models.CharField(max_length=255, null=True, blank=True)
-    email = models.EmailField(null=True, blank=True)
-    
+    email = models.EmailField(null=True, blank=True)    
     city = models.ForeignKey(City, on_delete=models.CASCADE, null=True,blank=True)  # many to one relation with Brand
     locality = models.ForeignKey(Locality, on_delete=models.CASCADE, null=True,blank=True)  # many to one relation with Brand
-    address = models.CharField(max_length=500, null=True, blank=True)
-    
+    address = models.CharField(max_length=500, null=True, blank=True)    
     description = models.CharField(max_length=5000, null=True, blank=True)
     image = models.ImageField(null=True, blank=True,upload_to='images/')
     status = models.ForeignKey(User_Status, on_delete=models.CASCADE, null=True,blank=True) 
@@ -42,7 +40,7 @@ class Agencies(models.Model):
     update_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return self.agencies_name
+        return self.agencies_name + ' ' + self.contact_person + ' ' + self.contact_no + ' ' + self.locality.title
     
     class Meta:
         verbose_name_plural='1. Agencies'
@@ -93,7 +91,7 @@ class Visit(models.Model):
     visit_type = models.ForeignKey(Visit_Type, on_delete=models.CASCADE,null=True,blank=True) #many to one relation with Brand
     company = models.ForeignKey(Agencies, on_delete=models.CASCADE,null=True,blank=True) #many to one relation with Brand
     meet_by = models.CharField(max_length=100,null=True , blank=True)
-    locality_city = models.ForeignKey(City, on_delete=models.CASCADE,null=True,blank=True) #many to one relation with Brand
+    locality_city = models.ForeignKey(Locality, on_delete=models.CASCADE,null=True,blank=True) #many to one relation with Brand
     followup_meeting = models.DateTimeField(null=True, blank=True)
     
     create_at=models.DateTimeField(auto_now_add=True)
@@ -109,10 +107,6 @@ class Visit(models.Model):
         return self.description
 
     
-    def image_tag(self):
-        return mark_safe('<img src="%s" width="50" height="50" />' % (self.image.url))
-    
-
     class Meta:
         verbose_name_plural='2. Today Visit'
 

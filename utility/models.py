@@ -12,8 +12,6 @@ from mptt.models import MPTTModel
 from django.utils.text import slugify
 
 
-
-
 class Bank(models.Model):
     title = models.CharField(max_length=50,blank=True)
     image = models.ImageField(upload_to='images/')
@@ -88,7 +86,6 @@ class Locality(MPTTModel):
     title = models.CharField(max_length=50)
     keywords = models.CharField(max_length=1000)
     description = models.TextField(max_length=5000)
-    image = models.ImageField(upload_to='images/')
     featured_locality = models.BooleanField(default=False)
     slug = models.SlugField(unique=True, null=True, blank=True)
     create_at = models.DateTimeField(auto_now_add=True)
@@ -125,6 +122,7 @@ class Locality(MPTTModel):
             full_path.append(k.title)
             k = k.parent
         return ' / '.join(full_path[::-1])
+
 
 class Social_Site(models.Model):    
     site=models.CharField(max_length=100)
