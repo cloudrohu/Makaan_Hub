@@ -40,7 +40,7 @@ class Agencies(models.Model):
     update_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return self.agencies_name + ' ' + self.contact_person + ' ' + self.contact_no + ' ' + self.locality.title
+        return self.agencies_name + ' ' + self.contact_no + ' ' + self.locality.title
     
     class Meta:
         verbose_name_plural='1. Agencies'
