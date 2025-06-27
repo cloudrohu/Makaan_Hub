@@ -7,14 +7,13 @@ from django.contrib.auth.models import User
 from django.db.models import Avg, Count, Q, F
 from django.db.models.functions import Concat
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse, request
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 
 # Create your views here.
 from django.template.loader import render_to_string
 from django.urls import reverse
 from django.utils import translation
 
-from home.forms import SearchForm
 from home.models import Setting, ContactForm, ContactMessage,FAQ,About_Page,Contact_Page,Testimonial,Our_Team,Slider
 from Makaan_Hub import settings
 from utility.models import City,Locality
@@ -235,29 +234,28 @@ def aboutus(request):
 
 def contactus(request):
     setting = Setting.objects.all().order_by('-id')[0:1]
-    
     city = City.objects.all()
 
-
-    if request.method == 'POST': # check post
+    if request.method == 'POST':
         form = ContactForm(request.POST)
         if form.is_valid():
-            data = ContactMessage() #create relation with model
-            data.name = form.cleaned_data['name'] # get form input data
-            data.email = form.cleaned_data['email']
-            data.subject = form.cleaned_data['subject']
-            data.message = form.cleaned_data['message']
-            data.ip = request.META.get('REMOTE_ADDR')
-            data.save()  #save data to table
-            messages.success(request,"Your message has ben sent. Thank you for your message.")
-            return HttpResponseRedirect('/contact')
-    form = ContactForm
-    context={
-        'setting':setting,
-        'form':form ,
-        'city':city,
-    }    
-    return render(request, 'contactus.html',context)
+            contact = form.save(commit=False)
+            contact.ip = request.META.get('REMOTE_ADDR')
+            contact.save()
+            messages.success(request, "Your message has been sent successfully!")
+            return redirect('thank-you')
+    else:
+        form = ContactForm()
+
+    context = {
+        'form': form,
+        'setting': setting,
+        'city': city,
+    }
+    return render(request, 'contactus.html', context)
+
+
+
 
 def category_products(request,id,slug):
     
@@ -329,3 +327,8 @@ def project_detail(request,id,slug):
 def faq(request):
    
     return render(request, 'faq.html')
+
+
+
+def THANK_YOU(request):
+    return render(request, 'thank-you.html')

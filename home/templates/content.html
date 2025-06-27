@@ -1,0 +1,350 @@
+{% load static %}	
+<!-- 4th Home Slider -->
+<div class="home-four">
+	<div class="container-fluid p0">
+		<div class="row">
+			<div class="col-lg-12">
+				<div class="main-banner-wrapper">
+					<div class="banner-style-one owl-theme owl-carousel">
+						{% for rs in slider %}
+						<div class="slide slide-one" style="background-image: url({{rs.image.url}});height: 800px;"></div>
+						{% endfor %}
+						
+					</div>
+					<div class="carousel-btn-block banner-carousel-btn">
+						<span class="carousel-btn left-btn"><i class="flaticon-left-arrow-1 left"></i></span>
+						<span class="carousel-btn right-btn"><i class="flaticon-right-arrow right"></i></span>
+					</div><!-- /.carousel-btn-block banner-carousel-btn -->
+				</div><!-- /.main-banner-wrapper -->
+			</div>
+		</div>
+	</div>
+	
+</div>
+	<!-- Property Cities -->
+	<section id="best-property" class="best-property bgc-f7">
+		<div class="container ovh">
+			<div class="row">
+				<div class="col-lg-6 offset-lg-3">
+					<div class="main-title text-center mb40">
+						<h2>Featured Properties</h2>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-lg-12">
+					<div class="best_property_slider style2">
+						{% for rs in project_featured %}
+						<div class="item">
+							<div class="feat_property">
+								<div class="thumb">
+									<img class="img-whp" src="{{rs.image.url}}" style="height: 275px;" alt="fp1.jpg">
+									<div class="thmb_cntnt">
+										
+										<ul class="icon mb0">
+											<li class="list-inline-item"><a href="#"><span class="flaticon-transfer-1"></span></a></li>
+											<li class="list-inline-item"><a href="#"><span class="flaticon-heart"></span></a></li>
+										</ul>
+										<a class="fp_price" href="#">₹{{rs.min_price}} - ₹{{rs.max_price}}<small></small></a>
+									</div>
+								</div>
+								<div class="details">
+									<a href="{{rs.get_absolute_url}}">
+									<div class="tc_content">
+										<p class="text-thm">{{rs.propert_type}}</p>
+										<h4>{{rs.title}}</h4>
+										<p><span class="flaticon-placeholder"></span> {{rs.locality}}--{{rs.city}}</p>
+										<ul class="prop_details mb0">
+											<li class="list-inline-item"><a href="#"></a></li>
+											<li class="list-inline-item"><a href="#"></a></li>
+											<li class="list-inline-item"><a href="#"></a></li>
+										</ul>
+									</div>
+									</a>
+									<div class="fp_footer">
+										<ul class="fp_meta float-left mb0">
+											<li class="list-inline-item"><a href="#"><img src="{{rs.developer.image.url}}" style="height: 50px;width: 50px;" alt="pposter1.png"></a></li>
+											<li class="list-inline-item"><a href="#"> {{rs.developer}}</a></li>
+										</ul>
+										<div class="fp_pdate float-right">possession  {{rs.possession}}</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						{% endfor %}
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- Property Cities -->
+	<section id="property-city" class="property-city pb30">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-6 offset-lg-3">
+					<div class="main-title text-center">
+						<h2>Find Properties in These Locality</h2>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				{% for rs in locality %}
+				<div class="col-sm-6 col-lg-4 col-xl-4">
+					<div class="properti_city style2">
+						<div class="thumb"><img class="img-fluid w100" src="{{rs.image.url}}" alt="pc12.jpg" style="height: 225px;"></div>
+						<div class="details">
+							<h4>{{rs.title}}</h4>
+							<p></p>
+						</div>
+					</div>
+				</div>
+				{% endfor %}				
+			</div>
+		</div>
+	</section>
+
+	<!-- Our Blog -->
+	<section class="our-blog bgc-f7 pb30">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-6 offset-lg-3">
+					<div class="main-title text-center">
+						<h2>Articles & Tips</h2>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6 col-lg-4 col-xl-4">
+					<div class="for_blog feat_property">
+						<div class="thumb">
+							<img class="img-whp" src="{% static '' %}main/images/blog/bh1.jpg" alt="bh1.jpg">
+						</div>
+						<div class="details">
+							<div class="tc_content">
+								<p class="text-thm">Business</p>
+								<h4>Biggest Home in the Hollywood Hills Sells for an Equally</h4>
+							</div>
+							<div class="fp_footer">
+								<ul class="fp_meta float-left mb0">
+									<li class="list-inline-item"><a href="#"><img src="{% static '' %}main/images/property/pposter1.png" alt="pposter1.png"></a></li>
+									<li class="list-inline-item"><a href="#">Ali Tufan</a></li>
+								</ul>
+								<a class="fp_pdate float-right" href="#">7 August 2019</a>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-6 col-lg-4 col-xl-4">
+					<div class="for_blog feat_property">
+						<div class="thumb">
+							<img class="img-whp" src="{% static '' %}main/images/blog/bh2.jpg" alt="bh2.jpg">
+						</div>
+						<div class="details">
+							<div class="tc_content">
+								<p class="text-thm">Business</p>
+								<h4>Bedroom Colors You’ll Never <br> Regret</h4>
+							</div>
+							<div class="fp_footer">
+								<ul class="fp_meta float-left mb0">
+									<li class="list-inline-item"><a href="#"><img src="{% static '' %}main/images/property/pposter1.png" alt="pposter1.png"></a></li>
+									<li class="list-inline-item"><a href="#">Ali Tufan</a></li>
+								</ul>
+								<a class="fp_pdate float-right" href="#">7 August 2019</a>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-6 col-lg-4 col-xl-4">
+					<div class="for_blog feat_property">
+						<div class="thumb">
+							<img class="img-whp" src="{% static '' %}main/images/blog/bh3.jpg" alt="bh3.jpg">
+						</div>
+						<div class="details">
+							<div class="tc_content">
+								<p class="text-thm">Business</p>
+								<h4>The 5 Biggest Mistakes Veteran and Military</h4>
+							</div>
+							<div class="fp_footer">
+								<ul class="fp_meta float-left mb0">
+									<li class="list-inline-item"><a href="#"><img src="{% static '' %}main/images/property/pposter1.png" alt="pposter1.png"></a></li>
+									<li class="list-inline-item"><a href="#">Ali Tufan</a></li>
+								</ul>
+								<a class="fp_pdate float-right" href="#">7 August 2019</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- Our Team -->
+	<section class="our-team">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-6 offset-lg-3">
+					<div class="main-title text-center">
+						<h2>Our Team</h2>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-lg-12">
+					<div class="team_slider">
+						{% for rs in ourteam %}
+						<div class="item">
+							<div class="team_member home4">
+								<div class="thumb">
+									<img class="img-fluid" src="{{rs.image.url}}" alt="1.jpg" style="height: 225px;">
+									<div class="overylay">
+										<ul class="social_icon">
+											<li class="list-inline-item"><a href="{{rs.facebook}}"><i class="fa fa-facebook"></i></a></li>
+											<li class="list-inline-item"><a href="{{rs.twitter}}"><i class="fa fa-twitter"></i></a></li>
+											<li class="list-inline-item"><a href="{{rs.instagram}}"><i class="fa fa-instagram"></i></a></li>
+											<li class="list-inline-item"><a href="{{rs.pinterest}}"><i class="fa fa-pinterest"></i></a></li>
+											<li class="list-inline-item"><a href="{{rs.youtube}}"><i class="fa fa-youtube"></i></a></li>
+										</ul>
+									</div>
+								</div>
+								<div class="details">
+									<h4>{{rs.title}}</h4>
+									<p>{{rs.designation}}</p>
+								</div>
+							</div>
+						</div>
+						{% endfor %}
+						
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+<!-- Our Testimonials -->
+<section id="our-testimonials" class="our-testimonial home5">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-6 offset-lg-3">
+				<div class="main-title text-center">
+					<h2 class="color-white">Testimonials</h2>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-lg-6 offset-lg-3">
+				<div class="testimonial_grid_slider">					
+
+					{% for rs in testimonial %}
+					<div class="item">
+						<div class="testimonial_grid">
+							<div class="thumb">
+								<img src="{{rs.image.url}}" alt="1.jpg">
+							</div>
+							<div class="details">
+								<h4>{{rs.title}}</h4>
+								<p>{{rs.designation}}</p>
+								<p class="mt25">{{rs.comment}}</p>
+							</div>
+						</div>
+					</div>
+					{% endfor %}
+
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+<!-- Why Chose Us -->
+<section id="why-chose" class="whychose_us pb30">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-6 offset-lg-3">
+				<div class="main-title text-center">
+					<h2>Why Choose Us</h2>
+					<p>We provide full service at every step.</p>
+				</div>
+			</div>
+		</div>
+		{% for rs in about %}
+			<div class="row">
+				<div class="col-md-6 col-lg-4 col-xl-4">
+					<div class="why_chose_us style2">
+						<div class="icon">
+							<span class="flaticon-high-five"></span>
+						</div>
+						<div class="details">
+							<h4>Our Mission</h4>
+							<p>{{rs.mission}}</p>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-6 col-lg-4 col-xl-4">
+					<div class="why_chose_us style2">
+						<div class="icon">
+							<span class="flaticon-home-1"></span>
+						</div>
+						<div class="details">
+							<h4>Our Vision</h4>
+							<p>{{rs.vision}}</p>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-6 col-lg-4 col-xl-4">
+					<div class="why_chose_us style2">
+						<div class="icon">
+							<span class="flaticon-profit"></span>
+						</div>
+						<div class="details">
+							<h4>Values</h4>
+							<p>{{rs.values | safe}}</p>
+						</div>
+					</div>
+				</div>
+			</div>			
+		{% endfor %}
+	</div>
+</section>
+<!-- Our Agents -->
+<section id="our-agents" class="our-agents pt40 pb15">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-12">
+				<div class="main-title mb30">
+					<h2>Featured Developerss</h2>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-lg-12">
+				<div class="our_agents_home6_slider">
+					{% for rs in developer %}
+					<div class="item">
+						<div class="our_agent">
+							<div class="thumb">
+								<img class="img-fluid w100" src="{{rs.image.url}}" alt="6.jpg" style="height: 125px;">
+								<div class="overylay">
+									<ul class="social_icon">
+										<li class="list-inline-item"><a href="#"><i class="fa fa-facebook"></i></a></li>
+										<li class="list-inline-item"><a href="#"><i class="fa fa-twitter"></i></a></li>
+										<li class="list-inline-item"><a href="#"><i class="fa fa-instagram"></i></a></li>
+										<li class="list-inline-item"><a href="#"><i class="fa fa-pinterest"></i></a></li>
+										<li class="list-inline-item"><a href="#"><i class="fa fa-dribbble"></i></a></li>
+										<li class="list-inline-item"><a href="#"><i class="fa fa-google"></i></a></li>
+									</ul>
+								</div>
+							</div>
+							<div class="details">
+								<h4>{{rs.title}}</h4>
+								<p>{{rs.city}} <a class="float-right" href="#">5 <i class="fa fa-star color-golden"></i></a></p>
+							</div>
+						</div>
+					</div>
+					{% endfor %}
+					
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+	

@@ -24,98 +24,128 @@
 
 	<!-- Our Contact -->
 	<section class="our-contact pb0 bgc-f">
-        
 		<div class="container">  
-            <div class="container-fluid p0 mt0">
-                <div class="row">
-                    <div class="col-lg-12">
-                        {{rs.contact | safe}}
-                    </div>
-                </div>
-            </div>          
-			<div class="row">
-				<div class="col-lg-7 col-xl-8">
-					<div class="form_grid">
-						<h4 class="mb5">Send Us An Email</h4>
-						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In gravida quis libero eleifend ornare. Maecenas mattis enim at arcu feugiat, sit amet blandit nisl iaculis. Donec lacus odio, malesuada eu libero sit amet, congue aliquam leo. In hac habitasse platea dictumst.</p>
-			            <form class="contact_form" id="contact_form" name="contact_form" action="#" method="post" novalidate="novalidate">
-							<div class="row">
-				                <div class="col-md-6">
-				                    <div class="form-group">
-										<input id="form_name" name="form_name" class="form-control" required="required" type="text" placeholder="Name">
-									</div>
-				                </div>
-				                <div class="col-md-6">
-				                    <div class="form-group">
-				                    	<input id="form_email" name="form_email" class="form-control required email" required="required" type="email" placeholder="Email">
-				                    </div>
-				                </div>
-				                <div class="col-md-6">
-				                    <div class="form-group">
-				                    	<input id="form_phone" name="form_phone" class="form-control required phone" required="required" type="phone" placeholder="Phone">
-				                    </div>
-				                </div>
-				                <div class="col-md-6">
-				                    <div class="form-group">
-					                    <input id="form_subject" name="form_subject" class="form-control required" required="required" type="text" placeholder="Subject">
-									</div>
-				                </div>
-				                <div class="col-sm-12">
-		                            <div class="form-group">
-		                                <textarea id="form_message" name="form_message" class="form-control required" rows="8" required="required" placeholder="Your Message"></textarea>
-		                            </div>
-				                    <div class="form-group mb0">
-					                    <button type="button" class="btn btn-lg btn-thm">Send Message</button>
-				                    </div>
-				                </div>
-			                </div>
-			            </form>
-					</div>
-				</div>
-				<div class="col-lg-5 col-xl-4">
-					<div class="contact_localtion">
-						<h4>Contact Us</h4>
-						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In gravida quis libero eleifend ornare. habitasse platea dictumst.</p>
-						<div class="content_list">
-							<h5>Address</h5>
-							<p><a href="" target="_blank">{{rs.address}}</a></p>
-						</div>
-						<div class="content_list">
-							<h5>Phone</h5>
-							<p><a href="tel:+91{{rs.phone}}" target="_blank">{{rs.phone}}</a></p>
-						</div>
-						<div class="content_list">
-							<h5>Mail</h5>
-							<p>{{rs.email}}</p>
-						</div>
-						<div class="content_list">
-							<h5>Whatsapp</h5>
-							<a href="https://wa.me/+91{{rs.whatsapp}}" target="_blank">
-							<p>{{rs.whatsapp}}</p>
-							</a>
-						</div>
-						<h5>Follow Us</h5>
-						<ul class="contact_form_social_area">
-							<li class="list-inline-item"><a href="{{rs.facebook}}"><i class="fa fa-facebook"></i></a></li>
-							<li class="list-inline-item"><a href="'twitter': {{rs.twitter}"><i class="fa fa-twitter"></i></a></li>
-							<li class="list-inline-item"><a href="{{rs.instagram}"><i class="fa fa-instagram"></i></a></li>
-							<li class="list-inline-item"><a href="{{rs.youtube}"><i class="fa fa-youtube"></i></a></li>
-							<li class="list-inline-item"><a href="{{rs.facebook}"><i class="fa fa-pinterest"></i></a></li>
-						</ul>
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="container-fluid p0 mt50">
+			<div class="container-fluid p0 mt0">
 			<div class="row">
 				<div class="col-lg-12">
-					<div class="h600" id="">
-                        {{rs.google_map| safe}}
-                    </div>
+				{{rs.contact | safe}}
 				</div>
 			</div>
+			</div>          
+
+			<div class="row">
+			<div class="col-lg-7 col-xl-8">
+				<div class="form_grid">
+				<h4 class="mb5">Send Us An Email</h4>
+				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In gravida quis libero eleifend ornare. Maecenas mattis enim at arcu feugiat, sit amet blandit nisl iaculis. Donec lacus odio, malesuada eu libero sit amet, congue aliquam leo. In hac habitasse platea dictumst.</p>
+
+			<form class="contact_form" id="contact_form" name="contact_form" method="POST" action="">
+				{% csrf_token %}
+				<div class="row">
+					<div class="col-md-6">
+					<div class="form-group">
+						<input id="name" name="name" class="form-control" required type="text" placeholder="Name">
+					</div>
+					</div>
+
+					<div class="col-md-6">
+					<div class="form-group">
+						<input id="email" name="email" class="form-control" required type="email" placeholder="Email">
+					</div>
+					</div>
+
+					<div class="col-md-6">
+					<div class="form-group">
+						<input id="phone" name="phone" class="form-control" required type="tel" placeholder="Phone">
+					</div>
+					</div>
+
+					<div class="col-md-6">
+					<div class="form-group">
+						<input id="subject" name="subject" class="form-control" required type="text" placeholder="Subject">
+					</div>
+					</div>
+
+					<div class="col-sm-12">
+					<div class="form-group">
+						<textarea id="message" name="message" class="form-control" rows="8" required placeholder="Your Message"></textarea>
+					</div>
+
+					<!-- Consent Checkbox -->
+					<div class="flex items-start space-x-2 text-sm text-gray-700">
+						<input id="consent" name="consent" type="checkbox" required class="mt-1 w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500">
+						<label for="consent" class="text-justify">
+						I consent to the processing of provided data according to 
+						<a href="#" class="text-blue-600 underline hover:text-blue-800">Privacy Policy</a> |
+						<a href="#" class="text-blue-600 underline hover:text-blue-800">Terms & Conditions</a>. 
+						I authorize Prop Solutions 4 U Pvt. Ltd. and its representatives to call, SMS, email or WhatsApp me...
+						</label>
+					</div>
+
+					<!-- Submit Button -->
+					<div class="form-groupss mb0 mt-3">
+						<button type="submit" class="btns bdcxtn-lg bcdcn-thm">Send Message</button>
+					</div>
+					</div>
+				</div>
+			</form>
+
+				</div>
+			</div>
+
+			<!-- Contact Info -->
+			<div class="col-lg-5 col-xl-4">
+				<div class="contact_localtion">
+				<h4>Contact Us</h4>
+				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In gravida quis libero eleifend ornare. habitasse platea dictumst.</p>
+
+				<div class="content_list">
+					<h5>Address</h5>
+					<p><a href="" target="_blank">{{rs.address}}</a></p>
+				</div>
+
+				<div class="content_list">
+					<h5>Phone</h5>
+					<p><a href="tel:+91{{rs.phone}}" target="_blank">{{rs.phone}}</a></p>
+				</div>
+
+				<div class="content_list">
+					<h5>Mail</h5>
+					<p>{{rs.email}}</p>
+				</div>
+
+				<div class="content_list">
+					<h5>Whatsapp</h5>
+					<a href="https://wa.me/+91{{rs.whatsapp}}" target="_blank">
+					<p>{{rs.whatsapp}}</p>
+					</a>
+				</div>
+
+				<h5>Follow Us</h5>
+				<ul class="contact_form_social_area">
+					<li class="list-inline-item"><a href="{{rs.facebook}}"><i class="fa fa-facebook"></i></a></li>
+					<li class="list-inline-item"><a href="{{rs.twitter}}"><i class="fa fa-twitter"></i></a></li>
+					<li class="list-inline-item"><a href="{{rs.instagram}}"><i class="fa fa-instagram"></i></a></li>
+					<li class="list-inline-item"><a href="{{rs.youtube}}"><i class="fa fa-youtube"></i></a></li>
+					<li class="list-inline-item"><a href="{{rs.facebook}}"><i class="fa fa-pinterest"></i></a></li>
+				</ul>
+				</div>
+			</div>
+			</div>
 		</div>
-	</section>
+
+		<!-- Google Map Section -->
+		<div class="container-fluid p0 mt50">
+			<div class="row">
+			<div class="col-lg-12">
+				<div class="h600" id="">
+				{{rs.google_map | safe}}
+				</div>
+			</div>
+			</div>
+		</div>
+</section>
+
 
 	
     {% endfor %}
