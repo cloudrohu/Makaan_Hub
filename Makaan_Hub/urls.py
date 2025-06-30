@@ -1,8 +1,9 @@
 
 from django.contrib import admin
-from django.urls import path,include
+from django.urls import path,include,re_path
 from django.conf import settings
 from django.conf.urls.static import static
+from django.views.static import serve
 import home
 from home import views 
 from django.utils.translation import gettext_lazy as _
@@ -10,6 +11,7 @@ from django.utils.translation import gettext_lazy as _
 from django.views.generic import RedirectView
 
 urlpatterns = [
+    re_path(r'^media/(?P<path>.*)$', serve, {'document_root': settings.MEDIA_ROOT}),
     path('', include('home.urls')),
     path('home/', include('home.urls')),
     path('logout/',RedirectView.as_view(url = '/admin/logout/')),
@@ -26,4 +28,11 @@ urlpatterns = [
     path(('blog/'), views.blog, name='blog'),   
     path('category/<int:id>/<slug:slug>', views.category_products, name='category_products'),
 
-]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+]
+
+if settings.DEBUG:
+    urlpatterns += [
+        re_path(r'^media/(?P<path>.*)$', serve, {
+            'document_root': settings.MEDIA_ROOT,
+        }),
+    ]
