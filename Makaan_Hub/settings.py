@@ -1,4 +1,6 @@
 from pathlib import Path
+import os
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -21,7 +23,6 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     'adminlte3',
     'adminlte3_theme',
-    'app_visit',
     'paying_guest',
 
     'land.apps.LandConfig',
@@ -101,6 +102,8 @@ DATABASES = {
     }
 }
 
+MEDIA_URL = '/uploads/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'uploads')
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
@@ -126,13 +129,12 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Kolkata'
 
 USE_I18N = True
 
 USE_TZ = True
 
-import os
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
@@ -140,8 +142,7 @@ STATIC_URL = '/static/'
 
 STATIC_ROOT = BASE_DIR / 'static'
 
-MEDIA_URL = '/uploads/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'uploads')
+
 
 # ...
 SITE_ID = 1

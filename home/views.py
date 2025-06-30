@@ -18,7 +18,6 @@ from home.models import Setting, ContactForm, ContactMessage,FAQ,About_Page,Cont
 from Makaan_Hub import settings
 from utility.models import City,Locality
 from user.models import Developer
-from project.models import Commercial_Project_Images,Commercial_Project,Residential_Project,Residential_Project_Images
 
 # Create your views here.
 
@@ -28,15 +27,11 @@ def index(request):
     
     city = City.objects.all()
     about = About_Page.objects.all().order_by('-id')[0:1]
-    locality = Locality.objects.filter(featured_locality = 'True').order_by('-id')[:18]
     slider = Slider.objects.filter(featured_project = 'True').order_by('-id')[:9]
     developer = Developer.objects.filter(featured_builder = 'True').order_by('-id')[:50]  #first 4 products
     ourteam = Our_Team.objects.filter(featured = 'True').order_by('-id')#first 4 products
     testimonial = Testimonial.objects.filter(featured = 'True').order_by('-id')#first 4 products
-    project_latest = Residential_Project.objects.filter(featured_project = 'True').order_by('-id')[:6]  # last 4 products
-    project_featured = Residential_Project.objects.filter(featured_project = 'True').order_by('-id')[:12]  # last 4 products
-    project_picked = Residential_Project.objects.filter(featured_project = 'True').order_by('?')[:6]   #Random selected 4 products
-
+   
     page="home"
     context={
         'setting':setting,
@@ -45,27 +40,19 @@ def index(request):
         'slider':slider,
         'testimonial':testimonial,
         'ourteam':ourteam,
-        'locality':locality,
         'developer':developer,
-        'project_latest':project_latest,
-        'project_picked':project_picked,
-        'project_featured':project_featured,
+        
     }
 
     return render(request,'index.html',context)
 
 def residential_project(request):
     setting = Setting.objects.all().order_by('-id')[0:1]
-     # last 4 products
-    project_picked = Residential_Project.objects.all().order_by('?') #Random selected 4 products
-    project_featured = Residential_Project.objects.filter(featured_project = 'True').order_by('-id')[:9]  # last 4 products
-
+   
     page="home"
     context={
         'setting':setting,
-        
-        'project_picked':project_picked,
-        'project_featured':project_featured,
+
 
     }
 

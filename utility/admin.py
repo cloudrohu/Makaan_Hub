@@ -19,7 +19,6 @@ class CityAdmin(DraggableMPTTAdmin):
     search_fields = ['title'] 
     
 
-@admin_thumbnails.thumbnail('image')
 class LocalityAdmin(DraggableMPTTAdmin):
     mptt_indent_field = "title"
     list_display = ('id','tree_actions','city', 'indented_title',
@@ -36,5 +35,6 @@ admin.site.register(Locality,LocalityAdmin)
 admin.site.register(Fine_From,)
 admin.site.register(Visit_Type,)
 admin.site.register(User_Status,)
+admin.site.register(P_Amenities,)
 
 

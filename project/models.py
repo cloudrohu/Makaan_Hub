@@ -10,13 +10,20 @@ from django.utils.safestring import mark_safe
 from mptt.fields import TreeForeignKey
 from mptt.models import MPTTModel
 from django.utils.text import slugify
-from utility.models import City,Locality,Amenities,Bank,Bedroom,Area_type,Bathroom,Bolconis,Total_Floor,Other_Room
+from utility.models import City,Locality,P_Amenities
 from multiselectfield import MultiSelectField
 from user.models import Developer
 
-# Create your models here.
 
-Possession_In = (        
+class Residential(MPTTModel):    
+    Construction_Status = (
+        ('Under Construction', 'Under Construction'),
+        ('New Launch', 'New Launch'),
+        ('Partially Ready To Move', 'Partially Ready To Move'),
+        ('Ready To Move', 'Ready To Move'),
+        ('Deleverd', 'Deleverd'),
+    )
+    Possession_In = (        
         ('2000', '2000'),
         ('2001', '2001'),
         ('2002', '2002'),
@@ -57,18 +64,8 @@ Possession_In = (
         ('2037', '2037'),
         ('2038', '2038'),
         ('2039', '2039'),         
-
  )
 
-
-class Residential_Project(MPTTModel):    
-    Construction_Status = (
-        ('Under Construction', 'Under Construction'),
-        ('New Launch', 'New Launch'),
-        ('Partially Ready To Move', 'Partially Ready To Move'),
-        ('Ready To Move', 'Ready To Move'),
-        ('Deleverd', 'Deleverd'),
-    )
 
     Property_Type = (
         ('1 RK Studio Apartment', '1 RK Studio Apartment'),
@@ -78,52 +75,41 @@ class Residential_Project(MPTTModel):
         ('Residential Apartment', 'Residential Apartment'),
     )
     
-    STATUS = ( ('True', 'True'),('False', 'False'),)    
     Occupancy_Certificate = (('Yes', 'Yes'),('No', 'No'), )
     Commencement_Certificate = (('Yes', 'Yes'),('No', 'No'),)
-    parent = TreeForeignKey('self', blank=True, null=True, related_name='children', on_delete=models.CASCADE)
-    city = models.ForeignKey(City, on_delete=models.CASCADE)  # many to one relation with Brand
-    locality = models.ForeignKey(Locality, on_delete=models.CASCADE)  # many to one relation with Brand
-    propert_type = models.CharField(max_length=200, choices=Property_Type)
 
-    title = models.CharField(max_length=50)
-    keywords = models.CharField(max_length=255)
-    meta_description = models.CharField(max_length=255)
-    developer = models.ForeignKey(Developer, on_delete=models.CASCADE)  # many to one relation with Brand
-    possession = models.CharField(max_length=25,choices=Possession_In,null=True, blank=True)  # many to one relation with Brand
-    min_price = models.CharField(default=0, null=True, blank=True,max_length=50, )
-    max_price = models.CharField(default=0, null=True, blank=True,max_length=10, )
-    min_area = models.CharField(null=True, blank=True, max_length=50)
-    max_area = models.CharField(null=True, blank=True, max_length=50)
-    description = models.TextField(max_length=15000,null=True, blank=True)
     Occupancy_Certificate = models.CharField(max_length=25, choices=Occupancy_Certificate,null=True, blank=True)
     Commencement_Certificate = models.CharField(max_length=25, choices=Commencement_Certificate,null=True, blank=True)
-    status = models.CharField(max_length=25, choices=STATUS,null=True, blank=True)
-    amenities = MultiSelectField(choices=Amenities, max_choices=50, max_length=50,null=True, blank=True)
-    other_room = MultiSelectField(choices=Other_Room, max_choices=50, max_length=50,null=True, blank=True)
-    home_lone = models.ManyToManyField(Bank,blank=True)
-    project_size = models.CharField(max_length=255,null=True, blank=True)
-    lanch_date = models.DateField(null=True, blank=True)
-    total_floor = models.CharField(max_length=25, choices=Total_Floor,null=True, blank=True)
-
-    totle_unit = models.CharField(max_length=5)
-    total_tower = models.CharField(max_length=5)
+   
     construction_status = models.CharField(max_length=25, choices=Construction_Status)
-    image = models.ImageField(upload_to='images/')
-    featured_project = models.BooleanField(default=False)
-    slug = models.SlugField(unique=True, null=True, blank=True,max_length=555,)
-    create_at = models.DateTimeField(auto_now_add=True)
-    update_at = models.DateTimeField(auto_now=True)
+    propert_type = models.CharField(max_length=200, choices=Property_Type)
+    parent = TreeForeignKey('self', blank=True, null=True, related_name='children', on_delete=models.CASCADE)
+    project_name = models.CharField(max_length=250)
+    developer = models.ForeignKey(Developer, on_delete=models.CASCADE)  # many to one relation with Brand
+    city = models.ForeignKey(City, on_delete=models.CASCADE)  # many to one relation with Brand
+    locality = models.ForeignKey(Locality, on_delete=models.CASCADE)  # many to one relation with Brand
 
+    possession_year = models.CharField(max_length=200, choices=Possession_In,null=True, blank=True)
+
+    Possession = models.CharField(max_length=50)
+    land_parceland = models.CharField(max_length=50)
+    floor = models.CharField(max_length=50)
+
+    description = models.CharField(max_length=150,null=True, blank=True)
+    price = models.CharField(max_length=150,null=True, blank=True)
+    image = models.ImageField(null=True, blank=True,upload_to='images/')
+
+
+    
     def __str__(self):
-        return self.title
+        return self.project_name
     
     class Meta:
         verbose_name_plural='1. Residential Project'
 
     def save(self, *args, **kwargs):
-        self.slug = slugify(self.title + ' ' + self.locality.title + ' ' + self.city.title)
-        super(Residential_Project, self).save(*args, **kwargs)
+        self.slug = slugify(self.project_name + ' ' + self.locality.title + ' ' + self.city.title)
+        super(Residential, self).save(*args, **kwargs)
 
     def image_tag(self):
         if self.image.url is not None:
@@ -132,217 +118,148 @@ class Residential_Project(MPTTModel):
             return ""
 
     class MPTTMeta:
-        order_insertion_by = ['title']
+        order_insertion_by = ['project_name']
 
     
     def get_absolute_url(self):
         from django.urls import reverse
-        return reverse("residential_project", kwargs={'slug': self.slug})
+        return reverse("project_name", kwargs={'slug': self.slug})
 
     def __str__(self):  # __str__ method elaborated later in
-        full_path = [self.title]  # post.  use __unicode__ in place of
+        full_path = [self.project_name]  # post.  use __unicode__ in place of
         k = self.parent
         while k is not None:
-            full_path.append(k.title)
+            full_path.append(k.project_name)
             k = k.parent
         return ' / '.join(full_path[::-1])
 
-class Residential_Project_Images(models.Model):
-    project=models.ForeignKey(Residential_Project,on_delete=models.CASCADE)
-    title = models.CharField(max_length=50,blank=True)
-    image = models.ImageField(upload_to='images/')
+class BookingOffer(models.Model):
+    residential = models.ForeignKey(Residential, on_delete=models.CASCADE, related_name="BookingOffer")
+    title = models.CharField(max_length=255)
 
     def __str__(self):
         return self.title
-    
-    class Meta:
-        verbose_name_plural='5. Residential Project Images'
 
-class Residential_Project_Floor_Plans(models.Model):
-    Project=models.ForeignKey(Residential_Project,on_delete=models.CASCADE)
-    bed_room = models.CharField(max_length=25,choices=Bedroom,null=True, blank=True) # many to one relation with Brand
-    carpet_area = models.CharField(max_length=50,blank=True, null=True)
-    arey_type=models.CharField(max_length=25,choices=Area_type, null=True, blank=True)
-    bath_room=models.CharField(max_length=25,choices=Bathroom, null=True, blank=True)
-    bolconis=models.CharField(max_length=25,choices=Bolconis, null=True, blank=True)
-    price=models.CharField(max_length=25, null=True, blank=True)
-    floor_plan = models.ImageField(upload_to='images/')
+class WelcomeTo(models.Model):
+    residential = models.ForeignKey(Residential, on_delete=models.CASCADE, related_name="welcomes")
+    description = models.TextField(null=True, blank=True,max_length=5500)
+    read_more= models.TextField(null=True, blank=True,max_length=5500)
 
     def __str__(self):
-        return self.bed_room
-    
-    class Meta:
-        verbose_name_plural='6. Residential Project Flor Plan'
+        return self.description
 
-class Residential_Project_Comment(models.Model):
-    STATUS = (
-        ('New', 'New'),
-        ('True', 'True'),
-        ('False', 'False'),
-    )
-    project=models.ForeignKey(Residential_Project,on_delete=models.CASCADE)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    subject = models.CharField(max_length=50, blank=True)
-    comment = models.CharField(max_length=250,blank=True)
-    rate = models.IntegerField(default=1)
-    ip = models.CharField(max_length=20, blank=True)
-    status=models.CharField(max_length=10,choices=STATUS, default='New')
-    create_at=models.DateTimeField(auto_now_add=True)
-    update_at=models.DateTimeField(auto_now=True)
-
-    class Meta:
-        verbose_name_plural='3. Residential Comment'
+class Location(models.Model):
+    residential = models.ForeignKey(Residential, on_delete=models.CASCADE, related_name="locations")
+    google_map_iframe = models.TextField(null=True, blank=True,)
 
     def __str__(self):
-        return self.subject
+        return self.google_map_iframe
 
-class CommentForm(ModelForm):
-    class Meta:
-        model = Residential_Project_Comment
-        fields = ['subject', 'comment', 'rate']
-
-#___________________________________________________________________________________________________________
-
-class Commercial_Project(MPTTModel):    
-    Construction_Status = (
-        ('Under Construction', 'Under Construction'),
-        ('New Launch', 'New Launch'),
-        ('Partially Ready To Move', 'Partially Ready To Move'),
-        ('Ready To Move', 'Ready To Move'),
-        ('Deleverd', 'Deleverd'),
-    )
-
-    Property_Type = (
-        ('Ready to move offices', 'Ready to move offices'),
-        ('Shops & Retail', 'Shops & Retail'),
-        ('Agricultural/Farm Land', 'Agricultural/Farm Land'),
-        ('Industrial Land/Plots', 'Industrial Land/Plots'),
-        ('Warehouse', 'Warehouse'),
-        ('Factory & Manufacturing', 'Factory & Manufacturing'),
-        ('Bare shell offices', 'Bare shell offices'),
-        ('Commercial/Inst. Land', 'Commercial/Inst. Land'),
-        ('Cold Storage', 'Cold Storage'),
-        ('Hotel/Resorts', 'Hotel/Resorts'),
-    )
-    STATUS = ( ('True', 'True'),('False', 'False'),)
-    
-    Occupancy_Certificate = (('Yes', 'Yes'),('No', 'No'), )
-    Commencement_Certificate = (('Yes', 'Yes'),('No', 'No'),)
-
-
-    parent = TreeForeignKey('self', blank=True, null=True, related_name='children', on_delete=models.CASCADE)
-    city = models.ForeignKey(City, on_delete=models.CASCADE, blank=True, null=True,)  # many to one relation with Brand
-    locality = models.ForeignKey(Locality, on_delete=models.CASCADE, blank=True, null=True,) 
-    propert_type = models.CharField(max_length=200, choices=Property_Type)
-     # many to one relation with Brand
-    title = models.CharField(max_length=100)
-    keywords = models.CharField(max_length=255)
-    meta_description = models.CharField(max_length=255)
-    developer = models.ForeignKey(Developer, on_delete=models.CASCADE, blank=True, null=True,)  # many to one relation with Brand
-    possession = models.CharField(max_length=25,choices=Possession_In,null=True, blank=True)  # many to one relation with Brand
-
-    min_price = models.IntegerField(default=0, null=True, blank=True, )
-    max_price = models.IntegerField(default=0, null=True, blank=True, )
-    min_area = models.CharField(null=True, blank=True, max_length=50)
-    max_area = models.CharField(null=True, blank=True, max_length=50)
-    description = models.TextField(max_length=15000,null=True, blank=True)
-    Occupancy_Certificate = models.CharField(max_length=25, choices=Occupancy_Certificate,null=True, blank=True)
-    Commencement_Certificate = models.CharField(max_length=25, choices=Commencement_Certificate,null=True, blank=True)
-    status = models.CharField(max_length=25, choices=STATUS,null=True, blank=True)
-    amenities = MultiSelectField(choices=Amenities, max_choices=50, max_length=50,null=True, blank=True)
-
-    home_lone = models.ManyToManyField(Bank,blank=True)
-    project_size = models.CharField(max_length=255,null=True, blank=True)
-    lanch_date = models.DateField(null=True, blank=True)
-    totle_unit = models.CharField(max_length=5)
-    total_tower = models.CharField(max_length=5)
-    construction_status = models.CharField(max_length=25, choices=Construction_Status)
-    image = models.ImageField(upload_to='images/')
-    featured_project = models.BooleanField(default=False)
-    slug = models.SlugField(unique=True, null=True, blank=True)
-    create_at = models.DateTimeField(auto_now_add=True)
-    update_at = models.DateTimeField(auto_now=True)
+class WebSlider(models.Model):
+    residential = models.ForeignKey(Residential, on_delete=models.CASCADE, related_name="sliders")
+    image = models.ImageField(upload_to='web_slider/')
+    caption = models.CharField(max_length=255, blank=True)
 
     def __str__(self):
-        return self.title
+        return self.caption or f"Slider #{self.pk}"
+
+class Overview(models.Model):
+    residential = models.ForeignKey(Residential, on_delete=models.CASCADE, related_name="overviews")
+    heading = models.CharField(max_length=255)
+    content = models.TextField()
+
+    def __str__(self):
+        return self.heading
+
+class AboutUs(models.Model):
+    residential = models.ForeignKey(Residential, on_delete=models.CASCADE, related_name="aboutus")
+    content = models.TextField()
+
+    def __str__(self):
+        return "About Us"
+
+class USP(models.Model):
+    residential = models.ForeignKey(Residential, on_delete=models.CASCADE, related_name="usps")
+    point = models.CharField(null=True, blank=True,max_length=150)
+    def __str__(self):
+        return self.point
+
+class Configuration(models.Model):
+    residential = models.ForeignKey("Residential", on_delete=models.CASCADE, related_name="configurations")
+    bhk_type = models.CharField(max_length=50)
+    area = models.CharField(max_length=100)
+    price = models.CharField(max_length=100)
+
+    def __str__(self):
+        return f"{self.bhk_type} – {self.area}"
+
+class Connectivity(models.Model):
+    residential = models.ForeignKey(Residential, on_delete=models.CASCADE, related_name="configs")
+    title = models.CharField(max_length=50)
+
+
+    def __str__(self):
+        return f"{self.title}"
+
+class Project_Amenities(models.Model):
+    residential = models.ForeignKey(Residential, on_delete=models.CASCADE, related_name="amenities")
+    amenities = models.ForeignKey(P_Amenities, on_delete=models.CASCADE, related_name="amenities")
     
-    class Meta:
-        verbose_name_plural='2. Commercial Project'
+    def __str__(self):
+        return f"{self.residential.name} - {self.amenities.name}"
 
-    def save(self, *args, **kwargs):
-        self.slug = slugify(self.title + ' ' + self.locality.title + ' ' + self.city.title)
-        super(Commercial_Project, self).save(*args, **kwargs)
+class Gallery(models.Model):
+    residential = models.ForeignKey(Residential, on_delete=models.CASCADE, related_name="gallery")
+    image = models.ImageField(upload_to='gallery/')
+    caption = models.CharField(max_length=255, blank=True)
 
-    def image_tag(self):
-        if self.image.url is not None:
-            return mark_safe('<img src="{}" height="50"/>'.format(self.image.url))
-        else:
-            return ""
+    def __str__(self):
+        return self.caption or f"Image #{self.pk}"
 
-    class MPTTMeta:
-        order_insertion_by = ['title']
+class Header(models.Model):
+    residential = models.ForeignKey(Residential, on_delete=models.CASCADE, related_name="headers")    
+    keywords = models.CharField(max_length=255,null=True, blank=True)
+    meta_description = models.CharField(max_length=255,null=True, blank=True)
 
-    def get_absolute_url(self):
-        return reverse('city_detail', kwargs={'slug': self.slug})
+    welcome_to_bg = models.ImageField(null=True, blank=True,upload_to='headers/')
+    virtual_site_visit_bg = models.ImageField(null=True, blank=True,upload_to='headers/')
+    schedule_a_site_visit = models.ImageField(null=True, blank=True,upload_to='headers/')
 
-    def __str__(self):  # __str__ method elaborated later in
-        full_path = [self.title]  # post.  use __unicode__ in place of
-        k = self.parent
-        while k is not None:
-            full_path.append(k.title)
-            k = k.parent
-        return ' / '.join(full_path[::-1])
+    def __str__(self):
+        return self.keywords
 
-class Commercial_Project_Images(models.Model):
-    commercial_project=models.ForeignKey(Commercial_Project,on_delete=models.CASCADE,blank=True)
-    title = models.CharField(max_length=50,blank=True)
-    image = models.ImageField(upload_to='images/')
+class RERA_Info(models.Model):
+    residential = models.ForeignKey(Residential, on_delete=models.CASCADE, related_name="rera")
+    qr_image = models.ImageField(null=True, blank=True,upload_to='overviewimage/')
+    registration_no= models.CharField(null=True, blank=True,max_length=50)
+    project_registered = models.CharField(null=True, blank=True,max_length=50)
+    government_rera_authorised_advertiser = models.CharField(null=True, blank=True,max_length=150)
+    site_address  = models.CharField(null=True, blank=True,max_length=500)
+    contact_us= models.CharField(null=True, blank=True,max_length=500)
+    disclaimer= models.CharField(null=True, blank=True,max_length=1500)
+    document = models.FileField(null=True, blank=True,upload_to='rera_docs/')
+
+    def __str__(self):
+        return self.registration_no
+
+class WhyInvest(models.Model):
+    residential = models.ForeignKey(Residential, on_delete=models.CASCADE, related_name="why_invest")
+    title = models.CharField(max_length=350,null=True, blank=True)
+    discripation = models.CharField(max_length=500,null=True, blank=True)
+    
+
+    def __str__(self):
+        return f"Why Invest - {self.pk}"
+    
+
+class BookingOffer(models.Model):
+    residential = models.ForeignKey('Residential', on_delete=models.CASCADE, related_name="booking_offers")
+    bank_approval = models.ForeignKey('utility.Bank', on_delete=models.CASCADE, related_name='booking_offers')
+    title = models.CharField(max_length=200,null=True, blank=True)
+    description = models.TextField(blank=True, null=True)
 
     def __str__(self):
         return self.title
+
     
-    class Meta:
-        verbose_name_plural='8. Commercial Project Images'
-
-class Commercial_Project_Floor_Plans(models.Model):
-    commercial_project=models.ForeignKey(Commercial_Project,on_delete=models.CASCADE)
-    
-    carpet_area = models.CharField(max_length=50,blank=True, null=True)
-    arey_type=models.CharField(max_length=25,choices=Area_type, null=True, blank=True)
-    bath_room=models.CharField(max_length=25,choices=Bathroom, null=True, blank=True)
-    bolconis=models.CharField(max_length=25,choices=Bolconis, null=True, blank=True)
-    price=models.CharField(default=0, null=True, blank=True,max_length=25,)
-    floor_plan = models.ImageField(upload_to='images/')
-
-    def __str__(self):
-        return self.bed_room
-    
-    class Meta:
-        verbose_name_plural='7. Commercial Project Floor Plan'
-
-class Commercial_Project_Comment(models.Model):
-    STATUS = (
-        ('New', 'New'),
-        ('True', 'True'),
-        ('False', 'False'),
-    )
-    project=models.ForeignKey(Commercial_Project,on_delete=models.CASCADE)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    subject = models.CharField(max_length=50, blank=True)
-    comment = models.CharField(max_length=250,blank=True)
-    rate = models.IntegerField(default=1)
-    ip = models.CharField(max_length=20, blank=True)
-    status=models.CharField(max_length=10,choices=STATUS, default='New')
-    create_at=models.DateTimeField(auto_now_add=True)
-    update_at=models.DateTimeField(auto_now=True)
-
-    class Meta:
-        verbose_name_plural='4. Commercial Comment'
-
-    def __str__(self):
-        return self.subject
-
-class Commercial_Project_CommentForm(ModelForm):
-    class Meta:
-        model = Commercial_Project_Comment
-        fields = ['subject', 'comment', 'rate']
+#__________________________________________________________________________________________________________

@@ -4,72 +4,83 @@ from django.contrib import admin
 # Register your models here.
 from mptt.admin import DraggableMPTTAdmin
 from . models import *
-# Register your models here.
-class Residential_Project_ImagesInline(admin.TabularInline):
-    list_display = ['id']
-    model = Residential_Project_Images   
-    extra = 1
-
-class Residential_Project_Floor_Plans_ImagesInline(admin.TabularInline):
-    list_display = ['id']
-    model = Residential_Project_Floor_Plans   
-    extra = 1
 
 
+
+
+class WelcomeToInline(admin.StackedInline):
+    model = WelcomeTo
+    extra = 0
+
+class LocationInline(admin.StackedInline):
+    model = Location
+    extra = 0
+
+class WebSliderInline(admin.StackedInline):
+    model = WebSlider
+    extra = 0
+
+class OverviewInline(admin.StackedInline):
+    model = Overview
+    extra = 0
+
+class AboutUsInline(admin.StackedInline):
+    model = AboutUs
+    extra = 0
+
+class USPInline(admin.StackedInline):
+    model = USP
+    extra = 0
+
+class ConfigurationInline(admin.StackedInline):
+    model = Configuration
+    extra = 0
+
+class Project_AmenitiesInline(admin.StackedInline):
+    model = Project_Amenities
+    extra = 0
+
+class GalleryInline(admin.StackedInline):
+    model = Gallery
+    extra = 0
+
+class HeaderInline(admin.StackedInline):
+    model = Header
+    extra = 0
+
+class RERA_InfoInline(admin.StackedInline):
+    model = RERA_Info
+    extra = 0
+
+class ConnectivityInline(admin.StackedInline):
+    model = Connectivity
+    extra = 0
+
+class WhyInvestInline(admin.StackedInline):
+    model = WhyInvest
+    extra = 0
+
+class BookingOfferInline(admin.StackedInline):
+    model = BookingOffer
+    extra = 0
 @admin_thumbnails.thumbnail('image')
-class Residential_ProjectAdmin(admin.ModelAdmin):
-    list_display = ['id','image_thumbnail','title','locality','city','propert_type', 'developer', 'possession','featured_project',]
-    list_filter = ['locality','city','propert_type', 'developer', 'possession',]
-    search_fields = ['title',]
-    inlines = [Residential_Project_ImagesInline,Residential_Project_Floor_Plans_ImagesInline]
-    list_per_page = 30 
+class ResidentialAdmin(admin.ModelAdmin):
+    inlines = [
+        WelcomeToInline,
+        LocationInline,
+        WebSliderInline,
+        OverviewInline,
+        AboutUsInline,
+        USPInline,
+        ConfigurationInline,
+        Project_AmenitiesInline,
+        GalleryInline,
+        HeaderInline,
+        RERA_InfoInline,
+        ConnectivityInline,
+        WhyInvestInline,
+        BookingOfferInline,
+    ]
+    list_display = ['id','image_thumbnail','project_name','developer', 'locality','city','propert_type',]
 
-
-class Residential_Project_CommentAdmin(admin.ModelAdmin):
-    list_display = ['user','subject','comment', 'project','status','create_at','rate','ip']
-    list_filter = ['status']
-    list_editable = ['status']
-    readonly_fields = ('subject','comment','ip','user','project','rate','id')
-
-
-admin.site.register(Residential_Project_Images,)
-admin.site.register(Residential_Project_Floor_Plans,)
-admin.site.register(Residential_Project,Residential_ProjectAdmin)
-admin.site.register(Residential_Project_Comment,Residential_Project_CommentAdmin)
-
-
-#___________________________________________________________________________________________________________
-
-class Commercial_Project_project_ImagesInline(admin.TabularInline):
-    list_display = ['id']
-    model = Commercial_Project_Images   
-    extra = 1
-
-class Commercial_Project_Floor_Plans_ImagesInline(admin.TabularInline):
-    list_display = ['id']
-    model = Commercial_Project_Floor_Plans   
-    extra = 1
-
-
-@admin_thumbnails.thumbnail('image')
-class Commercial_Project_Admin(admin.ModelAdmin):
-    list_display = ['id','image_thumbnail','title','locality','city','propert_type', 'developer', 'possession','featured_project',]
-
-    list_filter = ['locality','city','propert_type', 'developer', 'possession',]
-    search_fields = ['title']
-    inlines = [Commercial_Project_project_ImagesInline,Commercial_Project_Floor_Plans_ImagesInline]
-    list_per_page = 30 
-
-
-class Commercial_Project_CommentAdmin(admin.ModelAdmin):
-    list_display = ['user','subject','comment', 'project','status','create_at','rate','ip']
-    list_filter = ['status']
-    list_editable = ['status']
-    readonly_fields = ('subject','comment','ip','user','project','rate','id')
-
-
-
-admin.site.register(Commercial_Project_Images,)
-admin.site.register(Commercial_Project_Floor_Plans,)
-admin.site.register(Commercial_Project,Commercial_Project_Admin)
-admin.site.register(Commercial_Project_Comment,Commercial_Project_CommentAdmin)
+admin.site.register(Residential,ResidentialAdmin)

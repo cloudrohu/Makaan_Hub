@@ -86,7 +86,6 @@ class Locality(MPTTModel):
     title = models.CharField(max_length=50)
     keywords = models.CharField(max_length=1000)
     description = models.TextField(max_length=5000)
-    featured_locality = models.BooleanField(default=False)
     slug = models.SlugField(unique=True, null=True, blank=True)
     create_at = models.DateTimeField(auto_now_add=True)
     update_at = models.DateTimeField(auto_now=True)
@@ -97,13 +96,7 @@ class Locality(MPTTModel):
     def save(self, *args, **kwargs):
         self.slug = slugify(self.title + "-- " + self.city.title)
         super(Locality, self).save(*args, **kwargs)
-
-    def image_tag(self):
-        if self.image.url is not None:
-            return mark_safe('<img src="{}" height="50"/>'.format(self.image.url))
-        else:
-            return ""
-        
+ 
     class Meta:
         verbose_name_plural='18. Locality'
   
@@ -122,6 +115,14 @@ class Locality(MPTTModel):
             full_path.append(k.title)
             k = k.parent
         return ' / '.join(full_path[::-1])
+
+
+class P_Amenities(models.Model):
+    title = models.CharField(max_length=100)
+    icon = models.ImageField(upload_to='amenities/', blank=True, null=True)
+
+    def __str__(self):
+        return self.title
 
 
 class Social_Site(models.Model):    
