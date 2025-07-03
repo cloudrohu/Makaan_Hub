@@ -86,6 +86,7 @@ class ResidentialAdmin(admin.ModelAdmin):
     list_display = ['id','image_thumbnail','project_name','developer', 'active','featured_property', 'locality','city','propert_type','possession_year']
     list_editable = [ 'project_name','developer','active','featured_property','locality','city','propert_type',]
     list_filter = ['developer','active','featured_property','locality','city','propert_type','possession_year']
-    list_filter = ['project_name',]
+    search_fields = ['project_name',]
+
 
 admin.site.register(Residential,ResidentialAdmin)
