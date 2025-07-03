@@ -21,13 +21,16 @@ class Agencies(models.Model):
     agencies_type = models.CharField(max_length=25, choices=Type,null=True, blank=True)
     find_from = models.ForeignKey(Fine_From, on_delete=models.CASCADE, null=True,blank=True)  # many to one relation with Brand
     agencies_name = models.CharField(max_length=150, unique=True)
+    address = models.CharField(max_length=500, null=True, blank=True)    
+
+    locality = models.ForeignKey(Locality, on_delete=models.CASCADE, null=True,blank=True) 
+    city = models.ForeignKey(City, on_delete=models.CASCADE, null=True,blank=True)  # many to one relation with Brand
     contact_person = models.CharField(max_length=255, null=True, blank=True)
     contact_no = models.CharField(max_length=255, null=True, blank=True)
-    email = models.EmailField(null=True, blank=True)    
-    city = models.ForeignKey(City, on_delete=models.CASCADE, null=True,blank=True)  # many to one relation with Brand
-    locality = models.ForeignKey(Locality, on_delete=models.CASCADE, null=True,blank=True)  # many to one relation with Brand
-    address = models.CharField(max_length=500, null=True, blank=True)    
+     # many to one relation with Brand
     description = models.CharField(max_length=5000, null=True, blank=True)
+    email = models.EmailField(null=True, blank=True)    
+
     image = models.ImageField(null=True, blank=True,upload_to='images/')
     status = models.ForeignKey(User_Status, on_delete=models.CASCADE, null=True,blank=True) 
     meeting_follow_up = models.DateTimeField(blank=True, null=True,)
