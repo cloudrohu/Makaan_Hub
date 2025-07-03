@@ -97,12 +97,16 @@ class Residential(MPTTModel):
 
     description = models.CharField(max_length=150,null=True, blank=True)
     price = models.CharField(max_length=150,null=True, blank=True)
+    featured_property = models.BooleanField(default=False)
+    active = models.BooleanField(default=False)
     image = models.ImageField(null=True, blank=True,upload_to='images/')
 
-
+    slug = models.SlugField(unique=True, null=True, blank=True,max_length=555,)
+    create_at = models.DateTimeField(auto_now_add=True,null=True, blank=True,)
+    update_at = models.DateTimeField(auto_now=True,null=True, blank=True,)
     
     def __str__(self):
-        return self.project_name
+        return str(self.project_name) if self.project_name else "Unnamed Project"
     
     class Meta:
         verbose_name_plural='1. Residential Project'
@@ -123,7 +127,7 @@ class Residential(MPTTModel):
     
     def get_absolute_url(self):
         from django.urls import reverse
-        return reverse("project_name", kwargs={'slug': self.slug})
+        return reverse("residential_project", kwargs={'slug': self.slug})
 
     def __str__(self):  # __str__ method elaborated later in
         full_path = [self.project_name]  # post.  use __unicode__ in place of
@@ -218,9 +222,10 @@ class Gallery(models.Model):
 
 class Header(models.Model):
     residential = models.ForeignKey(Residential, on_delete=models.CASCADE, related_name="headers")    
-    keywords = models.CharField(max_length=255,null=True, blank=True)
-    meta_description = models.CharField(max_length=255,null=True, blank=True)
-
+    title = models.CharField(max_length=2000,null=True, blank=True)
+    keywords = models.CharField(max_length=2000,null=True, blank=True)
+    meta_description = models.CharField(max_length=5000,null=True, blank=True)
+    logo = models.ImageField(null=True, blank=True,upload_to='images/')
     welcome_to_bg = models.ImageField(null=True, blank=True,upload_to='headers/')
     virtual_site_visit_bg = models.ImageField(null=True, blank=True,upload_to='headers/')
     schedule_a_site_visit = models.ImageField(null=True, blank=True,upload_to='headers/')
@@ -252,8 +257,8 @@ class WhyInvest(models.Model):
         return f"Why Invest - {self.pk}"
     
 
-class BookingOffer(models.Model):
-    residential = models.ForeignKey('Residential', on_delete=models.CASCADE, related_name="booking_offers")
+class BankOffer(models.Model):
+    residential = models.ForeignKey('Residential', on_delete=models.CASCADE, related_name="bank_offers")
     bank_approval = models.ForeignKey('utility.Bank', on_delete=models.CASCADE, related_name='booking_offers')
     title = models.CharField(max_length=200,null=True, blank=True)
     description = models.TextField(blank=True, null=True)

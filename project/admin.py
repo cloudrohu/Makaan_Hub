@@ -63,7 +63,9 @@ class WhyInvestInline(admin.StackedInline):
 class BookingOfferInline(admin.StackedInline):
     model = BookingOffer
     extra = 0
+
 @admin_thumbnails.thumbnail('image')
+
 class ResidentialAdmin(admin.ModelAdmin):
     inlines = [
         WelcomeToInline,
@@ -81,6 +83,9 @@ class ResidentialAdmin(admin.ModelAdmin):
         WhyInvestInline,
         BookingOfferInline,
     ]
-    list_display = ['id','image_thumbnail','project_name','developer', 'locality','city','propert_type',]
+    list_display = ['id','image_thumbnail','project_name','developer', 'active','featured_property', 'locality','city','propert_type','possession_year']
+    list_editable = [ 'project_name','developer','active','featured_property','locality','city','propert_type',]
+    list_filter = ['developer','active','featured_property','locality','city','propert_type','possession_year']
+    list_filter = ['project_name',]
 
 admin.site.register(Residential,ResidentialAdmin)

@@ -25,5 +25,6 @@ urlpatterns = [
     path(('pg/'), views.pg, name='pg'),
     path(('blog/'), views.blog, name='blog'),   
     path('category/<int:id>/<slug:slug>', views.category_products, name='category_products'),
+    path('privacy-policy', views.privacy_policy, name='privacy-policy'),
 
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -8,6 +8,7 @@ from django.db.models import Avg, Count, Q, F
 from django.db.models.functions import Concat
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse, request
 from django.shortcuts import redirect, render
+from django.core.mail import send_mail
 
 # Create your views here.
 from django.template.loader import render_to_string
@@ -18,6 +19,7 @@ from home.models import Setting, ContactForm, ContactMessage,FAQ,About_Page,Cont
 from Makaan_Hub import settings
 from utility.models import City,Locality
 from user.models import Developer
+from project.models import Residential
 
 # Create your views here.
 
@@ -48,32 +50,33 @@ def index(request):
 
 def residential_project(request):
     setting = Setting.objects.all().order_by('-id')[0:1]
-   
+
+    project_latest = Residential.objects.filter(featured_property = 'True').order_by('-id')[:6]  # last 4 products
+    project_featured = Residential.objects.filter(featured_property = 'True').order_by('-id')[:6]  # last 4 products
+    active = Residential.objects.filter(featured_property = 'True').order_by('?')   #Random selected 4 products
+
     page="home"
     context={
-        'setting':setting,
+        'project_latest':project_latest,
+        'project_featured':project_featured,
+        'active':active,
+        'setting':setting,    }
 
-
-    }
-
-    return render(request,'projects/residential_list.html',context)
+    return render(request,'projects/list/residential.html',context)
 
 
 def residential_project_details(request,slug):
     setting = Setting.objects.all().order_by('-id')[0:1]
      # last 4 products
-
-    project_picked = Residential_Project.objects.get(slug = slug)
+    active = Residential.objects.get(slug = slug)
 
     page="home"
     context={
         'setting':setting,
-
-        'project_picked':project_picked,
+        'active':active,
 
     }
-
-    return render(request,'projects/residential_view.html',context)
+    return render(request,'projects/details/residential.html',context)
 
 
 def commercial_project(request):
@@ -115,7 +118,6 @@ def land(request):
     developer = Developer.objects.filter(featured_builder = 'True').order_by('-id')[:50]  #first 4 products
     ourteam = Our_Team.objects.filter(featured = 'True').order_by('-id')#first 4 products
     testimonial = Testimonial.objects.filter(featured = 'True').order_by('-id')#first 4 products
-    project_slider = Residential_Project.objects.filter(slider = 'True').order_by('-id')[:6]  #first 4 products
     project_latest = Residential_Project.objects.filter(featured_project = 'True').order_by('-id')[:6]  # last 4 products
     project_featured = Residential_Project.objects.filter(featured_project = 'True').order_by('-id')[:6]  # last 4 products
     project_picked = Residential_Project.objects.filter(featured_project = 'True').order_by('?')[:6]   #Random selected 4 products
@@ -316,6 +318,54 @@ def faq(request):
     return render(request, 'faq.html')
 
 
+def privacy_policy(request): 
+    header = Setting.objects.all().order_by('-id')[0:1]  
+
+    context={
+        'header':header,
+    }
+    return render(request,'privacy_policy.html',context)
+
+
 
 def THANK_YOU(request):
-    return render(request, 'thank-you.html')
+    return render(request, 'thank_you.html')
+
+
+def submit_form(request):
+    if request.method == 'POST':
+        name = request.POST.get('name')
+        email = request.POST.get('email')
+        phone = request.POST.get('mobile')
+        
+
+         # Save to DB
+        Response.objects.create(name=name, email=email, phone=phone)
+
+        # Send "Thank You" email to user
+        subject = 'Thank You for Contacting '
+        message = f"""
+Dear {name},
+
+Thank you for Connecting. We have received your details:
+
+Email: {email}  
+Phone: {phone}
+
+Our team will contact you shortly.
+
+Kind regards 
+All the best
+"""
+        from_email = None  # Uses DEFAULT_FROM_EMAIL in settings.py
+        recipient_list = [email]  # ← Send to user, not to admin
+
+        try:
+            send_mail(subject, message, from_email, recipient_list)
+        except Exception as e:
+            print("Error sending email:", e)
+        return redirect('thank_you')  # Make sure this name matches urls.py
+
+    return render(request, 'base.html')
+
+
