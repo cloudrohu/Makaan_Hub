@@ -49,9 +49,9 @@ class Follow_UpAdmin(admin.ModelAdmin):
     list_per_page = 20 
 
 class VisitAdmin(admin.ModelAdmin):
-    list_display = ['id', 'company', 'description', 'create_at','update_at']   
+    list_display = ['id','visit_type', 'company', 'meet_by', 'description', 'followup_meeting','create_at','update_at']   
     
-    list_filter = ('create_at','update_at',) 
+    list_filter = ('followup_meeting','create_at','update_at',) 
     list_per_page = 20 
 
 
