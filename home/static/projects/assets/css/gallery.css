@@ -127,7 +127,6 @@
 }
 
 .gallery-img-holder:before {
-    content: 'Artistic Impression';
     position: absolute;
     bottom: 5px;
     right: 0;

@@ -88,10 +88,10 @@ def commercial_project(request):
     developer = Developer.objects.filter(featured_builder = 'True').order_by('-id')[:50]  #first 4 products
     ourteam = Our_Team.objects.filter(featured = 'True').order_by('-id')#first 4 products
     testimonial = Testimonial.objects.filter(featured = 'True').order_by('-id')#first 4 products
-    project_slider = Residential_Project.objects.filter(slider = 'True').order_by('-id')[:6]  #first 4 products
-    project_latest = Residential_Project.objects.filter(featured_project = 'True').order_by('-id')[:6]  # last 4 products
-    project_featured = Residential_Project.objects.filter(featured_project = 'True').order_by('-id')[:6]  # last 4 products
-    project_picked = Residential_Project.objects.filter(featured_project = 'True').order_by('?')[:6]   #Random selected 4 products
+    project_slider = Residential.objects.filter(slider = 'True').order_by('-id')[:6]  #first 4 products
+    project_latest = Residential.objects.filter(featured_project = 'True').order_by('-id')[:6]  # last 4 products
+    project_featured = Residential.objects.filter(featured_project = 'True').order_by('-id')[:6]  # last 4 products
+    project_picked = Residential.objects.filter(featured_project = 'True').order_by('?')[:6]   #Random selected 4 products
 
     page="home"
     context={
@@ -118,9 +118,9 @@ def land(request):
     developer = Developer.objects.filter(featured_builder = 'True').order_by('-id')[:50]  #first 4 products
     ourteam = Our_Team.objects.filter(featured = 'True').order_by('-id')#first 4 products
     testimonial = Testimonial.objects.filter(featured = 'True').order_by('-id')#first 4 products
-    project_latest = Residential_Project.objects.filter(featured_project = 'True').order_by('-id')[:6]  # last 4 products
-    project_featured = Residential_Project.objects.filter(featured_project = 'True').order_by('-id')[:6]  # last 4 products
-    project_picked = Residential_Project.objects.filter(featured_project = 'True').order_by('?')[:6]   #Random selected 4 products
+    project_latest = Residential.objects.filter(featured_project = 'True').order_by('-id')[:6]  # last 4 products
+    project_featured = Residential.objects.filter(featured_project = 'True').order_by('-id')[:6]  # last 4 products
+    project_picked = Residential.objects.filter(featured_project = 'True').order_by('?')[:6]   #Random selected 4 products
 
     page="home"
     context={
@@ -130,7 +130,6 @@ def land(request):
         'ourteam':ourteam,
         'locality':locality,
         'developer':developer,
-        'project_slider':project_slider,
         'project_latest':project_latest,
         'project_picked':project_picked,
         'project_featured':project_featured,
@@ -149,16 +148,15 @@ def pg(request):
     developer = Developer.objects.filter(featured_builder = 'True').order_by('-id')[:50]  #first 4 products
     ourteam = Our_Team.objects.filter(featured = 'True').order_by('-id')#first 4 products
     testimonial = Testimonial.objects.filter(featured = 'True').order_by('-id')#first 4 products
-    project_slider = Residential_Project.objects.filter(slider = 'True').order_by('-id')[:6]  #first 4 products
-    project_latest = Residential_Project.objects.filter(featured_project = 'True').order_by('-id')[:6]  # last 4 products
-    project_featured = Residential_Project.objects.filter(featured_project = 'True').order_by('-id')[:6]  # last 4 products
-    project_picked = Residential_Project.objects.filter(featured_project = 'True').order_by('?')[:6]   #Random selected 4 products
+    project_slider = Residential.objects.filter(slider = 'True').order_by('-id')[:6]  #first 4 products
+    project_latest = Residential.objects.filter(featured_project = 'True').order_by('-id')[:6]  # last 4 products
+    project_featured = Residential.objects.filter(featured_project = 'True').order_by('-id')[:6]  # last 4 products
+    project_picked = Residential.objects.filter(featured_project = 'True').order_by('?')[:6]   #Random selected 4 products
 
     page="home"
     context={
         'setting':setting,
         'about':about,
-
         'city':city,
         'testimonial':testimonial,
         'ourteam':ourteam,
@@ -181,10 +179,10 @@ def blog(request):
     developer = Developer.objects.filter(featured_builder = 'True').order_by('-id')[:50]  #first 4 products
     ourteam = Our_Team.objects.filter(featured = 'True').order_by('-id')#first 4 products
     testimonial = Testimonial.objects.filter(featured = 'True').order_by('-id')#first 4 products
-    project_slider = Residential_Project.objects.filter(slider = 'True').order_by('-id')[:6]  #first 4 products
-    project_latest = Residential_Project.objects.filter(featured_project = 'True').order_by('-id')[:6]  # last 4 products
-    project_featured = Residential_Project.objects.filter(featured_project = 'True').order_by('-id')[:6]  # last 4 products
-    project_picked = Residential_Project.objects.filter(featured_project = 'True').order_by('?')[:6]   #Random selected 4 products
+    project_slider = Residential.objects.filter(slider = 'True').order_by('-id')[:6]  #first 4 products
+    project_latest = Residential.objects.filter(featured_project = 'True').order_by('-id')[:6]  # last 4 products
+    project_featured = Residential.objects.filter(featured_project = 'True').order_by('-id')[:6]  # last 4 products
+    project_picked = Residential.objects.filter(featured_project = 'True').order_by('?')[:6]   #Random selected 4 products
 
     page="home"
     context={
@@ -329,7 +327,7 @@ def privacy_policy(request):
 
 
 def THANK_YOU(request):
-    return render(request, 'thank_you.html')
+    return render(request, 'thank-you.html')
 
 
 def submit_form(request):

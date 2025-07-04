@@ -78,6 +78,7 @@ class Residential(MPTTModel):
     Occupancy_Certificate = (('Yes', 'Yes'),('No', 'No'), )
     Commencement_Certificate = (('Yes', 'Yes'),('No', 'No'),)
 
+    
     Occupancy_Certificate = models.CharField(max_length=25, choices=Occupancy_Certificate,null=True, blank=True)
     Commencement_Certificate = models.CharField(max_length=25, choices=Commencement_Certificate,null=True, blank=True)
    
@@ -89,14 +90,13 @@ class Residential(MPTTModel):
     city = models.ForeignKey(City, on_delete=models.CASCADE)  # many to one relation with Brand
     locality = models.ForeignKey(Locality, on_delete=models.CASCADE)  # many to one relation with Brand
 
+    land_parce = models.CharField(max_length=50,null=True, blank=True)
+    floor = models.CharField(max_length=50,null=True, blank=True)
+    possession = models.CharField(max_length=50,null=True, blank=True)
     possession_year = models.CharField(max_length=200, choices=Possession_In,null=True, blank=True)
+    luxurious = models.CharField(max_length=50,null=True, blank=True)
+    priceing = models.CharField(max_length=50,null=True, blank=True)    
 
-    Possession = models.CharField(max_length=50)
-    land_parceland = models.CharField(max_length=50)
-    floor = models.CharField(max_length=50)
-
-    description = models.CharField(max_length=150,null=True, blank=True)
-    price = models.CharField(max_length=150,null=True, blank=True)
     featured_property = models.BooleanField(default=False)
     active = models.BooleanField(default=False)
     image = models.ImageField(null=True, blank=True,upload_to='images/')
@@ -210,15 +210,14 @@ class Project_Amenities(models.Model):
     amenities = models.ForeignKey(P_Amenities, on_delete=models.CASCADE, related_name="amenities")
     
     def __str__(self):
-        return f"{self.residential.name} - {self.amenities.name}"
+        return f"{self.residential.project_name} - {self.amenities.title}"
 
 class Gallery(models.Model):
     residential = models.ForeignKey(Residential, on_delete=models.CASCADE, related_name="gallery")
     image = models.ImageField(upload_to='gallery/')
-    caption = models.CharField(max_length=255, blank=True)
 
     def __str__(self):
-        return self.caption or f"Image #{self.pk}"
+        return f"Image #{self.pk}"
 
 class Header(models.Model):
     residential = models.ForeignKey(Residential, on_delete=models.CASCADE, related_name="headers")    
@@ -266,5 +265,4 @@ class BankOffer(models.Model):
     def __str__(self):
         return self.title
 
-    
 #__________________________________________________________________________________________________________

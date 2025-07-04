@@ -15,7 +15,7 @@ SECRET_KEY = 'django-insecure-5(e@lnf^d)an2em_qk!%lf)^48y)h#8uex7k(wcx!nf#$v43tl
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -54,7 +54,7 @@ INSTALLED_APPS = [
 ]
 
 TAILWIND_APP_NAME = 'theme'
-INTERNAL_IPS = ["127.0.0.1"]
+INTERNAL_IPS = ["127.0.0.1",]
 NPM_BIN_PATH = 'npm.cmd'
 
 MIDDLEWARE = [

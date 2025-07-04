@@ -10,59 +10,59 @@ from . models import *
 
 class WelcomeToInline(admin.StackedInline):
     model = WelcomeTo
-    extra = 0
+    extra = 1
 
 class LocationInline(admin.StackedInline):
     model = Location
-    extra = 0
+    extra = 1
 
 class WebSliderInline(admin.StackedInline):
     model = WebSlider
-    extra = 0
+    extra = 3
 
 class OverviewInline(admin.StackedInline):
     model = Overview
-    extra = 0
+    extra = 1
 
 class AboutUsInline(admin.StackedInline):
     model = AboutUs
-    extra = 0
+    extra = 1
 
 class USPInline(admin.StackedInline):
     model = USP
-    extra = 0
+    extra = 4
 
 class ConfigurationInline(admin.StackedInline):
     model = Configuration
-    extra = 0
+    extra = 2
 
 class Project_AmenitiesInline(admin.StackedInline):
     model = Project_Amenities
-    extra = 0
+    extra = 4
 
 class GalleryInline(admin.StackedInline):
     model = Gallery
-    extra = 0
+    extra = 3
 
 class HeaderInline(admin.StackedInline):
     model = Header
-    extra = 0
+    extra = 1
 
 class RERA_InfoInline(admin.StackedInline):
     model = RERA_Info
-    extra = 0
+    extra = 1
 
 class ConnectivityInline(admin.StackedInline):
     model = Connectivity
-    extra = 0
+    extra = 4
 
 class WhyInvestInline(admin.StackedInline):
     model = WhyInvest
-    extra = 0
+    extra = 4
 
 class BookingOfferInline(admin.StackedInline):
     model = BookingOffer
-    extra = 0
+    extra = 3
 
 @admin_thumbnails.thumbnail('image')
 

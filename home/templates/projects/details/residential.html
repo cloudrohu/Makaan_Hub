@@ -180,8 +180,13 @@ display: block;
 
                 <!-- Logo: Always on the left -->
                 <a class="navbar-brand" href="#">
-               <img src="{{rs.logo.url}} " alt="Logo" style="height: 55px; padding: 1px;" width="160">
-
+                    {% with active.headers.last as header %}
+                        {% if header and header.logo %}
+                            <img src="{{ header.logo.url }}" alt="Logo" style="height: 55px; padding: 1px;" width="160">
+                        {% else %}
+                            <img src="/path/to/default/logo.png" alt="Default Logo" style="height: 55px; padding: 1px;" width="160">
+                        {% endif %}
+                    {% endwith %}
                 </a>
 
               <!-- Toggler (visible on mobile & tablet both) -->
@@ -210,6 +215,7 @@ display: block;
                 <!-- Mobile Offcanvas Menu -->
                 <div class="offcanvas offcanvas-end d-lg-none" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
                 <div class="offcanvas-header">
+                    
                     <img src="{{rs.logo.url}} " alt="Logo" style="height: 60px; padding: 1px;" width="160">
 
                     <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
@@ -480,26 +486,32 @@ display: block;
                             <div class="card-d card-d-custom" style="width: 100%; text-align: center; background-color: #EEEEEE; border-radius: 15px; padding: auto;">
                                 <div>
                                     <span class="heading2">Land Parcel </span>
-                                    <span class="heading1">{{rs.landp_arcel}}</span>
+                                    <span class="heading1">{{active.land_parce}}</span>
                                 </div>
                                 <div>
                                     <span class="heading2">Floors </span>
-                                    <span class="heading1">{{rs.floors}}</span>
+                                    <span class="heading1">{{active.floor}}</span>
                                 </div>
                                 <div>
                                     <span class="heading2">Possession </span>
-                                    <span class="heading1">{{rs.possession}}</span>
+                                    <span class="heading1"> {{active.possession}}</span>
                                 </div>
                             </div>
 
                             <div class="offerBox animatedtext">
                                 <div class="innerBox">
-                                    <p class="mb-0">◆ {{rs.spot_booking_offers}}</p>
+                                    {% for offer in active.BookingOffer.all %}
+                                        <p class="mb-0">◆ {{ offer.title }}</p>
+                                    {% empty %}
+                                        <p class="mb-0">No booking offers available.</p>
+                                    {% endfor %}
                                     
                                 </div>
                             </div>
-                            <p class="offer-info-text text-center mb-0">Premium {{rs.luxurious}}</p>
-                            <div class="price-text"><span class="color-imp">₹ </span><span class="price-sub-text">{{rs.priceing}} </span> </div>
+
+                            
+                            <p class="offer-info-text text-center mb-0">{{active.luxurious}}</p>
+                            <div class="price-text"><span class="color-imp">₹ </span><span class="price-sub-text">{{active.priceing}} </span> </div>
                          <button id="request-brochure-button" type="button" class="custom-btn data-id-btn non-rera"
                                 data-bs-target="#enquire-modal" data-bs-toggle="modal"
                                 data-bs-whatever="Enquire Now" data-id="Brochure">
@@ -547,65 +559,56 @@ display: block;
                 <section class="sec1" id="about_us">
                     <div class="container">
                         <div class="row">
-                        {% for rs in welcome %}
-
                         <div class="col-xl-7 col-lg-7 col-sm-12">
                             <div class="overview-data">
-                                <h1>Welcome To {{ rs.title }}</h1>
-
-                                <p>{{ rs.details }}</p>
-
-                                <p class="overview-info">             
-                                <span class="moreText" style="display: none;">{{ rs.readmore }}</span>
-                                </p>
-                                
-
-                                <button class="readMoreBtn custom-btn" onclick="toggleReadMore(this)">Read More</button>
+                                <h1>Welcome To {{ active.project_name }}</h1>
+                                {% for welcome in active.welcomes.all %}
+                                    <p>{{ welcome.description }}</p>
+                                    {% if welcome.read_more %}
+                                        <p class="overview-info">             
+                                            <span class="moreText" style="display: none;">
+                                                {{ welcome.read_more }}
+                                            </span>
+                                        </p>
+                                        <button class="readMoreBtn custom-btn" onclick="toggleReadMore(this)">Read More</button>
+                                    {% endif %}
+                                {% empty %}
+                                    <p>No description available.</p>
+                                {% endfor %}
 
                                 <br><br>
                                 <button id="request-brochure-button" type="button" class="custom-btn data-id-btn on-rera"
-                                data-bs-target="#enquire-modal" data-bs-toggle="modal"
-                                data-bs-whatever="Enquire Now" data-id="Brochure">
-                                <i class="fa-solid fa-download"></i>&nbsp;&nbsp;Request Brochure
+                                        data-bs-target="#enquire-modal" data-bs-toggle="modal"
+                                        data-bs-whatever="Enquire Now" data-id="Brochure">
+                                    <i class="fa-solid fa-download"></i>&nbsp;&nbsp;Request Brochure
                                 </button>
-
-                          
                             </div>
-                        </div>
-
+                            </div>
                         <div class="col-xl-5 col-lg-5 col-sm-12 text-center ps-0 pe-0">
-                            <img src="{{ rs.web_image.url }}" width="100%" class="data-id-btn" data-id="Project Video" alt=" ">
+                            <img src="{{ active.image.url }}" width="100%" class="data-id-btn" data-id="Project Video" alt=" ">
                         </div>
-                        {% endfor %}
                         </div>
                     </div>
       <!-- xxxxxxxxxxxx Overview section End xxxxxxxxxxxx -->
                 </section>
             
-            <section class="sec2" id="highlights">
-                <div class="container mx-auto">
-                    {% for rs in welcome %}
-                    <h1 class="section-title">{{rs.title}} - Highlights </h1>
-                    {% endfor %}
-
-                    <div class="row">
-                        {% for rs in unique_Selling_Proposition %}
-                        <div class="col-xl-6 col-lg-4 col-sm-12 mb-3">
-                            <div class="highlightData">
+            <section class="sec2" id="highlights">               
+                <h1 class="section-title">{{active.project_name}} - Highlights </h1>
+                    <div class="col-xl-12 col-lg-12 col-sm-12 text-dark amenities-info mt-3 ps-2 pe-2">
+                        <div id="exTab1" class="fuild-container">
+                            
+                            <div class="tab-content clearfix">
                                 <div class="iconBox"> <i class="fa-solid fa-check-double"></i> </div>
-                                <p>{{rs.title}} </p>
+                                    <ul>
+                                        {% for usps in active.usps.all %}
+                                        <li><p>{{usps.point}}</p></li>
+                                        {% endfor %}
+                                        
+                                    </ul>
+                                </div>
                             </div>
                         </div>
-                        
-                        <div class="col-xl-6 col-lg-4 col-sm-12 mb-3">
-                            <div class="highlightData">
-                                <div class="iconBox"> <i class="fa-solid fa-check-double"></i> </div>
-                                <p>{{rs.title2}}</p>
-                            </div>
-                        </div>
-                        {% endfor %}
                     </div>
-                </div>
             </section>
                 
             <!-- xxxxxxxxxxxx floor plan xxxxxxxxxxxx -->
@@ -613,9 +616,9 @@ display: block;
                 <div class="container sec-pd sec-price">
                     <div class="row gx-md-5">
                         <div class="col-12">
-                            {% for rs in welcome %}
-                            <h1 class="section-title on-rera">{{rs.title}} - Area & Pricing</h1>
-                            {% endfor %}
+                            
+                            <h1 class="section-title on-rera">{{active.project_name}} - Area & Pricing</h1>
+                            
                             <div class="">
                                 <table class="table table-borderless table-striped table-pricing text-center">
                                     <thead>
@@ -627,11 +630,12 @@ display: block;
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        {% for rs in configuration %}
+                                        {% for configurations in active.configurations.all %}
+
                                         <tr>
-                                            <td class="price">{{rs.typology}}</td>
-                                            <td>{{rs.rera_carpet_area}}</td>
-                                            <td class="price"><span style="font-family: sans-serif;">₹</span>{{rs.price}}</td>
+                                            <td class="price">{{configurations.bhk_type}}</td>
+                                            <td>{{configurations.area}}</td>
+                                            <td class="price"><span style="font-family: sans-serif;">₹</span>{{configurations.price}}</td>
                                             <td> <a href="javascript:void(0);" class="btn text-white my-1 enquiryBtn1 pricing-btn-1 custom-btn data-id-btn on-rera" data-bs-target="#enquire-modal" data-bs-toggle="modal" data-bs-whatever="Enquire Now" data-id="Costing Details">Complete Costing Details</a> </td>
                                             
                                         </tr>
@@ -651,7 +655,7 @@ display: block;
                             <div>
                                 <h1 class="section-title on-rera">Master Plan Layout</h1>
                             </div>
-                            <img src="{%  static '' %}assets/images/floor-plan/MasterPlan.webp" alt="" class="img-fluid">
+                            <img src="{%  static '' %}projects/assets/images/floor-plan/MasterPlan.webp" alt="" class="img-fluid">
                             <div class="btn_box text-center"> <a href="#" class="btn mt-4 custom-btn data-id-btn on-rera mx-auto" data-bs-target="#enquire-modal" data-bs-toggle="modal" data-bs-whatever="Enquire Now" data-id="Master Layout Plan"> Request Master Layout Plan </a>
                                 
                             </div>
@@ -660,33 +664,26 @@ display: block;
                             <div>
                                 <h1 class="section-title on-rera">Unit Plan Layout</h1>
                             </div>
-                            <img src="{%  static '' %}assets/images/floor-plan/UnitPlan.webp" alt="" class="img-fluid">
+                            <img src="{%  static '' %}projects/assets/images/floor-plan/UnitPlan.webp" alt="" class="img-fluid">
                             <div class="btn_box text-center"> <a href="#" class="btn mt-4 custom-btn data-id-btn on-rera mx-auto" data-bs-target="#enquire-modal" data-bs-toggle="modal" data-bs-whatever="Enquire Now" data-id="Unit Layout Plan"> Request Unit Layout Plans </a>
                         </div>
                     </div>
                 </div>
             </section>
-            <!-- xxxxxxxxxxxx floor plan end xxxxxxxxxxxx -->
+
             <section class="sec1" id="amenities">
                 <div class="container">
                     <h1 class="section-title on-rera">Luxurious Amenities</h1>
                     <div class="slick-wrapper">
                         <div class="inline-flex align-items-center">
                             <div id="slick1">
-                                {% for rs in amenities %}
+                                {% for amenity in active.amenities.all %}
                                 <div class="slide-item">
-                                    <img src="{{rs.icone.url}}" style="height: 200px;" alt="">
-                                    <p>{{rs.title}}</p>
+                                    <img src="{{ amenity.amenities.icon.url }}" style="height: 200px;" alt="">
+                                    <p>{{ amenity.amenities.title }}</p>
                                 </div>
-                                <div class="slide-item">
-                                    <img src="{{rs.icone2.url}}" style="height: 200px;" alt="">
-                                    <p>{{rs.title2}}</p>
-                                </div>
-                                {% endfor %}
-                                <!--<div class="slide-item">-->
-                                <!--	<img src="{%  static '' %}assets/images/amenities/Kids play area.webp" alt="">-->
-                                <!--	<p>Kids play area</p>-->
-                                <!--</div>-->
+                               
+                                {% endfor %}                        
 
                             </div>
                         </div>
@@ -703,27 +700,34 @@ display: block;
                 <div class="container wow fadeInUp">
                     <!-- data-wow-delay="0.1s" -->
                     <h1 class="section-title">Project Gallery</h1>
+
                     <div class="content-gallery">
                         <div class="gallery js-gallery">
-                            {% for rs in gallery %}
-                            <div class="gallery-item">
-                                <div class="gallery-img-holder js-gallery-popup">
-                                    <img src="{{rs.web_image.url}}" style="height: 175px;" alt="" class="gallery-img">
+                            {% for img in active.gallery.all %}
+                                <div class="gallery-item">
+                                    <div class="gallery-img-holder js-gallery-popup">
+                                        <img src="{{ img.image.url }}" style="height: 175px;" alt="" class="gallery-img">
+                                    </div>
                                 </div>
-                            </div>
+                            {% empty %}
+                                <p>No images available in gallery.</p>
                             {% endfor %}
                         </div>
                     </div>
+
                 </div>
             </section>
             <!-- xxxxxxxxxxxx Gallery section end xxxxxxxxxxxx -->
             <section class="sec1" id="location">
                 <div class="container" >
                     <h1 class="section-title">Location Advantage</h1>
+
                     <div class="row mt-2 px-0 mx-0"> <!-- Remove padding -->
+                        {% for locations in active.locations.all %}
                         <div class="map-container w-100">
-                            {{ rs.location|safe }}
+                            {{ locations.google_map_iframe|safe }}
                         </div>
+                        {% endfor %}
                     </div>
                     <div class="row pt-30 mb-3">
                         <div class="col-xl-12 col-lg-12 col-sm-12 text-dark mt-3 amenities-img">
@@ -751,8 +755,8 @@ display: block;
                                 <div class="tab-content clearfix">
                                     <div class="tab-pane fade active show" id="Connectivity">
                                         <ul>
-                                            {% for rs in location %}
-                                            <li>{{rs.title}}</li>
+                                            {% for configs in active.configs.all %}
+                                            <li>{{configs.title}}</li>
                                             {% endfor %}
                                             
                                         </ul>
@@ -768,18 +772,25 @@ display: block;
             </section>
             <!-- xxxxxxxxxxxx Connectivity section end xxxxxxxxxxxx -->
 
-                <section class="virtual-tour-section" id="virtual-tour-section" >
-                <div class="virtual-tour-section" style="height: 500px;" >
-                    <img class="background-img" src="{{rs.virtual_site_visit.url}}" alt="Virtual Tour Background" />
-                    <div class="virtual-tour-overlay">
-                        <div class="virtual-tour-title">VIRTUAL SITE VISIT</div>
-                        {% for rs in welcome %}
-                        <div class="virtual-tour-subtitle"><h1>{{rs.title}}<h2></div>
-                        {% endfor %}
-                        <div class="virtual-tour-play-button" data-bs-toggle="modal" data-bs-target="#enquire-modal">▶</div>
+                <section class="virtual-tour-section" id="virtual-tour-section">
+                    <div class="virtual-tour-section" style="height: 500px;">
+                        {% with active.headers.last as header %}
+                            {% if header and header.virtual_site_visit_bg %}
+                                <img class="background-img" src="{{ header.virtual_site_visit_bg.url }}" alt="Virtual Tour Background" />
+                            {% else %}
+                                <img class="background-img" src="/path/to/default-bg.jpg" alt="Default Virtual Tour Background" />
+                            {% endif %}
+                        {% endwith %}
+
+                        <div class="virtual-tour-overlay">
+                            <div class="virtual-tour-title">VIRTUAL SITE VISIT</div>
+                            {% for rs in welcome %}
+                                <div class="virtual-tour-subtitle"><h1>{{ active.project_name }}</h1></div>
+                            {% endfor %}
+                            <div class="virtual-tour-play-button" data-bs-toggle="modal" data-bs-target="#enquire-modal">▶</div>
+                        </div>
                     </div>
-                </div>
-             </section>
+                </section>
             
             <!-- xxxxxxxxxxxx Contact section xxxxxxxxxxxx -->
             <section id="contact">
@@ -788,9 +799,18 @@ display: block;
                     <div class="contact-inner">
                         <div class="container contact-data">
                             <div class="row">
+
                                 <div class="col-lx-6 col-lg-6 col-sm-12 image-carousel1 ps-0 pe-0">
-                                    <img src="{%  static '' %}assets/images/contact/contact.webp" class="img-fluid" />
+                                    {% with active.headers.last as header %}
+                                        {% if header and header.virtual_site_visit_bg %}
+                                            <img class="background-img" src="{{ header.virtual_site_visit_bg.url }}" alt="Virtual Tour Background" />
+                                        {% else %}
+                                            <img class="background-img" src="/path/to/default-bg.jpg" alt="Default Virtual Tour Background" />
+                                        {% endif %}
+                                    {% endwith %}
+
                                 </div>
+
                                 <div class="col-lx-6 col-lg-6 col-sm-12 form-data">
                                     <h2 class="text-left ms-4 mt-4 mb-0" style="font-size: 24px;">Schedule a Site Visit</h2>
                                     <div class="form">
@@ -828,48 +848,53 @@ display: block;
                                         </form>
                                     </div>
                                 </div>
+
                                 <div class="col-lx-6 col-lg-6 col-sm-12 ps-0 pe-0 image-carousel m-0">
-                                    <img src="{%  static '' %}assets/images/contact/contact.webp" class="img-fluid" />
+
+                                    {% with active.headers.last as header %}
+                                        {% if header and header.virtual_site_visit_bg %}
+                                            <img src="{{ header.schedule_a_site_visit.url }}" class="img-fluid" />
+                                        {% else %}
+                                            <img class="background-img" src="/path/to/default-bg.jpg" alt="Default Virtual Tour Background" />
+                                        {% endif %}
+                                    {% endwith %}
+                                    
                                 </div>
+
                             </div>
                         </div>
                     </div>
                 </div>
-            </section>
-
-
-        
-         
+            </section>         
 
 
             <section class="sec1" id="welcometo">
+                {% for rera in active.rera.all %}
                 <div class="container">                    
-                    <div class="overview-data">
-                    {% for rs in about_us %}
-                    <h1>{{ rs.title }}</h1>
-                    <p>{{ rs.details }}</p>
+                    <div class="overview-data">                    
+                    <h1>{{ active.project_name }}</h1>
+                    <p>{{ rera.details }}</p>
                     <p class="overview-info">        
-                    {% endfor %}                
                     </div>
                 </div>
                 
                 <div class="container" style="padding: 30px;">  
-                {% for rs in maharera %}
 
                 <span class="d-block section-heading-sub1 text-capitalize">RERA Information</span>
                 <div class="row">
                     <div class="col-md-3">
+                        <bn>
                         <div class="rera-box">
                             <div class="rera-img">
-                                <img src="{{rs.qr_image.url}}" loading="lazy" style="max-width: 100%; height: 100px; display: inline-block;" alt="P51800076673" />
+                                <img src="{{rera.qr_image.url}}" loading="lazy" style="max-width: 100%; height: 100px; display: inline-block;" alt="" />
                             </div>
                             <div class="rera-details">
-                                <p>{{rs.title}} - <b>{{rs.maharera_no}}</b></p>
+                                <p>{{active.project_name}} - <b>{{rera.registration_no}}</b></p>
                             </div>
                         </div>
                     </div>
                 </div>
-                <span class="pro-rera text-center-mob">{{rs.details}}</span>
+                <span class="pro-rera text-center-mob">{{rera.details}}</span>
                 <p></p>
                 {% endfor %}
                 </div>
@@ -1000,7 +1025,19 @@ display: block;
                     <button type="button" class="btn btn-md close modal-close" data-bs-dismiss="modal" aria-label="Close"> <span aria-hidden="true">×</span> </button>
                 </div>
                 <div class="modal-body">
-                    <a class="modal-logo text-center d-block mb-4" href="#" id="modal-logo"></a>
+
+
+
+                    <a class="modal-logo text-center d-block mb-4" href="#">
+                    {% with active.headers.last as header %}
+                        {% if header and header.logo %}
+                            <img src="{{ header.logo.url }}" alt="Logo" style="height: 55px; padding: 1px;" width="160">
+                        {% else %}
+                            <img src="/path/to/default/logo.png" alt="Default Logo" style="height: 55px; padding: 1px;" width="160">
+                        {% endif %}
+                    {% endwith %}
+                </a>
+                    
                     <!--this content fetch from JS-->
                 <form id="main-popup" name="modal-form" method="post" action="/submit-form/">
                        {% csrf_token %}
