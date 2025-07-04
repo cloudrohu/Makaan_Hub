@@ -184,7 +184,7 @@ display: block;
                         {% if header and header.logo %}
                             <img src="{{ header.logo.url }}" alt="Logo" style="height: 55px; padding: 1px;" width="160">
                         {% else %}
-                            <img src="/path/to/default/logo.png" alt="Default Logo" style="height: 55px; padding: 1px;" width="160">
+                            <img src="{{ rs.logo.url }}" alt="Default Logo" style="height: 55px; padding: 1px;" width="160">
                         {% endif %}
                     {% endwith %}
                 </a>
@@ -1033,7 +1033,7 @@ display: block;
                         {% if header and header.logo %}
                             <img src="{{ header.logo.url }}" alt="Logo" style="height: 55px; padding: 1px;" width="160">
                         {% else %}
-                            <img src="/path/to/default/logo.png" alt="Default Logo" style="height: 55px; padding: 1px;" width="160">
+                            <img src="{{ rs.logo.url }}" alt="Default Logo" style="height: 55px; padding: 1px;" width="160">
                         {% endif %}
                     {% endwith %}
                 </a>
