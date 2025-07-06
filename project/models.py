@@ -266,3 +266,209 @@ class BankOffer(models.Model):
         return self.title
 
 #__________________________________________________________________________________________________________
+
+
+
+class CommercialProject(MPTTModel):
+    CONSTRUCTION_STATUS = (
+        ('Under Construction', 'Under Construction'),
+        ('Ready To Move', 'Ready To Move'),
+        ('New Launch', 'New Launch'),
+    )
+    PROPERTY_TYPE = (
+        ('Commercial Office Space', 'Commercial Office Space'),
+        ('Shops', 'Shops'),
+        ('Showroom', 'Showroom'),
+        ('Commercial Plot', 'Commercial Plot'),
+        ('Co-working Space', 'Co-working Space'),
+        ('Warehouse/Godown', 'Warehouse/Godown'),
+    )
+    developer = models.ForeignKey(Developer, on_delete=models.CASCADE)
+    city = models.ForeignKey(City, on_delete=models.CASCADE)
+    locality = models.ForeignKey(Locality, on_delete=models.CASCADE)
+    parent = TreeForeignKey('self', blank=True, null=True, related_name='children', on_delete=models.CASCADE)
+    project_name = models.CharField(max_length=250)
+    construction_status = models.CharField(max_length=30, choices=CONSTRUCTION_STATUS)
+    property_type = models.CharField(max_length=200, choices=PROPERTY_TYPE)
+    total_floors = models.CharField(max_length=10, blank=True, null=True)
+    possession_year = models.CharField(max_length=4, blank=True, null=True)
+    priceing = models.CharField(max_length=50, blank=True, null=True)
+    area_range = models.CharField(max_length=50, blank=True, null=True)
+    featured_property = models.BooleanField(default=False)
+    active = models.BooleanField(default=False)
+    image = models.ImageField(upload_to='images/commercial/', blank=True, null=True)
+    slug = models.SlugField(unique=True, max_length=555, null=True, blank=True)
+    create_at = models.DateTimeField(auto_now_add=True, null=True, blank=True)
+    update_at = models.DateTimeField(auto_now=True, null=True, blank=True)
+
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.project_name + ' ' + self.locality.title + ' ' + self.city.title)
+        super().save(*args, **kwargs)
+
+    def __str__(self):
+        return str(self.project_name) if self.project_name else "Unnamed Commercial Project"
+
+    class Meta:
+        verbose_name_plural = "2. Commercial Projects"
+
+    class MPTTMeta:
+        order_insertion_by = ['project_name']
+
+class CommercialBookingOffer(models.Model):
+    commercial = models.ForeignKey('CommercialProject', on_delete=models.CASCADE, related_name="booking_offers")
+    title = models.CharField(max_length=255)
+
+    def __str__(self):
+        return self.title
+
+class CommercialWelcomeTo(models.Model):
+    commercial = models.ForeignKey('CommercialProject', on_delete=models.CASCADE, related_name="welcomes")
+    description = models.TextField(null=True, blank=True, max_length=5500)
+    read_more = models.TextField(null=True, blank=True, max_length=5500)
+
+    def __str__(self):
+        return self.description
+
+class CommercialLocation(models.Model):
+    commercial = models.ForeignKey('CommercialProject', on_delete=models.CASCADE, related_name="locations")
+    google_map_iframe = models.TextField(null=True, blank=True)
+
+    def __str__(self):
+        return self.google_map_iframe
+
+class CommercialWebSlider(models.Model):
+    commercial = models.ForeignKey('CommercialProject', on_delete=models.CASCADE, related_name="sliders")
+    image = models.ImageField(upload_to='web_slider/commercial/')
+    caption = models.CharField(max_length=255, blank=True)
+
+    def __str__(self):
+        return self.caption or f"Slider #{self.pk}"
+
+class CommercialOverview(models.Model):
+    commercial = models.ForeignKey('CommercialProject', on_delete=models.CASCADE, related_name="overviews")
+    heading = models.CharField(max_length=255)
+    content = models.TextField()
+
+    def __str__(self):
+        return self.heading
+
+class CommercialAboutUs(models.Model):
+    commercial = models.ForeignKey('CommercialProject', on_delete=models.CASCADE, related_name="aboutus")
+    content = models.TextField()
+
+    def __str__(self):
+        return "About Us"
+
+class CommercialUSP(models.Model):
+    commercial = models.ForeignKey('CommercialProject', on_delete=models.CASCADE, related_name="usps")
+    point = models.CharField(null=True, blank=True, max_length=150)
+
+    def __str__(self):
+        return self.point
+
+class CommercialConfiguration(models.Model):
+    commercial = models.ForeignKey('CommercialProject', on_delete=models.CASCADE, related_name="configurations")
+    unit_type = models.CharField(max_length=50)  # Office, Shop, etc.
+    area = models.CharField(max_length=100)
+    price = models.CharField(max_length=100)
+
+    def __str__(self):
+        return f"{self.unit_type} – {self.area}"
+
+class CommercialConnectivity(models.Model):
+    commercial = models.ForeignKey('CommercialProject', on_delete=models.CASCADE, related_name="connectivity")
+    title = models.CharField(max_length=50)
+
+    def __str__(self):
+        return f"{self.title}"
+
+class CommercialProjectAmenities(models.Model):
+    commercial = models.ForeignKey('CommercialProject', on_delete=models.CASCADE, related_name="amenities")
+    amenities = models.ForeignKey(P_Amenities, on_delete=models.CASCADE, related_name="commercial_amenities")
+
+    def __str__(self):
+        return f"{self.commercial.project_name} - {self.amenities.title}"
+
+class CommercialGallery(models.Model):
+    commercial = models.ForeignKey('CommercialProject', on_delete=models.CASCADE, related_name="gallery")
+    image = models.ImageField(upload_to='gallery/commercial/')
+
+    def __str__(self):
+        return f"Image #{self.pk}"
+
+class CommercialHeader(models.Model):
+    commercial = models.ForeignKey('CommercialProject', on_delete=models.CASCADE, related_name="headers")
+    title = models.CharField(max_length=2000, null=True, blank=True)
+    keywords = models.CharField(max_length=2000, null=True, blank=True)
+    meta_description = models.CharField(max_length=5000, null=True, blank=True)
+    logo = models.ImageField(null=True, blank=True, upload_to='images/commercial/')
+    welcome_to_bg = models.ImageField(null=True, blank=True, upload_to='headers/commercial/')
+    virtual_site_visit_bg = models.ImageField(null=True, blank=True, upload_to='headers/commercial/')
+    schedule_a_site_visit = models.ImageField(null=True, blank=True, upload_to='headers/commercial/')
+
+    def __str__(self):
+        return self.keywords
+
+class CommercialRERAInfo(models.Model):
+    commercial = models.ForeignKey('CommercialProject', on_delete=models.CASCADE, related_name="rera")
+    qr_image = models.ImageField(null=True, blank=True, upload_to='overviewimage/commercial/')
+    registration_no = models.CharField(null=True, blank=True, max_length=50)
+    project_registered = models.CharField(null=True, blank=True, max_length=50)
+    government_rera_authorised_advertiser = models.CharField(null=True, blank=True, max_length=150)
+    site_address = models.CharField(null=True, blank=True, max_length=500)
+    contact_us = models.CharField(null=True, blank=True, max_length=500)
+    disclaimer = models.CharField(null=True, blank=True, max_length=1500)
+    document = models.FileField(null=True, blank=True, upload_to='rera_docs/commercial/')
+
+    def __str__(self):
+        return self.registration_no
+
+class CommercialWhyInvest(models.Model):
+    commercial = models.ForeignKey('CommercialProject', on_delete=models.CASCADE, related_name="why_invest")
+    title = models.CharField(max_length=350, null=True, blank=True)
+    description = models.CharField(max_length=500, null=True, blank=True)
+
+    def __str__(self):
+        return f"Why Invest - {self.pk}"
+    
+    
+
+class CommercialBankOffer(models.Model):
+    commercial = models.ForeignKey('CommercialProject', on_delete=models.CASCADE, related_name="bank_offers")
+    bank_approval = models.ForeignKey('utility.Bank', on_delete=models.CASCADE, related_name='commercial_booking_offers')
+    title = models.CharField(max_length=200, null=True, blank=True)
+    description = models.TextField(blank=True, null=True)
+
+    def __str__(self):
+        return self.title
+
+
+class ResidentialEnquiry(models.Model):
+    residential = models.ForeignKey('Residential', on_delete=models.CASCADE, related_name='enquiries')
+    name = models.CharField(max_length=120)
+    email = models.EmailField(blank=True, null=True)
+    phone = models.CharField(max_length=20)
+    message = models.TextField(blank=True)
+    contacted_on = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"Enquiry for {self.residential.project_name} by {self.name}"
+    
+    class Meta:
+        verbose_name_plural='3. Residential Enquiry'
+
+
+
+class CommercialEnquiry(models.Model):
+    commercial = models.ForeignKey('CommercialProject', on_delete=models.CASCADE, related_name='enquiries')
+    name = models.CharField(max_length=120)
+    email = models.EmailField(blank=True, null=True)
+    phone = models.CharField(max_length=20)
+    message = models.TextField(blank=True)
+    contacted_on = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"Enquiry for {self.commercial.project_name} by {self.name}"
+    
+    class Meta:
+        verbose_name_plural='4. Commercial Enquiry'

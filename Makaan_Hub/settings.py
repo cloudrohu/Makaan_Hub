@@ -23,18 +23,15 @@ ALLOWED_HOSTS = ['*']
 INSTALLED_APPS = [
     'adminlte3',
     'adminlte3_theme',
-    'paying_guest',
 
-    'land.apps.LandConfig',
     'crm.apps.CrmConfig',
     'commercial.apps.CommercialConfig',
     'residential.apps.ResidentialConfig',
-    'bloging.apps.BlogingConfig',
     'project.apps.ProjectConfig',
     'home.apps.HomeConfig',
-    'property.apps.PropertyConfig',
     'utility.apps.UtilityConfig',
     'user.apps.UserConfig',
+    
     'subscription.apps.SubscriptionConfig',
 
     'django.contrib.admin',
