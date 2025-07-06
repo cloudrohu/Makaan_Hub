@@ -11,7 +11,7 @@ from mptt.fields import TreeForeignKey
 from mptt.models import MPTTModel
 from django.utils.text import slugify
 # Create your models here.
-from utility.models import City,Locality,Fine_From,User_Status,Visit_Type
+from utility.models import City,Locality,Fine_From,User_Status,Visit_Type,Visit_Status
 
 class Agencies(models.Model):
     Type = (
@@ -95,6 +95,8 @@ class Visit(models.Model):
     company = models.ForeignKey(Agencies, on_delete=models.CASCADE,null=True,blank=True) #many to one relation with Brand
     meet_by = models.CharField(max_length=100,null=True , blank=True)
     locality_city = models.ForeignKey(Locality, on_delete=models.CASCADE,null=True,blank=True) #many to one relation with Brand
+    status = models.ForeignKey(Visit_Status, on_delete=models.CASCADE, null=True,blank=True) 
+    
     followup_meeting = models.DateTimeField(null=True, blank=True)
     
     create_at=models.DateTimeField(auto_now_add=True)

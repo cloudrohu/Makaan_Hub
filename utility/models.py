@@ -150,6 +150,12 @@ class User_Status(models.Model):
         return self.title
 
 
+class Visit_Status(models.Model):
+    title = models.CharField(max_length=50,blank=True)
+    def __str__(self):
+        return self.title
+
+
 class Visit_Type(models.Model):
     title = models.CharField(max_length=500,blank=True, null=True,)
 
