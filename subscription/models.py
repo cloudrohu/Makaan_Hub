@@ -72,7 +72,6 @@ class Follow_Up(models.Model):
     
     class Meta:
         verbose_name_plural='4. Follow_Up'
- 
 class Meeting(models.Model):
     comment = models.CharField(max_length=500,blank=True, null=True,)
     meeting = models.DateTimeField(null=True, blank=True)
@@ -87,8 +86,6 @@ class Meeting(models.Model):
     
     class Meta:
         verbose_name_plural='3. Meeting'
-
-
 class Visit(models.Model):
     description = models.CharField(max_length=500,null=True , blank=True)
     visit_type = models.ForeignKey(Visit_Type, on_delete=models.CASCADE,null=True,blank=True) #many to one relation with Brand
@@ -115,4 +112,3 @@ class Visit(models.Model):
     class Meta:
         verbose_name_plural='2. Today Visit'
 
- 
