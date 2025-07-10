@@ -22,10 +22,10 @@ class VisitInline(admin.TabularInline):
 
 @admin_thumbnails.thumbnail('image')
 class AgenciesAdmin(admin.ModelAdmin):
-    list_display = ['id','status', 'image_thumbnail','agencies_name', 'address', 'contact_person', 'contact_no',  'description', 'meeting_follow_up','email','city', 'locality', 'address','create_at','update_at', 'find_from','agencies_type']    
+    list_display = ['id','agencies_name','address','contact_person','contact_no','description', 'meeting_follow_up','image_thumbnail','status','email','city', 'locality', 'address','create_at','update_at', 'find_from','agencies_type']    
     
-    list_filter = ['create_at','city', 'locality','status','meeting_follow_up']
-    search_fields = ['agencies_name', 'contact_person','contact_person', 'contact_no', 'description','email']
+    list_filter = ['create_at','city','locality','status','meeting_follow_up']
+    search_fields = ['id','agencies_name', 'contact_person','contact_person', 'contact_no', 'description','email']
     list_editable = ('meeting_follow_up','city', 'locality', 'status',)
     list_per_page = 20
     inlines = [Follow_UpInline,MeetingInline,VisitInline]

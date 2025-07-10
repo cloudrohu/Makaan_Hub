@@ -19,7 +19,7 @@ from home.models import Setting, ContactForm, ContactMessage,FAQ,About_Page,Cont
 from Makaan_Hub import settings
 from utility.models import City,Locality
 from user.models import Developer
-from project.models import Residential
+from project.models import Residential,CommercialProject
 
 # Create your views here.
 
@@ -79,35 +79,37 @@ def residential_project_details(request,slug):
     return render(request,'projects/details/residential.html',context)
 
 
+
 def commercial_project(request):
     setting = Setting.objects.all().order_by('-id')[0:1]
-    
-    city = City.objects.all()
-    locality = Locality.objects.all()
 
-    developer = Developer.objects.filter(featured_builder = 'True').order_by('-id')[:50]  #first 4 products
-    ourteam = Our_Team.objects.filter(featured = 'True').order_by('-id')#first 4 products
-    testimonial = Testimonial.objects.filter(featured = 'True').order_by('-id')#first 4 products
-    project_slider = Residential.objects.filter(slider = 'True').order_by('-id')[:6]  #first 4 products
-    project_latest = Residential.objects.filter(featured_project = 'True').order_by('-id')[:6]  # last 4 products
-    project_featured = Residential.objects.filter(featured_project = 'True').order_by('-id')[:6]  # last 4 products
-    project_picked = Residential.objects.filter(featured_project = 'True').order_by('?')[:6]   #Random selected 4 products
+    project_latest = CommercialProject.objects.filter(featured_property = 'True').order_by('-id')[:6]  # last 4 products
+    project_featured = CommercialProject.objects.filter(featured_property = 'True').order_by('-id')[:6]  # last 4 products
+    active = CommercialProject.objects.filter(featured_property = 'True').order_by('?')   #Random selected 4 products
+
+    page="home"
+    context={
+        'project_latest':project_latest,
+        'project_featured':project_featured,
+        'active':active,
+        'setting':setting,    }
+
+    return render(request,'projects/list/commercial.html',context)
+
+
+def commercial_project_details(request,slug):
+    setting = Setting.objects.all().order_by('-id')[0:1]
+     # last 4 products
+    active = Residential.objects.get(slug = slug)
 
     page="home"
     context={
         'setting':setting,
-        'city':city,
-        'testimonial':testimonial,
-        'ourteam':ourteam,
-        'locality':locality,
-        'developer':developer,
-        'project_slider':project_slider,
-        'project_latest':project_latest,
-        'project_picked':project_picked,
-        'project_featured':project_featured,
-    }
+        'active':active,
 
-    return render(request,'projects/commercial_list.html',context)
+    }
+    return render(request,'projects/details/commercial.html',context)
+
 
 def land(request):
     setting = Setting.objects.all().order_by('-id')[0:1]
