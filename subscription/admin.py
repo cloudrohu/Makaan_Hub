@@ -22,7 +22,7 @@ class VisitInline(admin.TabularInline):
 
 @admin_thumbnails.thumbnail('image')
 class AgenciesAdmin(admin.ModelAdmin):
-    list_display = ['id','agencies_name','address','contact_person','contact_no','description', 'meeting_follow_up','image_thumbnail','status','email','city', 'locality', 'address','create_at','update_at', 'find_from','agencies_type']    
+    list_display = ['id','agencies_name','address','contact_person','contact_no','description', 'meeting_follow_up','image_thumbnail','status','email','city', 'locality','create_at','update_at', 'find_from','agencies_type']    
     
     list_filter = ['create_at','city','locality','status','meeting_follow_up']
     search_fields = ['id','agencies_name', 'contact_person','contact_person', 'contact_no', 'description','email']
