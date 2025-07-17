@@ -198,7 +198,8 @@ class Social_Link(models.Model):
 
 class Slider(models.Model):
     title = models.CharField(max_length=50)
-    image=models.ImageField(blank=True,null=True, upload_to='images/')
+    image = models.ImageField(upload_to='sliderimage/', null=True, blank=True)
+
     featured_project = models.BooleanField(default=False)
     create_at=models.DateTimeField(auto_now_add=True)
     update_at=models.DateTimeField(auto_now=True)
@@ -208,6 +209,8 @@ class Slider(models.Model):
             return mark_safe('<img src="{}" height="50"/>'.format(self.image.url))
         else:
             return ""
+
+
 
     def __str__(self):
         return self.title

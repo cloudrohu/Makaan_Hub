@@ -1,3 +1,5 @@
+from django.utils.html import format_html
+
 from django.contrib import admin
 from .models import *
 import admin_thumbnails
@@ -52,7 +54,19 @@ admin.site.register(Social_Site,)
 admin.site.register(Our_Team,Our_TeamAdmin)
 admin.site.register(Testimonial,TestimonialAdmin)
 
+
+
+
 class SliderAdmin(admin.ModelAdmin):
-    list_display = ['title','image_tag','featured_project', 'create_at','update_at']
+    list_display = ['title', 'image_preview']
+
+    def image_preview(self, obj):
+        if obj.image and hasattr(obj.image, 'url'):
+            return format_html('<img src="{}" style="height:60px;"/>', obj.image.url)
+        return "No Image"
+    image_preview.short_description = "Image"
+
 
 admin.site.register(Slider,SliderAdmin)
+
+
