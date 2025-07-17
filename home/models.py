@@ -198,7 +198,7 @@ class Social_Link(models.Model):
 
 class Slider(models.Model):
     title = models.CharField(max_length=50)
-    image=models.ImageField(blank=True,upload_to='images/')
+    image=models.ImageField(blank=True,null=True, upload_to='images/')
     featured_project = models.BooleanField(default=False)
     create_at=models.DateTimeField(auto_now_add=True)
     update_at=models.DateTimeField(auto_now=True)

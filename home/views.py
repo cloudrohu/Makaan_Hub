@@ -29,13 +29,15 @@ def index(request):
     
     city = City.objects.all()
     about = About_Page.objects.all().order_by('-id')[0:1]
-    slider = Slider.objects.filter(featured_project = 'True').order_by('-id')[:9]
+    slider = Slider.objects.filter(featured_project = 'True').order_by('?')[:9]
+    project_featured = Residential.objects.filter(featured_property = 'True').order_by('-id')[:9]
     developer = Developer.objects.filter(featured_builder = 'True').order_by('-id')[:50]  #first 4 products
     ourteam = Our_Team.objects.filter(featured = 'True').order_by('-id')#first 4 products
     testimonial = Testimonial.objects.filter(featured = 'True').order_by('-id')#first 4 products
    
     page="home"
     context={
+        'project_featured':project_featured,
         'setting':setting,
         'city':city,
         'about':about,
