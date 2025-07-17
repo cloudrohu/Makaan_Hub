@@ -52,7 +52,6 @@ admin.site.register(Social_Site,)
 admin.site.register(Our_Team,Our_TeamAdmin)
 admin.site.register(Testimonial,TestimonialAdmin)
 
-@admin_thumbnails.thumbnail('image')
 class SliderAdmin(admin.ModelAdmin):
     list_display = ['title','image_tag','featured_project', 'create_at','update_at']
 
