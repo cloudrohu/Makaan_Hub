@@ -143,14 +143,6 @@ class Fine_From(models.Model):
     class Meta:
         verbose_name_plural='20. Fine_From'
 
-class Possession_In(models.Model):
-    title = models.CharField(max_length=50,blank=True)
-    def __str__(self):
-        return self.title
-    
-    class Meta:
-        verbose_name_plural='21. Possession Years'
-
 
 class User_Status(models.Model):
     title = models.CharField(max_length=50,blank=True)
