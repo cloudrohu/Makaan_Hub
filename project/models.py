@@ -336,7 +336,8 @@ class CommercialProject(MPTTModel):
     construction_status = models.CharField(max_length=30, choices=CONSTRUCTION_STATUS)
     property_type = models.CharField(max_length=200, choices=PROPERTY_TYPE)
     total_floors = models.CharField(max_length=10, blank=True, null=True)
-    possession_year = models.CharField(max_length=4, blank=True, null=True)
+    possession_year = models.CharField(max_length=200, choices=Possession_In,null=True, blank=True)
+
     priceing = models.CharField(max_length=50, blank=True, null=True)
     area_range = models.CharField(max_length=50, blank=True, null=True)
     featured_property = models.BooleanField(default=False)
