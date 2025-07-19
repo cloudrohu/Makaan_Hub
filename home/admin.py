@@ -62,7 +62,7 @@ class SliderAdmin(admin.ModelAdmin):
 
     def image_preview(self, obj):
         if obj.image and hasattr(obj.image, 'url'):
-            return format_html('<img src="{}" style="height:60px;"/>', obj.image.url)
+            return format_html('<img src="{}" style="height:40px;"/>', obj.image.url)
         return "No Image"
     image_preview.short_description = "Image"
 

@@ -1,18 +1,18 @@
 {% extends 'base/homebase.html' %}
+
 {% block header %} {% include 'base/header1.html' %} {% endblock %}
 
 {% load static %}
+
 {% for rs in setting %}
 
 {% block title %} {{ rs.title }} {% endblock %}
 {% block description %} {{ rs.description }} {% endblock %}
 {% block keywords %} {{ rs.keywords }} {% endblock %}
-
 {% endfor %}
 
 
 {% block body %}
-
 <!-- Listing Grid View -->
 <section class="our-listing bgc-f7 pb30-991">
 	<div class="container">
@@ -78,8 +78,8 @@
 													<span id="slider-range-value1"></span>
 													<span class="mt0" id="slider-range-value2"></span>
 													<div id="slider"></div>
-													<!-- <input type="text" class="amount" placeholder="$52,239"> 
-													<input type="text" class="amount2" placeholder="$985,14">
+													<!-- <input type="text" class="amount" placeholder="₹52,239"> 
+													<input type="text" class="amount2" placeholder="₹985,14">
 													<div class="slider-range"></div> -->
 												</div>
 											  </div>
@@ -277,6 +277,8 @@
 				</div>
 			</div>
 		</div>
+
+		
 		<div class="row">
 			<div class="col-lg-6">
 				<div class="breadcrumb_content style2 mb0-991">
@@ -357,8 +359,8 @@
 										</div>
 										  <div class="dd_content2">
 											<div class="pricing_acontent">
-												<input type="text" class="amount" placeholder="$52,239"> 
-												<input type="text" class="amount2" placeholder="$985,14">
+												<input type="text" class="amount" placeholder="₹52,239"> 
+												<input type="text" class="amount2" placeholder="₹985,14">
 												<div class="slider-range"></div>
 											</div>
 										  </div>
@@ -591,7 +593,7 @@
 							<img class="align-self-start mr-3" src="{% static '' %}main/images/blog/fls1.jpg" alt="fls1.jpg">
 							<div class="media-body">
 								<h5 class="mt-0 post_title">Nice Room With View</h5>
-								<a href="#">$13,000/<small>/mo</small></a>
+								<a href="#">₹13,000/<small>/mo</small></a>
 								<ul class="mb0">
 									<li class="list-inline-item">Beds: 4</li>
 									<li class="list-inline-item">Baths: 2</li>
@@ -603,7 +605,7 @@
 							<img class="align-self-start mr-3" src="{% static '' %}main/images/blog/fls2.jpg" alt="fls2.jpg">
 							<div class="media-body">
 								<h5 class="mt-0 post_title">Villa called Archangel</h5>
-								<a href="#">$13,000<small>/mo</small></a>
+								<a href="#">₹13,000<small>/mo</small></a>
 								<ul class="mb0">
 									<li class="list-inline-item">Beds: 4</li>
 									<li class="list-inline-item">Baths: 2</li>
@@ -615,7 +617,7 @@
 							<img class="align-self-start mr-3" src="{% static '' %}main/images/blog/fls3.jpg" alt="fls3.jpg">
 							<div class="media-body">
 								<h5 class="mt-0 post_title">Sunset Studio</h5>
-								<a href="#">$13,000<small>/mo</small></a>
+								<a href="#">₹13,000<small>/mo</small></a>
 								<ul class="mb0">
 									<li class="list-inline-item">Beds: 4</li>
 									<li class="list-inline-item">Baths: 2</li>
@@ -658,9 +660,13 @@
 						</div>
 					</div>
 				</div>
+
+				
+
 				<div class="row">
+				
 					{% for rs in active %}
-					
+				
 					<div class="col-lg-12">
 						<div class="feat_property list">
 							<div class="thumb">
@@ -700,12 +706,17 @@
 									<div class="fp_pdate float-right">Possession: {{rs.possession}}</div>
 								</div>
 							</div>
-						</div>
+							</div>
+						<button class="px-3 py-1 border border-blue-600 text-blue-600 font-bold rounded hover:bg-blue-50 transition text-sm">View Number</button>
+							<button class="px-3 py-1 bg-blue-600 text-white font-bold rounded hover:bg-blue-700 transition text-sm">Contact</button>
+						
 					</div>
 					{% endfor %}
 					
 
 				</div>
+
+
 			</div>
 		</div>
 	</div>

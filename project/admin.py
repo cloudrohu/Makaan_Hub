@@ -1,5 +1,7 @@
 import admin_thumbnails
 from django.contrib import admin
+from django.utils.html import format_html
+
 
 # Register your models here.
 from mptt.admin import DraggableMPTTAdmin
@@ -88,7 +90,11 @@ class ResidentialAdmin(admin.ModelAdmin):
     list_filter = ['developer','active','featured_property','locality','city','propert_type','possession_year']
     search_fields = ['project_name',]
 
-
+    def image_preview(self, obj):
+        if obj.image and hasattr(obj.image, 'url'):
+            return format_html('<img src="{}" style="height:40px;"/>', obj.image.url)
+        return "No Image"
+    image_preview.short_description = "Image"
 admin.site.register(Residential,ResidentialAdmin)
 
 
