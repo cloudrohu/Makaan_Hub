@@ -72,7 +72,7 @@ def residential_project(request):
     residential_filter = ResidentialFilter(request.GET, queryset=all_active)
     filtered_qs = residential_filter.qs
 
-    paginator = Paginator(filtered_qs, 2)
+    paginator = Paginator(filtered_qs, 20)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
 
