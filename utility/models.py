@@ -84,6 +84,8 @@ class Locality(MPTTModel):
     city = models.ForeignKey(City, on_delete=models.CASCADE)  # many to one relation with Brand
 
     title = models.CharField(max_length=50)
+    image = models.ImageField(upload_to='images/', blank=True, null=True, )
+    featured_locality = models.BooleanField(default=False)
     keywords = models.CharField(max_length=1000)
     description = models.TextField(max_length=5000)
     slug = models.SlugField(unique=True, null=True, blank=True)

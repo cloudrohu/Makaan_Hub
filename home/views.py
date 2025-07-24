@@ -36,6 +36,9 @@ def index(request):
     about = About_Page.objects.all().order_by('-id')[0:1]
     slider = Slider.objects.filter(featured_project = 'True').order_by('?')[:9]
     project_featured = Residential.objects.filter(featured_property = 'True').order_by('-id')[:9]
+    commercia_featured = CommercialProject.objects.filter(featured_property = 'True').order_by('-id')[:9]
+    featured_locality = Locality.objects.filter(featured_locality = 'True').order_by('-id')[:9]
+
     developer = Developer.objects.filter(featured_builder = 'True').order_by('-id')[:50]  #first 4 products
     ourteam = Our_Team.objects.filter(featured = 'True').order_by('-id')#first 4 products
     testimonial = Testimonial.objects.filter(featured = 'True').order_by('-id')#first 4 products
@@ -50,6 +53,8 @@ def index(request):
         'testimonial':testimonial,
         'ourteam':ourteam,
         'developer':developer,
+        'commercia_featured':commercia_featured,
+        'featured_locality':featured_locality,
         
     }
 

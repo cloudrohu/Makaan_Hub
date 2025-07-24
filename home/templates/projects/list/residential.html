@@ -557,26 +557,27 @@
 						</div>
 					</div>
 					<div class="terms_condition_widget">
-						<h4 class="title">Featured Properties</h4>
-						<div class="sidebar_feature_property_slider">
-							{% for rs in project_featured %}
-							<div class="item">
-								<div class="feat_property home7">
-									<div class="thumb">
-										<img class="img-whp" src="{{rs.image.url}}" alt="fp1.jpg">
-										<div class="thmb_cntnt">
-											<ul class="tag mb0">
-												<li class="list-inline-item"><a href="#">{{rs.propert_type}}</a></li>
-											</ul>
-											<a class="fp_price" href="#">{{rs.project_name}}<small></small></a>
-											<h4 class="posr color-white">{{rs.locality}}--{{rs.city}}</h4>
-										</div>
-									</div>
+					<h4 class="title">Featured Properties</h4>
+					<div class="sidebar_feature_property_slider">
+						{% for rs in project_featured %}
+						<div class="item">
+						<a href="{{ rs.get_absolute_url }}" class="text-decoration-none">
+							<div class="feat_property home7">
+							<div class="thumb">
+								<img class="img-whp" 
+									src="{% if rs.image %}{{ rs.image.url }}{% else %}{% static 'images/no-image-available.jpg' %}{% endif %}" 
+									alt="{{ rs.project_name }}">
+								<div class="thmb_cntnt">
+								
+								<h4 class="posr color-white font-bold text-lg mb-1">{{ rs.project_name }}</h4>
+								<p class="text-white text-sm">  {{ rs.locality }} -- {{ rs.city }}</p>
 								</div>
 							</div>
-							{% endfor %}
-							
+							</div>
+						</a>
 						</div>
+						{% endfor %}
+					</div>
 					</div>
 					<div class="terms_condition_widget">
 						<h4 class="title">Categories Property</h4>
@@ -632,81 +633,79 @@
 			</div>
 			
           <div class="col-md-12 col-lg-8">
-  <div class="row gy-3">
-    {% for rs in active %}
-    <div class="col-12">
-      <!-- Make card responsive with flex-column (mobile) and flex-row (desktop) -->
-      <div class="feat_property list d-flex flex-column flex-md-row border rounded shadow-sm overflow-hidden" style="min-height: 250px;">
-        
-        <!-- Left Thumbnail (on top in mobile, left in desktop) -->
-        <div class="thumb" style="width: 100%; max-width: 350px; height: 230px; flex-shrink: 0;">
-          <img src="{{ rs.image.url }}" alt="{{ rs.project_name }}" class="w-100 h-100" style="object-fit: cover; min-height: 250px;">
-          <div class="thmb_cntnt position-absolute bottom-0 start-0 p-2">
-            <ul class="icon list-inline mb-0">
-              <li class="list-inline-item"><a href="{{ rs.get_absolute_url }}"><span class="flaticon-transfer-1"></span></a></li>
-              <li class="list-inline-item"><a href="{{ rs.get_absolute_url }}"><span class="flaticon-heart"></span></a></li>
-            </ul>
-          </div>
-        </div>
+			<div class="row gy-3">
+				{% for rs in active %}
+				<div class="col-12">
+				<div class="feat_property list d-flex flex-column flex-md-row border rounded shadow-sm overflow-hidden" style="min-height: 250px;">
+					
+					<!-- Left: Image Section -->
+					<a href="{{ rs.get_absolute_url }}" class="thumb position-relative" style="width: 100%; max-width: 350px; height: 230px; flex-shrink: 0;">
+					<img src="{% if rs.image %}{{ rs.image.url }}{% else %}{% static 'images/no-image-available.jpg' %}{% endif %}" 
+						alt="{{ rs.project_name }}" class="w-100 h-100" style="object-fit: cover; min-height: 250px;">
+					<div class="thmb_cntnt position-absolute bottom-0 start-0 p-2">
+						<ul class="icon list-inline mb-0">
+						<li class="list-inline-item"><span class="flaticon-transfer-1"></span></li>
+						<li class="list-inline-item"><span class="flaticon-heart"></span></li>
+						</ul>
+					</div>
+					</a>
 
-        <!-- Right Details -->
-        <div class="details flex-grow-1 d-flex flex-column justify-content-between px-3 py-2">
-          <div class="tc_content">
-            <!-- Title + Location -->
+					<!-- Right: Project Info -->
+					<div class="details flex-grow-1 d-flex flex-column justify-content-between px-3 py-2">
+					<div class="tc_content">
+						
+						<!-- Project Title -->
+						<h5 class="project-title mb-1">
+						<a href="{{ rs.get_absolute_url }}" class="text-dark fw-bold">{{ rs.project_name }}</a>
+						</h5>
+						
+						<!-- Location -->
+						<p class="text-muted mb-2">
+						<i class="flaticon-placeholder"></i> At - {{ rs.locality }} — {{ rs.city }}
+						</p>
 
-           <h5 class="project-title">
-			<a href="{{ rs.get_absolute_url }}" class="text-dark font-bold mb-2">{{ rs.project_name }}</a>
-			</h5>
+						<!-- Property Type -->
+						<ul class="list-inline fw-semibold mb-2 text-dark">
+						<li class="list-inline-item">{{ rs.construction_status }},</li>
+						<li class="list-inline-item">{{ rs.propert_type }},</li>
+						<li class="list-inline-item">Land Parcel: {{ rs.land_parce }}</li>
+						</ul>
 
-           <p class="locality-city">
-				<span class="inline-block mr-1"><i class="flaticon-placeholder">At - {{ rs.locality }} — {{ rs.city }}</i></span>
-			</p>
+						<ul class="list-inline fw-semibold mb-2 text-dark">
+						<li class="list-inline-item">{{ rs.luxurious }}</li>
+						<li class="list-inline-item">Total Floor: {{ rs.floor }}</li>
+						</ul>
 
+						<ul class="list-inline fw-semibold mb-2 text-dark">
+						<li class="list-inline-item">Price: ₹{{ rs.priceing }}</li>
+						</ul>
 
-            <!-- Property Details -->
-            <ul class="list-inline fw-semibold mb-2 mt-2 details font-bold ">
-              <li class="list-inline-item">{{ rs.construction_status }}, </li>
-			
-              <li class="list-inline-item">{{ rs.propert_type }}, </li>
-              <li class="list-inline-item">Land Parcel : {{ rs.land_parce }}</li>
-            </ul>
+						<div class="fw-bold text-dark">Possession: {{ rs.possession }}</div>
+					</div>
 
-            <ul class="list-inline fw-semibold mb-2  font-bold">
+					<!-- Footer -->
+					<div class="d-flex justify-content-between align-items-center mt-3 flex-wrap gap-2">
+						<div class="d-flex align-items-center gap-2 mb-2">
+						<img src="{{ rs.developer.image.url }}" alt="Developer" style="height: 40px; width: auto;">
+						<span class="text-muted fw-bold">{{ rs.developer }}</span>
+						</div>
+						<div class="d-flex gap-2 mb-2">
+							<a href="{{ rs.get_absolute_url }}" class="btn btn-outline-primary btn-sm">View Details</a>
+							{% if rs.id %}
+							<button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#enquiryModal{{ rs.id }}">
+								View Number
+							</button>
+							{% endif %}
+						</div>
+					</div>
+					</div>
 
-              <li class="list-inline-item">{{ rs.luxurious }}</li>
-              <li class="list-inline-item">Total Floor : {{ rs.floor }}</li>
-            </ul>
+				</div>
+				</div>
+				{% endfor %}
+			</div>
+			</div>
 
-			<ul class="list-inline fw-semibold mb-2 font-bold ">
-              
-              <li class="list-inline-item">{{ rs.priceing }}</li>
-            </ul>
-
-            <div class=" font-bold">Possession: {{ rs.possession }}</div>
-          </div>
-
-          <!-- Footer -->
-          <div class="d-flex justify-content-between align-items-center mb-2 flex-wrap gap-2">
-            <div class="d-flex align-items-center gap-2">
-              <img src="{{ rs.developer.image.url }}" alt="Developer" style="height: 40px; width: auto;">
-              <span class="text-muted fw-bold">{{ rs.developer }}</span>
-            </div>
-            <div class="d-flex gap-2">
-              <a href="{{ rs.get_absolute_url }}" class="btn btn-outline-primary btn-sm">View Details</a>
-              {% if rs.id %}
-              <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#enquiryModal{{ rs.id }}">
-                View Number
-              </button>
-              {% endif %}
-            </div>
-          </div>
-        </div>
-
-      </div>
-    </div>
-    {% endfor %}
-  </div>
-</div>
 
 
 			<!-- ✅ PAGINATION SECTION -->

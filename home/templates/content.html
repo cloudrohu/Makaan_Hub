@@ -7,7 +7,7 @@
 				<div class="main-banner-wrapper">
 					<div class="banner-style-one owl-theme owl-carousel">
 						{% for rs in slider %}
-						<div class="slide slide-one" style="background-image: url({{rs.image.url}});height: 800px;"></div>
+						<div class="slide slide-one" style="background-image: url({% if rs.image %}{{ rs.image.url }}{% else %}{% static 'images/no-image-available.jpg' %}{% endif %});height: 800px;"></div>
 						{% endfor %}
 						
 					</div>
@@ -38,7 +38,7 @@
 						<div class="item">
 							<div class="feat_property card shadow rounded-lg mb-4 overflow-hidden">
 								<div class="thumb position-relative">
-									<img class="card-img-top" src="{{rs.image.url}}" style="height: 275px; object-fit: cover;" alt="fp1.jpg">
+									<img class="card-img-top" src="{% if rs.image %}{{ rs.image.url }}{% else %}{% static 'images/no-image-available.jpg' %}{% endif %}" style="height: 275px; object-fit: cover;" alt="fp1.jpg">
 									<div class="thmb_cntnt position-absolute start-0 bottom-0 p-3">
 									<ul class="icon list-inline mb-2">
 										<li class="list-inline-item me-2"><a href="#"><span class="flaticon-transfer-1"></span></a></li>
@@ -57,7 +57,7 @@
 										</a>
 										<div class="fp_footer d-flex align-items-center justify-content-between pt-3 border-top mt-3">
 											<div class="fp_meta d-flex align-items-center gap-2">
-												<a href="{{rs.get_absolute_url}}"><img src="{{rs.developer.image.url}}" class="rounded-circle border me-2" style="height: 40px;width: 40px;" alt="pposter1.png"></a>
+												<a href="{{rs.get_absolute_url}}"><img src="{% if rs.image %}{{ rs.developer.image.url }}{% else %}{% static 'images/no-image-available.jpg' %}{% endif %}" class="rounded-circle border me-2" style="height: 40px;width: 40px;" alt="pposter1.png"></a>
 												<a href="{{rs.get_absolute_url}}" class="fw-medium text-dark">{{rs.developer}}</a>
 											</div>
 											<div class="fp_pdate text-gray-500 text-sm leading-tight">
@@ -84,31 +84,28 @@
 
 	<section class="bg-white py-10 px-4 sm:px-8">
 	<div class="max-w-[1700px] mx-auto">
-		<h2 class="text-xl font-medium text-gray-700 mb-10">Featured Developers</h2>
+		<h2 class="text-xl font-medium text-gray-700 mb-10">Featured Locality</h2>
 
 		
 		<div id="dev-scroll"
 			class="flex gap-8 overflow-x-auto scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100 snap-x pb-6"
 			style="scrollbar-color:#e5e7eb #f3f4f6; scrollbar-width:thin;">
-		{% for rs in developer %}
-		<div class="flex flex-col items-center w-64 flex-shrink-0 bg-white shadow-lg rounded-2xl py-6 px-4 snap-start transition hover:shadow-2xl hover:bg-blue-50 duration-200">
-			<div class="h-32 w-32 flex items-center justify-center mb-4 rounded-xl bg-gray-100 shadow border border-gray-200 overflow-hidden">
-			<img src="{{rs.image.url}}" alt="{{rs.title}}"
-				class="object-cover h-full w-full rounded-xl" />
+			{% for rs in featured_locality %}
+			<div class="flex flex-col items-center w-64 flex-shrink-0 bg-white shadow-lg rounded-2xl py-6 px-4 snap-start transition hover:shadow-2xl hover:bg-blue-50 duration-200">
+				<div class="h-60 w-60 flex items-center justify-center mb-4 rounded-xl bg-gray-20 shadow border border-gray-20 overflow-hidden">
+				<img src="{% if rs.image %}{{ rs.image.url }}{% else %}{% static 'main/images/home/no-image-available.png' %}{% endif %}" alt="{{rs.title}}"
+					class="object-cover h-full w-full rounded-xl" />
+				</div>
+				<div class="text-center mb-2">
+				<div class="font-semibold text-lg text-gray-900 truncate w-56">{{rs.title}}</div>
+				<div class="text-gray-500 text-base">{{rs.city}}</div>
+				
+				</div>
+				<a href="#" class="mt-5 inline-block bg-blue-600 text-white font-semibold py-2 px-7 rounded-full text-base hover:bg-blue-700 shadow transition text-center">
+				View Locality
+				</a>
 			</div>
-			<div class="text-center mb-2">
-			<div class="font-semibold text-lg text-gray-900 truncate w-56">{{rs.title}}</div>
-			<div class="text-gray-500 text-base">{{rs.city}}</div>
-			<div class="flex items-center justify-center gap-1 mt-1">
-				<span class="text-base text-gray-700 font-medium">5</span>
-				<i class="fas fa-star text-yellow-400 text-base"></i>
-			</div>
-			</div>
-			<a href="#" class="mt-5 inline-block bg-blue-600 text-white font-semibold py-2 px-7 rounded-full text-base hover:bg-blue-700 shadow transition text-center">
-			View Projects
-			</a>
-		</div>
-		{% endfor %}
+			{% endfor %}
 		</div>
 	</div>
 	</section>
@@ -128,104 +125,49 @@
   <div class="max-w-7xl mx-auto">
     <h2 class="text-3xl font-bold text-gray-800 mb-6">Commercial Projects</h2>
 
-    <div class="overflow-x-auto scrollbar-hide">
-      <div class="flex space-x-6 min-w-[1200px]">
-
-        <!-- Project 1 -->
-        <div class="bg-white shadow-xl rounded-xl w-80 shrink-0 hover:scale-[1.03] transition duration-300">
-          <img src="https://via.placeholder.com/300x180" alt="Project 1" class="rounded-t-xl w-full h-48 object-cover">
-          <div class="p-4">
-            <h3 class="text-lg font-semibold text-gray-800">Empire Towers</h3>
-            <p class="text-sm text-gray-500 mb-2">📍 Andheri East, Mumbai</p>
-            <p class="text-sm text-gray-700 mb-3">Premium office spaces with modern infrastructure & amenities.</p>
-            <div class="flex justify-between items-center">
-              <span class="text-sm font-bold text-indigo-600">From ₹85L</span>
-              <a href="#" class="text-sm text-blue-600 hover:underline">Details →</a>
+    <div class="overflow-x-auto">
+  <div class="flex gap-6 w-max px-4 py-4">
+    {% for rs in commercia_featured %}
+    <div class="min-w-[320px] max-w-[320px] bg-white shadow rounded-lg overflow-hidden">
+      <div class="relative">
+        <img class="w-full h-[200px] object-cover" src="{% if rs.image %}{{ rs.image.url }}{% else %}{% static 'main/images/home/no-image-available.png' %}{% endif %}" alt="{{ rs.project_name }}">
+        <div class="absolute bottom-0 left-0 right-0 bg-black/60 text-white px-3 py-2">
+          <div class="flex items-center justify-between text-sm">
+            <div class="flex gap-2">
+              <a href="#"><span class="flaticon-transfer-1"></span></a>
+              <a href="#"><span class="flaticon-heart"></span></a>
             </div>
+            <span class="bg-white text-black px-2 py-1 rounded">₹ {{ rs.priceing }}</span>
           </div>
         </div>
-
-        <!-- Repeat this block for 6 more cards -->
-        <div class="bg-white shadow-xl rounded-xl w-80 shrink-0 hover:scale-[1.03] transition duration-300">
-          <img src="https://via.placeholder.com/300x180" alt="Project 2" class="rounded-t-xl w-full h-48 object-cover">
-          <div class="p-4">
-            <h3 class="text-lg font-semibold text-gray-800">Skyline Plaza</h3>
-            <p class="text-sm text-gray-500 mb-2">📍 BKC, Mumbai</p>
-            <p class="text-sm text-gray-700 mb-3">Luxury commercial hub with flexible spaces & grand entry.</p>
-            <div class="flex justify-between items-center">
-              <span class="text-sm font-bold text-indigo-600">From ₹2.1 Cr</span>
-              <a href="#" class="text-sm text-blue-600 hover:underline">Details →</a>
-            </div>
+      </div>
+      <div class="p-4">
+        <a href="{{ rs.get_absolute_url }}" class="block">
+          <p class="text-red-600 text-sm font-medium mb-1">{{ rs.propert_type }}</p>
+          <h3 class="text-lg font-bold leading-tight mb-1">{{ rs.project_name }}</h3>
+          <p class="text-gray-600 text-sm"><i class="flaticon-placeholder"></i> {{ rs.locality }} – {{ rs.city }}</p>
+        </a>
+        <div class="flex items-center justify-between mt-4 border-t pt-3">
+          <div class="flex items-center gap-2">
+            <a href="{{ rs.get_absolute_url }}">
+              <img src="{% if rs.image %}{{ rs.image.url }}{% else %}{% static 'main/images/home/no-image-available.png' %}{% endif %}" alt="{{ rs.developer }}" class="w-10 h-10 rounded-full border">
+            </a>
+            <a href="{{ rs.get_absolute_url }}" class="text-sm font-medium text-gray-800">{{ rs.developer }}</a>
+          </div>
+          <div class="text-xs text-gray-500">
+            <div>Possession:</div>
+            <div class="font-semibold">{{ rs.possession }}</div>
           </div>
         </div>
-
-        <div class="bg-white shadow-xl rounded-xl w-80 shrink-0 hover:scale-[1.03] transition duration-300">
-          <img src="https://via.placeholder.com/300x180" alt="Project 3" class="rounded-t-xl w-full h-48 object-cover">
-          <div class="p-4">
-            <h3 class="text-lg font-semibold text-gray-800">Trade Center</h3>
-            <p class="text-sm text-gray-500 mb-2">📍 Malad West, Mumbai</p>
-            <p class="text-sm text-gray-700 mb-3">Modern workspaces for startups and IT professionals.</p>
-            <div class="flex justify-between items-center">
-              <span class="text-sm font-bold text-indigo-600">From ₹65L</span>
-              <a href="#" class="text-sm text-blue-600 hover:underline">Details →</a>
-            </div>
-          </div>
-        </div>
-
-        <div class="bg-white shadow-xl rounded-xl w-80 shrink-0 hover:scale-[1.03] transition duration-300">
-          <img src="https://via.placeholder.com/300x180" alt="Project 4" class="rounded-t-xl w-full h-48 object-cover">
-          <div class="p-4">
-            <h3 class="text-lg font-semibold text-gray-800">Infinity Hub</h3>
-            <p class="text-sm text-gray-500 mb-2">📍 Thane, Mumbai</p>
-            <p class="text-sm text-gray-700 mb-3">Spacious commercial spaces near metro and highways.</p>
-            <div class="flex justify-between items-center">
-              <span class="text-sm font-bold text-indigo-600">From ₹1.3 Cr</span>
-              <a href="#" class="text-sm text-blue-600 hover:underline">Details →</a>
-            </div>
-          </div>
-        </div>
-
-        <div class="bg-white shadow-xl rounded-xl w-80 shrink-0 hover:scale-[1.03] transition duration-300">
-          <img src="https://via.placeholder.com/300x180" alt="Project 5" class="rounded-t-xl w-full h-48 object-cover">
-          <div class="p-4">
-            <h3 class="text-lg font-semibold text-gray-800">WorkNest</h3>
-            <p class="text-sm text-gray-500 mb-2">📍 Goregaon East, Mumbai</p>
-            <p class="text-sm text-gray-700 mb-3">Ideal office spaces for freelancers and small firms.</p>
-            <div class="flex justify-between items-center">
-              <span class="text-sm font-bold text-indigo-600">From ₹40L</span>
-              <a href="#" class="text-sm text-blue-600 hover:underline">Details →</a>
-            </div>
-          </div>
-        </div>
-
-        <div class="bg-white shadow-xl rounded-xl w-80 shrink-0 hover:scale-[1.03] transition duration-300">
-          <img src="https://via.placeholder.com/300x180" alt="Project 6" class="rounded-t-xl w-full h-48 object-cover">
-          <div class="p-4">
-            <h3 class="text-lg font-semibold text-gray-800">BizBay Heights</h3>
-            <p class="text-sm text-gray-500 mb-2">📍 Mira Road, Mumbai</p>
-            <p class="text-sm text-gray-700 mb-3">Affordable commercial offices in prime business zone.</p>
-            <div class="flex justify-between items-center">
-              <span class="text-sm font-bold text-indigo-600">From ₹75L</span>
-              <a href="#" class="text-sm text-blue-600 hover:underline">Details →</a>
-            </div>
-          </div>
-        </div>
-
-        <div class="bg-white shadow-xl rounded-xl w-80 shrink-0 hover:scale-[1.03] transition duration-300">
-          <img src="https://via.placeholder.com/300x180" alt="Project 7" class="rounded-t-xl w-full h-48 object-cover">
-          <div class="p-4">
-            <h3 class="text-lg font-semibold text-gray-800">Metro Biz Park</h3>
-            <p class="text-sm text-gray-500 mb-2">📍 Ghatkopar West, Mumbai</p>
-            <p class="text-sm text-gray-700 mb-3">Elegant tower with sky-view offices for enterprises.</p>
-            <div class="flex justify-between items-center">
-              <span class="text-sm font-bold text-indigo-600">From ₹1.8 Cr</span>
-              <a href="#" class="text-sm text-blue-600 hover:underline">Details →</a>
-            </div>
-          </div>
-        </div>
-
+        <a href="{{ rs.get_absolute_url }}" class="mt-4 block w-full text-center bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition">
+          View Details
+        </a>
       </div>
     </div>
+    {% endfor %}
+  </div>
+</div>
+
   </div>
 </section>
 
@@ -371,7 +313,7 @@
 						<div class="item">
 							<div class="team_member home4">
 								<div class="thumb">
-									<img class="img-fluid" src="{{rs.image.url}}" alt="1.jpg" style="height: 225px;">
+									<img class="img-fluid" src="{% if rs.image %}{{ rs.image.url }}{% else %}{% static 'images/no-image-available.jpg' %}{% endif %}" alt="1.jpg" style="height: 225px;">
 									<div class="overylay">
 										<ul class="social_icon">
 											<li class="list-inline-item"><a href="{{rs.facebook}}"><i class="fa fa-facebook"></i></a></li>
@@ -413,7 +355,7 @@
 					<div class="item">
 						<div class="testimonial_grid">
 							<div class="thumb">
-								<img src="{{rs.image.url}}" alt="1.jpg">
+								<img src="{% if rs.image %}{{ rs.image.url }}{% else %}{% static 'images/no-image-available.jpg' %}{% endif %}" alt="1.jpg">
 							</div>
 							<div class="details">
 								<h4>{{rs.title}}</h4>
@@ -504,7 +446,7 @@
 		<!-- Cards Yaha Loop Karo -->
         <div class="flex flex-col items-center w-64 flex-shrink-0 bg-white shadow-lg rounded-2xl py-6 px-4 snap-start transition hover:shadow-2xl hover:bg-blue-50 duration-200">
           <div class="h-32 w-32 flex items-center justify-center mb-4 rounded-xl bg-gray-100 shadow border border-gray-200 overflow-hidden">
-            <img src="{{rs.image.url}}" alt="Sample" class="object-cover h-full w-full rounded-xl" />
+            <img src="{% if rs.image %}{{ rs.image.url }}{% else %}{% static 'images/no-image-available.jpg' %}{% endif %}" alt="Sample" class="object-cover h-full w-full rounded-xl" />
           </div>
           <div class="text-center mb-2">
             <div class="font-semibold text-lg text-gray-900 truncate w-56">{{rs.title}}</div>
@@ -515,7 +457,7 @@
             </div>
           </div>
           <a href="#" class="mt-5 inline-block bg-blue-600 text-white font-semibold py-2 px-7 rounded-full text-base hover:bg-blue-700 shadow transition text-center">
-            View Projects
+            View Developer
           </a>
         </div>
 		{% endfor %}
