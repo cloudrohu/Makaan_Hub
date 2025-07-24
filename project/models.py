@@ -14,6 +14,7 @@ from utility.models import City,Locality,P_Amenities
 from multiselectfield import MultiSelectField
 from user.models import Developer
 
+# Residential Projects Start Here #
 
 class Residential(MPTTModel):    
     Construction_Status = (
@@ -265,9 +266,12 @@ class BankOffer(models.Model):
     def __str__(self):
         return self.title
 
+# Residential Projects End Here #
+
 #__________________________________________________________________________________________________________
 
 
+# Commercial Projects Start Here #
 
 class CommercialProject(MPTTModel):
     CONSTRUCTION_STATUS = (
@@ -487,6 +491,12 @@ class CommercialBankOffer(models.Model):
 
     def __str__(self):
         return self.title
+
+# Commercial Projects END Here #
+
+
+
+# Projects Enquiry Start Here #
 
 
 class ResidentialEnquiry(models.Model):

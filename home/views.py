@@ -1,5 +1,5 @@
 import json
-
+from django.core.paginator import Paginator
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
@@ -14,12 +14,14 @@ from django.core.mail import send_mail
 from django.template.loader import render_to_string
 from django.urls import reverse
 from django.utils import translation
-
+from django.shortcuts import render, get_object_or_404
+from home.forms import ResidentialEnquiryForm
 from home.models import Setting, ContactForm, ContactMessage,FAQ,About_Page,Contact_Page,Testimonial,Our_Team,Slider
 from Makaan_Hub import settings
 from utility.models import City,Locality
 from user.models import Developer
 from project.models import Residential,CommercialProject
+from .forms import ResidentialEnquiryForm
 
 # Create your views here.
 
@@ -53,33 +55,43 @@ def index(request):
 def residential_project(request):
     setting = Setting.objects.all().order_by('-id')[0:1]
 
-    project_latest = Residential.objects.filter(featured_property = 'True').order_by('-id')[:6]  # last 4 products
-    project_featured = Residential.objects.filter(featured_property = 'True').order_by('-id')[:6]  # last 4 products
-    active = Residential.objects.filter(featured_property = 'True').order_by('?')   #Random selected 4 products
+    project_latest = Residential.objects.filter(featured_property='True').order_by('-id')[:6]
+    project_featured = Residential.objects.filter(featured_property='True').order_by('-id')[:6]
+    
+    all_active = Residential.objects.filter(featured_property='True').order_by('?')  # Randomized
 
-    page="home"
-    context={
-        'project_latest':project_latest,
-        'project_featured':project_featured,
-        'active':active,
-        'setting':setting,    }
+    # 🧠 Pagination here
+    paginator = Paginator(all_active, 20)  # Show 2 per page (testing)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
 
-    return render(request,'projects/list/residential.html',context)
-
-
-def residential_project_details(request,slug):
-    setting = Setting.objects.all().order_by('-id')[0:1]
-     # last 4 products
-    active = Residential.objects.get(slug = slug)
-
-    page="home"
-    context={
-        'setting':setting,
-        'active':active,
-
+    page = "home"
+    context = {
+        'project_latest': project_latest,
+        'project_featured': project_featured,
+        'active': page_obj,  # 👈 Use 'active' as paginated object
+        'setting': setting,
+        'page_obj': page_obj,  # Optional: for pagination bar
+        'page': page,
     }
-    return render(request,'projects/details/residential.html',context)
 
+    return render(request, 'projects/list/residential.html', context)
+
+
+def residential_project_details(request, slug):
+    setting = Setting.objects.all().order_by('-id')[:1]
+    project = get_object_or_404(Residential, slug=slug)
+
+    # Optional: related projects, developer projects, etc.
+    related_projects = Residential.objects.filter(city=project.city).exclude(slug=slug).order_by('?')[:3]
+
+    context = {
+        'setting': setting,
+        'active': project,
+        'related_projects': related_projects,
+        'page': 'home'
+    }
+    return render(request, 'projects/details/residential.html', context)
 
 
 def commercial_project(request):
@@ -326,7 +338,7 @@ def privacy_policy(request):
     context={
         'header':header,
     }
-    return render(request,'privacy_policy.html',context)
+    return render(request,'privacy-policy.html',context)
 
 
 
@@ -370,4 +382,47 @@ All the best
 
     return render(request, 'base.html')
 
+
+def submit_enquiry(request, pk):
+    residential = get_object_or_404(Residential, pk=pk)
+    if request.method == 'POST':
+        form = ResidentialEnquiryForm(request.POST)
+        if form.is_valid():
+            enquiry = form.save(commit=False)
+            enquiry.residential = residential
+            enquiry.save()
+
+            # ✅ Admin ko email
+            send_mail(
+                subject=f"New Enquiry for {residential.project_name}",
+                message=(
+                    f"Name: {enquiry.name}\n"
+                    f"Phone: {enquiry.phone}\n"
+                    f"Email: {enquiry.email}\n"
+                    f"Message: {enquiry.message}"
+                ),
+                from_email=None,
+                recipient_list=['admin@example.com'],
+                fail_silently=False,
+            )
+
+            # ✅ User ko confirmation email
+            if enquiry.email:
+                send_mail(
+                    subject="Thanks for your enquiry!",
+                    message=(
+                        f"Dear {enquiry.name},\n\n"
+                        f"Thank you for enquiring about {residential.project_name}.\n"
+                        f"Our team will get back to you soon.\n\n"
+                        f"Regards,\nMakaanHub Team"
+                    ),
+                    from_email=None,
+                    recipient_list=[enquiry.email],
+                    fail_silently=False,
+                )
+
+            return redirect('/thank-you/')  # 🔥 thank-you page
+    else:
+        form = ResidentialEnquiryForm()
+    return render(request, 'partials/enquiry_form.html', {'form': form})
 

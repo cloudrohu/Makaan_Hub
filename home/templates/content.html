@@ -27,7 +27,7 @@
 			<div class="row">
 				<div class="col-lg-6 offset-lg-3">
 					<div class="main-title text-center mb40">
-						<h2>Featured Properties</h2>
+						<h2>Featured Residential Properties</h2>
 					</div>
 				</div>
 			</div>
@@ -44,7 +44,7 @@
 										<li class="list-inline-item me-2"><a href="#"><span class="flaticon-transfer-1"></span></a></li>
 										<li class="list-inline-item"><a href="#"><span class="flaticon-heart"></span></a></li>
 									</ul>
-									<a class="fp_price btn btn-dark btn-sm rounded-pill px-3" href="#">₹ {{rs.priceing}}</a>
+									<a class="fp_price btn bg-transparent shadow-amber-800 btn-sm rounded-pill px-3" href="#">₹ {{rs.priceing}}</a>
 									</div>
 								</div>
 									<div class="details card-body">
@@ -113,32 +113,7 @@
 	</div>
 	</section>
 
-	<!-- Mouse drag scroll JS (same as above, only if not already added) -->
-	<script>
-	const scrollLoc = document.getElementById('locality-scroll');
-	let isDownL = false, startXL, scrollLeftL;
-	scrollLoc.addEventListener('mousedown', (e) => {
-	isDownL = true;
-	scrollLoc.style.cursor = 'grabbing';
-	startXL = e.pageX - scrollLoc.offsetLeft;
-	scrollLeftL = scrollLoc.scrollLeft;
-	});
-	scrollLoc.addEventListener('mouseleave', () => {
-	isDownL = false;
-	scrollLoc.style.cursor = 'grab';
-	});
-	scrollLoc.addEventListener('mouseup', () => {
-	isDownL = false;
-	scrollLoc.style.cursor = 'grab';
-	});
-	scrollLoc.addEventListener('mousemove', (e) => {
-	if (!isDownL) return;
-	e.preventDefault();
-	const x = e.pageX - scrollLoc.offsetLeft;
-	const walk = (x - startXL) * 2;
-	scrollLoc.scrollLeft = scrollLeftL - walk;
-	});
-	</script>
+
 
 <!-- Find Properties In the Locality End Here -->
 
@@ -148,200 +123,129 @@
 <!-- Google Fonts for Premium Look (optional) -->
 <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700;800&display=swap" rel="stylesheet">
 
-<section class="bg-gray-50 py-12">
-  <div class="max-w-[1400px] mx-auto px-4 relative">
-    <h2 class="text-3xl font-extrabold text-gray-900 mb-2" style="font-family:'Open Sans',sans-serif;">Commercial Projects</h2>
-    <p class="text-lg text-gray-500 mb-8">Featured Commercial Projects in Ahmedabad</p>
 
-    <!-- Scroll Buttons -->
-    <button id="scrollLeft" class="hidden md:flex items-center justify-center absolute top-1/2 left-2 z-30 w-10 h-10 rounded-full bg-white border shadow hover:bg-blue-100 transition -translate-y-1/2">
-      <svg width="28" height="28" fill="none" stroke="#111827" stroke-width="2"><path d="M16 6l-6 6 6 6"/></svg>
-    </button>
-    <button id="scrollRight" class="hidden md:flex items-center justify-center absolute top-1/2 right-2 z-30 w-10 h-10 rounded-full bg-white border shadow hover:bg-blue-100 transition -translate-y-1/2">
-      <svg width="28" height="28" fill="none" stroke="#111827" stroke-width="2"><path d="M10 6l6 6-6 6"/></svg>
-    </button>
+<section class="bg-gray-100 py-10 px-4">
+  <div class="max-w-7xl mx-auto">
+    <h2 class="text-3xl font-bold text-gray-800 mb-6">Commercial Projects</h2>
 
-    <!-- Cards Wrapper -->
-    <div id="commercialScroll" class="flex gap-8 overflow-x-auto pb-4 scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100 snap-x scroll-smooth"
-         style="scrollbar-color:#e5e7eb #f3f4f6; scrollbar-width:thin; -webkit-overflow-scrolling: touch;">
-      
-      <!-- CARD 1 -->
-      <div class="min-w-[330px] max-w-[340px] w-[94vw] sm:w-[330px] h-[400px] rounded-2xl bg-white shadow-lg flex-shrink-0 snap-start transition hover:shadow-2xl group relative">
-        <!-- Image/Price/Badge Layer -->
-        <div class="relative w-full h-[210px] rounded-t-2xl overflow-hidden">
-          <img src="https://i.ibb.co/ZGBfzQ2/commercial-glass.jpg" alt="Office" class="w-full h-full object-cover transition-all duration-300 group-hover:scale-105" />
-          <span class="absolute top-3 left-3 bg-blue-700 text-white text-xs font-bold px-3 py-1 rounded shadow">FOR RENT</span>
-          <span class="absolute top-3 left-[90px] bg-red-600 text-white text-xs font-bold px-2 py-1 rounded shadow">HOT</span>
-          <span class="absolute bottom-3 left-3 text-xl font-extrabold text-white shadow-xl bg-black/30 px-3 py-1 rounded" style="font-family:'Open Sans',sans-serif;">
-            ₹2,50,000
-          </span>
-        </div>
-        <!-- Card Details -->
-        <div class="p-5 pb-2 flex flex-col gap-2">
-          <div class="text-lg font-extrabold text-gray-900 truncate" title="Commercial Office Space For Rent in Parinee">
-            Commercial Office Space For Rent in Parinee...
+    <div class="overflow-x-auto scrollbar-hide">
+      <div class="flex space-x-6 min-w-[1200px]">
+
+        <!-- Project 1 -->
+        <div class="bg-white shadow-xl rounded-xl w-80 shrink-0 hover:scale-[1.03] transition duration-300">
+          <img src="https://via.placeholder.com/300x180" alt="Project 1" class="rounded-t-xl w-full h-48 object-cover">
+          <div class="p-4">
+            <h3 class="text-lg font-semibold text-gray-800">Empire Towers</h3>
+            <p class="text-sm text-gray-500 mb-2">📍 Andheri East, Mumbai</p>
+            <p class="text-sm text-gray-700 mb-3">Premium office spaces with modern infrastructure & amenities.</p>
+            <div class="flex justify-between items-center">
+              <span class="text-sm font-bold text-indigo-600">From ₹85L</span>
+              <a href="#" class="text-sm text-blue-600 hover:underline">Details →</a>
+            </div>
           </div>
-          <div class="text-gray-500 text-sm truncate">Shah Industrial Estate, Off Veera Desai Road, Mumbai</div>
-          <div class="flex flex-row gap-6 text-gray-700 text-sm font-medium mt-2">
-            <span>sqft: <b>2150</b></span>
-            <!-- <span>Beds: <b>2</b></span> -->
-          </div>
-          <a href="#" class="inline-block mt-4 w-max px-6 py-2 text-sm font-bold rounded bg-blue-600 text-white shadow hover:bg-blue-700 transition">Details</a>
         </div>
+
+        <!-- Repeat this block for 6 more cards -->
+        <div class="bg-white shadow-xl rounded-xl w-80 shrink-0 hover:scale-[1.03] transition duration-300">
+          <img src="https://via.placeholder.com/300x180" alt="Project 2" class="rounded-t-xl w-full h-48 object-cover">
+          <div class="p-4">
+            <h3 class="text-lg font-semibold text-gray-800">Skyline Plaza</h3>
+            <p class="text-sm text-gray-500 mb-2">📍 BKC, Mumbai</p>
+            <p class="text-sm text-gray-700 mb-3">Luxury commercial hub with flexible spaces & grand entry.</p>
+            <div class="flex justify-between items-center">
+              <span class="text-sm font-bold text-indigo-600">From ₹2.1 Cr</span>
+              <a href="#" class="text-sm text-blue-600 hover:underline">Details →</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-white shadow-xl rounded-xl w-80 shrink-0 hover:scale-[1.03] transition duration-300">
+          <img src="https://via.placeholder.com/300x180" alt="Project 3" class="rounded-t-xl w-full h-48 object-cover">
+          <div class="p-4">
+            <h3 class="text-lg font-semibold text-gray-800">Trade Center</h3>
+            <p class="text-sm text-gray-500 mb-2">📍 Malad West, Mumbai</p>
+            <p class="text-sm text-gray-700 mb-3">Modern workspaces for startups and IT professionals.</p>
+            <div class="flex justify-between items-center">
+              <span class="text-sm font-bold text-indigo-600">From ₹65L</span>
+              <a href="#" class="text-sm text-blue-600 hover:underline">Details →</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-white shadow-xl rounded-xl w-80 shrink-0 hover:scale-[1.03] transition duration-300">
+          <img src="https://via.placeholder.com/300x180" alt="Project 4" class="rounded-t-xl w-full h-48 object-cover">
+          <div class="p-4">
+            <h3 class="text-lg font-semibold text-gray-800">Infinity Hub</h3>
+            <p class="text-sm text-gray-500 mb-2">📍 Thane, Mumbai</p>
+            <p class="text-sm text-gray-700 mb-3">Spacious commercial spaces near metro and highways.</p>
+            <div class="flex justify-between items-center">
+              <span class="text-sm font-bold text-indigo-600">From ₹1.3 Cr</span>
+              <a href="#" class="text-sm text-blue-600 hover:underline">Details →</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-white shadow-xl rounded-xl w-80 shrink-0 hover:scale-[1.03] transition duration-300">
+          <img src="https://via.placeholder.com/300x180" alt="Project 5" class="rounded-t-xl w-full h-48 object-cover">
+          <div class="p-4">
+            <h3 class="text-lg font-semibold text-gray-800">WorkNest</h3>
+            <p class="text-sm text-gray-500 mb-2">📍 Goregaon East, Mumbai</p>
+            <p class="text-sm text-gray-700 mb-3">Ideal office spaces for freelancers and small firms.</p>
+            <div class="flex justify-between items-center">
+              <span class="text-sm font-bold text-indigo-600">From ₹40L</span>
+              <a href="#" class="text-sm text-blue-600 hover:underline">Details →</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-white shadow-xl rounded-xl w-80 shrink-0 hover:scale-[1.03] transition duration-300">
+          <img src="https://via.placeholder.com/300x180" alt="Project 6" class="rounded-t-xl w-full h-48 object-cover">
+          <div class="p-4">
+            <h3 class="text-lg font-semibold text-gray-800">BizBay Heights</h3>
+            <p class="text-sm text-gray-500 mb-2">📍 Mira Road, Mumbai</p>
+            <p class="text-sm text-gray-700 mb-3">Affordable commercial offices in prime business zone.</p>
+            <div class="flex justify-between items-center">
+              <span class="text-sm font-bold text-indigo-600">From ₹75L</span>
+              <a href="#" class="text-sm text-blue-600 hover:underline">Details →</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-white shadow-xl rounded-xl w-80 shrink-0 hover:scale-[1.03] transition duration-300">
+          <img src="https://via.placeholder.com/300x180" alt="Project 7" class="rounded-t-xl w-full h-48 object-cover">
+          <div class="p-4">
+            <h3 class="text-lg font-semibold text-gray-800">Metro Biz Park</h3>
+            <p class="text-sm text-gray-500 mb-2">📍 Ghatkopar West, Mumbai</p>
+            <p class="text-sm text-gray-700 mb-3">Elegant tower with sky-view offices for enterprises.</p>
+            <div class="flex justify-between items-center">
+              <span class="text-sm font-bold text-indigo-600">From ₹1.8 Cr</span>
+              <a href="#" class="text-sm text-blue-600 hover:underline">Details →</a>
+            </div>
+          </div>
+        </div>
+
       </div>
-      
-      <!-- CARD 2 -->
-      <div class="min-w-[330px] max-w-[340px] w-[94vw] sm:w-[330px] h-[400px] rounded-2xl bg-white shadow-lg flex-shrink-0 snap-start transition hover:shadow-2xl group relative">
-        <div class="relative w-full h-[210px] rounded-t-2xl overflow-hidden">
-          <img src="https://i.ibb.co/6RsKhrk/commercial-glass2.jpg" alt="Office 2" class="w-full h-full object-cover transition-all duration-300 group-hover:scale-105" />
-          <span class="absolute top-3 left-3 bg-blue-700 text-white text-xs font-bold px-3 py-1 rounded shadow">FOR RENT</span>
-          <span class="absolute top-3 left-[90px] bg-red-600 text-white text-xs font-bold px-2 py-1 rounded shadow">HOT</span>
-          <span class="absolute bottom-3 left-3 text-xl font-extrabold text-white shadow-xl bg-black/30 px-3 py-1 rounded" style="font-family:'Open Sans',sans-serif;">
-            ₹2,50,000
-          </span>
-        </div>
-        <div class="p-5 pb-2 flex flex-col gap-2">
-          <div class="text-lg font-extrabold text-gray-900 truncate" title="2150 Sq-ft Commercial Office Space">
-            2150 Sq-ft Commercial Office Space For Rent...
-          </div>
-          <div class="text-gray-500 text-sm truncate">Shah Industrial Estate, Off Veera Desai Road, Mumbai</div>
-          <div class="flex flex-row gap-6 text-gray-700 text-sm font-medium mt-2">
-            <span>Beds: <b>2</b></span>
-            <span>sqft: <b>2150</b></span>
-          </div>
-          <a href="#" class="inline-block mt-4 w-max px-6 py-2 text-sm font-bold rounded bg-blue-600 text-white shadow hover:bg-blue-700 transition">Details</a>
-        </div>
-      </div>
-
-      <!-- CARD 3 -->
-      <div class="min-w-[330px] max-w-[340px] w-[94vw] sm:w-[330px] h-[400px] rounded-2xl bg-white shadow-lg flex-shrink-0 snap-start transition hover:shadow-2xl group relative">
-        <div class="relative w-full h-[210px] rounded-t-2xl overflow-hidden">
-          <img src="https://aahilyaproperty.com/wp-content/uploads/2025/05/11-385x258.webp" alt="Lodha Supremus" class="w-full h-full object-cover transition-all duration-300 group-hover:scale-105" />
-          <span class="absolute top-3 left-3 bg-blue-700 text-white text-xs font-bold px-3 py-1 rounded shadow">FOR RENT</span>
-          <span class="absolute top-3 left-[90px] bg-red-600 text-white text-xs font-bold px-2 py-1 rounded shadow">HOT</span>
-          <span class="absolute bottom-3 left-3 text-xl font-extrabold text-white shadow-xl bg-black/30 px-3 py-1 rounded" style="font-family:'Open Sans',sans-serif;">
-            ₹1,50,000
-          </span>
-        </div>
-        <div class="p-5 pb-2 flex flex-col gap-2">
-          <div class="text-lg font-extrabold text-gray-900 truncate" title="Lodha Supremus Commercial Office Space">
-            Lodha Supremus Commercial Office Space 1...
-          </div>
-          <div class="text-gray-500 text-sm truncate">Lodha Supremus, Next to Lodha Eternis, End Mumbai</div>
-          <div class="flex flex-row gap-6 text-gray-700 text-sm font-medium mt-2">
-            <span>sqft: <b>1200</b></span>
-          </div>
-          <a href="#" class="inline-block mt-4 w-max px-6 py-2 text-sm font-bold rounded bg-blue-600 text-white shadow hover:bg-blue-700 transition">Details</a>
-        </div>
-      </div>
-
-	  <div class="min-w-[330px] max-w-[340px] w-[94vw] sm:w-[330px] h-[400px] rounded-2xl bg-white shadow-lg flex-shrink-0 snap-start transition hover:shadow-2xl group relative">
-        <div class="relative w-full h-[210px] rounded-t-2xl overflow-hidden">
-          <img src="https://aahilyaproperty.com/wp-content/uploads/2025/05/11-385x258.webp" alt="Lodha Supremus" class="w-full h-full object-cover transition-all duration-300 group-hover:scale-105" />
-          <span class="absolute top-3 left-3 bg-blue-700 text-white text-xs font-bold px-3 py-1 rounded shadow">FOR RENT</span>
-          <span class="absolute top-3 left-[90px] bg-red-600 text-white text-xs font-bold px-2 py-1 rounded shadow">HOT</span>
-          <span class="absolute bottom-3 left-3 text-xl font-extrabold text-white shadow-xl bg-black/30 px-3 py-1 rounded" style="font-family:'Open Sans',sans-serif;">
-            ₹1,50,000
-          </span>
-        </div>
-        <div class="p-5 pb-2 flex flex-col gap-2">
-          <div class="text-lg font-extrabold text-gray-900 truncate" title="Lodha Supremus Commercial Office Space">
-            Lodha Supremus Commercial Office Space 1...
-          </div>
-          <div class="text-gray-500 text-sm truncate">Lodha Supremus, Next to Lodha Eternis, End Mumbai</div>
-          <div class="flex flex-row gap-6 text-gray-700 text-sm font-medium mt-2">
-            <span>sqft: <b>1200</b></span>
-          </div>
-          <a href="#" class="inline-block mt-4 w-max px-6 py-2 text-sm font-bold rounded bg-blue-600 text-white shadow hover:bg-blue-700 transition">Details</a>
-        </div>
-      </div>
-
-
-	  <div class="min-w-[330px] max-w-[340px] w-[94vw] sm:w-[330px] h-[400px] rounded-2xl bg-white shadow-lg flex-shrink-0 snap-start transition hover:shadow-2xl group relative">
-        <div class="relative w-full h-[210px] rounded-t-2xl overflow-hidden">
-          <img src="https://aahilyaproperty.com/wp-content/uploads/2025/05/11-385x258.webp" alt="Lodha Supremus" class="w-full h-full object-cover transition-all duration-300 group-hover:scale-105" />
-          <span class="absolute top-3 left-3 bg-blue-700 text-white text-xs font-bold px-3 py-1 rounded shadow">FOR RENT</span>
-          <span class="absolute top-3 left-[90px] bg-red-600 text-white text-xs font-bold px-2 py-1 rounded shadow">HOT</span>
-          <span class="absolute bottom-3 left-3 text-xl font-extrabold text-white shadow-xl bg-black/30 px-3 py-1 rounded" style="font-family:'Open Sans',sans-serif;">
-            ₹1,50,000
-          </span>
-        </div>
-        <div class="p-5 pb-2 flex flex-col gap-2">
-          <div class="text-lg font-extrabold text-gray-900 truncate" title="Lodha Supremus Commercial Office Space">
-            Lodha Supremus Commercial Office Space 1...
-          </div>
-          <div class="text-gray-500 text-sm truncate">Lodha Supremus, Next to Lodha Eternis, End Mumbai</div>
-          <div class="flex flex-row gap-6 text-gray-700 text-sm font-medium mt-2">
-            <span>sqft: <b>1200</b></span>
-          </div>
-          <a href="#" class="inline-block mt-4 w-max px-6 py-2 text-sm font-bold rounded bg-blue-600 text-white shadow hover:bg-blue-700 transition">Details</a>
-        </div>
-      </div>
-
-
-	  <div class="min-w-[330px] max-w-[340px] w-[94vw] sm:w-[330px] h-[400px] rounded-2xl bg-white shadow-lg flex-shrink-0 snap-start transition hover:shadow-2xl group relative">
-        <div class="relative w-full h-[210px] rounded-t-2xl overflow-hidden">
-          <img src="https://aahilyaproperty.com/wp-content/uploads/2025/05/11-385x258.webp" alt="Lodha Supremus" class="w-full h-full object-cover transition-all duration-300 group-hover:scale-105" />
-          <span class="absolute top-3 left-3 bg-blue-700 text-white text-xs font-bold px-3 py-1 rounded shadow">FOR RENT</span>
-          <span class="absolute top-3 left-[90px] bg-red-600 text-white text-xs font-bold px-2 py-1 rounded shadow">HOT</span>
-          <span class="absolute bottom-3 left-3 text-xl font-extrabold text-white shadow-xl bg-black/30 px-3 py-1 rounded" style="font-family:'Open Sans',sans-serif;">
-            ₹1,50,000
-          </span>
-        </div>
-        <div class="p-5 pb-2 flex flex-col gap-2">
-          <div class="text-lg font-extrabold text-gray-900 truncate" title="Lodha Supremus Commercial Office Space">
-            Lodha Supremus Commercial Office Space 1...
-          </div>
-          <div class="text-gray-500 text-sm truncate">Lodha Supremus, Next to Lodha Eternis, End Mumbai</div>
-          <div class="flex flex-row gap-6 text-gray-700 text-sm font-medium mt-2">
-            <span>sqft: <b>1200</b></span>
-          </div>
-          <a href="#" class="inline-block mt-4 w-max px-6 py-2 text-sm font-bold rounded bg-blue-600 text-white shadow hover:bg-blue-700 transition">Details</a>
-        </div>
-      </div>
-	  
-	  <div class="min-w-[330px] max-w-[340px] w-[94vw] sm:w-[330px] h-[400px] rounded-2xl bg-white shadow-lg flex-shrink-0 snap-start transition hover:shadow-2xl group relative">
-        <div class="relative w-full h-[210px] rounded-t-2xl overflow-hidden">
-          <img src="https://aahilyaproperty.com/wp-content/uploads/2025/05/11-385x258.webp" alt="Lodha Supremus" class="w-full h-full object-cover transition-all duration-300 group-hover:scale-105" />
-          <span class="absolute top-3 left-3 bg-blue-700 text-white text-xs font-bold px-3 py-1 rounded shadow">FOR RENT</span>
-          <span class="absolute top-3 left-[90px] bg-red-600 text-white text-xs font-bold px-2 py-1 rounded shadow">HOT</span>
-          <span class="absolute bottom-3 left-3 text-xl font-extrabold text-white shadow-xl bg-black/30 px-3 py-1 rounded" style="font-family:'Open Sans',sans-serif;">
-            ₹1,50,000
-          </span>
-        </div>
-        <div class="p-5 pb-2 flex flex-col gap-2">
-          <div class="text-lg font-extrabold text-gray-900 truncate" title="Lodha Supremus Commercial Office Space">
-            Lodha Supremus Commercial Office Space 1...
-          </div>
-          <div class="text-gray-500 text-sm truncate">Lodha Supremus, Next to Lodha Eternis, End Mumbai</div>
-          <div class="flex flex-row gap-6 text-gray-700 text-sm font-medium mt-2">
-            <span>sqft: <b>1200</b></span>
-          </div>
-          <a href="#" class="inline-block mt-4 w-max px-6 py-2 text-sm font-bold rounded bg-blue-600 text-white shadow hover:bg-blue-700 transition">Details</a>
-        </div>
-      </div>
-
-      <!-- More cards can be copy-pasted here -->
     </div>
   </div>
 </section>
 
-<script>
-const scrollDiv = document.getElementById('commercialScroll');
-const btnLeft = document.getElementById('scrollLeft');
-const btnRight = document.getElementById('scrollRight');
 
-function updateBtns() {
-  if (!scrollDiv) return;
-  btnLeft.disabled = scrollDiv.scrollLeft < 50;
-  btnRight.disabled = scrollDiv.scrollLeft + scrollDiv.clientWidth > scrollDiv.scrollWidth - 50;
-}
-if(btnLeft && btnRight && scrollDiv) {
-  btnLeft.onclick = () => { scrollDiv.scrollBy({left: -340, behavior: "smooth"}); setTimeout(updateBtns, 300);}
-  btnRight.onclick = () => { scrollDiv.scrollBy({left: 340, behavior: "smooth"}); setTimeout(updateBtns, 300);}
-  scrollDiv.addEventListener('scroll', updateBtns);
-  setTimeout(updateBtns, 100);
-}
+<script>
+	const scrollDiv = document.getElementById('commercialScroll');
+	const btnLeft = document.getElementById('scrollLeft');
+	const btnRight = document.getElementById('scrollRight');
+
+	function updateBtns() {
+	if (!scrollDiv) return;
+	btnLeft.disabled = scrollDiv.scrollLeft < 50;
+	btnRight.disabled = scrollDiv.scrollLeft + scrollDiv.clientWidth > scrollDiv.scrollWidth - 50;
+	}
+	if(btnLeft && btnRight && scrollDiv) {
+	btnLeft.onclick = () => { scrollDiv.scrollBy({left: -340, behavior: "smooth"}); setTimeout(updateBtns, 300);}
+	btnRight.onclick = () => { scrollDiv.scrollBy({left: 340, behavior: "smooth"}); setTimeout(updateBtns, 300);}
+	scrollDiv.addEventListener('scroll', updateBtns);
+	setTimeout(updateBtns, 100);
+	}
 </script>
 
 
@@ -623,44 +527,7 @@ if(btnLeft && btnRight && scrollDiv) {
 </section>
 
 <script>
-// Always select ID correct
-const devScroll = document.getElementById('dev-scroll');
-const leftBtn = document.getElementById('dev-scroll-left');
-const rightBtn = document.getElementById('dev-scroll-right');
-const scrollStep = 320; // px scroll per click
 
-if (devScroll && leftBtn && rightBtn) {
-  leftBtn.onclick = function () {
-    devScroll.scrollBy({ left: -scrollStep, behavior: 'smooth' });
-  };
-  rightBtn.onclick = function () {
-    devScroll.scrollBy({ left: scrollStep, behavior: 'smooth' });
-  };
-
-  // Mouse drag scroll (desktop)
-  let isDown = false, startX, scrollLeft;
-  devScroll.addEventListener('mousedown', (e) => {
-    isDown = true;
-    devScroll.style.cursor = 'grabbing';
-    startX = e.pageX - devScroll.offsetLeft;
-    scrollLeft = devScroll.scrollLeft;
-  });
-  devScroll.addEventListener('mouseleave', () => {
-    isDown = false;
-    devScroll.style.cursor = 'grab';
-  });
-  devScroll.addEventListener('mouseup', () => {
-    isDown = false;
-    devScroll.style.cursor = 'grab';
-  });
-  devScroll.addEventListener('mousemove', (e) => {
-    if (!isDown) return;
-    e.preventDefault();
-    const x = e.pageX - devScroll.offsetLeft;
-    const walk = (x - startX) * 2;
-    devScroll.scrollLeft = scrollLeft - walk;
-  });
-}
 </script>
 
 

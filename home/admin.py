@@ -48,6 +48,8 @@ class Contact_PageAdmin(admin.ModelAdmin):
     list_display = ['id','title','keywords','description',]
 admin.site.register(Contact_Page,Contact_PageAdmin)
 
+
+
 admin.site.register(ContactMessage,ContactMessageAdmin)
 admin.site.register(Social_Link,Social_LinkAdmin)
 admin.site.register(Social_Site,)

@@ -42,131 +42,131 @@
  
 <style>
 
-.navbar-nav.flex-row .nav-item {
-  border-left: 1px solid #ddd;
-  padding: 0 7px;
-  display: flex;
-  align-items: center;
-}
-@media (max-width: 991px) {
-  .navbar-nav.flex-row .nav-item {
-    padding: 8px 10px;
-    font-size: 14px;
-  }
+        .navbar-nav.flex-row .nav-item {
+        border-left: 1px solid #ddd;
+        padding: 0 7px;
+        display: flex;
+        align-items: center;
+        }
+        @media (max-width: 991px) {
+        .navbar-nav.flex-row .nav-item {
+            padding: 8px 10px;
+            font-size: 14px;
+        }
 
-  .nav-link i {
-    margin-right: 8px;
-  }
+        .nav-link i {
+            margin-right: 8px;
+        }
 
-  .nav-link span {
-    display: inline !important;
-  }
-}
+        .nav-link span {
+            display: inline !important;
+        }
+        }
 
-/* Remove border from first item */
-.navbar-nav.flex-row .nav-item:first-child {
-  border-left: none;
-}
+        /* Remove border from first item */
+        .navbar-nav.flex-row .nav-item:first-child {
+        border-left: none;
+        }
 
-/* Style nav-link */
-.navbar-nav.flex-row .nav-link {
-  color: black;
-  text-decoration: none;
-  padding: 10px 0;
-  display: flex;
-  align-items: center;
-}
+        /* Style nav-link */
+        .navbar-nav.flex-row .nav-link {
+        color: black;
+        text-decoration: none;
+        padding: 10px 0;
+        display: flex;
+        align-items: center;
+        }
 
-/* Optional: hover underline effect */
-.navbar-nav.flex-row .nav-link:hover {
-  text-decoration: underline;
-  color: #000;
-}
+        /* Optional: hover underline effect */
+        .navbar-nav.flex-row .nav-link:hover {
+        text-decoration: underline;
+        color: #000;
+        }
 
-#navbarNav {
-display: none;
-}
+        #navbarNav {
+        display: none;
+        }
 
-#navbarNav.show {
-display: block;
-}
-@media (max-width: 991px) {
-#navbarNav {
-    display: none;
-}
-#navbarNav.show {
-    display: block;
-}
+        #navbarNav.show {
+        display: block;
+        }
+        @media (max-width: 991px) {
+        #navbarNav {
+            display: none;
+        }
+        #navbarNav.show {
+            display: block;
+        }
 
-/* Optional: menu items stacked vertically */
-#navbarNav ul {
-    flex-direction: column;
-    align-items: flex-start;
-    padding: 10px;
-}
-}
-@media (max-width: 991px) {
-#navbarNav {
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height 0.4s ease-in-out;
-}
+        /* Optional: menu items stacked vertically */
+        #navbarNav ul {
+            flex-direction: column;
+            align-items: flex-start;
+            padding: 10px;
+        }
+        }
+        @media (max-width: 991px) {
+        #navbarNav {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease-in-out;
+        }
 
-#navbarNav.show {
-    max-height: 500px; /* adjust height based on how tall your menu is */
-}
+        #navbarNav.show {
+            max-height: 500px; /* adjust height based on how tall your menu is */
+        }
 
-/* Optional: vertical stacking */
-#navbarNav ul {
-    flex-direction: column;
-    align-items: flex-start;
-    padding: 10px 0;
-}
+        /* Optional: vertical stacking */
+        #navbarNav ul {
+            flex-direction: column;
+            align-items: flex-start;
+            padding: 10px 0;
+        }
 
-#navbarNav ul li {
-    padding-left: 3px;
-    margin-left: 2px;
-    
-}
-}
-#navbarNav ul li:hover{
-    text-decoration: underline;
-    color: blue;
-    cursor: pointer;
-    
-}
-
-
-.nav-link.active i {
-  color: #d4af37 !important;
-}
+        #navbarNav ul li {
+            padding-left: 3px;
+            margin-left: 2px;
+            
+        }
+        }
+        #navbarNav ul li:hover{
+            text-decoration: underline;
+            color: blue;
+            cursor: pointer;
+            
+        }
 
 
+        .nav-link.active i {
+        color: #d4af37 !important;
+        }
 
-.nav-link {
-  position: relative;
-  text-decoration: none;
-  color: rgb(255, 255, 255); /* optional - set your default color */
-  border-radius: 10px;
-}
 
-.nav-link::after {
-  content: "";
-  position: absolute;
-  width: 0;
-  height: 2px;
-  bottom: 0;
-  left: 0;
-  background-color:#b38b00; /* underline color */
-  transition: width 0.3s;
-}
 
-.nav-link:hover::after {
-  width: 100%;
-}
-.nav-link i {
-  margin-right: 3px;
-}
+        .nav-link {
+        position: relative;
+        text-decoration: none;
+        color: rgb(255, 255, 255); /* optional - set your default color */
+        border-radius: 10px;
+        }
+
+        .nav-link::after {
+        content: "";
+        position: absolute;
+        width: 0;
+        height: 2px;
+        bottom: 0;
+        left: 0;
+        background-color:#b38b00; /* underline color */
+        transition: width 0.3s;
+        }
+
+        .nav-link:hover::after {
+        width: 100%;
+        }
+        .nav-link i {
+        margin-right: 3px;
+        }
 
 </style>
 
@@ -200,12 +200,12 @@ display: block;
 
                 <ul class="navbar-nav flex-row">
                     
-                    <li class="nav-item" ><a class="nav-link" href="/"><i class="fa-solid fa-house"></i><span class="d-sm-inline d-md-none"> Home</span></a></li>
-                    <li class="nav-item"><a class="nav-link" href="#pricing"><i class="fa-solid fa-indian-rupee-sign"></i>Price</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#sitefloorplan"><i class="fa-solid fa-sitemap"></i>Site &amp; Floor Plan</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#amenities"><i class="fa-solid fa-wifi"></i>Amenities</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#gallery"><i class="fa-solid fa-images"></i>Gallery</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#location"><i class="fa-solid fa-location-dot"></i>Location</a></li>
+                    <li class="nav-item" ><a class="nav-link" href="{{ rs.get_absolute_url }}"><i class="fa-solid fa-house"></i><span class="d-sm-inline d-md-none"> Home</span></a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ rs.get_absolute_url }}#pricing"><i class="fa-solid fa-indian-rupee-sign"></i>Price</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ rs.get_absolute_url }}#sitefloorplan"><i class="fa-solid fa-sitemap"></i>Site &amp; Floor Plan</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ rs.get_absolute_url }}#amenities"><i class="fa-solid fa-wifi"></i>Amenities</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ rs.get_absolute_url }}#gallery"><i class="fa-solid fa-images"></i>Gallery</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ rs.get_absolute_url }}#location"><i class="fa-solid fa-location-dot"></i>Location</a></li>
                     <li class="nav-item"><a class="nav-link" href="#virtual-tour-section"><i class="fa-brands fa-youtube"></i>Virtual Site Visit </a></li>
 
                     
@@ -383,70 +383,71 @@ display: block;
 </style>
 
 <style>
-.map-container iframe {
-    width: 100% !important;
-    height: 450px;
-    border: 0;
-    display: block;
-}
-
-@media (max-width: 768px) {
     .map-container iframe {
-        height: 300px;
+        width: 100% !important;
+        height: 450px;
+        border: 0;
+        display: block;
     }
-}
+
+    @media (max-width: 768px) {
+        .map-container iframe {
+            height: 300px;
+        }
+    }
 </style>
 
 <style>
-.why-invest-section {
+    .why-invest-section {
   background-color: #f9f9f9;
   padding: 40px 20px;
   border-radius: 16px;
   max-width: 1200px;
   margin: auto;
-}
+    }
 
-.why-invest-section h2 {
-  text-align: center;
-  margin-bottom: 30px;
-  font-size: 2rem;
-  color: #333;
-}
+    .why-invest-section h2 {
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 2rem;
+    color: #333;
+    }
 
-.invest-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 20px;
-}
+    .invest-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    }
 
-.invest-card {
-  background-color: #ffffff;
-  padding: 20px;
-  border-radius: 12px;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
+    .invest-card {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
 
-.invest-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 6px 20px rgba(0,0,0,0.15);
-}
+    .invest-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+    }
 
-.invest-card h4 {
-  margin-bottom: 10px;
-  font-size: 1.2rem;
-  color: #222;
-}
+    .invest-card h4 {
+    margin-bottom: 10px;
+    font-size: 1.2rem;
+    color: #222;
+    }
 
-.invest-card p {
-  font-size: 0.95rem;
-  color: #555;
-  line-height: 1.5;
-}
+    .invest-card p {
+    font-size: 0.95rem;
+    color: #555;
+    line-height: 1.5;
+    }
 
 
 
 </style>
+
     <div class="main-container d-flex">        
         <main class="left-section">
             <div class="page-wrapper">
@@ -814,38 +815,44 @@ display: block;
                                 <div class="col-lx-6 col-lg-6 col-sm-12 form-data">
                                     <h2 class="text-left ms-4 mt-4 mb-0" style="font-size: 24px;">Schedule a Site Visit</h2>
                                     <div class="form">
-                                        <form name="schedule-site" action="/submit-form/" method="post">
-                                            {% csrf_token %}
-                                            <div class="row">
-                                                <div class="col-lg-12 col-sm-12 forms-input-fields">
-                                                    <i class="fa-solid fa-user"></i>
-                                                    <input type="text" name="name" class="form-control ms-0 me-0" required placeholder="Name*">
-                                                    <span class="error">Name field is required</span>
-                                                </div>
-                                                <div class="col-lg-12 col-sm-12 forms-input-fields">
-                                                    <i class="fa-solid fa-phone"></i>
-                                                    <input type="number" name="mobile" id="mobile" class="form-control ms-0 me-0" required placeholder="Mobile*">
-                                                    <span class="error">Mobile field is required</span>
-                                                </div>
-                                                        <div class="col-lg-12 col-sm-12 forms-input-fields">
-                                                    <i class="fa fa-envelope" aria-hidden="true"></i>
-                                                    <input type="email" name="email" id="email" class="form-control ms-0 me-0" required placeholder="Email*">
-                                                    <span class="error">Email field is required</span>
-                                                </div>
-                                                <div>
-                                                    <input type="hidden" name="form_name" id="form_name3" class="form-control form_name" value="Contact Site Visit">
-                                                    <input type="hidden" id="website_url3" class="website_url" name="website_url">
-                                                </div>
-                                                <div class="form-group acceptance mb-2" style="font-size: 10px;">
-                                                    <label class="form-check-label text-start">
-                                                        <input type="checkbox" checked class="form-check-input" required="">
-                                                        <span class="text on-rera">I Consent to The Processing of Provided Data According To <a href="{% url "privacy-policy" %}" style="color:#007bff"> Privacy Policy | </a> <a href="terms-conditions.html" style="color:#007bff;"> Terms &amp; Conditions</a>, I Authorize Prop Solutions 4 U Pvt. Ltd. and its representatives to Call, SMS, Email or WhatsApp Me About Its Products and Offers. This Consent Overrides Any Registration For DNC/NDNC. </span>
-                                                        <span class="text non-rera">Please be informed that this website is not intended to facilitate any sales transactions. I understand and acknowledge that the project I am interested in hasn't yet secured RERA clearance. The primary purpose of this website is to generate interest and gather information. By providing my data, I consent to its use in accordance with the <a href="{% url "privacy-policy" %}" style="color:#007bff"> Privacy Policy | </a> <a href="terms-conditions.html" style="color:#007bff;"> Terms &amp; Conditions</a></span>
-                                                    </label>
-                                                </div>
-                                                <button id="schedule-site-visit-button" type="submit" name="submit" class="btn ms-2 custom-btn btn-hover text-white data-id-btn" style="width: auto;" data-id="Contact Site Visit" onclick="submitForm(event, 'schedule-site')">Submit</button>
+                                        <form name="schedule-site" action="{% url 'submit_enquiry' active.id %}" method="post">
+                                        {% csrf_token %}
+                                        <div class="row">
+                                            <div class="col-lg-12 col-sm-12 forms-input-fields">
+                                                <i class="fa-solid fa-user"></i>
+                                                <input type="text" name="name" class="form-control" required placeholder="Name*">
                                             </div>
-                                        </form>
+
+                                            <div class="col-lg-12 col-sm-12 forms-input-fields">
+                                                <i class="fa-solid fa-phone"></i>
+                                                <input type="text" name="phone" class="form-control" required placeholder="Mobile*">
+                                            </div>
+
+                                            <div class="col-lg-12 col-sm-12 forms-input-fields">
+                                                <i class="fa fa-envelope"></i>
+                                                <input type="email" name="email" class="form-control" required placeholder="Email*">
+                                            </div>
+
+                                            <div class="col-lg-12 col-sm-12 forms-input-fields">
+                                                <i class="fa fa-message"></i>
+                                                <textarea name="message" class="form-control" rows="4" required placeholder="Enter Your Message*"></textarea>
+                                            </div>
+
+                                            <input type="hidden" name="form_name" value="Contact Site Visit">
+                                            <input type="hidden" name="website_url" id="website_url3" class="website_url" value="{{ request.build_absolute_uri }}">
+
+                                            <div class="form-group acceptance mb-2" style="font-size: 10px;">
+                                                <label class="form-check-label text-start">
+                                                    <input type="checkbox" checked class="form-check-input" required>
+                                                    <span class="text on-rera">I Consent to The Processing of Provided Data According To <a href="{% url 'privacy-policy' %}">Privacy Policy</a></span>
+                                                </label>
+                                            </div>
+
+                                            <button type="submit" class="btn ms-2 custom-btn btn-hover text-white">Submit</button>
+                                        </div>
+                                    </form>
+
+
                                     </div>
                                 </div>
 
@@ -947,7 +954,7 @@ display: block;
   </div>
 </section>
 
-                <section>
+         <section>
                     <div class="footer-enquiryBtn d-flex d-sm-none">
                         <a class="monCall data-id-btn" id="mobPhone" href="tel:+91{{rs.phone}}"><em class="fa fa-phone"></em> Call</a>
                         <a id="discovery_mobile" target="_blank" class="monCall whatsappBtn data-id-btn on-rera" href="https://api.whatsapp.com/send?phone=91{{rs.whatsapp}}&text=Hey There, I would like to explore further details About {% for rs in bookingopen %} {{rs.project_name}}  By {{rs.by}} At {{rs.at}} {% endfor %} Maharashtra. Please Share Details."><i class="fa fa-brands fa-whatsapp"></i> WhatsApp</a>
@@ -965,33 +972,40 @@ display: block;
             </div>
             <div class="form-section p-3">
                 <h2 class="pb-2">Pre-Register here for Best Offers</h2>
-                <form class="text-center" name="Pre-Register-sidemodal" action="/submit-form/" method="post">
+                <form name="schedule-site" action="{% url 'submit_enquiry' active.id %}" method="post">
                     {% csrf_token %}
-                    <div class="form-group mb-3">
-                        <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Enter Your Name here..." name="name" required>
-                        <span class="error">Name field is required</span>
-                    </div>
-                    <div class="form-group mb-3">
-                        <input type="number" id="mobile" class="form-control" required placeholder="Phone Number" name="mobile" oninput="limitDigits(this, 10)">
-                        <span class="error">Mobile field is required</span>
-                    </div>
-                    <div class="form-group mb-3">
-                        <input type="email" id="email" class="form-control" required placeholder="Email" name="email">
-                        <span class="error">Email field is required</span>
-                    </div>
-                    <div>
-                        <input type="hidden" name="form_name" id="form_name2" class="form-control form_name" value="Pre-Register">
-                        <input type="hidden" id="website_url2" class="website_url" name="website_url">
-                    </div>
-                    <div class="form-group acceptance mb-3" style="font-size: 10px;"><label class="form-check-label text-start">
-							<input type="checkbox" checked class="form-check-input" required>
-							<span class="text on-rera">I Consent to The Processing of Provided Data According To <a href="{% url "privacy-policy" %}" style="color:#007bff"> Privacy Policy | </a> <a href="terms-conditions.html" style="color:#007bff;"> Terms &amp; Conditions</a>, I Authorize Prop Solutions 4 U Pvt. Ltd. and its representatives to Call, SMS, Email or WhatsApp Me About Its Products and Offers. This Consent Overrides Any Registration For DNC/NDNC. </span>
-							<span class="text non-rera">Please be informed that this website is not intended to facilitate any sales transactions. I understand and acknowledge that the project I am interested in hasn't yet secured RERA clearance. The primary purpose of this website is to generate interest and gather information. By providing my data, I consent to its use in accordance with the <a href="Privacy-Policy.html" style="color:#007bff"> Privacy Policy | </a> <a href="terms-conditions.html" style="color:#007bff;"> Terms &amp; Conditions</a></span>
-						</label>
-                    </div>
-                    <button id="right-panel-preregister-button" class="btn preRegisterBtn data-id-btn on-rera" data-id="Pre-Register" onclick="submitForm(event, 'Pre-Register-sidemodal')">Pre-Register Now</button>
+                    <div class="row">
+                        <div class="col-lg-12 col-sm-12 forms-input-fields mb-2">
 
+                            <input type="text" name="name" class="form-control" required placeholder="Name*">
+                        </div>
+
+                        <div class="col-lg-12 col-sm-12 forms-input-fields mb-2">
+                            <input type="text" name="phone" class="form-control" required placeholder="Mobile*">
+                        </div>
+
+                        <div class="col-lg-12 col-sm-12 forms-input-fields mb-2">
+                            <input type="email" name="email" class="form-control" required placeholder="Email*">
+                        </div>
+
+                        <div class="col-lg-12 col-sm-12 forms-input-fields">
+                            <textarea name="message" class="form-control" rows="4" required placeholder="Enter Your Message*"></textarea>
+                        </div>
+
+                        <input type="hidden" name="form_name" value="Contact Site Visit">
+                        <input type="hidden" name="website_url" id="website_url3" class="website_url" value="{{ request.build_absolute_uri }}">
+
+                        <div class="form-group acceptance mb-2" style="font-size: 10px;">
+                            <label class="form-check-label text-start">
+                                <input type="checkbox" checked class="form-check-input" required>
+                                <span class="text on-rera">I Consent to The Processing of Provided Data According To <a href="{% url 'privacy-policy' %}">Privacy Policy</a></span>
+                            </label>
+                        </div>
+
+                        <button type="submit" class="btn ms-2 custom-btn btn-hover text-white">Submit</button>
+                    </div>
                 </form>
+
                 <h6 class="enqModal" style="margin: 35px auto; font-size: 12px; padding: 16px 0; ">
                     <div class="row text-center justify-content-center icon-sec m-0">
                         <div class="col-4"> <img src="{%  static '' %}projects/assets/images/icons/call.webp" width="32" class="img-fluid data-id-btn">
@@ -1039,44 +1053,43 @@ display: block;
                 </a>
                     
                     <!--this content fetch from JS-->
-                <form id="main-popup" name="modal-form" method="post" action="/submit-form/">
-                       {% csrf_token %}
-                        <div class="row">
-                            <div class="col-lg-6 col-sm-12 forms-input-fields">
-                                <i class="fa-solid fa-user"></i>
-                                <input type="text" name="name" class="form-control" autofocus required placeholder="Name*" required> 
-                                <span name="nameError" class="error">Name field is required</span>
-                            </div>
-                            <div class="col-lg-6 col-sm-12 forms-input-fields">
-                                <i class="fa-solid fa-phone"></i>
-                                <input type="number" name="mobile" id="mobile" class="form-control" required placeholder="Mobile*" required oninput="limitDigits(this, 10)">
-                                <span name="nameError" class="error">Mobile field is required</span>
-                            </div>
+                <form name="schedule-site" action="{% url 'submit_enquiry' active.id %}" method="post">
+                    {% csrf_token %}
+                    <div class="row">
+                        <div class="col-lg-12 col-sm-12 forms-input-fields">
+                            <i class="fa-solid fa-user"></i>
+                            <input type="text" name="name" class="form-control" required placeholder="Name*">
                         </div>
-                        <div class="row">
-                            <div class="col-lg-12 col-sm-12 forms-input-fields">
-                                <i class="fa-solid fa-envelope"></i>
-                                <input type="email" name="email" class="form-control" placeholder="Email" required>
-                            </div>
+
+                        <div class="col-lg-12 col-sm-12 forms-input-fields">
+                            <i class="fa-solid fa-phone"></i>
+                            <input type="text" name="phone" class="form-control" required placeholder="Mobile*">
                         </div>
-                        <div>
-                            <input type="hidden" name="form_name" id="form_name" class="form-control form_name" value="Auto Modal">
-                            <input type="hidden" id="website_url" class="website_url" name="website_url">
+
+                        <div class="col-lg-12 col-sm-12 forms-input-fields">
+                            <i class="fa fa-envelope"></i>
+                            <input type="email" name="email" class="form-control" required placeholder="Email*">
                         </div>
-                        <div class="row">
-                            <div class="col-lg-12 col-sm-12 forms-input-fields"  required>
-                                <div class="form-group acceptance">
-                                    <label class="form-check-label">
-										<input type="checkbox" checked class="form-check-input">
-										<span class="text on-rera-">I Consent to The Processing of Provided Data According To <a href="Privacy-Policy.html" style="color:#007bff"> Privacy Policy | </a> <a href="terms-conditions.html" style="color:#007bff;"> Terms &amp; Conditions</a>, I Authorize Prop Solutions 4 U Pvt. Ltd. and its representatives to Call, SMS, Email or WhatsApp Me About Its Products and Offers. This Consent Overrides Any Registration For DNC/NDNC. </span>
-										<span class="text non-rera">Please be informed that this website is not intended to facilitate any sales transactions. I understand and acknowledge that the project I am interested in hasn't yet secured RERA clearance. The primary purpose of this website is to generate interest and gather information. By providing my data, I consent to its use in accordance with the <a href="Privacy-Policy.html" style="color:#007bff"> Privacy Policy | </a> <a href="terms-conditions.html" style="color:#007bff;"> Terms &amp; Conditions</a></span>
-									</label>
-                                </div>
-                                <button type="submit" name="Submit" class="btn mx-auto d-block form-btn1 on-rera" onclick="submitForm(event, 'modal-form')">Enquire Now</button>
-                                
-                            </div>
+
+                        <div class="col-lg-12 col-sm-12 forms-input-fields">
+                            <i class="fa fa-message"></i>
+                            <textarea name="message" class="form-control" rows="4" required placeholder="Enter Your Message*"></textarea>
                         </div>
-                    </form>
+
+                        <input type="hidden" name="form_name" value="Contact Site Visit">
+                        <input type="hidden" name="website_url" id="website_url3" class="website_url" value="{{ request.build_absolute_uri }}">
+
+                        <div class="form-group acceptance mb-2" style="font-size: 10px;">
+                            <label class="form-check-label text-start">
+                                <input type="checkbox" checked class="form-check-input" required>
+                                <span class="text on-rera">I Consent to The Processing of Provided Data According To <a href="{% url 'privacy-policy' %}">Privacy Policy</a></span>
+                            </label>
+                        </div>
+
+                        <button type="submit" class="btn ms-2 custom-btn btn-hover text-white">Submit</button>
+                    </div>
+                </form>
+
                 </div>
             </div>
         </div>
