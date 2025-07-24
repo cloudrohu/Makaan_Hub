@@ -3149,7 +3149,7 @@ form.home5_advanced_search_form .form-group input.form-control::-ms-input-placeh
   background-size: cover;
 }
 .banner-style-one .slide:before{
-  background-color: rgba(0,0,0,.7);
+  background-color:none;
   bottom: 0;
   content: "";
   left: 0;
