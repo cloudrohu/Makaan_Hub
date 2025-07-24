@@ -629,70 +629,68 @@
 				</div>
 			</div>
 			
-           	
+          <div class="col-md-12 col-lg-8">
+  <div class="row gy-3">
+    {% for rs in active %}
+    <div class="col-12">
+      <!-- Make card responsive with flex-column (mobile) and flex-row (desktop) -->
+      <div class="feat_property list d-flex flex-column flex-md-row border rounded shadow-sm overflow-hidden" style="min-height: 270px;">
+        
+        <!-- Left Thumbnail (on top in mobile, left in desktop) -->
+        <div class="thumb" style="width: 100%; max-width: 270px; flex-shrink: 0;">
+          <img src="{{ rs.image.url }}" alt="{{ rs.project_name }}" class="w-100 h-100" style="object-fit: cover; min-height: 220px;">
+          <div class="thmb_cntnt position-absolute bottom-0 start-0 p-2">
+            <ul class="icon list-inline mb-0">
+              <li class="list-inline-item"><a href="{{ rs.get_absolute_url }}"><span class="flaticon-transfer-1"></span></a></li>
+              <li class="list-inline-item"><a href="{{ rs.get_absolute_url }}"><span class="flaticon-heart"></span></a></li>
+            </ul>
+          </div>
+        </div>
 
-			<div class="col-md-12 col-lg-8">
-			<div class="row gy-4">
-				{% for rs in active %}
-				<div class="col-12">
-				<div class="feat_property list d-flex border rounded shadow-sm overflow-hidden" style="min-height: 270px;">
-					
-					<!-- Left Thumbnail -->
-					<div class="thumb" style="flex: 0 0 270px;">
-					<img src="{{ rs.image.url }}" alt="{{ rs.project_name }}" class="w-100 h-100" style="object-fit: cover;">
-					<div class="thmb_cntnt position-absolute bottom-0 start-0 p-2">
-						<ul class="icon list-inline mb-0">
-						<li class="list-inline-item"><a href="{{ rs.get_absolute_url }}"><span class="flaticon-transfer-1"></span></a></li>
-						<li class="list-inline-item"><a href="{{ rs.get_absolute_url }}"><span class="flaticon-heart"></span></a></li>
-						</ul>
-					</div>
-					</div>
+        <!-- Right Details -->
+        <div class="details flex-grow-1 d-flex flex-column justify-content-between px-3 py-2">
+          <div class="tc_content">
+            <!-- Title + Location -->
+            <h5 class="mb-1"><a href="{{ rs.get_absolute_url }}" class="text-dark">{{ rs.project_name }}</a></h5>
+            <p class="text-muted mb-2"><span class="flaticon-placeholder"></span> At - {{ rs.locality }} — {{ rs.city }}</p>
 
-					<!-- Right Details -->
-					<div class="details flex-grow-1 d-flex flex-column justify-content-between px-3 py-2">
-					<div class="tc_content">
-						<!-- Title + Location -->
-						<h5 class="mb-1"><a href="{{ rs.get_absolute_url }}" class="text-dark">{{ rs.project_name }}</a></h5>
-						<p class="text-muted mb-2"><span class="flaticon-placeholder"></span> At - {{ rs.locality }} — {{ rs.city }}</p>
+            <!-- Property Details -->
+            <ul class="list-inline fw-semibold small mb-2">
+              <li class="list-inline-item">{{ rs.floor }}</li>
+              <li class="list-inline-item">{{ rs.propert_type }}</li>
+              <li class="list-inline-item">Area: {{ rs.land_parce }}</li>
+            </ul>
 
-						<!-- Details List -->
-						<ul class="list-inline fw-semibold small mb-2">
-						<li class="list-inline-item">{{ rs.floor }}</li>
-						<li class="list-inline-item">{{ rs.propert_type }}</li>
-						<li class="list-inline-item">Area: {{ rs.land_parce }}</li>
-						</ul>
+            <ul class="list-inline fw-semibold small mb-2">
+              <li class="list-inline-item">{{ rs.luxurious }}</li>
+              <li class="list-inline-item">{{ rs.priceing }}</li>
+            </ul>
 
-						<ul class="list-inline fw-semibold small mb-2">
-						<li class="list-inline-item">{{ rs.luxurious }}</li>
-						<li class="list-inline-item">{{ rs.priceing }}</li>
-						</ul>
+            <div class="small text-muted">Possession: {{ rs.possession }}</div>
+          </div>
 
-						<div class="small text-muted">Possession: {{ rs.possession }}</div>
-					</div>
+          <!-- Footer -->
+          <div class="d-flex justify-content-between align-items-center mt-2 flex-wrap gap-2">
+            <div class="d-flex align-items-center gap-2">
+              <img src="{{ rs.developer.image.url }}" alt="Developer" style="height: 40px; width: auto;">
+              <span class="text-muted fw-bold">{{ rs.developer }}</span>
+            </div>
+            <div class="d-flex gap-2">
+              <a href="{{ rs.get_absolute_url }}" class="btn btn-outline-primary btn-sm">View Details</a>
+              {% if rs.id %}
+              <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#enquiryModal{{ rs.id }}">
+                View Number
+              </button>
+              {% endif %}
+            </div>
+          </div>
+        </div>
 
-					<!-- Footer -->
-					<div class="d-flex justify-content-between align-items-center mt-3">
-						<div class="d-flex align-items-center gap-2">
-						<img src="{{ rs.developer.image.url }}" alt="Developer" style="height: 40px; width: auto;">
-						<span class="text-muted fw-bold">{{ rs.developer }}</span>
-						</div>
-
-						<div class="d-flex gap-2">
-						<a href="{{ rs.get_absolute_url }}" class="btn btn-outline-primary btn-sm">View Details</a>
-						{% if rs.id %}
-						<button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#enquiryModal{{ rs.id }}">
-							View Number
-						</button>
-						{% endif %}
-						</div>
-					</div>
-					</div>
-
-				</div>
-				</div>
-				{% endfor %}
-			</div>
-			</div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
 
 
 			<!-- ✅ PAGINATION SECTION -->
