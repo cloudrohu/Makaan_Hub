@@ -10,7 +10,8 @@ from django.utils.translation import gettext_lazy as _
 from django.views.generic import RedirectView
 
 urlpatterns = [
-      
+
+
     path('', include('home.urls')),
     path('home/', include('home.urls')),
     path('logout/',RedirectView.as_view(url = '/admin/logout/')),
@@ -21,8 +22,13 @@ urlpatterns = [
     path('thank-you/', views.THANK_YOU, name='thank-you'),
     path(('residential_project/'), views.residential_project, name='residential_project'),
     path(('residential_project/<slug:slug>'), views.residential_project_details, name='residential_project'),
+
+
     path(('commercial_project/'), views.commercial_project, name='commercial_project'),
-    path(('residential_project/<slug:slug>'), views.residential_project_details, name='residential_project'),
+    path('commercial_project/<slug:slug>/', views.commercial_project_details, name="commercial_project_details"),  # ✅ COMMA IS HERE
+    path('submit-commercial-enquiry/<int:pk>/', views.submit_commercial_enquiry, name="submit_commercial_enquiry"),
+
+
 
     path(('land/'), views.land, name='land'),
     path(('pg/'), views.pg, name='pg'),

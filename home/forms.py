@@ -1,6 +1,6 @@
 from django import forms
 
-from project.models import ResidentialEnquiry
+from project.models import CommercialEnquiry, ResidentialEnquiry
 from .models import ContactMessage
 
 class ContactForm(forms.ModelForm):
@@ -26,3 +26,14 @@ class ResidentialEnquiryForm(forms.ModelForm):
             'phone': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Phone'}),
             'message': forms.Textarea(attrs={'class': 'form-control', 'placeholder': 'Message'}),
         }
+
+class CommercialEnquiryForm(forms.ModelForm):
+    class Meta:
+        model = CommercialEnquiry
+        fields = ['name', 'email', 'phone', 'message']
+        widgets = {
+            'name': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Name'}),
+            'email': forms.EmailInput(attrs={'class': 'form-control', 'placeholder': 'Email'}),
+            'phone': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Phone'}),
+            'message': forms.Textarea(attrs={'class': 'form-control', 'placeholder': 'Message'}),
+        }        

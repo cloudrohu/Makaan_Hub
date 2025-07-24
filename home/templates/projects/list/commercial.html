@@ -1,18 +1,18 @@
 {% extends 'base/homebase.html' %}
+
 {% block header %} {% include 'base/header1.html' %} {% endblock %}
 
 {% load static %}
+
 {% for rs in setting %}
 
 {% block title %} {{ rs.title }} {% endblock %}
 {% block description %} {{ rs.description }} {% endblock %}
 {% block keywords %} {{ rs.keywords }} {% endblock %}
-
 {% endfor %}
 
 
 {% block body %}
-
 <!-- Listing Grid View -->
 <section class="our-listing bgc-f7 pb30-991">
 	<div class="container">
@@ -277,14 +277,16 @@
 				</div>
 			</div>
 		</div>
+
+		
 		<div class="row">
 			<div class="col-lg-6">
 				<div class="breadcrumb_content style2 mb0-991">
 					<ol class="breadcrumb">
 						<li class="breadcrumb-item"><a href="/">Home</a></li>
-						<li class="breadcrumb-item active text-thm" aria-current="page">Commercial New Projects – List View</li>
+						<li class="breadcrumb-item active text-thm" aria-current="page">Residential New Projects – List View</li>
 					</ol>
-					<h2 class="breadcrumb_title">Commercial New Projects – List View</h2>
+					<h2 class="breadcrumb_title">Residential New Projects – List View</h2>
 				</div>
 			</div>
 			<div class="col-lg-6">
@@ -564,7 +566,7 @@
 											<ul class="tag mb0">
 												<li class="list-inline-item"><a href="#">{{rs.propert_type}}</a></li>
 											</ul>
-											<a class="fp_price" href="#">{{rs.title}}<small></small></a>
+											<a class="fp_price" href="#">{{rs.project_name}}<small></small></a>
 											<h4 class="posr color-white">{{rs.locality}}--{{rs.city}}</h4>
 										</div>
 									</div>
@@ -626,88 +628,161 @@
 					</div>
 				</div>
 			</div>
-			<div class="col-md-12 col-lg-8">
-				<div class="row">
-					<div class="grid_list_search_result">
-						<div class="col-sm-12 col-md-4 col-lg-4 col-xl-5">
-							<div class="left_area tac-xsd">
-								<p>9 Search results</p>
-							</div>
-						</div>
-						<div class="col-sm-12 col-md-8 col-lg-8 col-xl-7">
-							<div class="right_area text-right tac-xsd">
-								<ul>
-									<li class="list-inline-item"><span class="stts">Status:</span>
-										<select class="selectpicker show-tick">
-											<option>All Status</option>
-											<option>Recent</option>
-											<option>Old Review</option>
-										</select>
-									</li>
-									<li class="list-inline-item"><span class="shrtby">Sort by:</span>
-										<select class="selectpicker show-tick">
-											<option>Featured First</option>
-											<option>Featured 2nd</option>
-											<option>Featured 3rd</option>
-											<option>Featured 4th</option>
-											<option>Featured 5th</option>
-										</select>
-									</li>
-								</ul>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="row">
-					{% for rs in active %}
-					
-					<div class="col-lg-12">
-						<div class="feat_property list">
-							<div class="thumb">
-								<img class="img-whp" src="{{rs.image.url}}" style="height: 270px;" alt="fp1.jpg">
-								<div class="thmb_cntnt">
-									<ul class="icon mb0">
-										<li class="list-inline-item"><a href="{{rs.get_absolute_url}}"><span class="flaticon-transfer-1"></span></a></li>
-										<li class="list-inline-item"><a href="{{rs.get_absolute_url}}"><span class="flaticon-heart"></span></a></li>
-									</ul>
-								</div>
-							</div>
-							<div class="details">
-								<div class="tc_content">
-									<div class="dtls_headr">
-										<ul class="tag">
-											<li class="list-inline-item"><a href="{{rs.get_absolute_url}}">{{rs.min_price}}</a></li>
-											<li class="list-inline-item"><a href="{{rs.get_absolute_url}}">{{rs.max_price}}</a></li>
-										</ul>
-										
-										<a class="fp_price" href="#"><small>Area {{rs.min_area}}--{{rs.max_area}}</small></a>
-									</div>
-									<p class="text-thm">{{rs.propert_type}}</p>
-									<a href="{{rs.get_absolute_url}}"><h4>{{rs.title}}</h4></a>
-									<p><span class="flaticon-placeholder"></span> {{rs.locality}}--{{rs.city}}</p>
-									<ul class="prop_details mb0">
-										<li class="list-inline-item"><a href="{{rs.get_absolute_url}}">Status: {{rs.construction_status}}</a></li>
-										<li class="list-inline-item"><a href="{{rs.get_absolute_url}}">Totle_unit: {{rs.totle_unit}}</a></li>
-										<li class="list-inline-item"><a href="{{rs.get_absolute_url}}">Total_tower: {{rs.total_tower}}</a></li>
-									</ul>
-								</div>
-								<div class="fp_footer">
-									<ul class="fp_meta float-left mb0">
-										<li class="list-inline-item"><a href="{{rs.get_absolute_url}}"><img src="{{rs.developer.image.url}}" style="height: 50px;width: 50px;" alt=""></a></li>
-										<li class="list-inline-item"><a href="{{rs.get_absolute_url}}">{{rs.developer}}</a></li>
-									</ul>
-									<div class="fp_pdate float-right">Possession: {{rs.possession}}</div>
-								</div>
-							</div>
-						</div>
-					</div>
-					{% endfor %}
-					
+			
+          <div class="col-md-12 col-lg-8">
+  <div class="row gy-3">
+    {% for rs in active %}
+    <div class="col-12">
+      <!-- Make card responsive with flex-column (mobile) and flex-row (desktop) -->
+      <div class="feat_property list d-flex flex-column flex-md-row border rounded shadow-sm overflow-hidden" style="min-height: 250px;">
+        
+        <!-- Left Thumbnail (on top in mobile, left in desktop) -->
+        <div class="thumb" style="width: 100%; max-width: 350px; height: 230px; flex-shrink: 0;">
+          <img src="{{ rs.image.url }}" alt="{{ rs.project_name }}" class="w-100 h-100" style="object-fit: cover; min-height: 250px;">
+          <div class="thmb_cntnt position-absolute bottom-0 start-0 p-2">
+            <ul class="icon list-inline mb-0">
+              <li class="list-inline-item"><a href="{% url 'commercial_project_details' slug=rs.slug %}"><span class="flaticon-transfer-1"></span></a></li>
+              <li class="list-inline-item"><a href="{% url 'commercial_project_details' slug=rs.slug %}"><span class="flaticon-heart"></span></a></li>
+            </ul>
+          </div>
+        </div>
 
+        <!-- Right Details -->
+        <div class="details flex-grow-1 d-flex flex-column justify-content-between px-3 py-2">
+          <div class="tc_content">
+            <!-- Title + Location -->
+
+           <h5 class="project-title">
+			<a href="{% url 'commercial_project_details' slug=rs.slug %}" class="text-dark font-bold mb-2">{{ rs.project_name }}</a>
+			</h5>
+
+           <p class="locality-city">
+				<span class="inline-block mr-1"><i class="flaticon-placeholder">At - {{ rs.locality }} — {{ rs.city }}</i></span>
+			</p>
+
+
+            <!-- Property Details -->
+            <ul class="list-inline fw-semibold mb-2 mt-2 details font-bold ">
+              <li class="list-inline-item">{{ rs.construction_status }}, </li>
+			
+              <li class="list-inline-item">{{ rs.propert_type }}, </li>
+              <li class="list-inline-item">Land Parcel : {{ rs.land_parce }}</li>
+            </ul>
+
+            <ul class="list-inline fw-semibold mb-2  font-bold">
+
+              <li class="list-inline-item">{{ rs.luxurious }}</li>
+              <li class="list-inline-item">Total Floor : {{ rs.total_floors }}</li>
+            </ul>
+
+			<ul class="list-inline fw-semibold mb-2 font-bold ">
+              
+              <li class="list-inline-item">{{ rs.priceing }}</li>
+            </ul>
+
+            <div class=" font-bold">Possession: {{ rs.possession }}</div>
+          </div>
+
+          <!-- Footer -->
+          <div class="d-flex justify-content-between align-items-center mb-2 flex-wrap gap-2">
+            <div class="d-flex align-items-center gap-2">
+              <img src="{{ rs.developer.image.url }}" alt="Developer" style="height: 40px; width: auto;">
+              <span class="text-muted fw-bold">{{ rs.developer }}</span>
+            </div>
+            <div class="d-flex gap-2">
+              <a href="{% url 'commercial_project_details' slug=rs.slug %}" class="btn btn-outline-primary btn-sm">View Details</a>
+              {% if rs.id %}
+              <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#enquiryModal{{ rs.id }}">
+                View Number
+              </button>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+
+
+			<!-- ✅ PAGINATION SECTION -->
+			<div class="row mt-4">
+				<div class="col-lg-12 d-flex justify-content-center">
+				<nav>
+					<ul class="pagination">
+					{% if active.has_previous %}
+						<li class="page-item"><a class="page-link" href="?page=1">« First</a></li>
+						<li class="page-item"><a class="page-link" href="?page={{ active.previous_page_number }}">‹ Prev</a></li>
+					{% endif %}
+
+					{% for num in active.paginator.page_range %}
+						{% if num == active.number %}
+						<li class="page-item active"><span class="page-link">{{ num }}</span></li>
+						{% elif num >= active.number|add:"-2" and num <= active.number|add:"2" %}
+						<li class="page-item"><a class="page-link" href="?page={{ num }}">{{ num }}</a></li>
+						{% endif %}
+					{% endfor %}
+
+					{% if active.has_next %}
+						<li class="page-item"><a class="page-link" href="?page={{ active.next_page_number }}">Next ›</a></li>
+						<li class="page-item"><a class="page-link" href="?page={{ active.paginator.num_pages }}">Last »</a></li>
+					{% endif %}
+					</ul>
+				</nav>
 				</div>
 			</div>
+			</div>
+
+		
 		</div>
 	</div>
 </section>
+
+{% for rs in active %}
+
+
+  <!-- Modal -->
+  <div class="modal fade" id="enquiryModal{{ rs.id }}" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content p-3">
+        <div class="modal-header">
+          <h5 class="modal-title">Enquiry for {{ rs.project_name }}</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+
+		<form method="post" action="{% url 'submit_commercial_enquiry' rs.id %}">
+		{% csrf_token %}
+		<input name="name" class="form-control mb-2" required placeholder="Your Name">
+		<input name="email" type="email" class="form-control mb-2" placeholder="Your Email">
+		<input name="phone" class="form-control mb-2" required placeholder="Your Phone">
+		<textarea name="message" class="form-control mb-2" placeholder="Message"></textarea>
+		<button type="submit" class="btn btn-success w-100">Submit</button>
+		</form>
+
+
+      </div>
+    </div>
+  </div>
+{% endfor %}
+
+
+<!-- Bootstrap 5 CSS -->
+
+<style>
+	.project-title {
+	margin-top: -22px;
+	margin-bottom: 10px;
+
+	font-size: 1.40rem;
+
+	}
+
+</style>
+
+<!-- Bootstrap 5 JS (for modal functionality) -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
 
 {% endblock %}

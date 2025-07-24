@@ -15,13 +15,13 @@ from django.template.loader import render_to_string
 from django.urls import reverse
 from django.utils import translation
 from django.shortcuts import render, get_object_or_404
-from home.forms import ResidentialEnquiryForm
+from home.forms import ResidentialEnquiryForm, CommercialEnquiryForm
+
 from home.models import Setting, ContactForm, ContactMessage,FAQ,About_Page,Contact_Page,Testimonial,Our_Team,Slider
 from Makaan_Hub import settings
 from utility.models import City,Locality
 from user.models import Developer
 from project.models import Residential,CommercialProject
-from .forms import ResidentialEnquiryForm
 
 # Create your views here.
 
@@ -55,10 +55,9 @@ def index(request):
 def residential_project(request):
     setting = Setting.objects.all().order_by('-id')[0:1]
 
-    project_latest = Residential.objects.filter(featured_property='True').order_by('-id')[:6]
-    project_featured = Residential.objects.filter(featured_property='True').order_by('-id')[:6]
+    project_featured = Residential.objects.filter(featured_property='True').order_by('?')[:6]
     
-    all_active = Residential.objects.filter(featured_property='True').order_by('?')  # Randomized
+    all_active = Residential.objects.filter(active='True').order_by('?')  # Randomized
 
     # 🧠 Pagination here
     paginator = Paginator(all_active, 20)  # Show 2 per page (testing)
@@ -67,7 +66,6 @@ def residential_project(request):
 
     page = "home"
     context = {
-        'project_latest': project_latest,
         'project_featured': project_featured,
         'active': page_obj,  # 👈 Use 'active' as paginated object
         'setting': setting,
@@ -97,13 +95,11 @@ def residential_project_details(request, slug):
 def commercial_project(request):
     setting = Setting.objects.all().order_by('-id')[0:1]
 
-    project_latest = CommercialProject.objects.filter(featured_property = 'True').order_by('-id')[:6]  # last 4 products
-    project_featured = CommercialProject.objects.filter(featured_property = 'True').order_by('-id')[:6]  # last 4 products
-    active = CommercialProject.objects.filter(featured_property = 'True').order_by('?')   #Random selected 4 products
+    project_featured = CommercialProject.objects.filter(featured_property = 'True').order_by('?')[:6]  # last 4 products
+    active = CommercialProject.objects.filter(active = 'True').order_by('?')   #Random selected 4 products
 
     page="home"
     context={
-        'project_latest':project_latest,
         'project_featured':project_featured,
         'active':active,
         'setting':setting,    }
@@ -114,7 +110,8 @@ def commercial_project(request):
 def commercial_project_details(request,slug):
     setting = Setting.objects.all().order_by('-id')[0:1]
      # last 4 products
-    active = Residential.objects.get(slug = slug)
+    active = get_object_or_404(CommercialProject, slug=slug)
+
 
     page="home"
     context={
@@ -426,3 +423,47 @@ def submit_enquiry(request, pk):
         form = ResidentialEnquiryForm()
     return render(request, 'partials/enquiry_form.html', {'form': form})
 
+def submit_commercial_enquiry(request, pk):
+    commercial = get_object_or_404(CommercialProject, pk=pk)
+
+    if request.method == 'POST':
+        form = CommercialEnquiryForm(request.POST)
+        if form.is_valid():
+            enquiry = form.save(commit=False)
+            enquiry.commercial = commercial
+            enquiry.save()
+
+            # ✅ Admin ko email
+            send_mail(
+                subject=f"New Enquiry for {commercial.project_name}",
+                message=(
+                    f"Name: {enquiry.name}\n"
+                    f"Phone: {enquiry.phone}\n"
+                    f"Email: {enquiry.email}\n"
+                    f"Message: {enquiry.message}"
+                ),
+                from_email=None,
+                recipient_list=['admin@example.com'],  # ⚠️ Replace with real email
+                fail_silently=False,
+            )
+
+            # ✅ User ko confirmation email
+            if enquiry.email:
+                send_mail(
+                    subject="Thanks for your enquiry!",
+                    message=(
+                        f"Dear {enquiry.name},\n\n"
+                        f"Thank you for enquiring about {commercial.project_name}.\n"
+                        f"Our team will get back to you soon.\n\n"
+                        f"Regards,\nMakaanHub Team"
+                    ),
+                    from_email=None,
+                    recipient_list=[enquiry.email],
+                    fail_silently=False,
+                )
+
+            return redirect('/thank-you/')  # ✅ Redirect to Thank You
+    else:
+        form = CommercialEnquiryForm()
+
+    return render(request, 'partials/enquiry_form.html', {'form': form})
