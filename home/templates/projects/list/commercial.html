@@ -707,33 +707,58 @@
 </div>
 
 
-			<!-- ✅ PAGINATION SECTION -->
-			<div class="row mt-4">
-				<div class="col-lg-12 d-flex justify-content-center">
-				<nav>
-					<ul class="pagination">
-					{% if active.has_previous %}
-						<li class="page-item"><a class="page-link" href="?page=1">« First</a></li>
-						<li class="page-item"><a class="page-link" href="?page={{ active.previous_page_number }}">‹ Prev</a></li>
-					{% endif %}
+		<!-- ✅ PAGINATION SECTION -->
+				<div class="flex justify-end mt-6">
+						<nav>
+							<ul class="inline-flex items-center gap-2 text-sm">
+							
+							{% if active.has_previous %}
+								<li>
+								<a href="?page=1" class="px-3 py-1 rounded-md border border-gray-300 bg-white hover:bg-gray-100 shadow-sm">
+									« First
+								</a>
+								</li>
+								<li>
+								<a href="?page={{ active.previous_page_number }}" class="px-3 py-1 rounded-md border border-gray-300 bg-white hover:bg-gray-100 shadow-sm">
+									‹ Prev
+								</a>
+								</li>
+							{% endif %}
 
-					{% for num in active.paginator.page_range %}
-						{% if num == active.number %}
-						<li class="page-item active"><span class="page-link">{{ num }}</span></li>
-						{% elif num >= active.number|add:"-2" and num <= active.number|add:"2" %}
-						<li class="page-item"><a class="page-link" href="?page={{ num }}">{{ num }}</a></li>
-						{% endif %}
-					{% endfor %}
+							{% for num in active.paginator.page_range %}
+								{% if num >= active.number|add:"-2" and num <= active.number|add:"2" %}
+								{% if num == active.number %}
+									<li>
+									<span class="px-3 py-1 rounded-md bg-blue-600 text-white font-semibold shadow-sm">
+										{{ num }}
+									</span>
+									</li>
+								{% else %}
+									<li>
+									<a href="?page={{ num }}" class="px-3 py-1 rounded-md border border-gray-300 bg-white hover:bg-gray-100 shadow-sm">
+										{{ num }}
+									</a>
+									</li>
+								{% endif %}
+								{% endif %}
+							{% endfor %}
 
-					{% if active.has_next %}
-						<li class="page-item"><a class="page-link" href="?page={{ active.next_page_number }}">Next ›</a></li>
-						<li class="page-item"><a class="page-link" href="?page={{ active.paginator.num_pages }}">Last »</a></li>
-					{% endif %}
-					</ul>
-				</nav>
+							{% if active.has_next %}
+								<li>
+								<a href="?page={{ active.next_page_number }}" class="px-3 py-1 rounded-md border border-gray-300 bg-white hover:bg-gray-100 shadow-sm">
+									Next ›
+								</a>
+								</li>
+								<li>
+								<a href="?page={{ active.paginator.num_pages }}" class="px-3 py-1 rounded-md border border-gray-300 bg-white hover:bg-gray-100 shadow-sm">
+									Last »
+								</a>
+								</li>
+							{% endif %}
+
+							</ul>
+						</nav>
 				</div>
-			</div>
-			</div>
 
 		
 		</div>
@@ -781,6 +806,8 @@
 
 </style>
 
+
+<link rel="stylesheet" href="">
 <!-- Bootstrap 5 JS (for modal functionality) -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 

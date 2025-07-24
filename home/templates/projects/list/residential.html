@@ -590,45 +590,7 @@
 							</ul>
 						</div>
 					</div>
-					<div class="sidebar_feature_listing">
-						<h4 class="title">Recently Viewed</h4>
-						<div class="media">
-							<img class="align-self-start mr-3" src="{% static '' %}main/images/blog/fls1.jpg" alt="fls1.jpg">
-							<div class="media-body">
-								<h5 class="mt-0 post_title">Nice Room With View</h5>
-								<a href="#">₹13,000/<small>/mo</small></a>
-								<ul class="mb0">
-									<li class="list-inline-item">Beds: 4</li>
-									<li class="list-inline-item">Baths: 2</li>
-									<li class="list-inline-item">Sq Ft: 5280</li>
-								</ul>
-							</div>
-						</div>
-						<div class="media">
-							<img class="align-self-start mr-3" src="{% static '' %}main/images/blog/fls2.jpg" alt="fls2.jpg">
-							<div class="media-body">
-								<h5 class="mt-0 post_title">Villa called Archangel</h5>
-								<a href="#">₹13,000<small>/mo</small></a>
-								<ul class="mb0">
-									<li class="list-inline-item">Beds: 4</li>
-									<li class="list-inline-item">Baths: 2</li>
-									<li class="list-inline-item">Sq Ft: 5280</li>
-								</ul>
-							</div>
-						</div>
-						<div class="media">
-							<img class="align-self-start mr-3" src="{% static '' %}main/images/blog/fls3.jpg" alt="fls3.jpg">
-							<div class="media-body">
-								<h5 class="mt-0 post_title">Sunset Studio</h5>
-								<a href="#">₹13,000<small>/mo</small></a>
-								<ul class="mb0">
-									<li class="list-inline-item">Beds: 4</li>
-									<li class="list-inline-item">Baths: 2</li>
-									<li class="list-inline-item">Sq Ft: 5280</li>
-								</ul>
-							</div>
-						</div>
-					</div>
+					
 				</div>
 			</div>
 			
@@ -708,27 +670,50 @@
 
 
 
-			<!-- ✅ PAGINATION SECTION -->
-			<div class="row mt-4">
-				<div class="col-lg-12 d-flex justify-content-center">
-				<nav>
-					<ul class="pagination">
+<!-- ✅ LUXURIOUS PAGINATION STARTING FROM RIGHT -->
+		<div class="flex flex-row-reverse" >
+			<div class="col-lg-12">
+				<div class="d-flex justify-content-end"> <!-- Right alignment -->
+				<nav aria-label="Page navigation example">
+					<ul class="pagination pagination-lg">
 					{% if active.has_previous %}
-						<li class="page-item"><a class="page-link" href="?page=1">« First</a></li>
-						<li class="page-item"><a class="page-link" href="?page={{ active.previous_page_number }}">‹ Prev</a></li>
+						<li class="page-item">
+						<a class="page-link" href="?page=1" aria-label="First">
+							<span aria-hidden="true">« First</span>
+						</a>
+						</li>
+						<li class="page-item">
+						<a class="page-link" href="?page={{ active.previous_page_number }}" aria-label="Previous">
+							<span aria-hidden="true">‹ Prev</span>
+						</a>
+						</li>
 					{% endif %}
 
 					{% for num in active.paginator.page_range %}
+						{% if num >= active.number|add:"-2" and num <= active.number|add:"2" %}
 						{% if num == active.number %}
-						<li class="page-item active"><span class="page-link">{{ num }}</span></li>
-						{% elif num >= active.number|add:"-2" and num <= active.number|add:"2" %}
-						<li class="page-item"><a class="page-link" href="?page={{ num }}">{{ num }}</a></li>
+							<li class="page-item active" aria-current="page">
+							<span class="page-link">{{ num }}</span>
+							</li>
+						{% else %}
+							<li class="page-item">
+							<a class="page-link" href="?page={{ num }}">{{ num }}</a>
+							</li>
+						{% endif %}
 						{% endif %}
 					{% endfor %}
 
 					{% if active.has_next %}
-						<li class="page-item"><a class="page-link" href="?page={{ active.next_page_number }}">Next ›</a></li>
-						<li class="page-item"><a class="page-link" href="?page={{ active.paginator.num_pages }}">Last »</a></li>
+						<li class="page-item">
+						<a class="page-link" href="?page={{ active.next_page_number }}" aria-label="Next">
+							<span aria-hidden="true">Next ›</span>
+						</a>
+						</li>
+						<li class="page-item">
+						<a class="page-link" href="?page={{ active.paginator.num_pages }}" aria-label="Last">
+							<span aria-hidden="true">Last »</span>
+						</a>
+						</li>
 					{% endif %}
 					</ul>
 				</nav>
@@ -736,7 +721,7 @@
 			</div>
 			</div>
 
-		
+	
 		</div>
 	</div>
 </section>
@@ -781,9 +766,13 @@
 
 	}
 
+
+
+
 </style>
 
 <!-- Bootstrap 5 JS (for modal functionality) -->
+ <link rel="stylesheet" href="">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
 

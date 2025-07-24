@@ -72,7 +72,7 @@ def residential_project(request):
     residential_filter = ResidentialFilter(request.GET, queryset=all_active)
     filtered_qs = residential_filter.qs
 
-    paginator = Paginator(filtered_qs, 20)
+    paginator = Paginator(filtered_qs, 2)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
 
@@ -102,18 +102,27 @@ def residential_project_details(request, slug):
 
 
 def commercial_project(request):
-    setting = Setting.objects.all().order_by('-id')[0:1]
+    setting = Setting.objects.all().order_by('-id')[:1]
 
-    project_featured = CommercialProject.objects.filter(featured_property = 'True').order_by('?')[:6]  # last 4 products
-    active = CommercialProject.objects.filter(active = 'True').order_by('?')   #Random selected 4 products
+    project_featured = CommercialProject.objects.filter(featured_property='True').order_by('?')[:6]
 
-    page="home"
-    context={
-        'project_featured':project_featured,
-        'active':active,
-        'setting':setting,    }
+    all_active = CommercialProject.objects.filter(active=True)  # ✅ Correct model
+    commercial_filter = ResidentialFilter(request.GET, queryset=all_active)  # ✅ Or create CommercialFilter
+    filtered_qs = commercial_filter.qs
 
-    return render(request,'projects/list/commercial.html',context)
+    paginator = Paginator(filtered_qs, 20)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+
+    context = {
+        'project_featured': project_featured,
+        'active': page_obj,
+        'setting': setting,
+        'filter': commercial_filter,
+        'page': 'home',
+    }
+
+    return render(request, 'projects/list/commercial.html', context)
 
 
 def commercial_project_details(request,slug):
