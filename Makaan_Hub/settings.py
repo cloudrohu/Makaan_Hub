@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'mptt',
     'ckeditor',
     'ckeditor_uploader',
+    'django_filters',
     
 ]
 

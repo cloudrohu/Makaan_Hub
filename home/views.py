@@ -1,4 +1,6 @@
 import json
+import django_filters
+
 from django.core.paginator import Paginator
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
@@ -22,6 +24,7 @@ from Makaan_Hub import settings
 from utility.models import City,Locality
 from user.models import Developer
 from project.models import Residential,CommercialProject
+from home.filters import ResidentialFilter
 
 # Create your views here.
 
@@ -52,27 +55,28 @@ def index(request):
 
     return render(request,'index.html',context)
 
+from .filters import ResidentialFilter
+
 def residential_project(request):
     setting = Setting.objects.all().order_by('-id')[0:1]
+    project_featured = Residential.objects.filter(featured_property=True).order_by('?')[:6]
 
-    project_featured = Residential.objects.filter(featured_property='True').order_by('?')[:6]
-    
-    all_active = Residential.objects.filter(active='True').order_by('?')  # Randomized
+    all_active = Residential.objects.filter(active=True)
 
-    # 🧠 Pagination here
-    paginator = Paginator(all_active, 20)  # Show 2 per page (testing)
+    # 🧠 Filter apply karo
+    residential_filter = ResidentialFilter(request.GET, queryset=all_active)
+    filtered_qs = residential_filter.qs
+
+    paginator = Paginator(filtered_qs, 20)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
 
-    page = "home"
     context = {
         'project_featured': project_featured,
-        'active': page_obj,  # 👈 Use 'active' as paginated object
+        'active': page_obj,
         'setting': setting,
-        'page_obj': page_obj,  # Optional: for pagination bar
-        'page': page,
+        'filter': residential_filter,
     }
-
     return render(request, 'projects/list/residential.html', context)
 
 
@@ -253,8 +257,6 @@ def contactus(request):
         'city': city,
     }
     return render(request, 'contactus.html', context)
-
-
 
 
 def category_products(request,id,slug):
@@ -467,3 +469,13 @@ def submit_commercial_enquiry(request, pk):
         form = CommercialEnquiryForm()
 
     return render(request, 'partials/enquiry_form.html', {'form': form})
+
+
+class ResidentialFilter(django_filters.FilterSet):
+    locality = django_filters.CharFilter(lookup_expr='icontains', label='Locality')
+    propert_type = django_filters.CharFilter(lookup_expr='icontains', label='Property Type')
+    bhk = django_filters.CharFilter(lookup_expr='iexact', label='BHK')
+
+    class Meta:
+        model = Residential
+        fields = ['locality', 'propert_type', 'bhk']
