@@ -11,7 +11,7 @@ from mptt.fields import TreeForeignKey
 from mptt.models import MPTTModel
 from django.utils.text import slugify
 # Create your models here.
-from utility.models import City,Locality,Fine_From,User_Status,Visit_Type,Visit_Status
+from utility.models import City,Locality,Fine_From,User_Status,Visit_Type,Visit_Status,Response_Status,Business_Type,Requirent_Type,Call_Status
 
 class Agencies(models.Model):
     Type = (
@@ -112,3 +112,45 @@ class Visit(models.Model):
     class Meta:
         verbose_name_plural='2. Today Visit'
 
+class Meta_Response(models.Model):
+    name = models.CharField(max_length=50,unique=False,null=True , blank=True)
+    contact_no = models.CharField(max_length=255,null=True , blank=True)
+    email_id = models.EmailField(max_length=255,null=True , blank=True)
+    business_name = models.CharField(max_length=255,null=True , blank=True,unique=False,)
+    description = models.CharField(max_length=500,null=True , blank=True)
+    meeting_follow_up = models.DateTimeField(blank=True, null=True,)
+    business_type = models.ForeignKey(Business_Type,blank=True, null=True , on_delete=models.CASCADE)
+    requirent_type = models.ForeignKey(Requirent_Type,blank=True, null=True , on_delete=models.CASCADE)
+    response_status = models.ForeignKey(Response_Status,blank=True, null=True , on_delete=models.CASCADE)
+    call_status = models.ForeignKey(Call_Status,blank=True, null=True , on_delete=models.CASCADE)
+    locality_city = models.ForeignKey(Locality,blank=True, null=True , on_delete=models.CASCADE)
+
+    create_at=models.DateTimeField(auto_now_add=True)
+    update_at=models.DateTimeField(auto_now=True)
+
+    def save_model(self, request, obj, form, change):
+        if not change:
+            obj.created_by = request.user
+        obj.updated_by = request.user
+        return super().save_model(request, obj, form, change)
+
+    def __str__(self):
+        return self.name + ' ' + self.contact_no + ' ' + self.business_name
+  
+    class Meta:
+        verbose_name_plural='5. Meta Response'
+
+class Respone_Meeting(models.Model):
+    comment = models.CharField(max_length=500,blank=True, null=True,)
+    meeting = models.DateTimeField(null=True, blank=True)
+    locality_city= models.ForeignKey(Locality,blank=True, null=True , on_delete=models.CASCADE)
+    respone = models.ForeignKey(Meta_Response, on_delete=models.CASCADE,null=True,blank=True) #many to one relation with Brand
+
+    create_at=models.DateTimeField(auto_now_add=True)
+    update_at=models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.comment  
+    
+    class Meta:
+        verbose_name_plural='6. Response Meeting'

@@ -29,6 +29,10 @@ class AgenciesAdmin(admin.ModelAdmin):
     list_editable = ('meeting_follow_up','city', 'locality', 'status',)
     list_per_page = 20
     inlines = [Follow_UpInline,MeetingInline,VisitInline]
+
+
+
+    
 class MeetingAdmin(admin.ModelAdmin):
     list_display = ['id','company', 'meeting','comment','create_at','update_at']    
     
@@ -52,8 +56,33 @@ admin.site.register(Agencies,AgenciesAdmin)
 
 
 
+class Respone_MeetingInline(admin.TabularInline):
+    model = Respone_Meeting
+    extra = 1
+    show_change_link = True
 
 
 
+class Meta_ResponseAdmin(admin.ModelAdmin):
+    list_display = ['id','name','contact_no','email_id','business_name','description', 'meeting_follow_up','business_type','requirent_type','response_status','call_status', 'locality_city','create_at','update_at',]    
+    
+    list_filter = ['meeting_follow_up','business_type','requirent_type','locality_city','call_status']
+    search_fields = ['name','contact_no','email_id','business_name','description', ]
+    list_editable = ('name','contact_no','email_id','business_name','description','meeting_follow_up','business_type','requirent_type','locality_city','call_status')
+    list_per_page = 10
+    inlines = [Respone_MeetingInline,]
+
+admin.site.register(Meta_Response,Meta_ResponseAdmin)
+
+
+class Respone_MeetingAdmin(admin.ModelAdmin):
+    list_display = ['id','respone','comment','meeting','locality_city', 'create_at','update_at',]    
+    
+    list_filter = ['locality_city','meeting']
+    search_fields = ['id','comment',]
+    list_editable = ('comment','meeting', 'locality_city',)
+    list_per_page = 10
+    
+admin.site.register(Respone_Meeting,Respone_MeetingAdmin)
 
 

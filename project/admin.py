@@ -89,6 +89,8 @@ class ResidentialAdmin(admin.ModelAdmin):
     list_editable = [ 'project_name','developer','active','featured_property','locality','city','propert_type',]
     list_filter = ['developer','active','featured_property','locality','city','propert_type','possession_year']
     search_fields = ['project_name',]
+    list_per_page = 20
+
 
     def image_preview(self, obj):
         if obj.image and hasattr(obj.image, 'url'):

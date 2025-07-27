@@ -38,3 +38,10 @@ admin.site.register(User_Status,)
 admin.site.register(P_Amenities,)
 
 
+admin.site.register(Business_Type,)
+admin.site.register(Requirent_Type,)
+admin.site.register(Response_Status,)
+admin.site.register(Call_Status,)
+
+
+

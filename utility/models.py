@@ -84,7 +84,8 @@ class Locality(MPTTModel):
     city = models.ForeignKey(City, on_delete=models.CASCADE)  # many to one relation with Brand
 
     title = models.CharField(max_length=50)
-    image = models.ImageField(upload_to='images/', blank=True, null=True, )
+    image = models.ImageField(upload_to='images/', blank=True, null=True)
+
     featured_locality = models.BooleanField(default=False)
     keywords = models.CharField(max_length=1000)
     description = models.TextField(max_length=5000)
@@ -507,3 +508,51 @@ Furnishing = (
 
 
     )
+
+
+class Response_Status(models.Model):
+    name = models.CharField(max_length=100,unique=True)
+    create_at=models.DateTimeField(auto_now_add=True)
+    update_at=models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.name 
+    
+    class Meta:
+        verbose_name_plural='5. Response Status'
+
+
+class Business_Type(models.Model):
+    name = models.CharField(max_length=100,unique=True)
+    create_at=models.DateTimeField(auto_now_add=True)
+    update_at=models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.name 
+    
+    class Meta:
+        verbose_name_plural='5. Business Type'
+
+
+class Requirent_Type(models.Model):
+    name = models.CharField(max_length=100,unique=True)
+    create_at=models.DateTimeField(auto_now_add=True)
+    update_at=models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.name 
+    
+    class Meta:
+        verbose_name_plural='5. Requirent Type'
+
+
+class Call_Status(models.Model):
+    name = models.CharField(max_length=100,unique=True)
+    create_at=models.DateTimeField(auto_now_add=True)
+    update_at=models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.name 
+    
+    class Meta:
+        verbose_name_plural='5. Call Status'
