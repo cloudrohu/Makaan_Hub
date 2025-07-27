@@ -91,6 +91,7 @@
 			class="flex gap-8 overflow-x-auto scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100 snap-x pb-6"
 			style="scrollbar-color:#e5e7eb #f3f4f6; scrollbar-width:thin;">
 			{% for rs in featured_locality %}
+			
 			<div class="flex flex-col items-center w-64 flex-shrink-0 bg-white shadow-lg rounded-2xl py-6 px-4 snap-start transition hover:shadow-2xl hover:bg-blue-50 duration-200">
 				<div class="h-60 w-60 flex items-center justify-center mb-4 rounded-xl bg-gray-20 shadow border border-gray-20 overflow-hidden">
 				<img src="{% if rs.image %}{{ rs.image.url }}{% else %}{% static 'main/images/home/no-image-available.png' %}{% endif %}" alt="{{rs.title}}"
@@ -128,43 +129,47 @@
     <div class="overflow-x-auto">
   <div class="flex gap-6 w-max px-4 py-4">
     {% for rs in commercia_featured %}
-    <div class="min-w-[320px] max-w-[320px] bg-white shadow rounded-lg overflow-hidden">
-      <div class="relative">
-        <img class="w-full h-[200px] object-cover" src="{% if rs.image %}{{ rs.image.url }}{% else %}{% static 'main/images/home/no-image-available.png' %}{% endif %}" alt="{{ rs.project_name }}">
-        <div class="absolute bottom-0 left-0 right-0 bg-black/60 text-white px-3 py-2">
-          <div class="flex items-center justify-between text-sm">
-            <div class="flex gap-2">
-              <a href="#"><span class="flaticon-transfer-1"></span></a>
-              <a href="#"><span class="flaticon-heart"></span></a>
-            </div>
-            <span class="bg-white text-black px-2 py-1 rounded">₹ {{ rs.priceing }}</span>
-          </div>
+<a href="{% url 'commercial_project_details' slug=rs.slug %}"
+   class="block min-w-[320px] max-w-[320px] bg-white shadow rounded-lg overflow-hidden hover:shadow-lg transition">
+  <div class="relative">
+    <img class="w-full h-[200px] object-cover"
+         src="{% if rs.image %}{{ rs.image.url }}{% else %}{% static 'main/images/home/no-image-available.png' %}{% endif %}"
+         alt="{{ rs.project_name }}">
+    <div class="absolute bottom-0 left-0 right-0 bg-black/60 text-white px-3 py-2">
+      <div class="flex items-center justify-between text-sm">
+        <div class="flex gap-2">
+          <span class="flaticon-transfer-1"></span>
+          <span class="flaticon-heart"></span>
         </div>
-      </div>
-      <div class="p-4">
-        <a href="{{ rs.get_absolute_url }}" class="block">
-          <p class="text-red-600 text-sm font-medium mb-1">{{ rs.propert_type }}</p>
-          <h3 class="text-lg font-bold leading-tight mb-1">{{ rs.project_name }}</h3>
-          <p class="text-gray-600 text-sm"><i class="flaticon-placeholder"></i> {{ rs.locality }} – {{ rs.city }}</p>
-        </a>
-        <div class="flex items-center justify-between mt-4 border-t pt-3">
-          <div class="flex items-center gap-2">
-            <a href="{{ rs.get_absolute_url }}">
-              <img src="{% if rs.image %}{{ rs.image.url }}{% else %}{% static 'main/images/home/no-image-available.png' %}{% endif %}" alt="{{ rs.developer }}" class="w-10 h-10 rounded-full border">
-            </a>
-            <a href="{{ rs.get_absolute_url }}" class="text-sm font-medium text-gray-800">{{ rs.developer }}</a>
-          </div>
-          <div class="text-xs text-gray-500">
-            <div>Possession:</div>
-            <div class="font-semibold">{{ rs.possession }}</div>
-          </div>
-        </div>
-        <a href="{{ rs.get_absolute_url }}" class="mt-4 block w-full text-center bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition">
-          View Details
-        </a>
+        <span class="bg-white text-black px-2 py-1 rounded">₹ {{ rs.priceing }}</span>
       </div>
     </div>
-    {% endfor %}
+  </div>
+
+  <div class="p-4">
+    <p class="text-red-600 text-sm font-medium mb-1">{{ rs.propert_type }}</p>
+    <h3 class="text-lg font-bold leading-tight mb-1">{{ rs.project_name }}</h3>
+    <p class="text-gray-600 text-sm"><i class="flaticon-placeholder"></i> {{ rs.locality }} – {{ rs.city }}</p>
+
+    <div class="flex items-center justify-between mt-4 border-t pt-3">
+      <div class="flex items-center gap-2">
+        <img src="{% if rs.image %}{{ rs.image.url }}{% else %}{% static 'main/images/home/no-image-available.png' %}{% endif %}"
+             alt="{{ rs.developer }}" class="w-10 h-10 rounded-full border">
+        <span class="text-sm font-medium text-gray-800">{{ rs.developer }}</span>
+      </div>
+      <div class="text-xs text-gray-500">
+        <div>Possession:</div>
+        <div class="font-semibold">{{ rs.possession }}</div>
+      </div>
+    </div>
+
+    <span class="mt-4 block w-full text-center bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition">
+      View Details
+    </span>
+  </div>
+</a>
+{% endfor %}
+
   </div>
 </div>
 
