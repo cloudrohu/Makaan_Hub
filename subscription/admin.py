@@ -68,7 +68,7 @@ class Meta_ResponseAdmin(admin.ModelAdmin):
     
     list_filter = ['meeting_follow_up','business_type','requirent_type','locality_city','call_status']
     search_fields = ['name','contact_no','email_id','business_name','description', ]
-    list_editable = ('name','contact_no','email_id','business_name','description','meeting_follow_up','business_type','requirent_type','locality_city','call_status')
+    list_editable = ('name','business_name','description','meeting_follow_up','business_type','requirent_type','locality_city','call_status')
     list_per_page = 10
     inlines = [Respone_MeetingInline,]
 
