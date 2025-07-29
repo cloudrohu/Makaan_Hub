@@ -62,12 +62,19 @@ DATABASES = {
 MEDIA_URL = '/uploads/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'uploads')
 
+
+
+
+
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 DEFAULT_FROM_EMAIL = 'noreply@example.com'
 
 TAILWIND_APP_NAME = 'theme'
 INTERNAL_IPS = ["127.0.0.1",]
 NPM_BIN_PATH = 'npm.cmd'
+
+
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

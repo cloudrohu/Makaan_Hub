@@ -22,12 +22,12 @@ class VisitInline(admin.TabularInline):
 
 @admin_thumbnails.thumbnail('image')
 class AgenciesAdmin(admin.ModelAdmin):
-    list_display = ['id','agencies_name','address','contact_person','contact_no','description', 'meeting_follow_up','image_thumbnail','status','email','city', 'locality','create_at','update_at', 'find_from','agencies_type']    
+    list_display = ['id','agencies_name','address','contact_no','description','status','contact_person', 'meeting_follow_up','image_thumbnail','email','city', 'locality','create_at','update_at', 'find_from','agencies_type']    
     
     list_filter = ['create_at','city','locality','status','meeting_follow_up']
     search_fields = ['id','agencies_name', 'contact_person','contact_person', 'contact_no', 'description','email']
-    list_editable = ('meeting_follow_up','city', 'locality', 'status',)
-    list_per_page = 20
+    list_editable = ('meeting_follow_up','city', 'description', 'locality', 'status',)
+    list_per_page = 50
     inlines = [Follow_UpInline,MeetingInline,VisitInline]
 
 
@@ -37,7 +37,7 @@ class MeetingAdmin(admin.ModelAdmin):
     list_display = ['id','company', 'meeting','comment','create_at','update_at']    
     
     list_filter = ('meeting','create_at','update_at',) 
-    list_per_page = 20 
+    list_per_page = 50 
 class Follow_UpAdmin(admin.ModelAdmin):
     list_display = ['id', 'company', 'follow_up','comment', 'create_at','update_at']   
     
@@ -69,7 +69,7 @@ class Meta_ResponseAdmin(admin.ModelAdmin):
     list_filter = ['meeting_follow_up','business_type','requirent_type','locality_city','call_status']
     search_fields = ['name','contact_no','email_id','business_name','description', ]
     list_editable = ('name','business_name','description','meeting_follow_up','business_type','requirent_type','locality_city','call_status')
-    list_per_page = 10
+    list_per_page = 50
     inlines = [Respone_MeetingInline,]
 
 admin.site.register(Meta_Response,Meta_ResponseAdmin)
@@ -81,7 +81,7 @@ class Respone_MeetingAdmin(admin.ModelAdmin):
     list_filter = ['locality_city','meeting']
     search_fields = ['id','comment',]
     list_editable = ('comment','meeting', 'locality_city',)
-    list_per_page = 10
+    list_per_page = 50
     
 admin.site.register(Respone_Meeting,Respone_MeetingAdmin)
 
