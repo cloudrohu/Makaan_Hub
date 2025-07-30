@@ -18,10 +18,10 @@ from django.urls import reverse
 from django.utils import translation
 from django.shortcuts import render, get_object_or_404
 from home.forms import ResidentialEnquiryForm, CommercialEnquiryForm
-
+from .filters import ResidentialFilter
 from home.models import Setting, ContactForm, ContactMessage,FAQ,About_Page,Contact_Page,Testimonial,Our_Team,Slider
-from Makaan_Hub import settings
 from utility.models import City,Locality
+from django.db.models import Q
 from user.models import Developer
 from project.models import Residential,CommercialProject
 from home.filters import ResidentialFilter
@@ -31,36 +31,47 @@ from home.filters import ResidentialFilter
 
 def index(request):
     setting = Setting.objects.all().order_by('-id')[0:1]
-    
     city = City.objects.all()
     about = About_Page.objects.all().order_by('-id')[0:1]
-    slider = Slider.objects.filter(featured_project = 'True').order_by('?')[:9]
-    project_featured = Residential.objects.filter(featured_property = 'True').order_by('-id')[:9]
-    commercia_featured = CommercialProject.objects.filter(featured_property = 'True').order_by('-id')[:9]
-    featured_locality = Locality.objects.filter(featured_locality = 'True').order_by('-id')[:9]
+    slider = Slider.objects.filter(featured_project='True').order_by('?')[:9]
+    project_featured = Residential.objects.filter(featured_property='True').order_by('-id')[:9]
+    commercia_featured = CommercialProject.objects.filter(featured_property='True').order_by('-id')[:9]
+    featured_locality = Locality.objects.filter(featured_locality='True').order_by('-id')[:9]
+    developer = Developer.objects.filter(featured_builder='True').order_by('-id')[:50]
+    ourteam = Our_Team.objects.filter(featured='True').order_by('-id')
+    testimonial = Testimonial.objects.filter(featured='True').order_by('-id')
 
-    developer = Developer.objects.filter(featured_builder = 'True').order_by('-id')[:50]  #first 4 products
-    ourteam = Our_Team.objects.filter(featured = 'True').order_by('-id')#first 4 products
-    testimonial = Testimonial.objects.filter(featured = 'True').order_by('-id')#first 4 products
-   
-    page="home"
-    context={
-        'project_featured':project_featured,
-        'setting':setting,
-        'city':city,
-        'about':about,
-        'slider':slider,
-        'testimonial':testimonial,
-        'ourteam':ourteam,
-        'developer':developer,
-        'commercia_featured':commercia_featured,
-        'featured_locality':featured_locality,
-        
+    query = request.GET.get('q')
+    residential_search = Residential.objects.filter(active=True)
+    commercial_search = CommercialProject.objects.filter(active=True)
+
+    if query:
+        residential_search = residential_search.filter(
+            Q(project_name__icontains=query) | Q(locality__title__icontains=query)
+        )
+        commercial_search = commercial_search.filter(
+            Q(project_name__icontains=query) | Q(locality__title__icontains=query)
+        )
+
+    context = {
+        'project_featured': project_featured,
+        'setting': setting,
+        'city': city,
+        'about': about,
+        'slider': slider,
+        'testimonial': testimonial,
+        'ourteam': ourteam,
+        'developer': developer,
+        'commercia_featured': commercia_featured,
+        'featured_locality': featured_locality,
+        'query': query,  # search box me value dikhane ke liye
+        'residential_search': residential_search,
+        'commercial_search': commercial_search,
     }
 
-    return render(request,'index.html',context)
+    return render(request, 'index.html', context)
 
-from .filters import ResidentialFilter
+from django.db.models import Q
 
 def residential_project(request):
     setting = Setting.objects.all().order_by('-id')[0:1]
@@ -68,11 +79,21 @@ def residential_project(request):
 
     all_active = Residential.objects.filter(active=True)
 
-    # 🧠 Filter apply karo
+    # 🧠 Keyword search logic
+    query = request.GET.get('q', '')
+    if query:
+        all_active = all_active.filter(
+            Q(project_name__icontains=query) |
+            Q(locality__title__icontains=query) |
+            Q(headers__keywords__icontains=query)
+        ).distinct()
+
+    # 🧠 Filter apply karo (aapka existing ResidentialFilter)
     residential_filter = ResidentialFilter(request.GET, queryset=all_active)
     filtered_qs = residential_filter.qs
 
-    paginator = Paginator(filtered_qs, 20)
+
+    paginator = Paginator(filtered_qs, 20)  # 20 items per page
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
 
@@ -81,6 +102,7 @@ def residential_project(request):
         'active': page_obj,
         'setting': setting,
         'filter': residential_filter,
+        'query': query,
     }
     return render(request, 'projects/list/residential.html', context)
 
@@ -104,10 +126,21 @@ def residential_project_details(request, slug):
 def commercial_project(request):
     setting = Setting.objects.all().order_by('-id')[:1]
 
-    project_featured = CommercialProject.objects.filter(featured_property='True').order_by('?')[:6]
+    project_featured = CommercialProject.objects.filter(featured_property=True).order_by('?')[:6]
 
-    all_active = CommercialProject.objects.filter(active=True)  # ✅ Correct model
-    commercial_filter = ResidentialFilter(request.GET, queryset=all_active)  # ✅ Or create CommercialFilter
+    all_active = CommercialProject.objects.filter(active=True)
+
+    # 🧠 Keyword search logic
+    query = request.GET.get('q', '')
+    if query:
+        all_active = all_active.filter(
+            Q(project_name__icontains=query) |
+            Q(locality__title__icontains=query) |
+            Q(headers__keywords__icontains=query)
+        ).distinct()
+
+    # 🧠 Apply filter (agar aapke paas CommercialFilter hai toh use karo)
+    commercial_filter = ResidentialFilter(request.GET, queryset=all_active)  # ideally CommercialFilter use karo
     filtered_qs = commercial_filter.qs
 
     paginator = Paginator(filtered_qs, 20)
@@ -120,6 +153,7 @@ def commercial_project(request):
         'setting': setting,
         'filter': commercial_filter,
         'page': 'home',
+        'query': query,  # template me search box me value dikhane ke liye
     }
 
     return render(request, 'projects/list/commercial.html', context)
@@ -493,3 +527,5 @@ class ResidentialFilter(django_filters.FilterSet):
     class Meta:
         model = Residential
         fields = ['locality', 'propert_type', 'bhk']
+
+    

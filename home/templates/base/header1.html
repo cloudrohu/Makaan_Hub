@@ -22,7 +22,31 @@
             </a>
             <!-- Responsive Menu Structure-->
             <!--Note: declare the Menu style in the data-menu-style="horizontal" (options: horizontal, vertical, accordion) -->
-            
+            <div class="ht_left_widget float-left">
+                <ul>
+                    <li class="list-inline-item dn-1440">
+                        <div class="ht_search_widget">
+                            <div class="header_search_widget">
+                                <form method="get" action="" class="form-inline mailchimp_form">
+                                    <input type="text" name="q" class="form-control" id="inlineFormInputName2" placeholder="What are you looking for?" value="{{ query }}">
+                                    <button type="submit" class="btn btn-primary">
+                                        <span class="flaticon-magnifying-glass"></span>
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="list-inline-item list_s dib-1440 dn">
+                        <div class="search_overlay">
+                            <a id="search-button-listener" class="mk-search-trigger mk-fullscreen-trigger" href="#">
+                                <span id="search-button"><i class="flaticon-magnifying-glass"></i></span>
+                            </a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+
             <ul id="respMenu" class="ace-responsive-menu text-right" data-menu-style="horizontal">
                 <li><a href="/"><span class="title" style="color: {{rs.text_color}};">Home</span></a> </li>  
                 <li>
@@ -243,8 +267,31 @@
     </div><!-- /.mobile-menu -->
     <nav id="menu" class="stylehome1">
         <ul>
-            <li style="background-color: {{rs.header_footer_color}}; ><a href="/"><span class="title" style="color: {{rs.text_color}}; ">Home</span></a> </li>  
-                <li style="background-color: {{rs.header_footer_color}}; >
+          
+            	<div class="ht_left_widget float-left">
+					<ul>
+						<li class="list-inline-item dn-1440">
+							<div class="ht_search_widget">
+								<div class="header_search_widget">
+									<form class="form-inline mailchimp_form">
+										<input type="text" class="form-control" id="inlineFormInputName2" placeholder="What are you looking for?">
+										<button type="submit" class="btn btn-primary"><span class="flaticon-magnifying-glass"></span></button>
+									</form>
+								</div>
+							</div>
+						</li>
+		                <li class="list-inline-item list_s dib-1440 dn">
+		                	<div class="search_overlay">
+							  	<a id="search-button-listener" class="mk-search-trigger mk-fullscreen-trigger" href="#">
+							    	<span id="search-button"><i class="flaticon-magnifying-glass"></i></span>
+							  	</a>
+							</div>
+		                </li>
+					</ul>
+				</div>
+
+            <li style="background-color: {{rs.header_footer_color}}; "><a href="/"><span class="title" style="color: {{rs.text_color}}; ">Home</span></a> </li>  
+                <li style="background-color: {{rs.header_footer_color}}; ">
                     <a href="#"><span class="title" style="color: {{rs.text_color}};">New Projects</span></a>
                     <ul>                       
                         <li><a href="{% url "residential_project" %}">Residential</a></li>

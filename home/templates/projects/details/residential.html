@@ -551,6 +551,11 @@
 							<span class="text non-rera">Please be informed that this website is not intended to facilitate any sales transactions. I understand and acknowledge that the project I am interested in hasn't yet secured RERA clearance. The primary purpose of this website is to generate interest and gather information. By providing my data, I consent to its use in accordance with the <a href="Privacy-Policy.html" style="color:#007bff"> Privacy Policy | </a> <a href="terms-conditions.html" style="color:#007bff;"> Terms &amp; Conditions</a></span>
 						</label>
                     </div>
+                     <!-- CAPTCHA -->
+                    <label class="form-label fw-bold" id="captcha-question-{{ rs.id }}"></label>
+                    <input type="number" class="form-control mb-2" id="captcha-answer-{{ rs.id }}" placeholder="Enter CAPTCHA Answer" required>
+                    <input type="hidden" id="captcha-correct-{{ rs.id }}">
+
                     <button id="right-panel-preregister-button" class="btn preRegisterBtn data-id-btn on-rera" data-id="Pre-Register" onclick="submitForm(event, 'Pre-Register-sidemodal')">Pre-Register Now</button>
 
                 </form>
@@ -815,42 +820,56 @@
                                 <div class="col-lx-6 col-lg-6 col-sm-12 form-data">
                                     <h2 class="text-left ms-4 mt-4 mb-0" style="font-size: 24px;">Schedule a Site Visit</h2>
                                     <div class="form">
-                                        <form name="schedule-site" action="{% url 'submit_enquiry' active.id %}" method="post">
-                                        {% csrf_token %}
-                                        <div class="row">
-                                            <div class="col-lg-12 col-sm-12 forms-input-fields">
+                                            <form name="schedule-site" action="{% url 'submit_enquiry' active.id %}" method="post" onsubmit="return validateCaptchaContactForm()">
+                                            {% csrf_token %}
+                                            <div class="row">
+                                                <!-- Name -->
+                                                <div class="col-lg-12 col-sm-12 forms-input-fields">
                                                 <i class="fa-solid fa-user"></i>
                                                 <input type="text" name="name" class="form-control" required placeholder="Name*">
-                                            </div>
+                                                </div>
 
-                                            <div class="col-lg-12 col-sm-12 forms-input-fields">
+                                                <!-- Phone -->
+                                                <div class="col-lg-12 col-sm-12 forms-input-fields">
                                                 <i class="fa-solid fa-phone"></i>
                                                 <input type="text" name="phone" class="form-control" required placeholder="Mobile*">
-                                            </div>
+                                                </div>
 
-                                            <div class="col-lg-12 col-sm-12 forms-input-fields">
+                                                <!-- Email -->
+                                                <div class="col-lg-12 col-sm-12 forms-input-fields">
                                                 <i class="fa fa-envelope"></i>
                                                 <input type="email" name="email" class="form-control" required placeholder="Email*">
-                                            </div>
+                                                </div>
 
-                                            <div class="col-lg-12 col-sm-12 forms-input-fields">
+                                                <!-- Message -->
+                                                <div class="col-lg-12 col-sm-12 forms-input-fields">
                                                 <i class="fa fa-message"></i>
                                                 <textarea name="message" class="form-control" rows="4" required placeholder="Enter Your Message*"></textarea>
-                                            </div>
+                                                </div>
 
-                                            <input type="hidden" name="form_name" value="Contact Site Visit">
-                                            <input type="hidden" name="website_url" id="website_url3" class="website_url" value="{{ request.build_absolute_uri }}">
+                                                <input type="hidden" name="form_name" value="Contact Site Visit">
+                                                <input type="hidden" name="website_url" id="website_url3" class="website_url" value="{{ request.build_absolute_uri }}">
 
-                                            <div class="form-group acceptance mb-2" style="font-size: 10px;">
+                                                <!-- CAPTCHA -->
+                                                <div class="col-lg-12 col-sm-12 forms-input-fields">
+                                                <label class="form-label fw-bold">Solve: <span id="captcha-question-contact"></span></label>
+                                                <input type="number" class="form-control mb-2" id="captcha-answer-contact" placeholder="Enter CAPTCHA Answer" required>
+                                                <input type="hidden" id="captcha-correct-contact">
+                                                </div>
+
+                                                <!-- Consent -->
+                                                <div class="form-group acceptance mb-2" style="font-size: 10px;">
                                                 <label class="form-check-label text-start">
                                                     <input type="checkbox" checked class="form-check-input" required>
                                                     <span class="text on-rera">I Consent to The Processing of Provided Data According To <a href="{% url 'privacy-policy' %}">Privacy Policy</a></span>
                                                 </label>
-                                            </div>
+                                                </div>
 
-                                            <button type="submit" class="btn ms-2 custom-btn btn-hover text-white">Submit</button>
-                                        </div>
-                                    </form>
+                                                <!-- Submit -->
+                                                <button type="submit" class="btn ms-2 custom-btn btn-hover text-white">Submit</button>
+                                            </div>
+                                            </form>
+
 
 
                                     </div>
@@ -916,7 +935,7 @@
             </style>
             <div class="container" style="padding-left: 50px;">
                 {% for rs in reraaditional %}
-                <ul class="newlist" style="padding-top: 20px;>
+                <ul class="newlist" style="padding-top: 20px;">
                     <li>{{rs.project_registered}} </li>
                     <li>{{rs.Government_RERA_Authorised_Advertiser}}.</li>
                     <li>{{rs.RERA_Project_Registration_No}}</li>
@@ -954,14 +973,14 @@
   </div>
 </section>
 
-         <section>
+        <section>
                     <div class="footer-enquiryBtn d-flex d-sm-none">
                         <a class="monCall data-id-btn" id="mobPhone" href="tel:+91{{rs.phone}}"><em class="fa fa-phone"></em> Call</a>
                         <a id="discovery_mobile" target="_blank" class="monCall whatsappBtn data-id-btn on-rera" href="https://api.whatsapp.com/send?phone=91{{rs.whatsapp}}&text=Hey There, I would like to explore further details About {% for rs in bookingopen %} {{rs.project_name}}  By {{rs.by}} At {{rs.at}} {% endfor %} Maharashtra. Please Share Details."><i class="fa fa-brands fa-whatsapp"></i> WhatsApp</a>
                         <a class="monCall data-id-btn on-rera" id="mobPhone" data-bs-target="#enquire-modal" data-bs-toggle="modal" data-bs-whatever="Enquire Now" data-id="Enquire Now">Enquire Now</a> <a class="monCall data-id-btn non-rera" id="mobPhone"
                             data-bs-target="#enquire-modal" data-bs-toggle="modal" data-bs-whatever="Enquire Now" data-id="Enquire Now">Express Your Interest</a>
                     </div>
-                </section>
+        </section>
             </div>
         </main>
         <!--end left-section-->
@@ -976,35 +995,42 @@
                     {% csrf_token %}
                     <div class="row">
                         <div class="col-lg-12 col-sm-12 forms-input-fields mb-2">
-
-                            <input type="text" name="name" class="form-control" required placeholder="Name*">
+                        <input type="text" name="name" class="form-control" required placeholder="Name*">
                         </div>
 
                         <div class="col-lg-12 col-sm-12 forms-input-fields mb-2">
-                            <input type="text" name="phone" class="form-control" required placeholder="Mobile*">
+                        <input type="text" name="phone" class="form-control" required placeholder="Mobile*">
                         </div>
 
                         <div class="col-lg-12 col-sm-12 forms-input-fields mb-2">
-                            <input type="email" name="email" class="form-control" required placeholder="Email*">
+                        <input type="email" name="email" class="form-control" required placeholder="Email*">
                         </div>
 
                         <div class="col-lg-12 col-sm-12 forms-input-fields">
-                            <textarea name="message" class="form-control" rows="4" required placeholder="Enter Your Message*"></textarea>
+                        <textarea name="message" class="form-control" rows="4" required placeholder="Enter Your Message*"></textarea>
                         </div>
 
                         <input type="hidden" name="form_name" value="Contact Site Visit">
                         <input type="hidden" name="website_url" id="website_url3" class="website_url" value="{{ request.build_absolute_uri }}">
 
+                        <!-- CAPTCHA -->
+                        <div class="col-lg-12 col-sm-12 forms-input-fields mb-2">
+                        <label class="form-label fw-bold">Solve: <span id="captcha-question-offer"></span></label>
+                        <input type="number" class="form-control mb-2" id="captcha-answer-offer" placeholder="Enter CAPTCHA Answer" required>
+                        <input type="hidden" id="captcha-correct-offer">
+                        </div>
+
                         <div class="form-group acceptance mb-2" style="font-size: 10px;">
-                            <label class="form-check-label text-start">
-                                <input type="checkbox" checked class="form-check-input" required>
-                                <span class="text on-rera">I Consent to The Processing of Provided Data According To <a href="{% url 'privacy-policy' %}">Privacy Policy</a></span>
-                            </label>
+                        <label class="form-check-label text-start">
+                            <input type="checkbox" checked class="form-check-input" required>
+                            <span class="text on-rera">I Consent to The Processing of Provided Data According To <a href="{% url 'privacy-policy' %}">Privacy Policy</a></span>
+                        </label>
                         </div>
 
                         <button type="submit" class="btn ms-2 custom-btn btn-hover text-white">Submit</button>
                     </div>
                 </form>
+
 
                 <h6 class="enqModal" style="margin: 35px auto; font-size: 12px; padding: 16px 0; ">
                     <div class="row text-center justify-content-center icon-sec m-0">
@@ -1031,28 +1057,28 @@
         </section>
     </div>
     <!--end main container-->
-    <div class="modal enquire-modal" data-bs-dismissable="modal" id="enquire-modal">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title text-center">Enquire Now</h4>
-                    <button type="button" class="btn btn-md close modal-close" data-bs-dismiss="modal" aria-label="Close"> <span aria-hidden="true">×</span> </button>
-                </div>
-                <div class="modal-body">
 
+<div class="modal enquire-modal" data-bs-dismissable="modal" id="enquire-modal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title text-center">Enquire Now</h4>
+                <button type="button" class="btn btn-md close modal-close" data-bs-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
 
-
-                    <a class="modal-logo text-center d-block mb-4" href="#">
+                <a class="modal-logo text-center d-block mb-4" href="#">
                     {% with active.headers.last as header %}
                         {% if header and header.logo %}
-                            <img src="{{ header.logo.url }}" alt="Logo" style="height: 55px; padding: 1px;" width="160">
+                            <img src="{{ header.logo.url }}" alt="Logo" style="height: 55px;" width="160">
                         {% else %}
-                            <img src="{{ rs.logo.url }}" alt="Default Logo" style="height: 55px; padding: 1px;" width="160">
+                            <img src="{{ rs.logo.url }}" alt="Default Logo" style="height: 55px;" width="160">
                         {% endif %}
                     {% endwith %}
                 </a>
-                    
-                    <!--this content fetch from JS-->
+
                 <form name="schedule-site" action="{% url 'submit_enquiry' active.id %}" method="post">
                     {% csrf_token %}
                     <div class="row">
@@ -1079,21 +1105,33 @@
                         <input type="hidden" name="form_name" value="Contact Site Visit">
                         <input type="hidden" name="website_url" id="website_url3" class="website_url" value="{{ request.build_absolute_uri }}">
 
+                        <!-- ✅ CAPTCHA Field -->
+                        <div class="col-lg-12 col-sm-12 forms-input-fields mb-2">
+                            <label class="form-label fw-bold">Solve: <span id="captcha-question"></span></label>
+                            <input type="number" class="form-control mb-2" id="captcha-answer" placeholder="Enter CAPTCHA Answer" required>
+                            <input type="hidden" id="captcha-correct">
+                        </div>
+
+                        <!-- Consent -->
                         <div class="form-group acceptance mb-2" style="font-size: 10px;">
                             <label class="form-check-label text-start">
                                 <input type="checkbox" checked class="form-check-input" required>
-                                <span class="text on-rera">I Consent to The Processing of Provided Data According To <a href="{% url 'privacy-policy' %}">Privacy Policy</a></span>
+                                <span class="text on-rera">I Consent to The Processing of Provided Data According To 
+                                    <a href="{% url 'privacy-policy' %}">Privacy Policy</a>
+                                </span>
                             </label>
                         </div>
 
                         <button type="submit" class="btn ms-2 custom-btn btn-hover text-white">Submit</button>
                     </div>
                 </form>
-
-                </div>
             </div>
         </div>
     </div>
+</div>
+
+<!-- Popup Modal for Enquiry Form End -->
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.9.0/umd/popper.min.js"></script>
@@ -1278,10 +1316,79 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 </script>
 
-});
+<script>
+  function generateCaptchaOffer() {
+    const num1 = Math.floor(Math.random() * 10) + 1;
+    const num2 = Math.floor(Math.random() * 10) + 1;
+    const question = `${num1} + ${num2} = ?`;
+    const correctAnswer = num1 + num2;
+
+    document.getElementById("captcha-question-offer").textContent = question;
+    document.getElementById("captcha-correct-offer").value = correctAnswer;
+  }
+
+  // Call on page load
+  window.onload = generateCaptchaOffer;
+
+  // Optional: Validate before submitting
+  document.querySelector('form[name="schedule-site"]').addEventListener('submit', function (e) {
+    const userAnswer = parseInt(document.getElementById('captcha-answer-offer').value);
+    const correctAnswer = parseInt(document.getElementById('captcha-correct-offer').value);
+    if (userAnswer !== correctAnswer) {
+      alert("CAPTCHA answer is incorrect.");
+      e.preventDefault();
+    }
+  });
 </script>
 
 
+<script>
+  // Generate random math question
+  function generateCaptchaContact() {
+    const num1 = Math.floor(Math.random() * 10) + 1;
+    const num2 = Math.floor(Math.random() * 10) + 1;
+    document.getElementById("captcha-question-contact").innerText = `${num1} + ${num2}`;
+    document.getElementById("captcha-correct-contact").value = num1 + num2;
+  }
+
+  // Validate CAPTCHA before form submit
+  function validateCaptchaContactForm() {
+    const userAnswer = parseInt(document.getElementById("captcha-answer-contact").value);
+    const correctAnswer = parseInt(document.getElementById("captcha-correct-contact").value);
+    if (userAnswer !== correctAnswer) {
+      alert("Incorrect CAPTCHA. Please try again.");
+      return false;
+    }
+    return true;
+  }
+
+  // Initialize on page load
+  document.addEventListener("DOMContentLoaded", function () {
+    generateCaptchaContact();
+  });
+</script>
+
+
+<!-- ✅ JavaScript for CAPTCHA -->
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const num1 = Math.floor(Math.random() * 10) + 1;
+        const num2 = Math.floor(Math.random() * 10) + 1;
+        document.getElementById("captcha-question").innerText = `${num1} + ${num2} = ?`;
+        document.getElementById("captcha-correct").value = num1 + num2;
+    });
+
+    function validateCaptcha() {
+        const userAns = parseInt(document.getElementById("captcha-answer").value);
+        const correctAns = parseInt(document.getElementById("captcha-correct").value);
+
+        if (userAns !== correctAns) {
+            alert("❌ CAPTCHA incorrect. Please try again.");
+            return false;
+        }
+        return true;
+    }
+</script>
 
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
@@ -1297,6 +1404,54 @@ gtag('event', 'conversion', {
       'send_to': 'AW-17120889442/cilvCJrgkNAaEOKU8OM_'});
   }
   })
+</script>
+
+<script>
+  // CAPTCHA for "Pre-Register here" form
+  function generateCaptchaOfferForm() {
+    const n1 = Math.floor(Math.random() * 10) + 1;
+    const n2 = Math.floor(Math.random() * 10) + 1;
+    document.getElementById("captcha-question-offer").innerText = `${n1} + ${n2}`;
+    document.getElementById("captcha-correct-offer").value = n1 + n2;
+  }
+
+  function validateCaptchaOfferForm() {
+    const correct = parseInt(document.getElementById("captcha-correct-offer").value);
+    const user = parseInt(document.getElementById("captcha-answer-offer").value);
+    if (user !== correct) {
+      alert("Incorrect CAPTCHA. Please try again.");
+      return false;
+    }
+    return true;
+  }
+
+  document.addEventListener("DOMContentLoaded", function () {
+    generateCaptchaOfferForm(); // Init for this form
+  });
+</script>
+
+<script>
+  // Generate two random numbers for CAPTCHA
+  const num1 = Math.floor(Math.random() * 10) + 1;
+  const num2 = Math.floor(Math.random() * 10) + 1;
+  const correctAnswer = num1 + num2;
+
+  // Show the question in the span
+  document.getElementById("captcha-question-offer").textContent = `${num1} + ${num2} = ?`;
+
+  // Store the correct answer in the hidden input
+  document.getElementById("captcha-correct-offer").value = correctAnswer;
+
+  // Optional: Prevent form submit if wrong answer
+  document.querySelector('form[name="schedule-site"]').addEventListener("submit", function(e) {
+    const userAnswer = parseInt(document.getElementById("captcha-answer-offer").value);
+    const correct = parseInt(document.getElementById("captcha-correct-offer").value);
+
+    if (userAnswer !== correct) {
+      e.preventDefault();
+      alert("❌ Wrong CAPTCHA Answer. Please try again.");
+    }
+  });
 </script>
 
 </body>

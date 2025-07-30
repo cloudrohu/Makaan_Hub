@@ -22,13 +22,21 @@ class VisitInline(admin.TabularInline):
 
 @admin_thumbnails.thumbnail('image')
 class AgenciesAdmin(admin.ModelAdmin):
-    list_display = ['id','agencies_name','address','contact_no','description','status','contact_person', 'meeting_follow_up','image_thumbnail','email','city', 'locality','create_at','update_at', 'find_from','agencies_type']    
-    
+    list_display = ['id','agencies_name','address','contact_no','description','status','contact_person', 'meeting_follow_up','image_thumbnail','email','city', 'locality','create_at','update_at', 'find_from','agencies_type','created_by','updated_by',]    
     list_filter = ['create_at','city','locality','status','meeting_follow_up']
     search_fields = ['id','agencies_name', 'contact_person','contact_person', 'contact_no', 'description','email']
     list_editable = ('meeting_follow_up','city', 'description', 'locality', 'status',)
     list_per_page = 50
     inlines = [Follow_UpInline,MeetingInline,VisitInline]
+
+    readonly_fields = ('created_by', 'updated_by',)
+
+    def save_model(self, request, obj, form, change):
+        if not change and not obj.created_by:
+            obj.created_by = request.user
+        obj.updated_by = request.user
+        super().save_model(request, obj, form, change)
+
 
 
 
@@ -63,16 +71,33 @@ class Respone_MeetingInline(admin.TabularInline):
 
 
 
+
+
 class Meta_ResponseAdmin(admin.ModelAdmin):
-    list_display = ['id','name','contact_no','email_id','business_name','description', 'meeting_follow_up','business_type','requirent_type','response_status','call_status', 'locality_city','create_at','update_at',]    
-    
-    list_filter = ['meeting_follow_up','business_type','requirent_type','locality_city','call_status']
-    search_fields = ['name','contact_no','email_id','business_name','description', ]
-    list_editable = ('name','business_name','description','meeting_follow_up','business_type','requirent_type','locality_city','call_status')
+    list_display = [
+        'id', 'name', 'contact_no', 'email_id', 'business_name', 'description',
+        'meeting_follow_up', 'business_type', 'requirent_type', 'response_status',
+        'call_status', 'locality_city', 'create_at', 'update_at', 'created_by','updated_by',
+    ]
+    list_filter = ['meeting_follow_up', 'business_type', 'requirent_type', 'locality_city', 'call_status']
+    search_fields = ['name', 'contact_no', 'email_id', 'business_name', 'description']
+    list_editable = (
+        'name', 'business_name', 'description', 'meeting_follow_up',
+        'business_type', 'requirent_type', 'locality_city', 'call_status'
+    )
     list_per_page = 50
-    inlines = [Respone_MeetingInline,]
+    inlines = [Respone_MeetingInline]
+
+    readonly_fields = ('created_by', 'updated_by',)
+
+    def save_model(self, request, obj, form, change):
+        if not change and not obj.created_by:
+            obj.created_by = request.user
+        obj.updated_by = request.user
+        super().save_model(request, obj, form, change)
 
 admin.site.register(Meta_Response,Meta_ResponseAdmin)
+
 
 
 class Respone_MeetingAdmin(admin.ModelAdmin):

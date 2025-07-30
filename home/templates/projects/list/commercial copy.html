@@ -1,8 +1,6 @@
 {% extends 'base/homebase.html' %}
 
 {% block header %} {% include 'base/header1.html' %} {% endblock %}
-{% include 'base/header3.html' %}
-
 
 {% load static %}
 
@@ -26,8 +24,6 @@
 						<div class="sidebar_listing_list style2 mobile_sytle_sidebar mb0">
 							<div class="sidebar_advanced_search_widget">
 								<h4 class="mb25">Advanced Search <a class="filter_closed_btn float-right" href="#"><small>Hide Filter</small> <span class="flaticon-close"></span></a></h4>
-								
-								
 								<ul class="sasw_list style2 mb0">
 									<li class="search_area">
 										<div class="form-group">
@@ -282,19 +278,15 @@
 			</div>
 		</div>
 
-
-
-
-
-
+		
 		<div class="row">
 			<div class="col-lg-6">
 				<div class="breadcrumb_content style2 mb0-991">
 					<ol class="breadcrumb">
 						<li class="breadcrumb-item"><a href="/">Home</a></li>
-						<li class="breadcrumb-item active text-thm" aria-current="page">Residential New Projects – List View</li>
+						<li class="breadcrumb-item active text-thm" aria-current="page">Commercial New Projects – List View</li>
 					</ol>
-					<h2 class="breadcrumb_title">Residential New Projects – List View</h2>
+					<h2 class="breadcrumb_title">Commercial New Projects – List View</h2>
 				</div>
 			</div>
 			<div class="col-lg-6">
@@ -563,27 +555,26 @@
 						</div>
 					</div>
 					<div class="terms_condition_widget">
-					<h4 class="title">Featured Properties</h4>
-					<div class="sidebar_feature_property_slider">
-						{% for rs in project_featured %}
-						<div class="item">
-						<a href="{{ rs.get_absolute_url }}" class="text-decoration-none">
-							<div class="feat_property home7">
-							<div class="thumb">
-								<img class="img-whp" 
-									src="{% if rs.image %}{{ rs.image.url }}{% else %}{% static 'images/no-image-available.jpg' %}{% endif %}" 
-									alt="{{ rs.project_name }}">
-								<div class="thmb_cntnt">
-								
-								<h4 class="posr color-white font-bold text-lg mb-1">{{ rs.project_name }}</h4>
-								<p class="text-white text-sm">  {{ rs.locality }} -- {{ rs.city }}</p>
+						<h4 class="title">Featured Properties</h4>
+						<div class="sidebar_feature_property_slider">
+							{% for rs in project_featured %}
+							<div class="item">
+								<div class="feat_property home7">
+									<div class="thumb">
+										<img class="img-whp" src="{{rs.image.url}}" alt="fp1.jpg">
+										<div class="thmb_cntnt">
+											<ul class="tag mb0">
+												<li class="list-inline-item"><a href="#">{{rs.propert_type}}</a></li>
+											</ul>
+											<a class="fp_price" href="#">{{rs.project_name}}<small></small></a>
+											<h4 class="posr color-white">{{rs.locality}}--{{rs.city}}</h4>
+										</div>
+									</div>
 								</div>
 							</div>
-							</div>
-						</a>
+							{% endfor %}
+							
 						</div>
-						{% endfor %}
-					</div>
 					</div>
 					<div class="terms_condition_widget">
 						<h4 class="title">Categories Property</h4>
@@ -596,121 +587,129 @@
 							</ul>
 						</div>
 					</div>
-					
+					<div class="sidebar_feature_listing">
+						<h4 class="title">Recently Viewed</h4>
+						<div class="media">
+							<img class="align-self-start mr-3" src="{% static '' %}main/images/blog/fls1.jpg" alt="fls1.jpg">
+							<div class="media-body">
+								<h5 class="mt-0 post_title">Nice Room With View</h5>
+								<a href="#">₹13,000/<small>/mo</small></a>
+								<ul class="mb0">
+									<li class="list-inline-item">Beds: 4</li>
+									<li class="list-inline-item">Baths: 2</li>
+									<li class="list-inline-item">Sq Ft: 5280</li>
+								</ul>
+							</div>
+						</div>
+						<div class="media">
+							<img class="align-self-start mr-3" src="{% static '' %}main/images/blog/fls2.jpg" alt="fls2.jpg">
+							<div class="media-body">
+								<h5 class="mt-0 post_title">Villa called Archangel</h5>
+								<a href="#">₹13,000<small>/mo</small></a>
+								<ul class="mb0">
+									<li class="list-inline-item">Beds: 4</li>
+									<li class="list-inline-item">Baths: 2</li>
+									<li class="list-inline-item">Sq Ft: 5280</li>
+								</ul>
+							</div>
+						</div>
+						<div class="media">
+							<img class="align-self-start mr-3" src="{% static '' %}main/images/blog/fls3.jpg" alt="fls3.jpg">
+							<div class="media-body">
+								<h5 class="mt-0 post_title">Sunset Studio</h5>
+								<a href="#">₹13,000<small>/mo</small></a>
+								<ul class="mb0">
+									<li class="list-inline-item">Beds: 4</li>
+									<li class="list-inline-item">Baths: 2</li>
+									<li class="list-inline-item">Sq Ft: 5280</li>
+								</ul>
+							</div>
+						</div>
+					</div>
 				</div>
 			</div>
 			
           <div class="col-md-12 col-lg-8">
-			<div class="row gy-3">
-				{% for rs in active %}
-				<div class="col-12">
-				<div class="feat_property list d-flex flex-column flex-md-row border rounded shadow-sm overflow-hidden" style="min-height: 250px;">
-					
-					<!-- Left: Image Section -->
-					<a href="{{ rs.get_absolute_url }}" class="thumb position-relative" style="width: 100%; max-width: 350px; height: 230px; flex-shrink: 0;">
-					<img src="{% if rs.image %}{{ rs.image.url }}{% else %}{% static 'images/no-image-available.jpg' %}{% endif %}" 
-						alt="{{ rs.project_name }}" class="w-100 h-100" style="object-fit: cover; min-height: 250px;">
-					<div class="thmb_cntnt position-absolute bottom-0 start-0 p-2">
-						<ul class="icon list-inline mb-0">
-						<li class="list-inline-item"><span class="flaticon-transfer-1"></span></li>
-						<li class="list-inline-item"><span class="flaticon-heart"></span></li>
-						</ul>
-					</div>
-					</a>
-
-					<!-- Right: Project Info -->
-					<div class="details flex-grow-1 d-flex flex-column justify-content-between px-3 py-2">
-					<div class="tc_content">
+				<div class="row gy-3">
+					{% for rs in active %}
+					<div class="col-12">
+					<!-- Make card responsive with flex-column (mobile) and flex-row (desktop) -->
+					<div class="feat_property list d-flex flex-column flex-md-row border rounded shadow-sm overflow-hidden" style="min-height: 250px;">
 						
-						<!-- Project Title -->
-						<h5 class="project-title mb-1">
-						<a href="{{ rs.get_absolute_url }}" class="text-dark fw-bold">{{ rs.project_name }}</a>
-						</h5>
-						
-						<!-- Location -->
-						<p class="text-muted mb-2">
-						<i class="flaticon-placeholder"></i> At - {{ rs.locality }} — {{ rs.city }}
-						</p>
-
-						<!-- Property Type -->
-						<ul class="list-inline fw-semibold mb-2 text-dark">
-						<li class="list-inline-item">{{ rs.construction_status }},</li>
-						<li class="list-inline-item">{{ rs.propert_type }},</li>
-						<li class="list-inline-item">Land Parcel: {{ rs.land_parce }}</li>
-						</ul>
-
-						<ul class="list-inline fw-semibold mb-2 text-dark">
-						<li class="list-inline-item">{{ rs.luxurious }}</li>
-						<li class="list-inline-item">Total Floor: {{ rs.floor }}</li>
-						</ul>
-
-						<ul class="list-inline fw-semibold mb-2 text-dark">
-						<li class="list-inline-item">Price: ₹{{ rs.priceing }}</li>
-						</ul>
-
-						<div class="fw-bold text-dark">Possession: {{ rs.possession }}</div>
-					</div>
-
-					<!-- Footer -->
-					<div class="d-flex justify-content-between align-items-center mt-3 flex-wrap gap-2">
-						<div class="d-flex align-items-center gap-2 mb-2">
-						<img src="{{ rs.developer.image.url }}" alt="Developer" style="height: 40px; width: auto;">
-						<span class="text-muted fw-bold">{{ rs.developer }}</span>
+						<!-- Left Thumbnail (on top in mobile, left in desktop) -->
+						<div class="thumb" style="width: 100%; max-width: 350px; height: 230px; flex-shrink: 0;">
+						<img src="{{ rs.image.url }}" alt="{{ rs.project_name }}" class="w-100 h-100" style="object-fit: cover; min-height: 250px;">
+						<div class="thmb_cntnt position-absolute bottom-0 start-0 p-2">
+							<ul class="icon list-inline mb-0">
+							<li class="list-inline-item"><a href="{% url 'commercial_project_details' slug=rs.slug %}"><span class="flaticon-transfer-1"></span></a></li>
+							<li class="list-inline-item"><a href="{% url 'commercial_project_details' slug=rs.slug %}"><span class="flaticon-heart"></span></a></li>
+							</ul>
 						</div>
-						<div class="d-flex gap-2 mb-2">
-							<a href="{{ rs.get_absolute_url }}" class="btn btn-outline-primary btn-sm">View Details</a>
+						</div>
+
+						<!-- Right Details -->
+						<div class="details flex-grow-1 d-flex flex-column justify-content-between px-3 py-2">
+						<div class="tc_content">
+							<!-- Title + Location -->
+
+						<h5 class="project-title">
+							<a href="{% url 'commercial_project_details' slug=rs.slug %}" class="text-dark font-bold mb-2">{{ rs.project_name }}</a>
+							</h5>
+
+						<p class="locality-city">
+								<span class="inline-block mr-1"><i class="flaticon-placeholder">At - {{ rs.locality }} — {{ rs.city }}</i></span>
+							</p>
+
+
+							<!-- Property Details -->
+							<ul class="list-inline fw-semibold mb-2 mt-2 details font-bold ">
+							<li class="list-inline-item">{{ rs.construction_status }}, </li>
+							
+							<li class="list-inline-item">{{ rs.propert_type }}, </li>
+							<li class="list-inline-item">Land Parcel : {{ rs.land_parce }}</li>
+							</ul>
+
+							<ul class="list-inline fw-semibold mb-2  font-bold">
+
+							<li class="list-inline-item">{{ rs.luxurious }}</li>
+							<li class="list-inline-item">Total Floor : {{ rs.total_floors }}</li>
+							</ul>
+
+							<ul class="list-inline fw-semibold mb-2 font-bold ">
+							
+							<li class="list-inline-item">{{ rs.priceing }}</li>
+							</ul>
+
+							<div class=" font-bold">Possession: {{ rs.possession }}</div>
+						</div>
+
+						<!-- Footer -->
+						<div class="d-flex justify-content-between align-items-center mb-2 flex-wrap gap-2">
+							<div class="d-flex align-items-center gap-2">
+							<img src="{{ rs.developer.image.url }}" alt="Developer" style="height: 40px; width: auto;">
+							<span class="text-muted fw-bold">{{ rs.developer }}</span>
+							</div>
+							<div class="d-flex gap-2">
+							<a href="{% url 'commercial_project_details' slug=rs.slug %}" class="btn btn-outline-primary btn-sm">View Details</a>
 							{% if rs.id %}
 							<button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#enquiryModal{{ rs.id }}">
 								View Number
 							</button>
 							{% endif %}
+							</div>
 						</div>
+						</div>
+
 					</div>
 					</div>
-
-				</div>
-				</div>
-				{% endfor %}
-			</div>
-			</div>
-
-
-
-			<!-- ✅ LUXURIOUS PAGINATION STARTING FROM RIGHT -->
-			<div class="col-lg-12 mt20">
-				<div class="mbp_pagination">
-					<ul class="page_navigation">
-						{% if active.has_previous %}
-							<li class="page-item">
-								<a class="page-link" href="?page={{ active.previous_page_number }}" tabindex="-1" aria-disabled="true">
-									<span class="flaticon-left-arrow"></span> Prev
-								</a>
-							</li>
-						{% endif %}
-
-						{% for num in active.paginator.page_range %}
-							{% if num == active.number %}
-								<li class="page-item active" aria-current="page">
-									<a class="page-link" href="?page={{ num }}">{{ num }} <span class="sr-only">(current)</span></a>
-								</li>
-							{% elif num >= active.number|add:'-2' and num <= active.number|add:'2' %}
-								<li class="page-item"><a class="page-link" href="?page={{ num }}">{{ num }}</a></li>
-							{% endif %}
-						{% endfor %}
-
-						{% if active.has_next %}
-							<li class="page-item">
-								<a class="page-link" href="?page={{ active.next_page_number }}">
-									<span class="flaticon-right-arrow"></span>
-								</a>
-							</li>
-						{% endif %}
-					</ul>
+					{% endfor %}
 				</div>
 			</div>
 
 
-	
+
+
+		
 		</div>
 	</div>
 </section>
@@ -718,38 +717,28 @@
 {% for rs in active %}
 
 
+  <!-- Modal -->
+  <div class="modal fade" id="enquiryModal{{ rs.id }}" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content p-3">
+        <div class="modal-header">
+          <h5 class="modal-title">Enquiry for {{ rs.project_name }}</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+
+		<form method="post" action="{% url 'submit_commercial_enquiry' rs.id %}">
+		{% csrf_token %}
+		<input name="name" class="form-control mb-2" required placeholder="Your Name">
+		<input name="email" type="email" class="form-control mb-2" placeholder="Your Email">
+		<input name="phone" class="form-control mb-2" required placeholder="Your Phone">
+		<textarea name="message" class="form-control mb-2" placeholder="Message"></textarea>
+		<button type="submit" class="btn btn-success w-100">Submit</button>
+		</form>
 
 
-
-<!-- Modal -->
-<div class="modal fade" id="enquiryModal{{ rs.id }}" tabindex="-1" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content p-3">
-      <div class="modal-header">
-        <h5 class="modal-title">Enquiry for {{ rs.project_name }}</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
       </div>
-      <form method="post" action="{% url 'submit_enquiry' rs.id %}" onsubmit="return validateCaptcha('{{ rs.id }}')">
-        {% csrf_token %}
-        <div class="modal-body">
-          <input name="name" class="form-control mb-2" placeholder="Your Name" required>
-          <input name="email" type="email" class="form-control mb-2" placeholder="Your Email">
-          <input name="phone" class="form-control mb-2" placeholder="Your Phone" required>
-          <textarea name="message" class="form-control mb-2" placeholder="Message"></textarea>
-
-          <!-- CAPTCHA -->
-          <label class="form-label fw-bold" id="captcha-question-{{ rs.id }}"></label>
-          <input type="number" class="form-control mb-2" id="captcha-answer-{{ rs.id }}" placeholder="Enter CAPTCHA Answer" required>
-          <input type="hidden" id="captcha-correct-{{ rs.id }}">
-        </div>
-        <div class="modal-footer">
-          <button type="submit" class="btn btn-success w-100">Submit</button>
-        </div>
-      </form>
     </div>
   </div>
-</div>
-
 {% endfor %}
 
 
@@ -764,44 +753,11 @@
 
 	}
 
-
-
-
 </style>
 
-<script>
-  // Random CAPTCHA generator for all modals
-  document.addEventListener('DOMContentLoaded', function () {
-    const modals = document.querySelectorAll('[id^="enquiryModal"]');
 
-    modals.forEach(modal => {
-      const rs_id = modal.id.replace("enquiryModal", "");
-      const qLabel = document.getElementById('captcha-question-' + rs_id);
-      const correctInput = document.getElementById('captcha-correct-' + rs_id);
-
-      const num1 = Math.floor(Math.random() * 10 + 1);
-      const num2 = Math.floor(Math.random() * 10 + 1);
-      qLabel.innerText = `What is ${num1} + ${num2}?`;
-      correctInput.value = num1 + num2;
-    });
-  });
-
-  // Validation on form submit
-  function validateCaptcha(id) {
-    const userAnswer = document.getElementById('captcha-answer-' + id).value;
-    const correct = document.getElementById('captcha-correct-' + id).value;
-    if (parseInt(userAnswer) !== parseInt(correct)) {
-      alert("Wrong CAPTCHA answer. Try again.");
-      return false;
-    }
-    return true;
-  }
-</script>
-
-
-
+<link rel="stylesheet" href="">
 <!-- Bootstrap 5 JS (for modal functionality) -->
- <link rel="stylesheet" href="">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
 

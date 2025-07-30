@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+  {% for rs in header %}
+<head> 
   <meta charset="UTF-8">
-  <title>Privacy Policy | MakaanHub</title>
+  <title>Privacy Policy | {{rs.copy_right}} </title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 </head>
+
 <body class="bg-gray-50 text-gray-800 font-sans tracking-wide leading-relaxed">
 
   <section class="bg-gradient-to-r from-blue-900 to-blue-600 py-20 text-white shadow-md">
@@ -44,18 +46,22 @@
 
       <div>
         <h2 class="text-2xl font-semibold mb-2 text-blue-800">6. Your Rights</h2>
-        <p>You have the right to request, correct, or delete your personal data. Just drop us a message at <a href="/contact/" class="text-blue-600 font-medium hover:underline">support@makaanhub.com</a></p>
+        <p>You have the right to request, correct, or delete your personal data. Just drop us a message at <a href="/contact/" class="text-blue-600 font-medium hover:underline">support@{{rs.company}}.com</a></p>
       </div>
 
       <div class="border-t pt-4 text-sm text-gray-500">
-        <p>Updated: July 2025 | MakaanHub Pvt. Ltd. | All rights reserved.</p>
+        <p>Updated: July 2025 | {{rs.copy_right}} Pvt. Ltd. | All rights reserved.</p>
       </div>
     </div>
   </section>
 
   <footer class="text-center py-10 text-sm text-gray-400">
-    <p>Made with ❤️ by <strong>MakaanHub</strong></p>
+    <p>Made with ❤️ by <strong>{{rs.copy_right}}</strong></p>
   </footer>
 
+
+
+  
+{% endfor %}
 </body>
 </html>

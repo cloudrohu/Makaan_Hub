@@ -39,6 +39,12 @@ class Agencies(models.Model):
 
 
     slug = models.SlugField(unique=True, null=True, blank=True)
+
+    
+    created_by = models.ForeignKey(User, related_name='created_agencies', on_delete=models.SET_NULL, null=True, blank=True)
+    updated_by = models.ForeignKey(User, related_name='updated_agencies', on_delete=models.SET_NULL, null=True, blank=True)
+
+    # existing fields ...
     create_at = models.DateTimeField(auto_now_add=True)
     update_at = models.DateTimeField(auto_now=True)
 
@@ -58,6 +64,8 @@ class Agencies(models.Model):
 
     def image_tag(self):
         return mark_safe('<img src="%s" width="50" height="50" />' % (self.image.url))
+    
+
 class Follow_Up(models.Model):
     comment = models.CharField(max_length=500,blank=True, null=True,)
     follow_up = models.DateTimeField(blank=True, null=True,)
@@ -113,32 +121,30 @@ class Visit(models.Model):
         verbose_name_plural='2. Today Visit'
 
 class Meta_Response(models.Model):
-    name = models.CharField(max_length=50,unique=False,null=True , blank=True)
-    contact_no = models.CharField(max_length=255,null=True , blank=True)
-    email_id = models.EmailField(max_length=255,null=True , blank=True)
-    business_name = models.CharField(max_length=255,null=True , blank=True,unique=False,)
-    description = models.CharField(max_length=500,null=True , blank=True)
-    meeting_follow_up = models.DateTimeField(blank=True, null=True,)
-    business_type = models.ForeignKey(Business_Type,blank=True, null=True , on_delete=models.CASCADE)
-    requirent_type = models.ForeignKey(Requirent_Type,blank=True, null=True , on_delete=models.CASCADE)
-    response_status = models.ForeignKey(Response_Status,blank=True, null=True , on_delete=models.CASCADE)
-    call_status = models.ForeignKey(Call_Status,blank=True, null=True , on_delete=models.CASCADE)
-    locality_city = models.ForeignKey(Locality,blank=True, null=True , on_delete=models.CASCADE)
+    name = models.CharField(max_length=50, unique=False, null=True, blank=True)
+    contact_no = models.CharField(max_length=255, null=True, blank=True)
+    email_id = models.EmailField(max_length=255, null=True, blank=True)
+    business_name = models.CharField(max_length=255, null=True, blank=True, unique=False)
+    description = models.CharField(max_length=500, null=True, blank=True)
+    meeting_follow_up = models.DateTimeField(blank=True, null=True)
+    business_type = models.ForeignKey(Business_Type, blank=True, null=True, on_delete=models.CASCADE)
+    requirent_type = models.ForeignKey(Requirent_Type, blank=True, null=True, on_delete=models.CASCADE)
+    response_status = models.ForeignKey(Response_Status, blank=True, null=True, on_delete=models.CASCADE)
+    call_status = models.ForeignKey(Call_Status, blank=True, null=True, on_delete=models.CASCADE)
+    locality_city = models.ForeignKey(Locality, blank=True, null=True, on_delete=models.CASCADE)
 
-    create_at=models.DateTimeField(auto_now_add=True)
-    update_at=models.DateTimeField(auto_now=True)
+    created_by = models.ForeignKey(User, related_name='created_meta_responses', on_delete=models.SET_NULL, null=True, blank=True)
+    updated_by = models.ForeignKey(User, related_name='updated_meta_responses', on_delete=models.SET_NULL, null=True, blank=True)
 
-    def save_model(self, request, obj, form, change):
-        if not change:
-            obj.created_by = request.user
-        obj.updated_by = request.user
-        return super().save_model(request, obj, form, change)
+    create_at = models.DateTimeField(auto_now_add=True)
+    update_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return self.name + ' ' + self.contact_no + ' ' + self.business_name
-  
+        return f'{self.name or ""} {self.contact_no or ""} {self.business_name or ""}'
+
     class Meta:
-        verbose_name_plural='5. Meta Response'
+        verbose_name_plural = '5. Meta Response'
+
 
 class Respone_Meeting(models.Model):
     comment = models.CharField(max_length=500,blank=True, null=True,)
