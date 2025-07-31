@@ -113,40 +113,34 @@ def export_agency_pdf(modeladmin, request, queryset):
 
     for agency in queryset:
         # Reset y if starting new page after every 3 results
-        if count > 0 and count % 3 == 0:
+        if count > 0 and count % 10 == 0:
             p.showPage()
             p.setFont("NotoSansDevanagari", 12)
             y = height - inch
 
         # Heading with Serial Number
-        p.setFont("Helvetica-Bold", 14)
+        p.setFont("Helvetica-Bold", 12)
         p.drawString(25, y, f"क्रमांक: {serial}" "")
-        y -= 25
+        y -= 20
 
         p.setFont("NotoSansDevanagari", 12)
         script_lines = [
-            f" ({agency.id or 'N/A'}) --- {agency.contact_no or 'N/A'} ({agency.address or 'N/A'})",
-            f"1. आप ({agency.agencies_name or 'N/A'}) से बात कर रहे हैं? मुझे आपका नंबर Net से मिला है।",
-            "2. मैं Google Findexor से शिवेन्द्र बात कर रहा हूं",
-            "3. हम लोग Google Ads के थ्रू Dedicated Lead जनरेट करते हैं।",
-            "4. अभी हमारी कंपनी का 3 महीने का Free TRIAL चल रहा है।",
-            "5. कोई Advance Charges नहीं है। केवल आपको Google के ही चार्जेस Direct Google को देने हैं।",
-            "6. पहले आप हमारा 3 महीना काम देखिए, अगर आपको हमारा काम पसंद आए,",
-            "तो CONTINUE करिएगा...",
-            "________________________________________________________________________________________________________",
-            "________________________________________________________________________________________________________",
+            f"({agency.id or 'N/A'}) --- {agency.contact_no or 'N/A'} आप ({agency.agencies_name or 'N/A'}) से बात कर रहे हैं? मुझे आपका नंबर Net से मिला है।",  
+            f" ({agency.address or 'N/A'})",
+            
+
 
         ]
 
         for line in script_lines:
             if y < 100:
                 p.showPage()
-                p.setFont("NotoSansDevanagari", 12)
+                p.setFont("NotoSansDevanagari", 10)
                 y = height - inch
-            p.drawString(60, y, line)
+            p.drawString(25, y, line)
             y -= 18
 
-        y -= 30  # Space between agencies
+        y -= 13  # Space between agencies
         count += 1
         serial += 1
 
