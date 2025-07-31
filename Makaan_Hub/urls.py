@@ -9,8 +9,9 @@ from django.utils.translation import gettext_lazy as _
 
 from django.views.generic import RedirectView
 
-urlpatterns = [
+from subscription.admin import export_meta_response_pdf 
 
+urlpatterns = [
 
     path('', include('home.urls')),
     path('home/', include('home.urls')),
@@ -36,6 +37,8 @@ urlpatterns = [
     path('category/<int:id>/<slug:slug>', views.category_products, name='category_products'),
     path('privacy-policy', views.privacy_policy, name='privacy-policy'),
     path('enquiry/<int:pk>/', views.submit_enquiry, name='submit_enquiry'),
+
+    path('generate-pdf/', export_meta_response_pdf, name='export_meta_response_pdf'),
 
 
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

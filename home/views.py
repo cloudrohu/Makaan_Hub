@@ -25,7 +25,9 @@ from django.db.models import Q
 from user.models import Developer
 from project.models import Residential,CommercialProject
 from home.filters import ResidentialFilter
-
+from reportlab.pdfgen import canvas
+from reportlab.lib.pagesizes import A4
+from reportlab.lib.units import inch
 # Create your views here.
 
 
@@ -527,5 +529,29 @@ class ResidentialFilter(django_filters.FilterSet):
     class Meta:
         model = Residential
         fields = ['locality', 'propert_type', 'bhk']
+
+
+def generate_hindi_pdf(request):
+    # आपका PDF जनरेट करने का लॉजिक यहाँ होना चाहिए
+    pass
+
+
+
+
+
+def generate_hindi_pdf(request):
+    from io import BytesIO
+    buffer = BytesIO()
+    p = canvas.Canvas(buffer, pagesize=A4)
+    width, height = A4
+    y = height - inch
+
+    p.setFont("Helvetica", 12)
+    p.drawString(100, y, "यह एक सैंपल PDF है।")
+    p.showPage()
+    p.save()
+
+    buffer.seek(0)
+    return HttpResponse(buffer, content_type='application/pdf')
 
     
