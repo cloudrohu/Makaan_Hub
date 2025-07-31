@@ -113,7 +113,7 @@ def export_agency_pdf(modeladmin, request, queryset):
 
     for agency in queryset:
         # Reset y if starting new page after every 3 results
-        if count > 0 and count % 10 == 0:
+        if count > 0 and count % 8 == 0:
             p.showPage()
             p.setFont("NotoSansDevanagari", 12)
             y = height - inch
@@ -125,7 +125,8 @@ def export_agency_pdf(modeladmin, request, queryset):
 
         p.setFont("NotoSansDevanagari", 12)
         script_lines = [
-            f"({agency.id or 'N/A'}) --- {agency.contact_no or 'N/A'} आप ({agency.agencies_name or 'N/A'}) से बात कर रहे हैं? मुझे आपका नंबर Net से मिला है।",  
+            f"{agency.contact_no }",  
+            f"({agency.id or 'N/A'}) आप ({agency.agencies_name or 'N/A'}) से बात कर रहे हैं? मुझे आपका नंबर Net से मिला है।",  
             f" ({agency.address or 'N/A'})",
             
 
