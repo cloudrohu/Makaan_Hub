@@ -80,6 +80,10 @@ class Follow_Up(models.Model):
     
     class Meta:
         verbose_name_plural='4. Follow_Up'
+
+
+
+
 class Meeting(models.Model):
     comment = models.CharField(max_length=500,blank=True, null=True,)
     meeting = models.DateTimeField(null=True, blank=True)
@@ -160,3 +164,24 @@ class Respone_Meeting(models.Model):
     
     class Meta:
         verbose_name_plural='6. Response Meeting'
+
+
+class ResponeFollowUp(models.Model):
+    comment = models.CharField(max_length=500,blank=True, null=True,)
+    follow_up = models.DateTimeField(blank=True, null=True,)
+    locality_city= models.ForeignKey(Locality,blank=True, null=True , on_delete=models.CASCADE)
+    respone = models.ForeignKey(Meta_Response, on_delete=models.CASCADE,null=True,blank=True) #many to one relation with Brand
+
+    create_at=models.DateTimeField(auto_now_add=True)
+    update_at=models.DateTimeField(auto_now=True)
+
+    create_at = models.DateTimeField(auto_now_add=True)
+    update_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.comment 
+    
+    class Meta:
+        verbose_name_plural='7. Respone Follow Up'
+
+

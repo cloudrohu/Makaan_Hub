@@ -185,6 +185,11 @@ class Respone_MeetingInline(admin.TabularInline):
     extra = 1
     show_change_link = True
 
+class ResponeFollowUpInline(admin.TabularInline):
+    model = ResponeFollowUp
+    extra = 1
+    show_change_link = True
+
 class Meta_ResponseAdmin(admin.ModelAdmin):
     list_display = [
         'id', 'name', 'contact_no', 'email_id', 'business_name', 'description',
@@ -195,7 +200,7 @@ class Meta_ResponseAdmin(admin.ModelAdmin):
     search_fields = ['name', 'contact_no', 'email_id', 'business_name', 'description']
     list_editable = ('call_status',)
     list_per_page = 10
-    inlines = [Respone_MeetingInline]
+    inlines = [Respone_MeetingInline,ResponeFollowUpInline]
     readonly_fields = ('created_by', 'updated_by',)
 
     actions = [export_meta_response_pdf]  # ✅ Add this line
@@ -214,8 +219,18 @@ class Respone_MeetingAdmin(admin.ModelAdmin):
     list_filter = ['locality_city','meeting']
     search_fields = ['id','comment',]
     list_editable = ('comment','meeting', 'locality_city',)
-    list_per_page = 50
+    list_per_page = 10
+
+
+class ResponeFollowUpAdmin(admin.ModelAdmin):
+    list_display = ['id','respone','comment','follow_up','locality_city', 'create_at','update_at',]    
+    
+    list_filter = ['locality_city','follow_up']
+    search_fields = ['id','comment',]
+    list_editable = ('comment','follow_up', 'locality_city',)
+    list_per_page = 10
     
 admin.site.register(Respone_Meeting,Respone_MeetingAdmin)
+admin.site.register(ResponeFollowUp,ResponeFollowUpAdmin)
 
 
