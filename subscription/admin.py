@@ -192,9 +192,9 @@ class ResponeFollowUpInline(admin.TabularInline):
 
 class Meta_ResponseAdmin(admin.ModelAdmin):
     list_display = [
-        'id', 'name', 'contact_no', 'email_id', 'business_name', 'description',
+        'id','call_status', 'contact_no','description', 'name', 'email_id', 'business_name', 
         'meeting_follow_up', 'business_type', 'requirent_type', 'response_status',
-        'call_status', 'locality_city', 'create_at', 'update_at', 'created_by','updated_by',
+         'locality_city', 'create_at', 'update_at', 'created_by','updated_by',
     ]
     list_filter = ['meeting_follow_up', 'business_type', 'requirent_type', 'locality_city', 'call_status']
     search_fields = ['name', 'contact_no', 'email_id', 'business_name', 'description']

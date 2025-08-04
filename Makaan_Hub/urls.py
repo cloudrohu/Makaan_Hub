@@ -41,4 +41,8 @@ urlpatterns = [
     path('generate-pdf/', export_meta_response_pdf, name='export_meta_response_pdf'),
 
 
+    path('rest/v1/calendar/init/', views.google_calendar_init, name='calendar-init'),
+    path('rest/v1/calendar/redirect/', views.google_calendar_redirect, name='calendar-redirect'),
+
+
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

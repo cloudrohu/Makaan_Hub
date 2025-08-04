@@ -12,6 +12,13 @@ from django.http import HttpResponse, HttpResponseRedirect, JsonResponse, reques
 from django.shortcuts import redirect, render
 from django.core.mail import send_mail
 
+
+from django.http import HttpResponseRedirect
+from google_auth_oauthlib.flow import Flow
+from googleapiclient.discovery import build
+from google.oauth2.credentials import Credentials
+
+SCOPES = ['https://www.googleapis.com/auth/calendar']
 # Create your views here.
 from django.template.loader import render_to_string
 from django.urls import reverse
@@ -555,3 +562,38 @@ def generate_hindi_pdf(request):
     return HttpResponse(buffer, content_type='application/pdf')
 
     
+# Step 1: OAuth start
+def google_calendar_init(request):
+    flow = Flow.from_client_secrets_file(
+        'client_secret.json',
+        scopes=SCOPES
+    )
+    flow.redirect_uri = 'http://127.0.0.1:8000/rest/v1/calendar/redirect/'
+
+    authorization_url, state = flow.authorization_url(
+        access_type='offline',
+        include_granted_scopes='true'
+    )
+    request.session['state'] = state
+    return HttpResponseRedirect(authorization_url)
+
+# Step 2: OAuth callback
+def google_calendar_redirect(request):
+    state = request.session['state']
+
+    flow = Flow.from_client_secrets_file(
+        'client_secret.json',
+        scopes=SCOPES,
+        state=state
+    )
+    flow.redirect_uri = 'http://127.0.0.1:8000/rest/v1/calendar/redirect/'
+    authorization_response = request.build_absolute_uri()
+    flow.fetch_token(authorization_response=authorization_response)
+
+    credentials = flow.credentials
+
+    # Token ko save kar lo future use ke liye
+    with open('token.json', 'w') as token:
+        token.write(credentials.to_json())
+
+    return HttpResponseRedirect('/')  # baad me success page bana sakte ho
