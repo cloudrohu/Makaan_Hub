@@ -2,53 +2,6 @@
 
 
 
-<!-- Ultra-Stylish Makaan Hub Loader -->
-<div id="pageLoader" class="fixed inset-0 z-[9999] bg-black text-white overflow-hidden flex items-center justify-center transition-opacity duration-1000">
-
-  <!-- Left Door -->
-  <div id="leftDoor" class="absolute left-0 top-0 w-1/2 h-full bg-gradient-to-br from-black via-gray-800 to-gray-900 z-40 transition-transform duration-[1500ms] ease-in-out shadow-2xl border-r-[1px] border-gray-600"></div>
-
-  <!-- Right Door -->
-  <div id="rightDoor" class="absolute right-0 top-0 w-1/2 h-full bg-gradient-to-bl from-black via-gray-800 to-gray-900 z-40 transition-transform duration-[1500ms] ease-in-out shadow-2xl border-l-[1px] border-gray-600"></div>
-
-  <!-- Welcome Text -->
-  <div class="z-50 text-center animate-fade-in-up">
-    {% for rs in setting %}
-      <h1 class="text-4xl md:text-5xl font-black tracking-widest bg-clip-text text-transparent bg-gradient-to-r from-purple-500 to-pink-500 animate-glow drop-shadow-xl">
-        Welcome to {{ rs.title }}
-      </h1>
-    {% endfor %}
-    <p class="text-sm text-gray-400 mt-2 tracking-wider uppercase">Preparing your experience...</p>
-  </div>
-</div>
-
-
-
-
-
-
-<script>
-  window.addEventListener("load", () => {
-    const loader = document.getElementById("pageLoader");
-    const left = document.getElementById("leftDoor");
-    const right = document.getElementById("rightDoor");
-
-    setTimeout(() => {
-      left.style.transform = "translateX(-100%)";
-      right.style.transform = "translateX(100%)";
-    }, 1800);
-
-    setTimeout(() => {
-      loader.classList.add("opacity-0");
-      setTimeout(() => loader.style.display = "none", 700);
-    }, 1300);
-  });
-</script>
-
-
-
-
-
 
 
 
