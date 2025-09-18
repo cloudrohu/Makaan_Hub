@@ -43,7 +43,7 @@ def index(request):
     city = City.objects.all()
     about = About_Page.objects.all().order_by('-id')[0:1]
     slider = Slider.objects.filter(featured_project='True').order_by('?')[:9]
-    project_featured = Residential.objects.filter(featured_property='True').order_by('-id')[:9]
+    project_featured = Residential.objects.filter(featured_property='True').order_by('-id')[:5]
     commercia_featured = CommercialProject.objects.filter(featured_property='True').order_by('-id')[:9]
     featured_locality = Locality.objects.filter(featured_locality='True').order_by('-id')[:9]
     developer = Developer.objects.filter(featured_builder='True').order_by('-id')[:50]

@@ -237,6 +237,130 @@
 </div>
 
 
+<!-- Tailwind -->
+<script src="https://cdn.tailwindcss.com"></script>
+
+<!-- Navbar Header -->
+<nav class="bg-white shadow fixed top-0 left-0 w-full z-50" style="margin: -10px;">
+  <div class="flex items-center justify-between p-4">
+    <a href="/"><img src="{{rs.logo.url}}" alt="Logo" class="h-12"></a>
+    <button id="menu-toggle" class="text-3xl md:hidden">&#9776;</button>
+  </div>
+</nav>
+
+<!-- Drawer -->
+<div id="mobile-menu" class="fixed top-0 right-[-100%] w-72 h-full bg-white shadow-lg z-50 transition-all duration-300 overflow-hidden">
+  
+  <!-- Main Menu -->
+  <div id="menu-main" class="h-full flex flex-col">
+    <div class="flex justify-between items-center p-4 border-b">
+      <h2 class="text-lg font-semibold">Menu</h2>
+      <button id="menu-close" class="text-2xl">&times;</button>
+    </div>
+    <ul class="flex-1 overflow-y-auto">
+      <li><a href="/" class="block px-4 py-3 border-b">Home</a></li>
+      <li><button class="menu-link w-full flex justify-between px-4 py-3 border-b" data-target="menu-projects">New Projects <span>›</span></button></li>
+      <li><button class="menu-link w-full flex justify-between px-4 py-3 border-b" data-target="menu-buy">Buy Property <span>›</span></button></li>
+      <li><button class="menu-link w-full flex justify-between px-4 py-3 border-b" data-target="menu-rent">Rented Property <span>›</span></button></li>
+      <li><button class="menu-link w-full flex justify-between px-4 py-3 border-b" data-target="menu-about">About & More <span>›</span></button></li>
+      <li><a href="page-login.html" class="flex items-center gap-2 px-4 py-3 border-b">👤 Login</a></li>
+      <li><a href="page-register.html" class="flex items-center gap-2 px-4 py-3 border-b">✏️ Register</a></li>
+    </ul>
+    <div class="p-4">
+      <a href="https://wa.me/+91{{rs.whatsapp}}" class="block text-center bg-red-500 text-white py-3 rounded-full font-semibold">Connect Now</a>
+    </div>
+  </div>
+
+  <!-- Submenu: New Projects -->
+  <div id="menu-projects" class="submenu hidden h-full flex flex-col">
+    <div class="flex items-center p-4 border-b">
+      <button class="back-btn text-lg mr-3">‹</button>
+      <h2 class="text-lg font-semibold">New Projects</h2>
+    </div>
+    <ul class="flex-1 overflow-y-auto">
+      <li><a href="{% url 'residential_project' %}" class="block px-4 py-3 border-b">Residential</a></li>
+      <li><a href="{% url 'commercial_project' %}" class="block px-4 py-3 border-b">Commercial</a></li>
+    </ul>
+  </div>
+
+  <!-- Submenu: Buy Property -->
+  <div id="menu-buy" class="submenu hidden h-full flex flex-col">
+    <div class="flex items-center p-4 border-b">
+      <button class="back-btn text-lg mr-3">‹</button>
+      <h2 class="text-lg font-semibold">Buy Property</h2>
+    </div>
+    <ul class="flex-1 overflow-y-auto">
+      <li><a href="{% url 'residential_project' %}" class="block px-4 py-3 border-b">Residential</a></li>
+      <li><a href="{% url 'commercial_project' %}" class="block px-4 py-3 border-b">Commercial</a></li>
+    </ul>
+  </div>
+
+  <!-- Submenu: Rented Property -->
+  <div id="menu-rent" class="submenu hidden h-full flex flex-col">
+    <div class="flex items-center p-4 border-b">
+      <button class="back-btn text-lg mr-3">‹</button>
+      <h2 class="text-lg font-semibold">Rented Property</h2>
+    </div>
+    <ul class="flex-1 overflow-y-auto">
+      <li><a href="{% url 'residential_project' %}" class="block px-4 py-3 border-b">Residential</a></li>
+      <li><a href="{% url 'residential_project' %}" class="block px-4 py-3 border-b">Commercial</a></li>
+    </ul>
+  </div>
+
+  <!-- Submenu: About & More -->
+  <div id="menu-about" class="submenu hidden h-full flex flex-col">
+    <div class="flex items-center p-4 border-b">
+      <button class="back-btn text-lg mr-3">‹</button>
+      <h2 class="text-lg font-semibold">About & More</h2>
+    </div>
+    <ul class="flex-1 overflow-y-auto">
+      <li><a href="{% url 'contactus' %}" class="block px-4 py-3 border-b">Contact</a></li>
+      <li><a href="{% url 'aboutus' %}" class="block px-4 py-3 border-b">About</a></li>
+      <li><a href="{% url 'blog' %}" class="block px-4 py-3 border-b">Blog</a></li>
+      <li><a href="{% url 'aboutus' %}" class="block px-4 py-3 border-b">Paying Guest</a></li>
+    </ul>
+  </div>
+
+</div>
+
+<!-- JS -->
+<script>
+  const toggle = document.getElementById("menu-toggle");
+  const closeBtn = document.getElementById("menu-close");
+  const menu = document.getElementById("mobile-menu");
+  const menuLinks = document.querySelectorAll(".menu-link");
+  const submenus = document.querySelectorAll(".submenu");
+  const backBtns = document.querySelectorAll(".back-btn");
+
+  // open drawer
+  toggle.addEventListener("click", () => {
+    menu.style.right = "0";
+  });
+
+  // close drawer
+  closeBtn.addEventListener("click", () => {
+    menu.style.right = "-100%";
+    submenus.forEach(sm => sm.classList.add("hidden"));
+    document.getElementById("menu-main").classList.remove("hidden");
+  });
+
+  // go to submenu
+  menuLinks.forEach(link => {
+    link.addEventListener("click", () => {
+      const target = document.getElementById(link.dataset.target);
+      document.getElementById("menu-main").classList.add("hidden");
+      target.classList.remove("hidden");
+    });
+  });
+
+  // back to main menu
+  backBtns.forEach(btn => {
+    btn.addEventListener("click", () => {
+      btn.closest(".submenu").classList.add("hidden");
+      document.getElementById("menu-main").classList.remove("hidden");
+    });
+  });
+</script>
 
 
 
