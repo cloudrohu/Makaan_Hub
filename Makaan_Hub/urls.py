@@ -21,9 +21,9 @@ urlpatterns = [
     path(('about/'), views.aboutus, name='aboutus'),
     path(('contact/'), views.contactus, name='contactus'),
     path('thank-you/', views.THANK_YOU, name='thank-you'),
-    path(('residential_project/'), views.residential_project, name='residential_project'),
-    path(('residential_project/<slug:slug>'), views.residential_project_details, name='residential_project'),
 
+    path('residential_project/', views.residential_project, name='residential_project'),
+    path('residential_project/<int:id>/<slug:slug>/', views.residential_project_details, name='residential_project_details'),
 
     path(('commercial_project/'), views.commercial_project, name='commercial_project'),
     path('commercial_project/<slug:slug>/', views.commercial_project_details, name="commercial_project_details"),  # ✅ COMMA IS HERE
@@ -43,6 +43,10 @@ urlpatterns = [
 
     path('rest/v1/calendar/init/', views.google_calendar_init, name='calendar-init'),
     path('rest/v1/calendar/redirect/', views.google_calendar_redirect, name='calendar-redirect'),
+
+    path("search/", views.search, name="search"),
+    path("api/suggestions/", views.suggestions_api, name="suggestions_api"),
+
 
 
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -1,6 +1,6 @@
 import json
 import django_filters
-
+from django.http import JsonResponse
 from django.core.paginator import Paginator
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
@@ -8,34 +8,28 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django.db.models import Avg, Count, Q, F
 from django.db.models.functions import Concat
-from django.http import HttpResponse, HttpResponseRedirect, JsonResponse, request
-from django.shortcuts import redirect, render
+from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
+from django.shortcuts import redirect, render, get_object_or_404
 from django.core.mail import send_mail
 
-
-from django.http import HttpResponseRedirect
 from google_auth_oauthlib.flow import Flow
 from googleapiclient.discovery import build
 from google.oauth2.credentials import Credentials
 
 SCOPES = ['https://www.googleapis.com/auth/calendar']
-# Create your views here.
+
 from django.template.loader import render_to_string
 from django.urls import reverse
 from django.utils import translation
-from django.shortcuts import render, get_object_or_404
 from home.forms import ResidentialEnquiryForm, CommercialEnquiryForm
-from .filters import ResidentialFilter
-from home.models import Setting, ContactForm, ContactMessage,FAQ,About_Page,Contact_Page,Testimonial,Our_Team,Slider
-from utility.models import City,Locality
-from django.db.models import Q
-from user.models import Developer
-from project.models import Residential,CommercialProject
 from home.filters import ResidentialFilter
+from home.models import Setting, ContactForm, ContactMessage, FAQ, About_Page, Contact_Page, Testimonial, Our_Team, Slider
+from utility.models import City, Locality
+from user.models import Developer
+from project.models import Residential, CommercialProject
 from reportlab.pdfgen import canvas
 from reportlab.lib.pagesizes import A4
 from reportlab.lib.units import inch
-# Create your views here.
 
 
 def index(request):
@@ -73,14 +67,13 @@ def index(request):
         'developer': developer,
         'commercia_featured': commercia_featured,
         'featured_locality': featured_locality,
-        'query': query,  # search box me value dikhane ke liye
+        'query': query,
         'residential_search': residential_search,
         'commercial_search': commercial_search,
     }
 
     return render(request, 'index.html', context)
 
-from django.db.models import Q
 
 def residential_project(request):
     setting = Setting.objects.all().order_by('-id')[0:1]
@@ -88,7 +81,6 @@ def residential_project(request):
 
     all_active = Residential.objects.filter(active=True)
 
-    # 🧠 Keyword search logic
     query = request.GET.get('q', '')
     if query:
         all_active = all_active.filter(
@@ -97,12 +89,10 @@ def residential_project(request):
             Q(headers__keywords__icontains=query)
         ).distinct()
 
-    # 🧠 Filter apply karo (aapka existing ResidentialFilter)
     residential_filter = ResidentialFilter(request.GET, queryset=all_active)
     filtered_qs = residential_filter.qs
 
-
-    paginator = Paginator(filtered_qs, 20)  # 20 items per page
+    paginator = Paginator(filtered_qs, 20)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
 
@@ -116,12 +106,11 @@ def residential_project(request):
     return render(request, 'projects/list/residential.html', context)
 
 
-def residential_project_details(request, slug):
+def residential_project_details(request, id, slug):
     setting = Setting.objects.all().order_by('-id')[:1]
-    project = get_object_or_404(Residential, slug=slug)
+    project = get_object_or_404(Residential, id=id, slug=slug)
 
-    # Optional: related projects, developer projects, etc.
-    related_projects = Residential.objects.filter(city=project.city).exclude(slug=slug).order_by('?')[:3]
+    related_projects = Residential.objects.filter(city=project.city).exclude(id=id).order_by('?')[:3]
 
     context = {
         'setting': setting,
@@ -132,6 +121,7 @@ def residential_project_details(request, slug):
     return render(request, 'projects/details/residential.html', context)
 
 
+
 def commercial_project(request):
     setting = Setting.objects.all().order_by('-id')[:1]
 
@@ -139,7 +129,6 @@ def commercial_project(request):
 
     all_active = CommercialProject.objects.filter(active=True)
 
-    # 🧠 Keyword search logic
     query = request.GET.get('q', '')
     if query:
         all_active = all_active.filter(
@@ -148,8 +137,8 @@ def commercial_project(request):
             Q(headers__keywords__icontains=query)
         ).distinct()
 
-    # 🧠 Apply filter (agar aapke paas CommercialFilter hai toh use karo)
-    commercial_filter = ResidentialFilter(request.GET, queryset=all_active)  # ideally CommercialFilter use karo
+    # NOTE: ideally use a CommercialFilter if available
+    commercial_filter = ResidentialFilter(request.GET, queryset=all_active)
     filtered_qs = commercial_filter.qs
 
     paginator = Paginator(filtered_qs, 20)
@@ -162,136 +151,123 @@ def commercial_project(request):
         'setting': setting,
         'filter': commercial_filter,
         'page': 'home',
-        'query': query,  # template me search box me value dikhane ke liye
+        'query': query,
     }
 
     return render(request, 'projects/list/commercial.html', context)
 
 
-def commercial_project_details(request,slug):
+def commercial_project_details(request, slug):
     setting = Setting.objects.all().order_by('-id')[0:1]
-     # last 4 products
     active = get_object_or_404(CommercialProject, slug=slug)
 
-
-    page="home"
-    context={
-        'setting':setting,
-        'active':active,
-
+    context = {
+        'setting': setting,
+        'active': active,
     }
-    return render(request,'projects/details/commercial.html',context)
+    return render(request, 'projects/details/commercial.html', context)
 
 
 def land(request):
     setting = Setting.objects.all().order_by('-id')[0:1]
-    
     city = City.objects.all()
     locality = Locality.objects.all()
 
-    developer = Developer.objects.filter(featured_builder = 'True').order_by('-id')[:50]  #first 4 products
-    ourteam = Our_Team.objects.filter(featured = 'True').order_by('-id')#first 4 products
-    testimonial = Testimonial.objects.filter(featured = 'True').order_by('-id')#first 4 products
-    project_latest = Residential.objects.filter(featured_project = 'True').order_by('-id')[:6]  # last 4 products
-    project_featured = Residential.objects.filter(featured_project = 'True').order_by('-id')[:6]  # last 4 products
-    project_picked = Residential.objects.filter(featured_project = 'True').order_by('?')[:6]   #Random selected 4 products
+    developer = Developer.objects.filter(featured_builder='True').order_by('-id')[:50]
+    ourteam = Our_Team.objects.filter(featured='True').order_by('-id')
+    testimonial = Testimonial.objects.filter(featured='True').order_by('-id')
+    project_latest = Residential.objects.filter(featured_project='True').order_by('-id')[:6]
+    project_featured = Residential.objects.filter(featured_project='True').order_by('-id')[:6]
+    project_picked = Residential.objects.filter(featured_project='True').order_by('?')[:6]
 
-    page="home"
-    context={
-        'setting':setting,
-        'city':city,
-        'testimonial':testimonial,
-        'ourteam':ourteam,
-        'locality':locality,
-        'developer':developer,
-        'project_latest':project_latest,
-        'project_picked':project_picked,
-        'project_featured':project_featured,
+    context = {
+        'setting': setting,
+        'city': city,
+        'testimonial': testimonial,
+        'ourteam': ourteam,
+        'locality': locality,
+        'developer': developer,
+        'project_latest': project_latest,
+        'project_picked': project_picked,
+        'project_featured': project_featured,
     }
 
-    return render(request,'index.html',context)
+    return render(request, 'index.html', context)
+
 
 def pg(request):
     setting = Setting.objects.all().order_by('-id')[0:1]
-    
     city = City.objects.all()
     locality = Locality.objects.all()
     about = About_Page.objects.all().order_by('-id')[0:1]
 
+    developer = Developer.objects.filter(featured_builder='True').order_by('-id')[:50]
+    ourteam = Our_Team.objects.filter(featured='True').order_by('-id')
+    testimonial = Testimonial.objects.filter(featured='True').order_by('-id')
+    project_slider = Residential.objects.filter(slider='True').order_by('-id')[:6]
+    project_latest = Residential.objects.filter(featured_project='True').order_by('-id')[:6]
+    project_featured = Residential.objects.filter(featured_project='True').order_by('-id')[:6]
+    project_picked = Residential.objects.filter(featured_project='True').order_by('?')[:6]
 
-    developer = Developer.objects.filter(featured_builder = 'True').order_by('-id')[:50]  #first 4 products
-    ourteam = Our_Team.objects.filter(featured = 'True').order_by('-id')#first 4 products
-    testimonial = Testimonial.objects.filter(featured = 'True').order_by('-id')#first 4 products
-    project_slider = Residential.objects.filter(slider = 'True').order_by('-id')[:6]  #first 4 products
-    project_latest = Residential.objects.filter(featured_project = 'True').order_by('-id')[:6]  # last 4 products
-    project_featured = Residential.objects.filter(featured_project = 'True').order_by('-id')[:6]  # last 4 products
-    project_picked = Residential.objects.filter(featured_project = 'True').order_by('?')[:6]   #Random selected 4 products
-
-    page="home"
-    context={
-        'setting':setting,
-        'about':about,
-        'city':city,
-        'testimonial':testimonial,
-        'ourteam':ourteam,
-        'locality':locality,
-        'developer':developer,
-        'project_slider':project_slider,
-        'project_latest':project_latest,
-        'project_picked':project_picked,
-        'project_featured':project_featured,
+    context = {
+        'setting': setting,
+        'about': about,
+        'city': city,
+        'testimonial': testimonial,
+        'ourteam': ourteam,
+        'locality': locality,
+        'developer': developer,
+        'project_slider': project_slider,
+        'project_latest': project_latest,
+        'project_picked': project_picked,
+        'project_featured': project_featured,
     }
 
-    return render(request,'index.html',context)
+    return render(request, 'index.html', context)
+
 
 def blog(request):
     setting = Setting.objects.all().order_by('-id')[0:1]
-    
     city = City.objects.all()
     locality = Locality.objects.all()
 
-    developer = Developer.objects.filter(featured_builder = 'True').order_by('-id')[:50]  #first 4 products
-    ourteam = Our_Team.objects.filter(featured = 'True').order_by('-id')#first 4 products
-    testimonial = Testimonial.objects.filter(featured = 'True').order_by('-id')#first 4 products
-    project_slider = Residential.objects.filter(slider = 'True').order_by('-id')[:6]  #first 4 products
-    project_latest = Residential.objects.filter(featured_project = 'True').order_by('-id')[:6]  # last 4 products
-    project_featured = Residential.objects.filter(featured_project = 'True').order_by('-id')[:6]  # last 4 products
-    project_picked = Residential.objects.filter(featured_project = 'True').order_by('?')[:6]   #Random selected 4 products
+    developer = Developer.objects.filter(featured_builder='True').order_by('-id')[:50]
+    ourteam = Our_Team.objects.filter(featured='True').order_by('-id')
+    testimonial = Testimonial.objects.filter(featured='True').order_by('-id')
+    project_slider = Residential.objects.filter(slider='True').order_by('-id')[:6]
+    project_latest = Residential.objects.filter(featured_project='True').order_by('-id')[:6]
+    project_featured = Residential.objects.filter(featured_project='True').order_by('-id')[:6]
+    project_picked = Residential.objects.filter(featured_project='True').order_by('?')[:6]
 
-    page="home"
-    context={
-        'setting':setting,
-        'city':city,
-        'testimonial':testimonial,
-        'ourteam':ourteam,
-        'locality':locality,
-        'developer':developer,
-        'project_slider':project_slider,
-        'project_latest':project_latest,
-        'project_picked':project_picked,
-        'project_featured':project_featured,
+    context = {
+        'setting': setting,
+        'city': city,
+        'testimonial': testimonial,
+        'ourteam': ourteam,
+        'locality': locality,
+        'developer': developer,
+        'project_slider': project_slider,
+        'project_latest': project_latest,
+        'project_picked': project_picked,
+        'project_featured': project_featured,
     }
 
-    return render(request,'index.html',context)
+    return render(request, 'index.html', context)
 
 
 def aboutus(request):
-    #category = categoryTree(0,'',currentlang)
     setting = Setting.objects.all().order_by('-id')[0:1]
-
-
     about = About_Page.objects.all().order_by('-id')[0:1]
-
     city = City.objects.all()
 
-    
-    context={
-        'setting':setting,
-        'city':city,
-        'about':about,
+    context = {
+        'setting': setting,
+        'city': city,
+        'about': about,
     }
- 
-    return render(request, 'about.html',context)
+
+    return render(request, 'about.html', context)
+
 
 def contactus(request):
     setting = Setting.objects.all().order_by('-id')[0:1]
@@ -316,34 +292,29 @@ def contactus(request):
     return render(request, 'contactus.html', context)
 
 
-def category_products(request,id,slug):
-    
+def category_products(request, id, slug):
     city = City.objects.all()
+    context = {'city': city}
+    return render(request, 'category_products.html', context)
 
-    
-    context={
-             #'category':category,
-             'city':city }
-    return render(request,'category_products.html',context)
 
 def search(request):
-    if request.method == 'POST': # check post
+    if request.method == 'POST':
         form = SearchForm(request.POST)
         if form.is_valid():
-            query = form.cleaned_data['query'] # get form input data
+            query = form.cleaned_data['query']
             catid = form.cleaned_data['catid']
-            if catid==0:
-                products=Product.objects.filter(title__icontains=query)  #SELECT * FROM product WHERE title LIKE '%query%'
+            if catid == 0:
+                products = Product.objects.filter(title__icontains=query)
             else:
-                products = Product.objects.filter(title__icontains=query,category_id=catid)
+                products = Product.objects.filter(title__icontains=query, category_id=catid)
 
             category = Category.objects.all()
-            context = {'products': products,
-                        'query':query,
-                       'category': category }
+            context = {'products': products, 'query': query, 'category': category}
             return render(request, 'search_products.html', context)
 
     return HttpResponseRedirect('/')
+
 
 def search_auto(request):
     if request.is_ajax():
@@ -352,50 +323,32 @@ def search_auto(request):
 
         results = []
         for rs in projects:
-            project_json = {}
-            project_json = rs.title +" > " + rs.locality.title
+            project_json = rs.title + " > " + rs.locality.title
             results.append(project_json)
         data = json.dumps(results)
     else:
         data = 'fail'
     mimetype = 'application/json'
-
     return HttpResponse(data, mimetype)
 
-def project_detail(request,id,slug):
-    query = request.GET.get('q')
-    # >>>>>>>>>>>>>>>> M U L T I   L A N G U G A E >>>>>> START
-    #defaultlang = settings.LANGUAGE_CODE[0:2] #en-EN
-    #currentlang = request.LANGUAGE_CODE[0:2]
-    #category = categoryTree(0, '', currentlang)
+
+def project_detail(request, id, slug):
     city = City.objects.all()
-
     project = Project.objects.get(pk=id)
-
-    
-    # <<<<<<<<<< M U L T I   L A N G U G A E <<<<<<<<<<<<<<< end
-
     images = Images.objects.filter(product_id=id)
-    comments = Comment.objects.filter(product_id=id,status='True')
-    context = {'project': project,'city': city,
-               'images': images, 'comments': comments,
-               }
-    
-    return render(request,'product_detail1.html',context)
+    comments = Comment.objects.filter(product_id=id, status='True')
+    context = {'project': project, 'city': city, 'images': images, 'comments': comments}
+    return render(request, 'product_detail1.html', context)
+
 
 def faq(request):
-   
     return render(request, 'faq.html')
 
 
-def privacy_policy(request): 
-    header = Setting.objects.all().order_by('-id')[0:1]  
-
-    context={
-        'header':header,
-    }
-    return render(request,'privacy-policy.html',context)
-
+def privacy_policy(request):
+    header = Setting.objects.all().order_by('-id')[0:1]
+    context = {'header': header}
+    return render(request, 'privacy-policy.html', context)
 
 
 def THANK_YOU(request):
@@ -407,34 +360,31 @@ def submit_form(request):
         name = request.POST.get('name')
         email = request.POST.get('email')
         phone = request.POST.get('mobile')
-        
 
-         # Save to DB
         Response.objects.create(name=name, email=email, phone=phone)
 
-        # Send "Thank You" email to user
         subject = 'Thank You for Contacting '
         message = f"""
 Dear {name},
 
 Thank you for Connecting. We have received your details:
 
-Email: {email}  
+Email: {email}
 Phone: {phone}
 
 Our team will contact you shortly.
 
-Kind regards 
+Kind regards
 All the best
 """
-        from_email = None  # Uses DEFAULT_FROM_EMAIL in settings.py
-        recipient_list = [email]  # ← Send to user, not to admin
+        from_email = None
+        recipient_list = [email]
 
         try:
             send_mail(subject, message, from_email, recipient_list)
         except Exception as e:
             print("Error sending email:", e)
-        return redirect('thank_you')  # Make sure this name matches urls.py
+        return redirect('thank_you')
 
     return render(request, 'base.html')
 
@@ -448,7 +398,6 @@ def submit_enquiry(request, pk):
             enquiry.residential = residential
             enquiry.save()
 
-            # ✅ Admin ko email
             send_mail(
                 subject=f"New Enquiry for {residential.project_name}",
                 message=(
@@ -462,7 +411,6 @@ def submit_enquiry(request, pk):
                 fail_silently=False,
             )
 
-            # ✅ User ko confirmation email
             if enquiry.email:
                 send_mail(
                     subject="Thanks for your enquiry!",
@@ -477,10 +425,11 @@ def submit_enquiry(request, pk):
                     fail_silently=False,
                 )
 
-            return redirect('/thank-you/')  # 🔥 thank-you page
+            return redirect('/thank-you/')
     else:
         form = ResidentialEnquiryForm()
     return render(request, 'partials/enquiry_form.html', {'form': form})
+
 
 def submit_commercial_enquiry(request, pk):
     commercial = get_object_or_404(CommercialProject, pk=pk)
@@ -492,7 +441,6 @@ def submit_commercial_enquiry(request, pk):
             enquiry.commercial = commercial
             enquiry.save()
 
-            # ✅ Admin ko email
             send_mail(
                 subject=f"New Enquiry for {commercial.project_name}",
                 message=(
@@ -502,11 +450,10 @@ def submit_commercial_enquiry(request, pk):
                     f"Message: {enquiry.message}"
                 ),
                 from_email=None,
-                recipient_list=['admin@example.com'],  # ⚠️ Replace with real email
+                recipient_list=['admin@example.com'],
                 fail_silently=False,
             )
 
-            # ✅ User ko confirmation email
             if enquiry.email:
                 send_mail(
                     subject="Thanks for your enquiry!",
@@ -521,29 +468,11 @@ def submit_commercial_enquiry(request, pk):
                     fail_silently=False,
                 )
 
-            return redirect('/thank-you/')  # ✅ Redirect to Thank You
+            return redirect('/thank-you/')
     else:
         form = CommercialEnquiryForm()
 
     return render(request, 'partials/enquiry_form.html', {'form': form})
-
-
-class ResidentialFilter(django_filters.FilterSet):
-    locality = django_filters.CharFilter(lookup_expr='icontains', label='Locality')
-    propert_type = django_filters.CharFilter(lookup_expr='icontains', label='Property Type')
-    bhk = django_filters.CharFilter(lookup_expr='iexact', label='BHK')
-
-    class Meta:
-        model = Residential
-        fields = ['locality', 'propert_type', 'bhk']
-
-
-def generate_hindi_pdf(request):
-    # आपका PDF जनरेट करने का लॉजिक यहाँ होना चाहिए
-    pass
-
-
-
 
 
 def generate_hindi_pdf(request):
@@ -561,7 +490,7 @@ def generate_hindi_pdf(request):
     buffer.seek(0)
     return HttpResponse(buffer, content_type='application/pdf')
 
-    
+
 # Step 1: OAuth start
 def google_calendar_init(request):
     flow = Flow.from_client_secrets_file(
@@ -577,9 +506,10 @@ def google_calendar_init(request):
     request.session['state'] = state
     return HttpResponseRedirect(authorization_url)
 
+
 # Step 2: OAuth callback
 def google_calendar_redirect(request):
-    state = request.session['state']
+    state = request.session.get('state')
 
     flow = Flow.from_client_secrets_file(
         'client_secret.json',
@@ -592,8 +522,106 @@ def google_calendar_redirect(request):
 
     credentials = flow.credentials
 
-    # Token ko save kar lo future use ke liye
     with open('token.json', 'w') as token:
         token.write(credentials.to_json())
 
-    return HttpResponseRedirect('/')  # baad me success page bana sakte ho
+    return HttpResponseRedirect('/')
+
+
+def search(request):
+    query = request.GET.get("q", "")
+    category = request.GET.get("category", "")
+    sub_category = request.GET.get("sub_category", "")
+
+    residential_results = Residential.objects.filter(active=True)
+    commercial_results = CommercialProject.objects.filter(active=True)
+
+    # search filter
+    if query:
+        residential_results = residential_results.filter(
+            Q(project_name__icontains=query) |
+            Q(locality__title__icontains=query) |
+            Q(city__title__icontains=query) |
+            Q(propert_type__icontains=query) |
+            Q(construction_status__icontains=query)
+        )
+        commercial_results = commercial_results.filter(
+            Q(project_name__icontains=query) |
+            Q(locality__title__icontains=query) |
+            Q(city__title__icontains=query) |
+            Q(property_type__icontains=query) |
+            Q(construction_status__icontains=query)
+        )
+
+    # Category based filtering
+    if category == "residential":
+        commercial_results = CommercialProject.objects.none()
+
+    elif category == "commercial":
+        residential_results = Residential.objects.none()
+
+    elif category == "new":
+        if sub_category == "residential":
+            residential_results = residential_results.filter(construction_status__in=["New Launch", "Under Construction"])
+            commercial_results = CommercialProject.objects.none()
+        elif sub_category == "commercial":
+            commercial_results = commercial_results.filter(construction_status__in=["New Launch", "Under Construction"])
+            residential_results = Residential.objects.none()
+
+    context = {
+        "query": query,
+        "category": category,
+        "sub_category": sub_category,
+        "residential_results": residential_results,
+        "commercial_results": commercial_results,
+    }
+    return render(request, "projects/search_results.html", context)
+
+
+def suggestions_api(request):
+    q = request.GET.get("q", "").strip()
+    category = request.GET.get("category", "")
+    suggestions = []
+
+    if len(q) >= 2:
+        # City search
+        for city in City.objects.filter(title__icontains=q)[:5]:
+            suggestions.append({
+                "name": city.title,
+                "locality": "",
+                "city": city.title,
+                "type": "City",
+                "url": f"/search/?q={city.title}&category={category}"
+            })
+
+        # Locality search
+        for loc in Locality.objects.filter(title__icontains=q)[:5]:
+            suggestions.append({
+                "name": loc.title,
+                "locality": loc.title,
+                "city": loc.city.title if loc.city else "",
+                "type": "Locality",
+                "url": f"/search/?q={loc.title}&category={category}"
+            })
+
+        # Residential projects
+        for proj in Residential.objects.filter(project_name__icontains=q, active=True)[:5]:
+            suggestions.append({
+                "name": proj.project_name,
+                "locality": proj.locality.title if proj.locality else "",
+                "city": proj.city.title if proj.city else "",
+                "type": "Residential Project",
+                "url": proj.get_absolute_url()
+            })
+
+        # Commercial projects
+        for proj in CommercialProject.objects.filter(project_name__icontains=q, active=True)[:5]:
+            suggestions.append({
+                "name": proj.project_name,
+                "locality": proj.locality.title if proj.locality else "",
+                "city": proj.city.title if proj.city else "",
+                "type": "Commercial Project",
+                "url": f"/commercial/{proj.slug}/"
+            })
+
+    return JsonResponse(suggestions, safe=False)

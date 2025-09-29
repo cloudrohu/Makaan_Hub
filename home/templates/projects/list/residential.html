@@ -314,6 +314,30 @@
 		<div class="row">
 			<div class="col-lg-4 col-xl-4">
 				<div class="sidebar_listing_grid1 dn-991">
+
+					<div class="terms_condition_widget">
+					<div class="sidebar_feature_property_slider">
+						{% for rs in project_featured %}
+						<div class="item">
+						<a href="{{ rs.get_absolute_url }}" class="text-decoration-none">
+							<div class="feat_property home7">
+							<div class="thumb">
+								<img class="img-whp" 
+									src="{% if rs.image %}{{ rs.image.url }}{% else %}{% static 'images/no-image-available.jpg' %}{% endif %}" 
+									alt="{{ rs.project_name }}">
+								<div class="thmb_cntnt">
+								
+								<h4 class="posr color-white font-bold text-lg mb-1">{{ rs.project_name }}</h4>
+								<p class="text-white text-sm">  {{ rs.locality }} -- {{ rs.city }}</p>
+								</div>
+							</div>
+							</div>
+						</a>
+						</div>
+						{% endfor %}
+					</div>
+					</div>
+
 					<div class="sidebar_listing_list">
 						<div class="sidebar_advanced_search_widget">
 							<ul class="sasw_list mb0">
@@ -561,30 +585,11 @@
 								</li>
 							</ul>
 						</div>
-					</div>
-					<div class="terms_condition_widget">
-					<h4 class="title">Featured Properties</h4>
-					<div class="sidebar_feature_property_slider">
-						{% for rs in project_featured %}
-						<div class="item">
-						<a href="{{ rs.get_absolute_url }}" class="text-decoration-none">
-							<div class="feat_property home7">
-							<div class="thumb">
-								<img class="img-whp" 
-									src="{% if rs.image %}{{ rs.image.url }}{% else %}{% static 'images/no-image-available.jpg' %}{% endif %}" 
-									alt="{{ rs.project_name }}">
-								<div class="thmb_cntnt">
-								
-								<h4 class="posr color-white font-bold text-lg mb-1">{{ rs.project_name }}</h4>
-								<p class="text-white text-sm">  {{ rs.locality }} -- {{ rs.city }}</p>
-								</div>
-							</div>
-							</div>
-						</a>
-						</div>
-						{% endfor %}
-					</div>
-					</div>
+					</div>]
+
+					
+
+					
 					<div class="terms_condition_widget">
 						<h4 class="title">Categories Property</h4>
 						<div class="widget_list">

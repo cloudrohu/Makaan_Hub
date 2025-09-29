@@ -14,6 +14,7 @@ from utility.models import City,Locality,P_Amenities
 from multiselectfield import MultiSelectField
 from user.models import Developer
 
+
 # Residential Projects Start Here #
 
 class Residential(MPTTModel):    
@@ -112,9 +113,22 @@ class Residential(MPTTModel):
     class Meta:
         verbose_name_plural='1. Residential Project'
 
+
+
     def save(self, *args, **kwargs):
-        self.slug = slugify(self.project_name + ' ' + self.locality.title + ' ' + self.city.title)
-        super(Residential, self).save(*args, **kwargs)
+    # First save to generate ID if new
+        if not self.id:
+            super().save(*args, **kwargs)
+
+        # Slug banate time safe conversion
+        base_slug = slugify(f"{self.project_name} {self.locality} {self.city}")
+        new_slug = f"{base_slug}-{self.id}"
+
+        # Slug update only if changed
+        if self.slug != new_slug:
+            self.slug = new_slug
+            super().save(update_fields=['slug'])
+
 
     def image_tag(self):
         if self.image.url is not None:
@@ -128,7 +142,8 @@ class Residential(MPTTModel):
     
     def get_absolute_url(self):
         from django.urls import reverse
-        return reverse("residential_project", kwargs={'slug': self.slug})
+        return reverse("residential_project_details", kwargs={'id': self.id, 'slug': self.slug})
+
 
     def __str__(self):  # __str__ method elaborated later in
         full_path = [self.project_name]  # post.  use __unicode__ in place of

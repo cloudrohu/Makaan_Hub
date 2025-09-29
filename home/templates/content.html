@@ -1,528 +1,754 @@
-{% load static %}	
+
+
+
+{% load static %}
+
+{% load static %}
+
+<!-- HERO SECTION -->
+<section class="relative h-[65vh] w-full overflow-hidden">
+
+  <!-- Image as background -->
+  <img src="{% static 'main/images/hero/slid-1.jpg' %}" 
+       alt="Hero Background" 
+       class="absolute inset-0 w-full h-[600px] object-cover" />
+
+  <!-- Overlay -->
+
+  <!-- Content -->
+  <div class="relative z-10 flex flex-col items-center justify-center h-full text-center text-white px-4">
+    <h1 class="text-3xl md:text-5xl text-white font-bold mb-2">Find Your Dream Home</h1>
+    <p class="text-lg md:text-xl mb-6">Search properties, projects & builders across the city</p>
+
+    <!-- Search Box -->
+    <div class="bg-white rounded shadow-lg mt-8 w-full max-w-5xl overflow-hidden">
+      <div class="flex flex-col md:flex-row items-stretch">
+
+        <!-- Dropdown 1 -->
+        <select id="dropdown1" class="px-4 py-3 border-r border-gray-300 focus:outline-none text-gray-700">
+          <option value="new">New Projects</option>
+          <option value="residential">Residential</option>
+          <option value="commercial">Commercial</option>
+          <option value="land">Land / Plot</option>
+          <option value="pg">PG Co-Living</option>
+        </select>
+
+        <!-- Dropdown 2 (dynamic) -->
+        <select id="dropdown2" class="px-4 py-3 border-r border-gray-300 focus:outline-none text-gray-700">
+          <!-- pehle option automatic load hoga JS se -->
+        </select>
+
+        <!-- Input -->
+        <input id="searchInput" type="text" placeholder="Locality , Builder or Project Name" class="flex-1 px-4 py-3 focus:outline-none text-gray-700">
+
+        <!-- Advance Search Toggle -->
+        <button id="toggleAdvance" type="button" class="hidden md:flex items-center px-4 py-3 text-orange-600 font-medium hover:underline">
+          Advance Search
+        </button>
+
+        <!-- Search Button -->
+        <button id="searchBtn" type="button" 
+          class="bg-orange-500 hover:bg-orange-600 px-6 py-3 flex items-center justify-center text-white font-bold">
+          <i class="fas fa-search"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<script>
+  const dropdown1 = document.getElementById("dropdown1");
+  const dropdown2 = document.getElementById("dropdown2");
+  const searchBtn = document.getElementById("searchBtn");
+  const searchInput = document.getElementById("searchInput");
+
+  // Options mapping
+  const optionsMap = {
+    new: ["Residential", "Commercial"],
+    residential: ["Buy", "Rent"],
+    commercial: ["Buy", "Lease"],
+    land: ["Residential", "Commercial"],
+    pg: ["Single Room", "Shared Room", "With Food", "Without Food"]
+  };
+
+  // Function to update dropdown2
+  function updateDropdown2(selected) {
+    dropdown2.innerHTML = "";
+    if (optionsMap[selected]) {
+      optionsMap[selected].forEach(opt => {
+        const option = document.createElement("option");
+        option.value = opt.toLowerCase().replace(/\s+/g, "-");
+        option.textContent = opt;
+        dropdown2.appendChild(option);
+      });
+    }
+  }
+
+  // Default load
+  updateDropdown2(dropdown1.value);
+
+  // On change
+  dropdown1.addEventListener("change", function () {
+    updateDropdown2(this.value);
+  });
+
+  // Search Button Click
+  searchBtn.addEventListener("click", function () {
+    const d1 = dropdown1.value;
+    const d2 = dropdown2.options[dropdown2.selectedIndex].text; // exact text like "Commercial"
+    const query = searchInput.value.trim();
+
+    let targetUrl = "";
+
+    // ✅ Mapping for redirection
+    if (d1 === "new" && d2 === "Commercial") {
+      targetUrl = "{% url 'commercial_project' %}";
+    } 
+    else if (d1 === "new" && d2 === "Residential") {
+      targetUrl = "{% url 'residential_project' %}";
+    } 
+    else if (d1 === "residential" && d2 === "Buy") {
+      targetUrl = "{% url 'residential_project' %}";
+    } 
+    else if (d1 === "residential" && d2 === "Rent") {
+      targetUrl = "{% url 'residential_project' %}";
+    }
+    // Add aur cases yahan likh sakte ho...
+
+    // Agar query input diya hai to GET param ke sath bhejo
+    if (query) {
+      targetUrl += "?q=" + encodeURIComponent(query);
+    }
+
+    // Redirect
+    if (targetUrl) {
+      window.location.href = targetUrl;
+    } else {
+      alert("Please select valid search options.");
+    }
+  });
+</script>
 
 
 
 
 
-
-<!-- 4th Home Slider -->
-<div class="home-four wrapper" style="margin: -5px;">
-	<div class="container-fluid p0">
-		<div class="row">
-			<div class="col-lg-12">
-				<div class="main-banner-wrapper">
-					<div class="banner-style-one owl-theme owl-carousel">
-						{% for rs in slider %}
-						<div class="slide slide-one" style="background-image: url({% if rs.image %}{{ rs.image.url }}{% else %}{% static 'images/no-image-available.jpg' %}{% endif %});height: 800px;"></div>
-						{% endfor %}
-						
-					</div>
-					<div class="carousel-btn-block banner-carousel-btn">
-						<span class="carousel-btn left-btn"><i class="flaticon-left-arrow-1 left"></i></span>
-						<span class="carousel-btn right-btn"><i class="flaticon-right-arrow right"></i></span>
-					</div><!-- /.carousel-btn-block banner-carousel-btn -->
-				</div><!-- /.main-banner-wrapper -->
-			</div>
-		</div>
-	</div>
-	
-	
-
-</div>
-<!-- 4th Home Slider End Here -->
+	<!-- Swiper CSS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css" />
 
 
+<!-- FEATURED PROJECTS SECTION -->
+  <section class="py-12 bg-gray-50">
+    <div class="max-w-7xl mx-auto px-4">
+      <!-- Title -->
+      <h2 class="text-2xl font-bold text-center mb-8 text-orange-500">FEATURED PROJECTS</h2>
+
+      <!-- ✅ Swiper Container -->
+      <div class="swiper mySwiper">
+        <div class="swiper-wrapper">
+
+          
+          
+          {% for rs in project_featured %}
+		  <!-- ✅ Property Card 1 -->
+              <div class="swiper-slide ">
+                <div class="bg-white shadow-lg border-2 hover:border-orange-200 overflow-hidden hover:shadow-orange-900 transition duration-300">
+                  <div class="relative group">
+                    <img src="{{rs.image.url}}" class="w-full h-56 object-cover">
+                    <span class="absolute top-3 left-3 bg-orange-500 text-white text-xs px-2 py-1 rounded">{{rs.propert_type}}</span>
+                    <span class="absolute bottom-3 right-3 bg-black text-white text-xs px-3 py-1 rounded">FOR RENT</span>
+                    <div class="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center gap-4 opacity-0 group-hover:opacity-100 transition">
+                      <a href="{{ rs.get_absolute_url }}" class="bg-white p-3 rounded-full shadow hover:bg-orange-500 hover:text-white"><i class="fas fa-link"></i></a>
+                      <a href="{{ rs.get_absolute_url }}" class="bg-white p-3 rounded-full shadow hover:bg-orange-500 hover:text-white"><i class="fas fa-video"></i></a>
+                    </div>
+                  </div>
+                  <div class="p-4">
+                    <a href="{{ rs.get_absolute_url }} ">
+                      <p class="text-lg text-slate-600 font-bold" style="scroll-behavior: smooth;">{{rs.project_name}}</p>
+                    </a>
+                    <h3 class="text-orange-600 font-semibold mt-1 mb-1">800 Sq.Ft. 2 BHK Residential Apartment</h3>
+                    <p class="text-gray-800 font-bold">₹75.00 Th</p>
+                    <p class="text-sm text-gray-600 mt-1"><i class="fas fa-map-marker-alt text-orange-500"></i> {{ rs.locality }}, {{ rs.city }}</p>
+                    <div class="flex justify-between text-xs text-gray-600 mt-2">
+                      <div><strong>AREA</strong><br>800 Sq.Ft.</div>
+                      <div><strong>STATUS</strong><br>Available</div>
+                      <div><strong>TRANSACTION</strong><br>New</div>
+                    </div>
+                    <div class="flex items-center gap-2 mt-3">
+                      <img src="{{rs.developer.image.url}}" class="h-14 w-14 rounded-full border">
+                    <a href="{{ rs.get_absolute_url }}">
+                      <p class="text-sm text-green-600 font-medium">{{rs.developer}}</p>
+                    </a>
+                    </div>
+                  </div>
+                 <div class="bg-orange-500 text-center h-12 flex items-center justify-center">
+                    <a href="{{ rs.get_absolute_url }}" 
+                      class="text-white font-bold w-full py-3 uppercase block">
+                      See Details
+                    </a>
+                  </div>
+
+                </div>
+              </div>
+              {% endfor %}
+        </div>
+      </div>
+
+      <!-- ✅ Pagination outside -->
+      <div class="swiper-pagination mt-6"></div>
+
+      <!-- ✅ Navigation Arrows -->
+      <div class="swiper-button-prev text-orange-500"></div>
+      <div class="swiper-button-next text-orange-500"></div>
+    </div>
+  </section>
+
+  <!-- Swiper JS -->
+  <script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
+  <script>
+    var swiper = new Swiper(".mySwiper", {
+      slidesPerView: 1,
+      spaceBetween: 20,
+      loop: true,
+      pagination: {
+        el: ".swiper-pagination",
+        clickable: true,
+      },
+      navigation: {
+        nextEl: ".swiper-button-next",
+        prevEl: ".swiper-button-prev",
+      },
+      breakpoints: {
+        768: { slidesPerView: 2 },   // Tablet
+        1024: { slidesPerView: 3 },  // Desktop
+      },
+    });
+  </script>
 
 
+<!-- RECENTLY ADDED PROPERTIES -->
+<section class="py-12" data-aos="fade-up">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6">
+    
+    <!-- Title -->
+    <h2 class="text-2xl sm:text-3xl font-extrabold text-center mb-8 text-orange-600 uppercase">
+      Recently Added Properties
+    </h2>
 
-	
+    <!-- Tabs -->
+    <div class="flex flex-wrap justify-center mb-8 gap-3">
+      <button data-tab="buy" class="tab-btn active px-6 py-2 rounded-full font-semibold shadow transition">
+        Buy
+      </button>
+      <button data-tab="rent" class="tab-btn bg-gray-200 text-gray-800 px-6 py-2 rounded-full font-semibold hover:bg-orange-200 transition">
+        Rent
+      </button>
+    </div>
 
+    <!-- BUY TAB -->
+    <div id="buy" class="tab-content">
+      <div class="swiper mySwiper">
+        <div class="swiper-wrapper">
+          
+          <!-- Card 1 -->
+          <div class="swiper-slide bg-white shadow-lg rounded overflow-hidden border-t-4 border-orange-500 hover:shadow-xl transition">
+            <div class="relative">
+              <img src="https://dummyimage.com/400x250/cccccc/000000&text=Buy+1" class="w-full h-48 object-cover">
+              <span class="absolute top-3 left-3 bg-orange-500 text-white text-xs px-3 py-1 rounded">FEATURED</span>
+              <span class="absolute bottom-3 right-3 bg-black text-white text-xs px-3 py-1 rounded">Residential</span>
+            </div>
+            <div class="p-4">
+              <p class="text-lg font-bold text-gray-700">Sunshine Residency</p>
+              <h3 class="text-orange-600 font-semibold mt-1 mb-1">2 BHK Luxury Apartment</h3>
+              <p class="text-gray-800 font-bold">₹80 Lakh</p>
+              <p class="text-sm text-gray-600 mt-1"><i class="fas fa-map-marker-alt text-orange-500"></i> Andheri (West), Mumbai</p>
+              <div class="grid grid-cols-2 gap-3 text-xs text-gray-600 mt-3">
+                <div><strong>Area</strong><br>800 Sq.Ft.</div>
+                <div><strong>Status</strong><br>Available</div>
+                <div><strong>Transaction</strong><br>New</div>
+                <div><strong>Type</strong><br>Residential</div>
+              </div>
+              <div class="flex items-center gap-2 mt-3">
+                <img src="https://dummyimage.com/40x40/ffa500/fff&text=D" class="h-10 w-10 rounded-full border">
+                <p class="text-sm text-green-600 font-medium">Malhotra Developers</p>
+              </div>
+            </div>
+            <div class="bg-orange-500 text-center">
+              <button class="text-white font-bold w-full py-3 uppercase">See Details</button>
+            </div>
+          </div>
 
+          <!-- Card 2 -->
+          <div class="swiper-slide bg-white shadow-lg rounded overflow-hidden border-t-4 border-orange-500 hover:shadow-xl transition">
+            <div class="relative">
+              <img src="https://dummyimage.com/400x250/cccccc/000000&text=Buy+2" class="w-full h-48 object-cover">
+              <span class="absolute top-3 left-3 bg-orange-500 text-white text-xs px-3 py-1 rounded">FEATURED</span>
+              <span class="absolute bottom-3 right-3 bg-black text-white text-xs px-3 py-1 rounded">Residential</span>
+            </div>
+            <div class="p-4">
+              <p class="text-lg font-bold text-gray-700">Greenwood Towers</p>
+              <h3 class="text-orange-600 font-semibold mt-1 mb-1">3 BHK Apartment</h3>
+              <p class="text-gray-800 font-bold">₹1.2 Cr</p>
+              <p class="text-sm text-gray-600 mt-1"><i class="fas fa-map-marker-alt text-orange-500"></i> Goregaon (East), Mumbai</p>
+            </div>
+            <div class="bg-orange-500 text-center">
+              <button class="text-white font-bold w-full py-3 uppercase">See Details</button>
+            </div>
+          </div>
 
-<!-- Feature Locality Start Here -->
-	<section class="bg-white py-10 px-4 sm:px-8">
-		<div class="max-w-[1700px] mx-auto">
-			<h2 class="text-xl font-medium text-gray-700 mb-10">Featured Locality</h2>
+          <!-- Card 3 -->
+          <div class="swiper-slide bg-white shadow-lg rounded overflow-hidden border-t-4 border-orange-500 hover:shadow-xl transition">
+            <div class="relative">
+              <img src="https://dummyimage.com/400x250/cccccc/000000&text=Buy+3" class="w-full h-48 object-cover">
+              <span class="absolute top-3 left-3 bg-orange-500 text-white text-xs px-3 py-1 rounded">FEATURED</span>
+              <span class="absolute bottom-3 right-3 bg-black text-white text-xs px-3 py-1 rounded">Residential</span>
+            </div>
+            <div class="p-4">
+              <p class="text-lg font-bold text-gray-700">Palm Residency</p>
+              <h3 class="text-orange-600 font-semibold mt-1 mb-1">2 BHK Flat</h3>
+              <p class="text-gray-800 font-bold">₹95 Lakh</p>
+              <p class="text-sm text-gray-600 mt-1"><i class="fas fa-map-marker-alt text-orange-500"></i> Kandivali, Mumbai</p>
+            </div>
+            <div class="bg-orange-500 text-center">
+              <button class="text-white font-bold w-full py-3 uppercase">See Details</button>
+            </div>
+          </div>
 
-			
-			<div id="dev-scroll"
-				class="flex gap-8 overflow-x-auto scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100 snap-x pb-6"
-				style="scrollbar-color:#e5e7eb #f3f4f6; scrollbar-width:thin;">
-				{% for rs in featured_locality %}
-				
-				<div class="flex flex-col items-center w-64 flex-shrink-0 bg-white shadow-lg rounded-2xl py-6 px-4 snap-start transition hover:shadow-2xl hover:bg-blue-50 duration-200">
-					<div class="h-40 w-60 flex items-center justify-center mb-4 rounded-xl bg-gray-20 shadow border border-gray-20 overflow-hidden">
-					<img src="{% if rs.image %}{{ rs.image.url }}{% else %}{% static 'main/images/home/no-image-available.png' %}{% endif %}" alt="{{rs.title}}"
-						class="object-cover h-full w-full rounded-xl" />
-					</div>
-					<div class="text-center mb-2">
-					<div class="font-semibold text-lg text-gray-900 truncate w-56">{{rs.title}}</div>
-					<div class="text-gray-500 text-base">{{rs.city}}</div>
-					
-					</div>
-					<a href="#" class="mt-5 inline-block bg-blue-600 text-white font-semibold py-2 px-7 rounded-full text-base hover:bg-blue-700 shadow transition text-center">
-					View Locality
-					</a>
-				</div>
-				{% endfor %}
-			</div>
-		</div>
-	</section>
-<!-- Find Properties In the Locality End Here -->
+          <!-- Card 1 -->
+          <div class="swiper-slide bg-white shadow-lg rounded overflow-hidden border-t-4 border-orange-500 hover:shadow-xl transition">
+            <div class="relative">
+              <img src="https://dummyimage.com/400x250/cccccc/000000&text=Buy+1" class="w-full h-48 object-cover">
+              <span class="absolute top-3 left-3 bg-orange-500 text-white text-xs px-3 py-1 rounded">FEATURED</span>
+              <span class="absolute bottom-3 right-3 bg-black text-white text-xs px-3 py-1 rounded">Residential</span>
+            </div>
+            <div class="p-4">
+              <p class="text-lg font-bold text-gray-700">Sunshine Residency</p>
+              <h3 class="text-orange-600 font-semibold mt-1 mb-1">2 BHK Luxury Apartment</h3>
+              <p class="text-gray-800 font-bold">₹80 Lakh</p>
+              <p class="text-sm text-gray-600 mt-1"><i class="fas fa-map-marker-alt text-orange-500"></i> Andheri (West), Mumbai</p>
+              <div class="grid grid-cols-2 gap-3 text-xs text-gray-600 mt-3">
+                <div><strong>Area</strong><br>800 Sq.Ft.</div>
+                <div><strong>Status</strong><br>Available</div>
+                <div><strong>Transaction</strong><br>New</div>
+                <div><strong>Type</strong><br>Residential</div>
+              </div>
+              <div class="flex items-center gap-2 mt-3">
+                <img src="https://dummyimage.com/40x40/ffa500/fff&text=D" class="h-10 w-10 rounded-full border">
+                <p class="text-sm text-green-600 font-medium">Malhotra Developers</p>
+              </div>
+            </div>
+            <div class="bg-orange-500 text-center">
+              <button class="text-white font-bold w-full py-3 uppercase">See Details</button>
+            </div>
+          </div>
 
+          <!-- Card 2 -->
+          <div class="swiper-slide bg-white shadow-lg rounded overflow-hidden border-t-4 border-orange-500 hover:shadow-xl transition">
+            <div class="relative">
+              <img src="https://dummyimage.com/400x250/cccccc/000000&text=Buy+2" class="w-full h-48 object-cover">
+              <span class="absolute top-3 left-3 bg-orange-500 text-white text-xs px-3 py-1 rounded">FEATURED</span>
+              <span class="absolute bottom-3 right-3 bg-black text-white text-xs px-3 py-1 rounded">Residential</span>
+            </div>
+            <div class="p-4">
+              <p class="text-lg font-bold text-gray-700">Greenwood Towers</p>
+              <h3 class="text-orange-600 font-semibold mt-1 mb-1">3 BHK Apartment</h3>
+              <p class="text-gray-800 font-bold">₹1.2 Cr</p>
+              <p class="text-sm text-gray-600 mt-1"><i class="fas fa-map-marker-alt text-orange-500"></i> Goregaon (East), Mumbai</p>
+            </div>
+            <div class="bg-orange-500 text-center">
+              <button class="text-white font-bold w-full py-3 uppercase">See Details</button>
+            </div>
+          </div>
 
+          <!-- Card 3 -->
+          <div class="swiper-slide bg-white shadow-lg rounded overflow-hidden border-t-4 border-orange-500 hover:shadow-xl transition">
+            <div class="relative">
+              <img src="https://dummyimage.com/400x250/cccccc/000000&text=Buy+3" class="w-full h-48 object-cover">
+              <span class="absolute top-3 left-3 bg-orange-500 text-white text-xs px-3 py-1 rounded">FEATURED</span>
+              <span class="absolute bottom-3 right-3 bg-black text-white text-xs px-3 py-1 rounded">Residential</span>
+            </div>
+            <div class="p-4">
+              <p class="text-lg font-bold text-gray-700">Palm Residency</p>
+              <h3 class="text-orange-600 font-semibold mt-1 mb-1">2 BHK Flat</h3>
+              <p class="text-gray-800 font-bold">₹95 Lakh</p>
+              <p class="text-sm text-gray-600 mt-1"><i class="fas fa-map-marker-alt text-orange-500"></i> Kandivali, Mumbai</p>
+            </div>
+            <div class="bg-orange-500 text-center">
+              <button class="text-white font-bold w-full py-3 uppercase">See Details</button>
+            </div>
+          </div>
 
-	<!-- Whatare you looking for -->
-	<section class="you-looking-for" style="background-image: url('{% static 'main/images/1.' %}');">
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-6 offset-lg-3">
-					<div class="main-title text-center mb30">
-						<h2>What are you looking for?</h2>
-						<p>We provide full service at every step.</p>
-					</div>
-				</div>
-			</div>
-		</div>
-	</section>
+        </div>
+        <div class="swiper-pagination"></div>
+        <div class="swiper-button-prev"></div>
+        <div class="swiper-button-next"></div>
+      </div>
+    </div>
 
-	<section id="property-city" class="property-city pb30 pr-14 pl-14">
-		<div class="container">
-			<div class="row features_row">
-				<div class="col-sm-6 col-lg-3 col-xl-3 p0 ">
-					<div class="why_chose_us home6">
-						<div class="icon">
-							<span class="flaticon-building"></span>
-						</div>
-						<div class="details">
-							<h4>Residential Apartments</h4>
-							<p>Discover thoughtfully designed residential spaces that blend comfort, functionality, and style—crafted to create a perfect home for your family.</p>
-						</div>
-					</div>
-				</div>
-				<div class="col-sm-6 col-lg-3 col-xl-3 p0">
-					<div class="why_chose_us home6">
-						<div class="icon">
-							<span class="flaticon-house"></span>
-						</div>
-						<div class="details">
-							<h4>Family Houses</h4>
-							<p>Warm and welcoming family homes designed with spacious layouts and modern amenities, making everyday living comfortable and special.</p>
-						</div>
-					</div>
-				</div>
-				<div class="col-sm-6 col-lg-3 col-xl-3 p0">
-					<div class="why_chose_us home6">
-						<div class="icon">
-							<span class="flaticon-house"></span>
-						</div>
-						<div class="details">
-							<h4>Girls And Boys Pg</h4>
-						<p>Comfortable and affordable PG accommodations offering essential amenities, safety, and a friendly environment for students and professionals.</p>
+    <!-- RENT TAB -->
+    <div id="rent" class="tab-content hidden">
+      <div class="swiper mySwiper">
+        <div class="swiper-wrapper">
+          
+          <!-- Rent Card -->
+          <div class="swiper-slide bg-white shadow-lg rounded overflow-hidden border-t-4 border-orange-500 hover:shadow-xl transition">
+            <div class="relative">
+              <img src="https://dummyimage.com/400x250/cccccc/000000&text=Rent+1" class="w-full h-48 object-cover">
+              <span class="absolute top-3 left-3 bg-orange-500 text-white text-xs px-3 py-1 rounded">RENT</span>
+              <span class="absolute bottom-3 right-3 bg-black text-white text-xs px-3 py-1 rounded">Residential</span>
+            </div>
+            <div class="p-4">
+              <p class="text-lg font-bold text-gray-700">Blue Pearl Residency</p>
+              <h3 class="text-orange-600 font-semibold mt-1 mb-1">2 BHK Flat in Bandra</h3>
+              <p class="text-gray-800 font-bold">₹40,000 /mo</p>
+              <p class="text-sm text-gray-600 mt-1"><i class="fas fa-map-marker-alt text-orange-500"></i> Bandra, Mumbai</p>
+            </div>
+            <div class="bg-orange-500 text-center">
+              <button class="text-white font-bold w-full py-3 uppercase">See Details</button>
+            </div>
+          </div>
 
-						</div>
-					</div>
-				</div>
-				<div class="col-sm-6 col-lg-3 col-xl-3 p0">
-					<div class="why_chose_us home6 bdrrn">
-						<div class="icon">
-							<span class="flaticon-building"></span>
-						</div>
-						<div class="details">
-							<h4>Commercial Retails And Shops</h4>
-							<p>Premium retail spaces strategically located to maximize footfall and give your business the visibility it deserves.</p>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</section>
+          <!-- Card 1 -->
+          <div class="swiper-slide bg-white shadow-lg rounded overflow-hidden border-t-4 border-orange-500 hover:shadow-xl transition">
+            <div class="relative">
+              <img src="https://dummyimage.com/400x250/cccccc/000000&text=Buy+1" class="w-full h-48 object-cover">
+              <span class="absolute top-3 left-3 bg-orange-500 text-white text-xs px-3 py-1 rounded">FEATURED</span>
+              <span class="absolute bottom-3 right-3 bg-black text-white text-xs px-3 py-1 rounded">Residential</span>
+            </div>
+            <div class="p-4">
+              <p class="text-lg font-bold text-gray-700">Sunshine Residency</p>
+              <h3 class="text-orange-600 font-semibold mt-1 mb-1">2 BHK Luxury Apartment</h3>
+              <p class="text-gray-800 font-bold">₹80 Lakh</p>
+              <p class="text-sm text-gray-600 mt-1"><i class="fas fa-map-marker-alt text-orange-500"></i> Andheri (West), Mumbai</p>
+              <div class="grid grid-cols-2 gap-3 text-xs text-gray-600 mt-3">
+                <div><strong>Area</strong><br>800 Sq.Ft.</div>
+                <div><strong>Status</strong><br>Available</div>
+                <div><strong>Transaction</strong><br>New</div>
+                <div><strong>Type</strong><br>Residential</div>
+              </div>
+              <div class="flex items-center gap-2 mt-3">
+                <img src="https://dummyimage.com/40x40/ffa500/fff&text=D" class="h-10 w-10 rounded-full border">
+                <p class="text-sm text-green-600 font-medium">Malhotra Developers</p>
+              </div>
+            </div>
+            <div class="bg-orange-500 text-center">
+              <button class="text-white font-bold w-full py-3 uppercase">See Details</button>
+            </div>
+          </div>
 
-	<!-- Feature Locality Start Here End-->
+          <!-- Card 2 -->
+          <div class="swiper-slide bg-white shadow-lg rounded overflow-hidden border-t-4 border-orange-500 hover:shadow-xl transition">
+            <div class="relative">
+              <img src="https://dummyimage.com/400x250/cccccc/000000&text=Buy+2" class="w-full h-48 object-cover">
+              <span class="absolute top-3 left-3 bg-orange-500 text-white text-xs px-3 py-1 rounded">FEATURED</span>
+              <span class="absolute bottom-3 right-3 bg-black text-white text-xs px-3 py-1 rounded">Residential</span>
+            </div>
+            <div class="p-4">
+              <p class="text-lg font-bold text-gray-700">Greenwood Towers</p>
+              <h3 class="text-orange-600 font-semibold mt-1 mb-1">3 BHK Apartment</h3>
+              <p class="text-gray-800 font-bold">₹1.2 Cr</p>
+              <p class="text-sm text-gray-600 mt-1"><i class="fas fa-map-marker-alt text-orange-500"></i> Goregaon (East), Mumbai</p>
+            </div>
+            <div class="bg-orange-500 text-center">
+              <button class="text-white font-bold w-full py-3 uppercase">See Details</button>
+            </div>
+          </div>
 
+          <!-- Card 3 -->
+          <div class="swiper-slide bg-white shadow-lg rounded overflow-hidden border-t-4 border-orange-500 hover:shadow-xl transition">
+            <div class="relative">
+              <img src="https://dummyimage.com/400x250/cccccc/000000&text=Buy+3" class="w-full h-48 object-cover">
+              <span class="absolute top-3 left-3 bg-orange-500 text-white text-xs px-3 py-1 rounded">FEATURED</span>
+              <span class="absolute bottom-3 right-3 bg-black text-white text-xs px-3 py-1 rounded">Residential</span>
+            </div>
+            <div class="p-4">
+              <p class="text-lg font-bold text-gray-700">Palm Residency</p>
+              <h3 class="text-orange-600 font-semibold mt-1 mb-1">2 BHK Flat</h3>
+              <p class="text-gray-800 font-bold">₹95 Lakh</p>
+              <p class="text-sm text-gray-600 mt-1"><i class="fas fa-map-marker-alt text-orange-500"></i> Kandivali, Mumbai</p>
+            </div>
+            <div class="bg-orange-500 text-center">
+              <button class="text-white font-bold w-full py-3 uppercase">See Details</button>
+            </div>
+          </div>
 
-
-
-
-<!-- Commercial Projects Start -->
-<section class="bg-gray-100 py-10 px-4">
-  <div class="max-w-7xl mx-auto">
-    <h2 class="text-3xl font-bold text-gray-800 mb-6">Commercial Projects</h2>
-
-    <div class="overflow-x-auto">
-  <div class="flex gap-6 w-max px-4 py-4">
-    {% for rs in commercia_featured %}
-	<a href="{% url 'commercial_project_details' slug=rs.slug %}"
-	class="block min-w-[320px] max-w-[320px] bg-white shadow rounded-lg overflow-hidden hover:shadow-lg transition">
-	<div class="relative">
-		<img class="w-full h-[200px] object-cover"
-			src="{% if rs.image %}{{ rs.image.url }}{% else %}{% static 'main/images/home/no-image-available.png' %}{% endif %}"
-			alt="{{ rs.project_name }}">
-		<div class="absolute bottom-0 left-0 right-0 bg-black/60 text-white px-3 py-2">
-		<div class="flex items-center justify-between text-sm">
-			<div class="flex gap-2">
-			<span class="flaticon-transfer-1"></span>
-			<span class="flaticon-heart"></span>
-			</div>
-			<span class="bg-white text-black px-2 py-1 rounded">₹ {{ rs.priceing }}</span>
-		</div>
-		</div>
-	</div>
-
-	<div class="p-4">
-		<p class="text-red-600 text-sm font-medium mb-1">{{ rs.propert_type }}</p>
-		<h3 class="text-lg font-bold leading-tight mb-1">{{ rs.project_name }}</h3>
-		<p class="text-gray-600 text-sm"><i class="flaticon-placeholder"></i> {{ rs.locality }} – {{ rs.city }}</p>
-
-		<div class="flex items-center justify-between mt-4 border-t pt-3">
-		<div class="flex items-center gap-2">
-			<img src="{% if rs.image %}{{ rs.image.url }}{% else %}{% static 'main/images/home/no-image-available.png' %}{% endif %}"
-				alt="{{ rs.developer }}" class="w-10 h-10 rounded-full border">
-			<span class="text-sm font-medium text-gray-800">{{ rs.developer }}</span>
-		</div>
-		<div class="text-xs text-gray-500">
-			<div>Possession:</div>
-			<div class="font-semibold">{{ rs.possession }}</div>
-		</div>
-		</div>
-
-		<span class="mt-4 block w-full text-center bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition">
-		View Details
-		</span>
-	</div>
-	</a>
-	{% endfor %}
-
-	</div>
-	</div>
+        </div>
+        <div class="swiper-pagination"></div>
+        <div class="swiper-button-prev"></div>
+        <div class="swiper-button-next"></div>
+      </div>
+    </div>
 
   </div>
 </section>
-<!-- Commercial Projects End -->
 
-
+<!-- Swiper JS -->
 <script>
-	const scrollDiv = document.getElementById('commercialScroll');
-	const btnLeft = document.getElementById('scrollLeft');
-	const btnRight = document.getElementById('scrollRight');
+  // Swiper Init
+  function initSwiper() {
+    document.querySelectorAll(".mySwiper").forEach(swiperEl => {
+      new Swiper(swiperEl, {
+        slidesPerView: 1,
+        spaceBetween: 20,
+        loop: true,
+        pagination: {
+          el: swiperEl.querySelector(".swiper-pagination"),
+          clickable: true,
+        },
+        navigation: {
+          nextEl: swiperEl.querySelector(".swiper-button-next"),
+          prevEl: swiperEl.querySelector(".swiper-button-prev"),
+        },
+        breakpoints: {
+          768: { slidesPerView: 2 },
+          1024: { slidesPerView: 3 },
+        },
+      });
+    });
+  }
+  initSwiper();
 
-	function updateBtns() {
-	if (!scrollDiv) return;
-	btnLeft.disabled = scrollDiv.scrollLeft < 50;
-	btnRight.disabled = scrollDiv.scrollLeft + scrollDiv.clientWidth > scrollDiv.scrollWidth - 50;
-	}
-	if(btnLeft && btnRight && scrollDiv) {
-	btnLeft.onclick = () => { scrollDiv.scrollBy({left: -340, behavior: "smooth"}); setTimeout(updateBtns, 300);}
-	btnRight.onclick = () => { scrollDiv.scrollBy({left: 340, behavior: "smooth"}); setTimeout(updateBtns, 300);}
-	scrollDiv.addEventListener('scroll', updateBtns);
-	setTimeout(updateBtns, 100);
-	}
+  // Tabs functionality
+  document.querySelectorAll(".tab-btn").forEach(btn => {
+    btn.addEventListener("click", function () {
+      document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
+      this.classList.add("active");
+
+      document.querySelectorAll(".tab-content").forEach(tab => tab.classList.add("hidden"));
+      document.getElementById(this.dataset.tab).classList.remove("hidden");
+    });
+  });
 </script>
 
+<!-- HERO -->
+<section class="relative bg-cover bg-center h-[80vh]" style="background-image:url('https://dummyimage.com/1600x700/cccccc/000&text=Real+Estate+Hero');">
+  <div class="bg-black/50 absolute inset-0"></div>
+  <div class="relative z-10 flex items-center justify-center h-full text-center text-white px-4">
+    <div>
+      <h1 class="text-4xl sm:text-5xl font-bold">Find Your Dream Property</h1>
+      <p class="mt-4 text-lg">Residential • Commercial • Luxury Apartments</p>
+      <button class="mt-6 bg-orange-500 hover:bg-orange-600 px-6 py-3 rounded-full font-semibold">Get Started</button>
+    </div>
+  </div>
+</section>
 
-<!-- Commercial Projects End -->
+<!-- ABOUT -->
+<section class="py-16 bg-white" id="about">
+  <div class="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-8 items-center">
+    <img src="https://dummyimage.com/600x400/aaaaaa/fff&text=About+Us" class="rounded-lg shadow" />
+    <div>
+      <h2 class="text-3xl font-bold text-orange-600 mb-4">About Us</h2>
+      <p class="text-gray-700 leading-relaxed">We are a trusted real estate agency with 15+ years of experience helping clients buy, sell, and rent properties across prime locations. Our team ensures transparency, trust, and customer-first approach.</p>
+      <button class="mt-6 bg-orange-500 hover:bg-orange-600 text-white px-5 py-2 rounded">Learn More</button>
+    </div>
+  </div>
+</section>
 
-<!-- Mouse drag scroll JS (copy once if not already added) -->
-<script>
-	const scrollLoc = document.getElementById('locality-scroll');
-	let isDownL = false, startXL, scrollLeftL;
-	scrollLoc.addEventListener('mousedown', (e) => {
-	isDownL = true;
-	scrollLoc.style.cursor = 'grabbing';
-	startXL = e.pageX - scrollLoc.offsetLeft;
-	scrollLeftL = scrollLoc.scrollLeft;
-	});
-	scrollLoc.addEventListener('mouseleave', () => {
-	isDownL = false;
-	scrollLoc.style.cursor = 'grab';
-	});
-	scrollLoc.addEventListener('mouseup', () => {
-	isDownL = false;
-	scrollLoc.style.cursor = 'grab';
-	});
-	scrollLoc.addEventListener('mousemove', (e) => {
-	if (!isDownL) return;
-	e.preventDefault();
-	const x = e.pageX - scrollLoc.offsetLeft;
-	const walk = (x - startXL) * 2;
-	scrollLoc.scrollLeft = scrollLeftL - walk;
-	});
-</script>
+<!-- USP -->
+<section class="py-16 bg-gray-100" id="usp">
+  <div class="max-w-7xl mx-auto px-6 text-center">
+    <h2 class="text-3xl font-bold text-orange-600 mb-10">Our USP</h2>
+    <div class="grid sm:grid-cols-2 md:grid-cols-4 gap-6">
+      <div class="bg-white shadow p-6 rounded">
+        <h3 class="font-bold text-lg mb-2">Trusted Agents</h3>
+        <p>Our certified experts guide you with every step.</p>
+      </div>
+      <div class="bg-white shadow p-6 rounded">
+        <h3 class="font-bold text-lg mb-2">Prime Locations</h3>
+        <p>Exclusive properties in top cities.</p>
+      </div>
+      <div class="bg-white shadow p-6 rounded">
+        <h3 class="font-bold text-lg mb-2">Best Deals</h3>
+        <p>We ensure best value for your investment.</p>
+      </div>
+      <div class="bg-white shadow p-6 rounded">
+        <h3 class="font-bold text-lg mb-2">Full Support</h3>
+        <p>End-to-end property management services.</p>
+      </div>
+    </div>
+  </div>
+</section>
 
+<!-- SERVICES -->
+<section class="py-16 bg-white" id="services">
+  <div class="max-w-7xl mx-auto px-6">
+    <h2 class="text-3xl font-bold text-center text-orange-600 mb-10">Our Services</h2>
+    <div class="grid md:grid-cols-3 gap-6">
+      <div class="p-6 bg-gray-100 rounded shadow hover:shadow-lg">
+        <h3 class="font-bold mb-2">Buy Property</h3>
+        <p>Get access to best buying options across India.</p>
+      </div>
+      <div class="p-6 bg-gray-100 rounded shadow hover:shadow-lg">
+        <h3 class="font-bold mb-2">Sell Property</h3>
+        <p>List and sell faster with our digital marketing.</p>
+      </div>
+      <div class="p-6 bg-gray-100 rounded shadow hover:shadow-lg">
+        <h3 class="font-bold mb-2">Rent / Lease</h3>
+        <p>Find tenants or rental homes with ease.</p>
+      </div>
+    </div>
+  </div>
+</section>
 
+<!-- FEATURED PROJECTS -->
+<section class="py-16 bg-gray-100" id="projects">
+  <div class="max-w-7xl mx-auto px-6">
+    <h2 class="text-3xl font-bold text-center text-orange-600 mb-10">Featured Properties</h2>
+    <div class="swiper mySwiper">
+      <div class="swiper-wrapper">
+        <div class="swiper-slide bg-white rounded shadow p-4">Property 1</div>
+        <div class="swiper-slide bg-white rounded shadow p-4">Property 2</div>
+        <div class="swiper-slide bg-white rounded shadow p-4">Property 3</div>
+      </div>
+      <div class="swiper-pagination"></div>
+      <div class="swiper-button-prev text-orange-500"></div>
+      <div class="swiper-button-next text-orange-500"></div>
+    </div>
+  </div>
+</section>
 
-	<!-- Our Blog -->
-	<section class="our-blog bgc-f7 pb30">
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-6 offset-lg-3">
-					<div class="main-title text-center">
-						<h2>Articles & Tips</h2>
-					</div>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-md-6 col-lg-4 col-xl-4">
-					<div class="for_blog feat_property">
-						<div class="thumb">
-							<img class="img-whp" src="{% static '' %}main/images/blog/bh1.jpg" alt="bh1.jpg">
-						</div>
-						<div class="details">
-							<div class="tc_content">
-								<p class="text-thm">Business</p>
-								<h4>Biggest Home in the Hollywood Hills Sells for an Equally</h4>
-							</div>
-							<div class="fp_footer">
-								<ul class="fp_meta float-left mb0">
-									<li class="list-inline-item"><a href="#"><img src="{% static '' %}main/images/property/pposter1.png" alt="pposter1.png"></a></li>
-									<li class="list-inline-item"><a href="#">Ali Tufan</a></li>
-								</ul>
-								<a class="fp_pdate float-right" href="#">7 August 2019</a>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="col-md-6 col-lg-4 col-xl-4">
-					<div class="for_blog feat_property">
-						<div class="thumb">
-							<img class="img-whp" src="{% static '' %}main/images/blog/bh2.jpg" alt="bh2.jpg">
-						</div>
-						<div class="details">
-							<div class="tc_content">
-								<p class="text-thm">Business</p>
-								<h4>Bedroom Colors You’ll Never <br> Regret</h4>
-							</div>
-							<div class="fp_footer">
-								<ul class="fp_meta float-left mb0">
-									<li class="list-inline-item"><a href="#"><img src="{% static '' %}main/images/property/pposter1.png" alt="pposter1.png"></a></li>
-									<li class="list-inline-item"><a href="#">Ali Tufan</a></li>
-								</ul>
-								<a class="fp_pdate float-right" href="#">7 August 2019</a>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="col-md-6 col-lg-4 col-xl-4">
-					<div class="for_blog feat_property">
-						<div class="thumb">
-							<img class="img-whp" src="{% static '' %}main/images/blog/bh3.jpg" alt="bh3.jpg">
-						</div>
-						<div class="details">
-							<div class="tc_content">
-								<p class="text-thm">Business</p>
-								<h4>The 5 Biggest Mistakes Veteran and Military</h4>
-							</div>
-							<div class="fp_footer">
-								<ul class="fp_meta float-left mb0">
-									<li class="list-inline-item"><a href="#"><img src="{% static '' %}main/images/property/pposter1.png" alt="pposter1.png"></a></li>
-									<li class="list-inline-item"><a href="#">Ali Tufan</a></li>
-								</ul>
-								<a class="fp_pdate float-right" href="#">7 August 2019</a>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</section>
+<!-- GALLERY -->
+<section class="py-16 bg-white" id="gallery">
+  <div class="max-w-7xl mx-auto px-6">
+    <h2 class="text-3xl font-bold text-center text-orange-600 mb-10">Gallery</h2>
+    <div class="grid sm:grid-cols-2 md:grid-cols-3 gap-4">
+      <img src="https://dummyimage.com/400x300/aaa/fff&text=Gallery+1" class="rounded shadow">
+      <img src="https://dummyimage.com/400x300/aaa/fff&text=Gallery+2" class="rounded shadow">
+      <img src="https://dummyimage.com/400x300/aaa/fff&text=Gallery+3" class="rounded shadow">
+    </div>
+  </div>
+</section>
 
+<!-- TEAM -->
+<section class="py-16 bg-gray-100" id="team">
+  <div class="max-w-7xl mx-auto px-6">
+    <h2 class="text-3xl font-bold text-center text-orange-600 mb-10">Our Team</h2>
+    <div class="grid sm:grid-cols-2 md:grid-cols-4 gap-6 text-center">
+      <div>
+        <img src="https://dummyimage.com/150/aaa/fff&text=Agent" class="rounded-full mx-auto mb-3">
+        <h3 class="font-bold">Rahul Sharma</h3>
+        <p class="text-gray-600">Senior Agent</p>
+      </div>
+      <div>
+        <img src="https://dummyimage.com/150/aaa/fff&text=Agent" class="rounded-full mx-auto mb-3">
+        <h3 class="font-bold">Priya Singh</h3>
+        <p class="text-gray-600">Consultant</p>
+      </div>
+    </div>
+  </div>
+</section>
 
+<!-- WHY CHOOSE -->
+<section class="py-16 bg-white" id="why-choose">
+  <div class="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-10 items-center">
+    <img src="https://dummyimage.com/500x350/cccccc/000&text=Why+Choose+Us" class="rounded shadow">
+    <div>
+      <h2 class="text-3xl font-bold text-orange-600 mb-4">Why Choose Us</h2>
+      <ul class="space-y-3 text-gray-700">
+        <li>✅ 15+ Years of Experience</li>
+        <li>✅ 1000+ Happy Clients</li>
+        <li>✅ Verified Properties Only</li>
+        <li>✅ Personalized Guidance</li>
+      </ul>
+    </div>
+  </div>
+</section>
 
-	<!-- Our Team -->
-	<section class="our-team">
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-6 offset-lg-3">
-					<div class="main-title text-center">
-						<h2>Our Team</h2>
-					</div>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-lg-12">
-					<div class="team_slider">
-						{% for rs in ourteam %}
-						<div class="item">
-							<div class="team_member home4">
-								<div class="thumb">
-									<img class="img-fluid" src="{% if rs.image %}{{ rs.image.url }}{% else %}{% static 'images/no-image-available.jpg' %}{% endif %}" alt="1.jpg" style="height: 225px;">
-									<div class="overylay">
-										<ul class="social_icon">
-											<li class="list-inline-item"><a href="{{rs.facebook}}"><i class="fa fa-facebook"></i></a></li>
-											<li class="list-inline-item"><a href="{{rs.twitter}}"><i class="fa fa-twitter"></i></a></li>
-											<li class="list-inline-item"><a href="{{rs.instagram}}"><i class="fa fa-instagram"></i></a></li>
-											<li class="list-inline-item"><a href="{{rs.pinterest}}"><i class="fa fa-pinterest"></i></a></li>
-											<li class="list-inline-item"><a href="{{rs.youtube}}"><i class="fa fa-youtube"></i></a></li>
-										</ul>
-									</div>
-								</div>
-								<div class="details">
-									<h4>{{rs.title}}</h4>
-									<p>{{rs.designation}}</p>
-								</div>
-							</div>
-						</div>
-						{% endfor %}
-						
-					</div>
-				</div>
-			</div>
-		</div>
-	</section>
+<!-- DEVELOPERS -->
+<section class="py-16 bg-gray-100" id="developers">
+  <div class="max-w-7xl mx-auto px-6 text-center">
+    <h2 class="text-3xl font-bold text-orange-600 mb-10">Featured Developers</h2>
+    <div class="grid grid-cols-2 sm:grid-cols-4 gap-6">
+      <img src="https://dummyimage.com/200x100/aaa/fff&text=Logo1" class="mx-auto">
+      <img src="https://dummyimage.com/200x100/aaa/fff&text=Logo2" class="mx-auto">
+      <img src="https://dummyimage.com/200x100/aaa/fff&text=Logo3" class="mx-auto">
+      <img src="https://dummyimage.com/200x100/aaa/fff&text=Logo4" class="mx-auto">
+    </div>
+  </div>
+</section>
 
+<!-- LOCALITY -->
+<section class="py-16 bg-white" id="locality">
+  <div class="max-w-7xl mx-auto px-6">
+    <h2 class="text-3xl font-bold text-center text-orange-600 mb-10">Featured Localities</h2>
+    <div class="grid sm:grid-cols-2 md:grid-cols-4 gap-6">
+      <div class="bg-gray-100 p-6 rounded shadow text-center">Andheri</div>
+      <div class="bg-gray-100 p-6 rounded shadow text-center">Bandra</div>
+      <div class="bg-gray-100 p-6 rounded shadow text-center">Chembur</div>
+      <div class="bg-gray-100 p-6 rounded shadow text-center">Thane</div>
+    </div>
+  </div>
+</section>
 
-<!-- Our Testimonials -->
-<section id="our-testimonials" class="our-testimonial home5">
-	<div class="container">
-		<div class="row">
-			<div class="col-lg-6 offset-lg-3">
-				<div class="main-title text-center">
-					<h2 class="color-white">Testimonials</h2>
-				</div>
-			</div>
-		</div>
-		<div class="row">
-			<div class="col-lg-6 offset-lg-3">
-				<div class="testimonial_grid_slider">					
+<!-- TESTIMONIAL -->
+<section class="py-16 bg-gray-100" id="testimonial">
+  <div class="max-w-4xl mx-auto px-6 text-center">
+    <h2 class="text-3xl font-bold text-orange-600 mb-10">Testimonials</h2>
+    <div class="bg-white shadow rounded p-6">
+      <p class="text-gray-700 italic">"They helped me buy my dream home smoothly. Highly recommended!"</p>
+      <h3 class="mt-3 font-bold">— Ankit Mehta</h3>
+    </div>
+  </div>
+</section>
 
-					{% for rs in testimonial %}
-					<div class="item">
-						<div class="testimonial_grid">
-							<div class="thumb">
-								<img src="{% if rs.image %}{{ rs.image.url }}{% else %}{% static 'images/no-image-available.jpg' %}{% endif %}" alt="1.jpg">
-							</div>
-							<div class="details">
-								<h4>{{rs.title}}</h4>
-								<p>{{rs.designation}}</p>
-								<p class="mt25">{{rs.comment}}</p>
-							</div>
-						</div>
-					</div>
-					{% endfor %}
+<!-- BLOG -->
+<section class="py-16 bg-white" id="blog">
+  <div class="max-w-7xl mx-auto px-6">
+    <h2 class="text-3xl font-bold text-center text-orange-600 mb-10">Latest Blogs</h2>
+    <div class="grid md:grid-cols-3 gap-6">
+      <div class="bg-gray-100 p-6 rounded shadow">Blog 1</div>
+      <div class="bg-gray-100 p-6 rounded shadow">Blog 2</div>
+      <div class="bg-gray-100 p-6 rounded shadow">Blog 3</div>
+    </div>
+  </div>
+</section>
 
-				</div>
-			</div>
-		</div>
-	</div>
+<!-- FAQ -->
+<section class="py-16 bg-gray-100" id="faq">
+  <div class="max-w-4xl mx-auto px-6">
+    <h2 class="text-3xl font-bold text-orange-600 mb-10 text-center">FAQs</h2>
+    <div class="space-y-4">
+      <details class="bg-white p-4 rounded shadow">
+        <summary class="font-semibold">How do I buy a property?</summary>
+        <p class="mt-2 text-gray-600">You can contact our agents and explore properties.</p>
+      </details>
+      <details class="bg-white p-4 rounded shadow">
+        <summary class="font-semibold">Do you provide loan assistance?</summary>
+        <p class="mt-2 text-gray-600">Yes, we connect you with trusted banks and partners.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="py-16 bg-white" id="contact">
+  <div class="max-w-5xl mx-auto px-6 grid md:grid-cols-2 gap-8">
+    <div>
+      <h2 class="text-3xl font-bold text-orange-600 mb-4">Contact Us</h2>
+      <p class="mb-4 text-gray-700">We’d love to help you with your property needs.</p>
+      <p><strong>Phone:</strong> +91 9898 03 4466</p>
+      <p><strong>Email:</strong> info@realestate.com</p>
+    </div>
+    <form class="bg-gray-100 p-6 rounded shadow">
+      <input type="text" placeholder="Your Name" class="w-full mb-3 p-3 rounded border">
+      <input type="email" placeholder="Your Email" class="w-full mb-3 p-3 rounded border">
+      <textarea placeholder="Message" rows="4" class="w-full mb-3 p-3 rounded border"></textarea>
+      <button class="w-full bg-orange-500 text-white py-3 rounded hover:bg-orange-600">Send Message</button>
+    </form>
+  </div>
 </section>
 
 
-
-<!-- Why Chose Us -->
-<section id="why-chose" class="whychose_us pb30">
-	<div class="container">
-		<div class="row">
-			<div class="col-lg-6 offset-lg-3">
-				<div class="main-title text-center">
-					<h2>Why Choose Us</h2>
-					<p>We provide full service at every step.</p>
-				</div>
-			</div>
-		</div>
-		{% for rs in about %}
-			<div class="row">
-				<div class="col-md-6 col-lg-4 col-xl-4">
-					<div class="why_chose_us style2">
-						<div class="icon">
-							<span class="flaticon-high-five"></span>
-						</div>
-						<div class="details">
-							<h4>Our Mission</h4>
-							<p>{{rs.mission}}</p>
-						</div>
-					</div>
-				</div>
-				<div class="col-md-6 col-lg-4 col-xl-4">
-					<div class="why_chose_us style2">
-						<div class="icon">
-							<span class="flaticon-home-1"></span>
-						</div>
-						<div class="details">
-							<h4>Our Vision</h4>
-							<p>{{rs.vision}}</p>
-						</div>
-					</div>
-				</div>
-				<div class="col-md-6 col-lg-4 col-xl-4">
-					<div class="why_chose_us style2">
-						<div class="icon">
-							<span class="flaticon-profit"></span>
-						</div>
-						<div class="details">
-							<h4>Values</h4>
-							<p>{{rs.values | safe}}</p>
-						</div>
-					</div>
-				</div>
-			</div>			
-		{% endfor %}
-	</div>
-</section>
-
-	<!-- Our Developers -->
-	<section class="our-team">
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-6 offset-lg-3">
-					<div class="main-title text-center">
-						<h2>Our Developers</h2>
-						<p>These are our top developers for whom we work</p>
-					</div>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-lg-12">
-					<!-- Team Slider -->
-					<div class="team_slider">
-					 {% for rs in developer %}
-
-						<div class="item">
-							<div class="team_member home4">
-								<div class="thumb">
-									<img class="img-fluid lg:h-[150px]" src="{{rs.image.url}}" alt="1.jpg">
-									<div class="overylay">
-										<ul class="social_icon">
-											<li class="list-inline-item"><a href="#"><i class="fa fa-facebook"></i></a></li>
-											<li class="list-inline-item"><a href="#"><i class="fa fa-twitter"></i></a></li>
-											<li class="list-inline-item"><a href="#"><i class="fa fa-instagram"></i></a></li>
-											<li class="list-inline-item"><a href="#"><i class="fa fa-pinterest"></i></a></li>
-											<li class="list-inline-item"><a href="#"><i class="fa fa-dribbble"></i></a></li>
-											<li class="list-inline-item"><a href="#"><i class="fa fa-google"></i></a></li>
-										</ul>
-									</div>
-								</div>
-								<div class="details">
-									<h4 class="pb-1">{{rs.title}}</h4>
-									<p>{{rs.city}}</p>
-								</div>
-							</div>
-						</div>
-					{% endfor %}
-
-					</div>
-				</div>
-			</div>
-		</div>
-	</section>
-<!-- Our Developers End -->
-
-
-
-
-
-
-
-<!-- Font Awesome for star icon -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
-<!-- Google Fonts for Premium Look (optional) -->
-<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
-
-<!-- Tailwind CSS for styling -->
-<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-...=="
-  crossorigin="anonymous" referrerpolicy="no-referrer" />
-
-
-<br>
+<!-- Swiper JS -->
+<script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
+<script>
+  var swiper = new Swiper(".mySwiper", {
+    slidesPerView: 1,
+    spaceBetween: 20,
+    loop: true,
+    pagination: { el: ".swiper-pagination", clickable: true },
+    navigation: { nextEl: ".swiper-button-next", prevEl: ".swiper-button-prev" },
+    breakpoints: { 768: { slidesPerView: 2 }, 1024: { slidesPerView: 3 } }
+  });
+</script>

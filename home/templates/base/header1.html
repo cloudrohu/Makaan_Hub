@@ -9,7 +9,7 @@
         <nav>
             <!-- Menu Toggle btn-->
             <div class="menu-toggle">
-                <img class="nav_logo_img img-fluid" src="{{rs.logo.url}}" alt="makaanhub.png" style="height: 60px;">
+                <img class="nav_logo_img img-fluid" src="{{rs.logo.url}}" alt="makaanhub.png" style="height: 70px; margin-top: -10px;">
                 <button type="button" id="menu-btn">
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
@@ -17,8 +17,8 @@
                 </button>
             </div>
             <a href="/" class="navbar_brand float-left dn-smd">
-                <img class="logo1 img-fluid" src="{{rs.logo.url}}" alt="makaanhub.png" style="height: 60px;">
-                <img class="logo2 img-fluid" src="{{rs.logo.url}}" alt="makaanhub.png" style="height: 60px;">
+                <img class="logo1 img-fluid" src="{{rs.logo.url}}" alt="makaanhub.png" style="height: 70px; margin-top: -10px;">
+                <img class="logo2 img-fluid" src="{{rs.logo.url}}" alt="makaanhub.png" style="height: 70px; margin-top: -10px;">
             </a>
             <!-- Responsive Menu Structure-->
             <!--Note: declare the Menu style in the data-menu-style="horizontal" (options: horizontal, vertical, accordion) -->
@@ -49,41 +49,16 @@
 
             <ul id="respMenu" class="ace-responsive-menu text-right" data-menu-style="horizontal">
                 <li><a href="/"><span class="title" style="color: {{rs.text_color}};">Home</span></a> </li>  
-                <li>
-                    <a href="#"><span class="title" style="color: {{rs.text_color}};">New Projects</span></a>
-                    <ul>                       
-                        <li><a href="{% url "residential_project" %}">Residential</a></li>
-                        <li><a href="{% url "commercial_project" %}">Commercial</a></li>
-                    </ul>
-                </li>
-                <li>
-                    <a href="#"><span class="title" style="color: {{rs.text_color}};">Buy Property</span></a>
-                    <ul>                       
-                        <li><a href="{% url "residential_project" %}">Residential</a></li>
-                        <li><a href="{% url "residential_project" %}">Commercial</a></li>
-                        
-                    </ul>
-                </li>
-                <li>
-                    <a href="#"><span class="title" style="color: {{rs.text_color}};">Rented Property</span></a>
-                    <ul>                       
-                        <li><a href="{% url "residential_project" %}">Residential</a></li>
-                        <li><a href="{% url "residential_project" %}">Commercial</a></li>
-                    </ul>
-                </li>
-                
-                <li>
-                    <a href="#"><span class="title" style="color: {{rs.text_color}};">About & More</span></a>
-                    <ul>                       
-                        <li><a href="{% url "contactus" %}">Contact</a></li>
-                        <li><a href="{% url "aboutus" %}">About</a></li>
-                        <li><a href="{% url "blog" %}">Blog</a></li>
-                        <li><a href="{% url "aboutus" %}">Paying Guest</a></li>
-                    </ul>
-                </li>
+                <li><a href="/"><span class="title" style="color: {{rs.text_color}};">Properties</span></a> </li>  
+                <li><a href="/"><span class="title" style="color: {{rs.text_color}};">Projects</span></a> </li>  
+                <li><a href="/"><span class="title" style="color: {{rs.text_color}};">About Us</span></a> </li>  
+                <li><a href="/"><span class="title" style="color: {{rs.text_color}};">Services</span></a> </li>  
+                <li><a href="/"><span class="title" style="color: {{rs.text_color}};">Blog</span></a> </li>  
+                <li><a href="https://wa.me/+91{{rs.whatsapp}}"><span class="title" style="color: {{rs.text_color}};">Contact</span></a> </li>  
+                               
 
                 <li class="list-inline-item list_s"><a href="#" class="btn flaticon-user" data-toggle="modal" data-target=".bd-example-modal-lg"> <span class="dn-lg"></span></a></li>
-                <li class="list-inline-item add_listing home6"><a href="https://wa.me/+91{{rs.whatsapp}}"><span class="flaticon-plus"></span><span class="dn-lg"> Conect Now</span></a></li>
+                <li class="list-inline-item add_listing home6"><a href="https://wa.me/+91{{rs.whatsapp}}"><span class="flaticon-plus"></span><span class="dn-lg"> List Property</span></a></li>
             
             
             </ul>
@@ -240,17 +215,24 @@
 <!-- Tailwind -->
 <script src="https://cdn.tailwindcss.com"></script>
 
-<!-- Navbar Header -->
-<nav class="bg-white shadow fixed top-0 left-0 w-full z-50" style="margin: -10px;">
-  <div class="flex items-center justify-between p-4">
-    <a href="/"><img src="{{rs.logo.url}}" alt="Logo" class="h-12"></a>
-    <button id="menu-toggle" class="text-3xl md:hidden">&#9776;</button>
-  </div>
-</nav>
 
-<!-- Drawer -->
-<div id="mobile-menu" class="fixed top-0 right-[-100%] w-72 h-full bg-white shadow-lg z-50 transition-all duration-300 overflow-hidden">
-  
+
+<!-- ✅ Mobile Header (only visible on mobile) -->
+<div class="md:hidden flex items-center justify-between px-4 py-3 bg-white shadow">
+  <!-- Logo -->
+  <a href="/">
+    <img src="{{rs.logo.url}}" alt="Logo" class="h-10">
+  </a>
+  <!-- Toggle Button -->
+  <button id="menu-toggle" class="text-3xl text-gray-700">
+    ☰
+  </button>
+</div>
+
+<!-- ✅ Drawer Menu -->
+<div id="mobile-menu"
+  class="fixed top-0 right-[-100%] w-72 h-full bg-white shadow-lg z-50 transition-all duration-300 overflow-hidden">
+
   <!-- Main Menu -->
   <div id="menu-main" class="h-full flex flex-col">
     <div class="flex justify-between items-center p-4 border-b">
@@ -259,19 +241,37 @@
     </div>
     <ul class="flex-1 overflow-y-auto">
       <li><a href="/" class="block px-4 py-3 border-b">Home</a></li>
-      <li><button class="menu-link w-full flex justify-between px-4 py-3 border-b" data-target="menu-projects">New Projects <span>›</span></button></li>
-      <li><button class="menu-link w-full flex justify-between px-4 py-3 border-b" data-target="menu-buy">Buy Property <span>›</span></button></li>
-      <li><button class="menu-link w-full flex justify-between px-4 py-3 border-b" data-target="menu-rent">Rented Property <span>›</span></button></li>
-      <li><button class="menu-link w-full flex justify-between px-4 py-3 border-b" data-target="menu-about">About & More <span>›</span></button></li>
-      <li><a href="page-login.html" class="flex items-center gap-2 px-4 py-3 border-b">👤 Login</a></li>
-      <li><a href="page-register.html" class="flex items-center gap-2 px-4 py-3 border-b">✏️ Register</a></li>
+      <li>
+        <button class="menu-link w-full flex justify-between px-4 py-3 border-b" data-target="menu-projects">
+          New Projects <span>›</span>
+        </button>
+      </li>
+      <li>
+        <button class="menu-link w-full flex justify-between px-4 py-3 border-b" data-target="menu-buy">
+          Buy Property <span>›</span>
+        </button>
+      </li>
+      <li>
+        <button class="menu-link w-full flex justify-between px-4 py-3 border-b" data-target="menu-rent">
+          Rented Property <span>›</span>
+        </button>
+      </li>
+      <li>
+        <button class="menu-link w-full flex justify-between px-4 py-3 border-b" data-target="menu-about">
+          About & More <span>›</span>
+        </button>
+      </li>
+      <li><a href="page-login.html" class="block px-4 py-3 border-b">👤 Login</a></li>
+      <li><a href="page-register.html" class="block px-4 py-3 border-b">✏️ Register</a></li>
     </ul>
     <div class="p-4">
-      <a href="https://wa.me/+91{{rs.whatsapp}}" class="block text-center bg-red-500 text-white py-3 rounded-full font-semibold">Connect Now</a>
+      <a href="https://wa.me/+91{{rs.whatsapp}}" class="block text-center bg-red-500 text-white py-3 rounded-full font-semibold">
+        Connect Now
+      </a>
     </div>
   </div>
 
-  <!-- Submenu: New Projects -->
+  <!-- ✅ Submenu: New Projects -->
   <div id="menu-projects" class="submenu hidden h-full flex flex-col">
     <div class="flex items-center p-4 border-b">
       <button class="back-btn text-lg mr-3">‹</button>
@@ -283,7 +283,7 @@
     </ul>
   </div>
 
-  <!-- Submenu: Buy Property -->
+  <!-- ✅ Submenu: Buy Property -->
   <div id="menu-buy" class="submenu hidden h-full flex flex-col">
     <div class="flex items-center p-4 border-b">
       <button class="back-btn text-lg mr-3">‹</button>
@@ -295,7 +295,7 @@
     </ul>
   </div>
 
-  <!-- Submenu: Rented Property -->
+  <!-- ✅ Submenu: Rented Property -->
   <div id="menu-rent" class="submenu hidden h-full flex flex-col">
     <div class="flex items-center p-4 border-b">
       <button class="back-btn text-lg mr-3">‹</button>
@@ -303,11 +303,11 @@
     </div>
     <ul class="flex-1 overflow-y-auto">
       <li><a href="{% url 'residential_project' %}" class="block px-4 py-3 border-b">Residential</a></li>
-      <li><a href="{% url 'residential_project' %}" class="block px-4 py-3 border-b">Commercial</a></li>
+      <li><a href="{% url 'commercial_project' %}" class="block px-4 py-3 border-b">Commercial</a></li>
     </ul>
   </div>
 
-  <!-- Submenu: About & More -->
+  <!-- ✅ Submenu: About & More -->
   <div id="menu-about" class="submenu hidden h-full flex flex-col">
     <div class="flex items-center p-4 border-b">
       <button class="back-btn text-lg mr-3">‹</button>
@@ -320,8 +320,8 @@
       <li><a href="{% url 'aboutus' %}" class="block px-4 py-3 border-b">Paying Guest</a></li>
     </ul>
   </div>
-
 </div>
+
 
 <!-- JS -->
 <script>
@@ -361,7 +361,5 @@
     });
   });
 </script>
-
-
 
 {% endfor %}
