@@ -157,7 +157,7 @@
                   <div class="relative group">
                     <img src="{{rs.image.url}}" class="w-full h-56 object-cover">
                     <span class="absolute top-3 left-3 bg-orange-500 text-white text-xs px-2 py-1 rounded">{{rs.propert_type}}</span>
-                    <span class="absolute bottom-3 right-3 bg-black text-white text-xs px-3 py-1 rounded">FOR RENT</span>
+                    <span class="absolute bottom-3 right-3 bg-black text-white text-xs px-3 py-1 rounded">{{rs.construction_status}}</span>
                     <div class="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center gap-4 opacity-0 group-hover:opacity-100 transition">
                       <a href="{{ rs.get_absolute_url }}" class="bg-white p-3 rounded-full shadow hover:bg-orange-500 hover:text-white"><i class="fas fa-link"></i></a>
                       <a href="{{ rs.get_absolute_url }}" class="bg-white p-3 rounded-full shadow hover:bg-orange-500 hover:text-white"><i class="fas fa-video"></i></a>
@@ -167,13 +167,14 @@
                     <a href="{{ rs.get_absolute_url }} ">
                       <p class="text-lg text-slate-600 font-bold" style="scroll-behavior: smooth;">{{rs.project_name}}</p>
                     </a>
-                    <h3 class="text-orange-600 font-semibold mt-1 mb-1">800 Sq.Ft. 2 BHK Residential Apartment</h3>
-                    <p class="text-gray-800 font-bold">₹75.00 Th</p>
+                    <h3 class="text-orange-600 font-semibold mt-1 mb-1">{{ rs.get_configuration_summary }}</h3>
+                    <p class="text-gray-900 font-bold">₹ {{ rs.get_price_range }}</p>
+                    
                     <p class="text-sm text-gray-600 mt-1"><i class="fas fa-map-marker-alt text-orange-500"></i> {{ rs.locality }}, {{ rs.city }}</p>
                     <div class="flex justify-between text-xs text-gray-600 mt-2">
-                      <div><strong>AREA</strong><br>800 Sq.Ft.</div>
-                      <div><strong>STATUS</strong><br>Available</div>
-                      <div><strong>TRANSACTION</strong><br>New</div>
+                      <div><strong>POSSESSION</strong><br>{{rs.possession}}</div>
+                      <div><strong>O C Received</strong><br>{{rs.Occupancy_Certificate}}</div>
+                      <div><strong>C C Received</strong><br>{{rs.Commencement_Certificate}}</div>
                     </div>
                     <div class="flex items-center gap-2 mt-3">
                       <img src="{{rs.developer.image.url}}" class="h-14 w-14 rounded-full border">

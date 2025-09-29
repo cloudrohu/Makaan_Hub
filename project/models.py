@@ -14,6 +14,16 @@ from utility.models import City,Locality,P_Amenities
 from multiselectfield import MultiSelectField
 from user.models import Developer
 
+def format_price(num):
+    """Convert number into Indian readable format (Lac/Cr)."""
+    num = int(num)
+
+    if num >= 10000000:  # 1 Cr = 1 Crore = 1e7
+        return f"{round(num/10000000, 2)} Cr"
+    elif num >= 100000:  # 1 Lac = 1e5
+        return f"{round(num/100000, 2)} L"
+    else:
+        return f"{num:,}"
 
 # Residential Projects Start Here #
 
@@ -144,6 +154,51 @@ class Residential(MPTTModel):
         from django.urls import reverse
         return reverse("residential_project_details", kwargs={'id': self.id, 'slug': self.slug})
 
+
+    def get_configuration_summary(self):
+        configs = self.configurations.all()
+        if not configs:
+            return ""
+
+        # ✅ Min aur Max Area (sirf number nikalna string se)
+        try:
+            areas = [int("".join(filter(str.isdigit, c.area))) for c in configs if c.area]
+        except:
+            areas = []
+        if not areas:
+            return ""
+
+        min_area = min(areas)
+        max_area = max(areas)
+
+        # ✅ Unique BHK types (sorted)
+        bhk_list = sorted(set([c.bhk_type.strip() for c in configs if c.bhk_type]))
+        bhk_display = ", ".join(bhk_list)
+
+        return f"{min_area}-{max_area} Sq.ft {bhk_display} {self.propert_type}"
+
+    def get_price_range(self):
+        configs = self.configurations.all()
+        if not configs:
+            return ""
+
+        try:
+            prices = [int("".join(filter(str.isdigit, c.price))) for c in configs if c.price]
+        except:
+            prices = []
+
+        if not prices:
+            return ""
+
+        min_price = min(prices)
+        max_price = max(prices)
+
+        from django.utils.html import format_html
+
+        if min_price == max_price:
+            return format_price(min_price)
+
+        return f"{format_price(min_price)} - {format_price(max_price)}"
 
     def __str__(self):  # __str__ method elaborated later in
         full_path = [self.project_name]  # post.  use __unicode__ in place of
