@@ -2203,8 +2203,9 @@ header.header-nav.menu_style_home_seven .ace-responsive-menu > li.last{
   margin-bottom: 0;
 }
 .home1_adsrchfrm{
-  background-color: transparent;
+  background-color: rgba(12, 12, 12, 0.333);
   border-radius: 8px;
+  padding: 30px 20px;
   position: relative;
   z-index: 9;
 }
@@ -2339,7 +2340,7 @@ header.header-nav.menu_style_home_seven .ace-responsive-menu > li.last{
   width: 180px;
 }
 .home1-advnc-search ul li:first-child .form-control{
-  background-color: #ffffff;
+  background-color: transparent;
   border: 1px solid #ebebeb;
   border-radius: 8px;
   font-size: 14px;
@@ -2697,7 +2698,7 @@ form.home5_advanced_search_form .search_option_two .dropdown-menu{
   line-height: 1.2;
 }
 .home1-advnc-search .search_option_two .dropdown-menu.show:before{
-  background-color: #ffffff;
+  background-color: #ffffff56;
   content: "";
   height: 20px;
   left: 0;
@@ -3149,7 +3150,7 @@ form.home5_advanced_search_form .form-group input.form-control::-ms-input-placeh
   background-size: cover;
 }
 .banner-style-one .slide:before{
-  background-color:none;
+  background-color: rgba(0,0,0,.7);
   bottom: 0;
   content: "";
   left: 0;
@@ -3420,7 +3421,9 @@ form.home5_advanced_search_form .form-group input.form-control::-ms-input-placeh
   width: 105%;
 }
 .home-four .banner-style-one .slide:before{
- 
+  background-image: -moz-linear-gradient( -36deg, rgb(62,62,165) 0%, rgb(255,90,95) 100%);
+  background-image: -webkit-linear-gradient( -36deg, rgb(62,62,165) 0%, rgb(255,90,95) 100%);
+  background-image: -ms-linear-gradient( -36deg, rgb(62,62,165) 0%, rgb(255,90,95) 100%);
   left: 0;
   opacity: 0.902;
   position: absolute;
@@ -3430,7 +3433,7 @@ form.home5_advanced_search_form .form-group input.form-control::-ms-input-placeh
   bottom: 0;
 }
 .home4_overlay:before{
- 
+  background-color: rgba(10,10,10, .5);
   bottom: 97px;
   content: "";
   left: 0;
@@ -6025,7 +6028,7 @@ form.home5_advanced_search_form .form-group input.form-control::-ms-input-placeh
   background-color: #232733;
 }
 .our-testimonial.home5:before{
-  background-image: url("../images/home/indiagate.jpg");
+  background-image: url("../images/background/6.jpg");
   bottom: 0;
   content: "";
   left: 0;
@@ -16527,4 +16530,177 @@ button.gm-ui-hover-effect:focus {
 }
 [disabled].noUi-origin,[disabled] .noUi-handle {
   cursor: not-allowed;
+}
+
+
+.home-one {
+  position: relative;
+  height: 750px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.home1-advnc-search {
+  border-radius: 12px;
+}
+
+.home1_adsrchfrm input,
+.home1_adsrchfrm select {
+  height: 50px;
+  border-radius: 8px;
+}
+
+/* Make hero container span edge-to-edge */
+.home-one .container-fluid {
+  max-width: 100%;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+/* WRAPPER controls how much white margin remains on left/right.
+   Set padding-left/right to 0 -> search box touches full width edges.
+   Set 30px/60px for small/good gap like your sample. */
+.home1-adv-wrapper {
+  padding: 0 60px;   /* <-- change this to 0 if you want no gap at all */
+}
+
+/* Search-box styling: full width inside wrapper and visual polish */
+.home1-advnc-search {
+  width: 100%;
+  background: rgba(0,0,0,0.08);
+  border-radius: 10px;
+  box-shadow: 0 6px 20px rgba(0,0,0,50.08);
+  padding: 22px 24px; /* internal padding for the form row */
+  box-sizing: border-box;
+}
+
+
+
+/* list layout keep alignment */
+.h1ads_1st_list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  gap: 0px;
+  flex-wrap: wrap; /* responsive wrapping */
+}
+
+/* input/select sizing */
+.h1ads_1st_list .form-control,
+.h1ads_1st_list select {
+  height: 52px;
+  border-radius: 0px;
+}
+
+/* search button style adjust */
+.h1ads_1st_list .btn-thm {
+  min-width: 160px;
+  height: 52px;
+  border-radius: 0px;
+}
+
+/* Responsive: reduce side padding on smaller screens */
+@media (max-width: 991px) {
+  .home1-adv-wrapper { padding: 0 0px; }
+  .h1ads_1st_list { gap: 0px; }
+}
+/* only for hero: remove container inner padding */
+.home-one .container {
+  padding-left: 0;
+  padding-right: 0;
+  max-width: 61%;
+
+}
+
+
+
+/* saare boxes ko ek line me chipka do */
+.h1ads_1st_list {
+  display: flex;
+  align-items: stretch;
+  gap: 0;                /* beech ka gap hatado */
+  flex-wrap: nowrap;     /* ek line me rakho */
+}
+
+.h1ads_1st_list li {
+  margin: 0;
+  padding: 0;
+}
+
+/* saare input/select ekdum flat (no rounded corners) */
+.h1ads_1st_list .form-control,
+.h1ads_1st_list select,
+.h1ads_1st_list .btn-thm,
+.h1ads_1st_list .dd_btn {
+  border-radius: 0 !important;
+  margin: 0 !important;
+  border: 1px solid #ddd; /* same border sabke liye */
+  box-shadow: none !important;
+}
+
+/* sirf first aur last element ko thoda round rakhna chaho to */
+.h1ads_1st_list li:first-child .form-control,
+.h1ads_1st_list li:first-child select {
+  border-top-left-radius: 6px !important;
+  border-bottom-left-radius: 6px !important;
+}
+
+.h1ads_1st_list li:last-child .btn-thm {
+  border-top-right-radius: 6px !important;
+  border-bottom-right-radius: 6px !important;
+}
+
+/* Mobile view: neeche neeche boxes aa jayein */
+@media (max-width: 991px) {
+  .h1ads_1st_list {
+    flex-wrap: wrap;
+    flex-direction: column;
+  }
+  .h1ads_1st_list li {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+  .h1ads_1st_list .btn-thm {
+    width: 100%;
+  }
+}
+
+/* Pagination ko neeche fix karo */
+.swiper-pagination {
+  position: relative !important; /* default absolute hatado */
+  margin-top: 20px;             /* card aur dots ke beech gap */
+  text-align: center;
+}
+
+ /* Dots ko neeche center align karne ke liye */
+    .swiper-pagination {
+      position: relative !important;
+      margin-top: 20px;
+      text-align: center;
+    }
+
+
+.swiper-pagination {
+  position: relative !important;   /* absolute hata do */
+  display: flex !important;
+  justify-content: center !important; /* center align */
+  margin-top: 15px;
+}
+
+/* See All Button */
+.btn-seeall {
+  @apply inline-block bg-gray-900 text-white px-10 py-3 rounded-xl font-semibold shadow-lg hover:bg-indigo-600 transition;
+}
+.h600 {
+  height: 600px;
+}
+
+iframe {
+  width: 100% !important;
+  height: 100% !important;
+  border: 0;
 }
